@@ -3,6 +3,7 @@ import App from "@/App.tsx";
 import TestRouter from "@/pages/test-router.tsx";
 import RootLayout from "@/layout/root.tsx";
 import TestForm from "@/pages/test-form.tsx";
+import TestLightbox from "@/pages/test-lightbox.tsx";
 
 const router = createBrowserRouter([
   {
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
       {
         path: "test-form",
         element: <TestForm />,
+      },
+      {
+        path: "test-lightbox",
+        element: <TestLightbox />,
       },
     ],
   },
