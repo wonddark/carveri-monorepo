@@ -9,9 +9,12 @@ The project leverages a high-performance stack for a seamless developer experien
 - **React 19**: Utilizing the latest features including the React Compiler.
 - **Vite 7**: A fast frontend build tool and development server.
 - **TypeScript**: Ensuring type safety across the entire codebase.
+- **React Router 7**: Modern routing solution for React applications.
 - **Tailwind CSS 4**: Next-generation utility-first CSS framework integrated with Vite.
-- **Shadcn/UI**: High-quality, accessible UI components.
-- **Radix UI**: Low-level UI primitives for accessibility.
+- **Shadcn/UI & Radix UI**: High-quality, accessible UI components and primitives.
+- **React Hook Form & Yup**: Robust form management and schema validation.
+- **Sonner**: Elegant toast notifications.
+- **Yet Another React Lightbox**: High-performance lightbox component.
 - **Tabler Icons**: Versatile icon set for React.
 - **ESLint & Prettier**: Enforcing code quality and consistent formatting.
 
@@ -24,8 +27,11 @@ carcheck-portal/
 │   ├── assets/          # Images, fonts, and global assets
 │   ├── components/      # Reusable UI components
 │   │   └── ui/          # Base Shadcn/UI components
+│   ├── data/            # Data configurations and router definitions
+│   ├── layout/          # Application layouts (Root, etc.)
 │   ├── lib/             # Utility functions and shared logic
-│   ├── App.tsx          # Main Application component
+│   ├── pages/           # Page components and feature playgrounds
+│   ├── App.tsx          # Home Page component
 │   ├── main.tsx         # Application entry point
 │   └── index.css        # Global styles and Tailwind directives
 ├── index.html           # HTML template
@@ -64,6 +70,16 @@ To get the project running locally, follow these steps:
    ```bash
    pnpm build
    ```
+
+## 🧪 Playground Pages
+
+The project includes several playground pages to test and demonstrate the integration of new libraries:
+
+- `/test-router`: Demonstrates basic routing and navigation.
+- `/test-form`: Showcases form handling with `react-hook-form` and `yup` validation.
+- `/test-lightbox`: Features the `yet-another-react-lightbox` component for image galleries.
+
+These pages can be accessed during development to ensure dependencies are correctly configured.
 
 ## 📜 Development Guidelines
 
