@@ -1,4 +1,4 @@
-function Test() {
+function TestRouter() {
   return (
     <div className="flex h-screen flex-col items-center justify-center">
       <h1 className="text-3xl">Test page</h1>
@@ -10,4 +10,4 @@ function Test() {
   );
 }
 
-export default Test;
+export default TestRouter;

@@ -49,11 +49,13 @@ The following scripts are available for development and production:
 To get the project running locally, follow these steps:
 
 1. **Install dependencies**:
+
    ```bash
    pnpm install
    ```
 
 2. **Run the development server**:
+
    ```bash
    pnpm dev
    ```
