@@ -4,6 +4,7 @@ import TestRouter from "@/pages/test-router.tsx";
 import RootLayout from "@/layout/root.tsx";
 import TestForm from "@/pages/test-form.tsx";
 import TestLightbox from "@/pages/test-lightbox.tsx";
+import VehicleDetail from "@/pages/vehicle-details.tsx";
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,7 @@ const router = createBrowserRouter([
     element: <RootLayout />,
     children: [
       { index: true, element: <App /> },
+      { path: "reports", element: <VehicleDetail /> },
       {
         path: "test-router",
         element: <TestRouter />,

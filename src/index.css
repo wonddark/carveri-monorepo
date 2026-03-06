@@ -38,6 +38,9 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.705 0.015 286.067);
+  --yarl__container_background_color: transparent;
+  --yarl__thumbnails_container_background_color: transparent;
+  --yarl__color_backdrop:transparent;
 }
 
 .dark {
@@ -127,3 +130,27 @@
     @apply font-sans;
   }
 }
+
+
+/* ── GAUGE NEEDLE ANIMATION ── */
+@keyframes needleSweep {
+  0% { transform: rotate(150deg); }
+  100% { transform: rotate(var(--needle-target)); }
+}
+.gauge-needle {
+  transform-origin: 160px 145px;
+  animation: needleSweep 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s forwards;
+  transform: rotate(150deg);
+}
+
+.gauge-label { font-family: var(--font-display); font-size: 0.75rem; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+.gauge-trend { font-size: 0.75rem; color: #22C55E; }
+
+.gauge-bottom-stats {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0.5rem 0;
+}
+.gauge-stat { text-align: center; }
+.gauge-stat-label { font-size: 0.625rem; color: #666; }
+.gauge-stat-value { font-family: var(--font-display); font-weight: 700; font-size: 0.8125rem; color: #ccc; }
