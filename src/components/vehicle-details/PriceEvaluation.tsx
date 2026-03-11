@@ -10,7 +10,7 @@ import {
   AlertDialogDescription,
   AlertDialogFooter,
   AlertDialogHeader,
-  AlertDialogTitle,
+  AlertDialogTitle
 } from "@/components/ui/alert-dialog.tsx";
 import { Card, CardContent } from "@/components/ui/card.tsx";
 import { Button } from "@/components/ui/button.tsx";
@@ -22,7 +22,9 @@ interface Props {
 }
 
 export const PriceEvaluation: React.FC<Props> = ({ price, books }) => {
-  const percentile = 35;
+  const min = 12000;
+  const max = 33000;
+  const percentile = ((price - min) / (max - min)) * 100;
   const label = "BUEN PRECIO";
   const [activeBook, setActiveBook] = useState<string>("");
   const [isOpen, setIsOpen] = useState(false);
@@ -40,8 +42,8 @@ export const PriceEvaluation: React.FC<Props> = ({ price, books }) => {
             percentile={percentile}
             label={label}
             price={price}
-            wholesale={30000}
-            retail={57000}
+            wholesale={min}
+            retail={max}
           />
 
           <div className="grid grid-cols-4 gap-2">
