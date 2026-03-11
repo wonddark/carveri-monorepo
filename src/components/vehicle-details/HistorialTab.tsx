@@ -11,17 +11,33 @@ import {
   IconUsers,
 } from "@tabler/icons-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ownerRecords, serviceRecords } from "@/data/mockData";
+import type { Historial } from "@/types/vehicle-report";
 import { Inline, Thumbnails, Zoom } from "yet-another-react-lightbox/plugins";
 import Lightbox from "yet-another-react-lightbox";
 import type { ZoomRef } from "@/types/lightbox.ts";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area.tsx";
 
-export const HistorialTab: React.FC = () => {
+interface Props {
+  historial: Historial;
+  currentImages: string[];
+}
+
+export const HistorialTab: React.FC<Props> = ({ historial, currentImages }) => {
   const [oldPhotosOpen, setOldPhotosOpen] = useState(false);
   const oldPhotosZoomRef = useRef<ZoomRef>(null);
   const [currentPhotosOpen, setCurrentPhotosOpen] = useState(false);
   const currentPhotosZoomRef = useRef<ZoomRef>(null);
+
+  const {
+    subastasAnteriores,
+    accidentes,
+    propietarios,
+    mantenimiento,
+    tituloOdometro,
+  } = historial;
+
+  const oldSlides = subastasAnteriores.imagenes.map((src) => ({ src }));
+  const currentSlides = currentImages.map((src) => ({ src }));
 
   return (
     <Tabs defaultValue="fotos" className="w-full">
@@ -36,12 +52,13 @@ export const HistorialTab: React.FC = () => {
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
 
+      {/* --- FOTOS --- */}
       <TabsContent value="fotos" className="flex flex-col gap-2 lg:gap-3">
         <Card>
           <CardHeader>
             <CardTitle className="inline-flex items-center gap-1.5">
               <IconCamera className="text-blue-700 dark:text-blue-400" /> Fotos
-              de Subasta (AutoStat)
+              de Subasta
             </CardTitle>
           </CardHeader>
           <CardContent className="grid grid-cols-[1fr] gap-2 md:grid-cols-2 md:gap-3">
@@ -49,37 +66,16 @@ export const HistorialTab: React.FC = () => {
               <Lightbox
                 open={oldPhotosOpen}
                 close={() => setOldPhotosOpen(false)}
-                slides={[
-                  {
-                    src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                  },
-                  {
-                    src: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                  },
-                  {
-                    src: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                  },
-                  {
-                    src: "https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                  },
-                  {
-                    src: "https://images.unsplash.com/photo-1508974239320-0a029497e820?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                  },
-                  {
-                    src: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?q=80&w=1283&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                  },
-                ]}
+                slides={oldSlides}
                 plugins={[Thumbnails, Zoom, ...(oldPhotosOpen ? [] : [Inline])]}
                 on={{
-                  click: () => setOldPhotosOpen((prevState) => !prevState),
+                  click: () => setOldPhotosOpen((prev) => !prev),
                 }}
                 zoom={{ ref: oldPhotosZoomRef }}
                 carousel={{
                   imageFit: "cover",
                   preload: 3,
-                  imageProps: {
-                    style: { borderRadius: "8px" },
-                  },
+                  imageProps: { style: { borderRadius: "8px" } },
                   padding: 0,
                 }}
                 thumbnails={{
@@ -90,15 +86,9 @@ export const HistorialTab: React.FC = () => {
                   borderStyle: "none",
                 }}
                 styles={{
-                  container: {
-                    maxWidth: "100%",
-                  },
-                  thumbnailsContainer: {
-                    padding: 8,
-                  },
-                  thumbnailsTrack: {
-                    gap: 8,
-                  },
+                  container: { maxWidth: "100%" },
+                  thumbnailsContainer: { padding: 8 },
+                  thumbnailsTrack: { gap: 8 },
                 }}
               />
             </div>
@@ -106,24 +96,14 @@ export const HistorialTab: React.FC = () => {
               <Lightbox
                 open={currentPhotosOpen}
                 close={() => setCurrentPhotosOpen(false)}
-                slides={[
-                  {
-                    src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                  },
-                  {
-                    src: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                  },
-                  {
-                    src: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-                  },
-                ]}
+                slides={currentSlides}
                 plugins={[
                   Thumbnails,
                   Zoom,
                   ...(currentPhotosOpen ? [] : [Inline]),
                 ]}
                 on={{
-                  click: () => setCurrentPhotosOpen((prevState) => !prevState),
+                  click: () => setCurrentPhotosOpen((prev) => !prev),
                 }}
                 zoom={{ ref: currentPhotosZoomRef }}
                 thumbnails={{
@@ -136,22 +116,13 @@ export const HistorialTab: React.FC = () => {
                 carousel={{
                   imageFit: "cover",
                   preload: 3,
-                  imageProps: {
-                    style: { borderRadius: "8px" },
-                  },
+                  imageProps: { style: { borderRadius: "8px" } },
                   padding: 0,
                 }}
                 styles={{
                   root: { "--yarl__thumbnails_container_width": "100%" },
-                  container: {
-                    // width: "100%",
-                  },
-                  thumbnailsContainer: {
-                    padding: 8,
-                  },
-                  thumbnailsTrack: {
-                    gap: 8,
-                  },
+                  thumbnailsContainer: { padding: 8 },
+                  thumbnailsTrack: { gap: 8 },
                 }}
               />
             </div>
@@ -167,88 +138,141 @@ export const HistorialTab: React.FC = () => {
           </CardHeader>
           <CardContent className="p-4 pt-2">
             <div className="space-y-2">
-              <InfoRow label="Subasta" value="Copart — Miami South" />
-              <InfoRow label="Fecha de Venta" value="Nov 15, 2025" />
               <InfoRow
-                label="Precio de Venta"
-                value="$44,200"
+                label="Subasta"
+                value={subastasAnteriores.info.subasta}
+              />
+              <InfoRow
+                label="Vendedor"
+                value={subastasAnteriores.info.vendedor}
+              />
+              <InfoRow
+                label="Fecha de Venta"
+                value={subastasAnteriores.info.fechaVenta}
+              />
+              <InfoRow
+                label="Oferta Final"
+                value={subastasAnteriores.info.finalBid}
                 valueColor="#042CD7"
               />
-              <InfoRow label="Tipo de Pérdida" value="Front End" />
-              <InfoRow label="Daño Primario" value="Minor Dents/Scratches" />
               <InfoRow
-                label="Airbags"
-                value="No se activaron"
-                valueColor="#22C55E"
+                label="Odómetro"
+                value={subastasAnteriores.info.odometro}
               />
               <InfoRow
-                label="Conduce"
-                value="Sí — Run & Drive"
-                valueColor="#22C55E"
+                label="Condición"
+                value={subastasAnteriores.info.condicion}
+              />
+              <InfoRow label="Riesgo" value={subastasAnteriores.info.riesgo} />
+              <InfoRow label="Título" value={subastasAnteriores.info.titulo} />
+              <InfoRow
+                label="Rango de Precio"
+                value={subastasAnteriores.info.precioRango}
+              />
+              <InfoRow
+                label="Valor Retail"
+                value={subastasAnteriores.info.valorRetail}
+              />
+              <InfoRow
+                label="Valor Reparación"
+                value={subastasAnteriores.info.valorReparacion}
               />
             </div>
           </CardContent>
         </Card>
       </TabsContent>
 
+      {/* --- ACCIDENTES --- */}
       <TabsContent value="accidentes">
         <div className="status-grid mb-3 grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-5">
           <StatusCard
-            icon={<IconAlertTriangle className="text-[#EAB308]" />}
+            icon={
+              accidentes.resumen.totalAccidentes > 0 ? (
+                <IconAlertTriangle className="text-[#EAB308]" />
+              ) : (
+                <IconCircleCheck className="text-[#22C55E]" />
+              )
+            }
             label="Accidentes"
-            value="1 reportado"
-            colorClass="bg-yellow-50"
+            value={`${accidentes.resumen.totalAccidentes} reportado${accidentes.resumen.totalAccidentes !== 1 ? "s" : ""}`}
+            colorClass={
+              accidentes.resumen.totalAccidentes > 0
+                ? "bg-yellow-50"
+                : "bg-green-50"
+            }
           />
           <StatusCard
             icon={<IconShield className="text-[#22C55E]" />}
             label="Airbags"
-            value="No activados"
+            value={
+              accidentes.resumen.airbagsActivados === "-"
+                ? "No reportado"
+                : accidentes.resumen.airbagsActivados
+            }
             colorClass="bg-green-50"
           />
           <StatusCard
             icon={<IconGavel className="text-[#042CD7]" />}
             label="Reparado"
-            value="Sí"
+            value={
+              accidentes.resumen.reparado === "-"
+                ? "No reportado"
+                : accidentes.resumen.reparado
+            }
             colorClass="bg-blue-50"
           />
           <StatusCard
             icon={<IconCircleCheck className="text-[#22C55E]" />}
-            label="Structural"
-            value="No reportado"
+            label="Estructural"
+            value={
+              accidentes.resumen.danioEstructural === "-"
+                ? "No reportado"
+                : accidentes.resumen.danioEstructural
+            }
             colorClass="bg-green-50"
           />
         </div>
-        <Card className="rounded-2xl border-[#e8e8ea]">
-          <CardHeader className="p-4 pb-2">
-            <CardTitle className="flex items-center gap-1.5 text-[15px] font-bold text-[#F97316]">
-              <IconAlertTriangle className="h-4 w-4" /> Accidente #1 — Ago 2025
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-4 pt-2">
-            <div className="space-y-2">
-              <InfoRow
-                label="Severidad"
-                value="Moderado"
-                valueColor="#F97316"
-              />
-              <InfoRow
-                label="Tipo de Impacto"
-                value="Frontal — Lado del conductor"
-              />
-              <InfoRow
-                label="Airbags Activados"
-                value="No"
-                valueColor="#22C55E"
-              />
-              <InfoRow label="Vehículos Involucrados" value="2" />
-              <InfoRow label="Reportado por" value="State Farm Insurance" />
-              <InfoRow label="Reparación" value="Completada — Oct 2025" />
-              <InfoRow label="Costo Estimado" value="$8,400" />
-            </div>
-          </CardContent>
-        </Card>
+
+        <div className="flex flex-col gap-3">
+          {accidentes.eventos.map((evento) => (
+            <Card key={evento.numero} className="rounded-2xl border-[#e8e8ea]">
+              <CardHeader className="p-4 pb-2">
+                <CardTitle
+                  className={`flex items-center gap-1.5 text-[15px] font-bold ${evento.redFlag ? "text-[#DC2626]" : "text-[#F97316]"}`}
+                >
+                  <IconAlertTriangle className="h-4 w-4" />
+                  Evento #{evento.numero} — {evento.fecha}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-4 pt-2">
+                <div className="space-y-2">
+                  <InfoRow label="Tipo" value={evento.titulo} />
+                  {evento.severidad !== "-" && (
+                    <InfoRow label="Severidad" value={evento.severidad} />
+                  )}
+                  {evento.impactAreas.length > 0 && (
+                    <InfoRow
+                      label="Área de Impacto"
+                      value={evento.impactAreas.join(", ")}
+                    />
+                  )}
+                  {evento.detalles.map((detalle, i) => (
+                    <div
+                      key={i}
+                      className="flex items-start gap-2 rounded-lg bg-[#fff8f0] p-2 text-[12px] text-[#666]"
+                    >
+                      <IconAlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#F97316]" />
+                      {detalle}
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </TabsContent>
 
+      {/* --- DUEÑOS --- */}
       <TabsContent value="duenos">
         <Card className="rounded-2xl border-[#e8e8ea]">
           <CardHeader className="p-4 pb-2">
@@ -258,64 +282,81 @@ export const HistorialTab: React.FC = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="p-4 pt-2">
+            {propietarios.length === 0 && (
+              <p className="text-[13px] text-[#aaa]">
+                Sin historial de propietarios disponible.
+              </p>
+            )}
             <div className="space-y-2.5">
-              {ownerRecords.map((owner) => (
-                <div
-                  key={owner.num}
-                  className="flex gap-3 rounded-xl bg-[#f8f8fa] p-3"
-                >
+              {propietarios.map((owner, i) => {
+                const colors = ["#042CD7", "#F97316", "#22C55E", "#8B5CF6"];
+                const color = colors[i % colors.length];
+                return (
                   <div
-                    className="font-display flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-extrabold text-white"
-                    style={{ backgroundColor: owner.color || "#042CD7" }}
+                    key={owner.numero}
+                    className="flex gap-3 rounded-xl bg-[#f8f8fa] p-3"
                   >
-                    {owner.num}
+                    <div
+                      className="font-display flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-extrabold text-white"
+                      style={{ backgroundColor: color }}
+                    >
+                      {owner.numero}
+                    </div>
+                    <div className="flex-1">
+                      <div className="text-sm font-semibold">
+                        {owner.etiqueta}
+                      </div>
+                      <div className="mt-0.5 text-[12px] text-[#888]">
+                        Comprado: {owner.anioPurchased} · {owner.duracion}
+                        {owner.tipo !== "-" && ` · ${owner.tipo}`}
+                      </div>
+                      <div className="mt-0.5 text-[12px] text-[#888]">
+                        {owner.estados !== "-" && `${owner.estados} · `}
+                        Último odómetro: {owner.ultimoOdometro}
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <div className="text-sm font-semibold">
-                      {owner.duration}
-                    </div>
-                    <div className="mt-0.5 text-[12px] text-[#888]">
-                      {owner.detail}
-                    </div>
-                    <div className="mt-0.5 text-[12px] text-[#888]">
-                      {owner.miles}
-                    </div>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </CardContent>
         </Card>
       </TabsContent>
 
+      {/* --- MANTENIMIENTO --- */}
       <TabsContent value="mantenimiento">
         <Card className="rounded-2xl border-[#e8e8ea]">
           <CardHeader className="p-4 pb-2">
             <CardTitle className="flex items-center gap-1.5 text-[15px] font-bold">
               <IconGavel className="h-4 w-4 text-[#042CD7]" /> Registros de
-              Servicio (Carfax)
+              Servicio ({mantenimiento.registros.length} entradas)
             </CardTitle>
           </CardHeader>
           <CardContent className="p-4 pt-2">
             <div className="space-y-0">
-              {serviceRecords.map((record, i) => (
+              {mantenimiento.registros.map((record, i) => (
                 <div
                   key={i}
-                  className={`flex items-center gap-3 py-3 ${i !== serviceRecords.length - 1 ? "border-bottom border-[#f3f3f5]" : ""}`}
+                  className={`flex items-start gap-3 py-3 ${i !== mantenimiento.registros.length - 1 ? "border-b border-[#f3f3f5]" : ""}`}
                 >
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#042CD7]/5">
                     <IconGavel className="h-3.5 w-3.5 text-[#042CD7]" />
                   </div>
-                  <div className="flex-1">
+                  <div className="min-w-0 flex-1">
                     <div className="text-[13px] font-semibold">
-                      {record.name}
+                      {record.tipo}
                     </div>
-                    <div className="text-[11px] text-[#888]">
-                      {record.detail}
+                    <div className="truncate text-[11px] text-[#888]">
+                      {record.fuente}
                     </div>
+                    {record.odometro !== "-" && (
+                      <div className="text-[11px] text-[#aaa]">
+                        {record.odometro}
+                      </div>
+                    )}
                   </div>
-                  <div className="text-[11px] whitespace-nowrap text-[#aaa]">
-                    {record.date}
+                  <div className="shrink-0 text-[11px] whitespace-nowrap text-[#aaa]">
+                    {record.fecha}
                   </div>
                 </div>
               ))}
@@ -324,60 +365,110 @@ export const HistorialTab: React.FC = () => {
         </Card>
       </TabsContent>
 
+      {/* --- TÍTULO --- */}
       <TabsContent value="titulo">
         <div className="status-grid mb-3 grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-5">
           <StatusCard
-            icon={<IconCircleCheck className="text-[#22C55E]" />}
+            icon={
+              tituloOdometro.titulo.toLowerCase().includes("total loss") ||
+              tituloOdometro.titulo.toLowerCase().includes("salvage") ? (
+                <IconAlertTriangle className="text-[#DC2626]" />
+              ) : (
+                <IconCircleCheck className="text-[#22C55E]" />
+              )
+            }
             label="Título"
-            value="Clean Title"
-            valueColor="#22C55E"
-            colorClass="bg-green-50"
+            value={tituloOdometro.titulo}
+            valueColor={
+              tituloOdometro.titulo.toLowerCase().includes("total loss") ||
+              tituloOdometro.titulo.toLowerCase().includes("salvage")
+                ? "#DC2626"
+                : "#22C55E"
+            }
+            colorClass={
+              tituloOdometro.titulo.toLowerCase().includes("total loss") ||
+              tituloOdometro.titulo.toLowerCase().includes("salvage")
+                ? "bg-red-50"
+                : "bg-green-50"
+            }
           />
           <StatusCard
-            icon={<IconGauge className="text-[#22C55E]" />}
+            icon={
+              tituloOdometro.odometroEstado.toLowerCase().includes("no") ? (
+                <IconAlertTriangle className="text-[#EAB308]" />
+              ) : (
+                <IconGauge className="text-[#22C55E]" />
+              )
+            }
             label="Odómetro"
-            value="Verificado"
-            valueColor="#22C55E"
-            colorClass="bg-green-50"
+            value={tituloOdometro.odometroEstado}
+            valueColor={
+              tituloOdometro.odometroEstado.toLowerCase().includes("no")
+                ? "#EAB308"
+                : "#22C55E"
+            }
+            colorClass={
+              tituloOdometro.odometroEstado.toLowerCase().includes("no")
+                ? "bg-yellow-50"
+                : "bg-green-50"
+            }
           />
           <StatusCard
             icon={<IconCircleCheck className="text-[#22C55E]" />}
             label="Lemon Law"
-            value="No aplica"
+            value={tituloOdometro.lemonLaw}
             colorClass="bg-green-50"
           />
           <StatusCard
-            icon={<IconCircleCheck className="text-[#22C55E]" />}
+            icon={
+              tituloOdometro.recalls.pendientes > 0 ? (
+                <IconAlertTriangle className="text-[#DC2626]" />
+              ) : (
+                <IconCircleCheck className="text-[#22C55E]" />
+              )
+            }
             label="Recalls"
-            value="0 pendientes"
-            colorClass="bg-green-50"
+            value={`${tituloOdometro.recalls.pendientes} pendiente${tituloOdometro.recalls.pendientes !== 1 ? "s" : ""}`}
+            valueColor={
+              tituloOdometro.recalls.pendientes > 0 ? "#DC2626" : undefined
+            }
+            colorClass={
+              tituloOdometro.recalls.pendientes > 0
+                ? "bg-red-50"
+                : "bg-green-50"
+            }
           />
         </div>
 
-        <Card className="mb-3 rounded-2xl border-[#e8e8ea]">
-          <CardHeader className="p-4 pb-2">
-            <CardTitle className="flex items-center gap-1.5 text-[15px] font-bold">
-              <IconFileText className="h-4 w-4 text-[#042CD7]" /> Historial de
-              Título
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-4 pt-2">
-            <div className="timeline relative pl-8 before:absolute before:top-2 before:bottom-2 before:left-2 before:w-[2px] before:bg-[#e8e8ea]">
-              <TimelineItem
-                date="Ene 2024"
-                event="Título Emitido — Florida"
-                detail="Clean Title · Primer propietario"
-                dotColor="bg-[#042CD7]"
-              />
-              <TimelineItem
-                date="Nov 2025"
-                event="Transferencia de Título"
-                detail="Clean Title · Transferido a dealer"
-                dotColor="bg-[#22C55E]"
-              />
-            </div>
-          </CardContent>
-        </Card>
+        {tituloOdometro.historialTitulo.length > 0 && (
+          <Card className="mb-3 rounded-2xl border-[#e8e8ea]">
+            <CardHeader className="p-4 pb-2">
+              <CardTitle className="flex items-center gap-1.5 text-[15px] font-bold">
+                <IconFileText className="h-4 w-4 text-[#042CD7]" /> Historial de
+                Título
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-4 pt-2">
+              <div className="timeline relative pl-8 before:absolute before:top-2 before:bottom-2 before:left-2 before:w-[2px] before:bg-[#e8e8ea]">
+                {tituloOdometro.historialTitulo.map((item, i) => (
+                  <TimelineItem
+                    key={i}
+                    date={item.fecha}
+                    event={item.tipo}
+                    detail={item.fuente}
+                    dotColor="bg-[#042CD7]"
+                  />
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {tituloOdometro.recalls.estado && (
+          <div className="rounded-xl bg-[#f8f8fa] p-3 text-[11px] leading-relaxed text-[#aaa]">
+            {tituloOdometro.recalls.estado}
+          </div>
+        )}
       </TabsContent>
     </Tabs>
   );

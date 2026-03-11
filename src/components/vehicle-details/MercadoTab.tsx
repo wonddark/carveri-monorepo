@@ -9,10 +9,14 @@ import {
   IconStar,
 } from "@tabler/icons-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { comparablesData, vehicleData } from "@/data/mockData";
+import { comparablesData } from "@/data/mockData";
 import { fmt } from "@/lib/gauge";
 
-export const MercadoTab: React.FC = () => {
+interface Props {
+  vehiclePrice: number;
+}
+
+export const MercadoTab: React.FC<Props> = ({ vehiclePrice }) => {
   return (
     <div className="tab-content pt-3 lg:px-0">
       <Tabs defaultValue="comparables" className="w-full">
@@ -48,7 +52,7 @@ export const MercadoTab: React.FC = () => {
             <CardContent className="p-4 pt-2">
               <div className="space-y-3">
                 {comparablesData.map((comp, i) => {
-                  const diff = vehicleData.price - comp.price;
+                  const diff = vehiclePrice - comp.price;
                   return (
                     <div
                       key={i}

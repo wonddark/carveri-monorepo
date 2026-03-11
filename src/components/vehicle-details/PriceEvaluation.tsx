@@ -1,5 +1,5 @@
 import React, { Activity, useState } from "react";
-import { IconGauge as GaugeIcon } from "@tabler/icons-react";
+import { IconGauge as GaugeIcon, IconX } from "@tabler/icons-react";
 import { fmt } from "@/lib/gauge";
 import { type Book } from "@/types/vehicle-detail";
 import ReportGauge from "@/components/ReportGauge.tsx";
@@ -105,7 +105,10 @@ export const PriceEvaluation: React.FC<Props> = ({ price, books }) => {
                 ))}
             </div>
             <AlertDialogFooter>
-              <AlertDialogAction>Close</AlertDialogAction>
+              <AlertDialogAction>
+                <IconX />
+                <span>Close</span>
+              </AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>

@@ -31,7 +31,6 @@ carcheck-portal/
 │   ├── layout/          # Application layouts (Root, etc.)
 │   ├── lib/             # Utility functions and shared logic
 │   ├── pages/           # Page components and feature playgrounds
-│   ├── App.tsx          # Home Page component
 │   ├── main.tsx         # Application entry point
 │   └── index.css        # Global styles and Tailwind directives
 ├── index.html           # HTML template

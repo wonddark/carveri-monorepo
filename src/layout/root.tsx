@@ -1,11 +1,10 @@
-import { Link, Outlet } from "react-router";
+import { Outlet } from "react-router";
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu.tsx";
-import { Activity } from "react";
 import { Toaster } from "@/components/ui/sonner.tsx";
 
 function RootLayout() {
@@ -15,29 +14,8 @@ function RootLayout() {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuLink asChild>
-                <Link to="/reports">Vehicle Detail</Link>
-              </NavigationMenuLink>
+              <NavigationMenuLink asChild></NavigationMenuLink>
             </NavigationMenuItem>
-            <Activity mode={import.meta.env.DEV ? "visible" : "hidden"}>
-              <>
-                <NavigationMenuItem>
-                  <NavigationMenuLink asChild>
-                    <Link to="/test-router">Test router</Link>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <NavigationMenuLink asChild>
-                    <Link to="/test-form">Test form</Link>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-                <NavigationMenuItem>
-                  <NavigationMenuLink asChild>
-                    <Link to="/test-lightbox">Test Lightbox</Link>
-                  </NavigationMenuLink>
-                </NavigationMenuItem>
-              </>
-            </Activity>
           </NavigationMenuList>
         </NavigationMenu>
       </div>

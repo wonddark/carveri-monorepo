@@ -6,6 +6,7 @@ interface Props {
 }
 
 export const VehicleHero: React.FC<Props> = ({ images }) => {
+  if (images.length === 0) return <p>No image received</p>;
   return (
     <div className="h-full w-full">
       <img
