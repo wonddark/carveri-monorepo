@@ -14,7 +14,7 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardTitle
+  CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -22,7 +22,7 @@ import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger
+  AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
@@ -42,7 +42,7 @@ import {
   IconShield,
   IconShieldFilled,
   IconSparkles,
-  IconTrendingUp
+  IconTrendingUp,
 } from "@tabler/icons-react";
 
 /* ─── Assets ─── */
@@ -152,46 +152,32 @@ const steps = [
 
 const carCheckExamples = [
   {
-    id: 1,
+    id: "JA4J4VA86RZ079851",
     image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400&h=260&fit=crop",
     year: "2024", make: "BMW", model: "X5 xDrive40i",
     price: "$52,500", verdict: "Buen Precio", verdictColor: "bg-green-500",
     miles: "18,420 mi", location: "Miami, FL",
   },
   {
-    id: 2,
+    id: "2HKRS6H76RH219194",
     image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=400&h=260&fit=crop",
     year: "2023", make: "Mercedes", model: "GLE 350",
     price: "$48,900", verdict: "Precio Alto", verdictColor: "bg-red-500",
     miles: "24,100 mi", location: "Orlando, FL",
   },
   {
-    id: 3,
+    id: "2HGFC2F81MH516378",
     image: "https://images.unsplash.com/photo-1621993202323-f438eec934ff?w=400&h=260&fit=crop",
     year: "2023", make: "Toyota", model: "Camry SE",
     price: "$24,500", verdict: "Buen Precio", verdictColor: "bg-green-500",
     miles: "31,200 mi", location: "Tampa, FL",
   },
   {
-    id: 4,
+    id: "1FMCU9GX0DUA27119",
     image: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=400&h=260&fit=crop",
     year: "2022", make: "Honda", model: "Civic Sport",
     price: "$22,800", verdict: "Negociar", verdictColor: "bg-amber-500",
     miles: "28,600 mi", location: "Hialeah, FL",
-  },
-  {
-    id: 5,
-    image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=400&h=260&fit=crop",
-    year: "2024", make: "Tesla", model: "Model 3 LR",
-    price: "$38,200", verdict: "Buen Precio", verdictColor: "bg-green-500",
-    miles: "12,400 mi", location: "Fort Lauderdale, FL",
-  },
-  {
-    id: 6,
-    image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400&h=260&fit=crop",
-    year: "2023", make: "Chevrolet", model: "Corvette C8",
-    price: "$67,900", verdict: "Evitar", verdictColor: "bg-red-500",
-    miles: "8,200 mi", location: "Naples, FL",
   },
 ];
 
@@ -433,7 +419,7 @@ export default function CarCheckLanding() {
             {carCheckExamples.map((car) => (
               <a
                 key={car.id}
-                href="/vehicle-detail"
+                href={`/reports/${car.id}`}
                 className="flex-shrink-0 w-[260px] sm:w-[280px] snap-start group"
               >
                 <Card className="overflow-hidden border-gray-100 hover:border-gray-200 hover:shadow-xl transition-all duration-300 hover:-translate-y-1 py-0 gap-0">
