@@ -12,12 +12,15 @@ type Props = {
 
 function ReportGauge(props: Readonly<Props>) {
   const { percentile, label, price, wholesale, retail } = props;
-  const [gaugeSvg, setGaugeSvg] = useState<string>(
+  const [gaugeSvg, setGaugeSvg] = useState<string>(() =>
     buildGaugeSvg(0, 0, "Sin datos"),
   );
 
   useEffect(() => {
-    setGaugeSvg(buildGaugeSvg(percentile, price, label));
+    (async () => {
+      const gauge = buildGaugeSvg(percentile, price, label);
+      setGaugeSvg(gauge);
+    })();
   }, [percentile, label, price]);
 
   return (
