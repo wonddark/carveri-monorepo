@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from "react";
 import {
   IconChartBar,
   IconChevronLeft,
@@ -8,22 +8,22 @@ import {
   IconShare,
   IconSparkles,
 } from "@tabler/icons-react";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { VehicleHero } from "@/components/vehicle-details/VehicleHero";
-import { VehicleInfoCard } from "@/components/vehicle-details/VehicleInfoCard";
-import { PriceEvaluation } from "@/components/vehicle-details/PriceEvaluation";
-import { HistorialTab } from "@/components/vehicle-details/HistorialTab";
-import { MercadoTab } from "@/components/vehicle-details/MercadoTab";
-import { IATab } from "@/components/vehicle-details/IATab";
-import { DocumentsTab } from "@/components/vehicle-details/DocumentsTab";
-import { toast } from "sonner";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area.tsx";
-import { fetchVehicleReport } from "@/data/api";
-import type { VehicleReport } from "@/types/vehicle-report";
-import type { Book, Vehicle, VehicleImage } from "@/types/vehicle-detail";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useParams } from "react-router";
+import {Button} from "@/components/ui/button";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
+import {VehicleHero} from "@/components/vehicle-details/VehicleHero";
+import {VehicleInfoCard} from "@/components/vehicle-details/VehicleInfoCard";
+import {PriceEvaluation} from "@/components/vehicle-details/PriceEvaluation";
+import {HistorialTab} from "@/components/vehicle-details/HistorialTab";
+import {MercadoTab} from "@/components/vehicle-details/MercadoTab";
+import {IATab} from "@/components/vehicle-details/IATab";
+import {DocumentsTab} from "@/components/vehicle-details/DocumentsTab";
+import {toast} from "sonner";
+import {ScrollArea, ScrollBar} from "@/components/ui/scroll-area.tsx";
+import {fetchVehicleReport} from "@/data/api";
+import type {VehicleReport} from "@/types/vehicle-report";
+import type {Book, Vehicle, VehicleImage} from "@/types/vehicle-detail";
+import {Skeleton} from "@/components/ui/skeleton";
+import {useParams} from "react-router";
 
 /** Parses a price string like "$2,600.00" into a number */
 function parsePriceStr(s: string): number {
@@ -201,7 +201,7 @@ const Report: React.FC = () => {
       </header>
 
       {/* --- MAIN SCROLL --- */}
-      <main className="flex-1">
+      <main className="mb-10  lg:mb-0 flex-1">
         <div className="flex flex-col gap-8 lg:mx-auto lg:max-w-7xl lg:px-8 lg:pb-8">
           {loading ? (
             <LoadingSkeleton />
@@ -217,7 +217,7 @@ const Report: React.FC = () => {
                 </div>
               </div>
 
-              <div>
+
                 <Tabs
                   value={activeTab}
                   onValueChange={setActiveTab}
@@ -261,7 +261,6 @@ const Report: React.FC = () => {
                     <DocumentsTab />
                   </TabsContent>
                 </Tabs>
-              </div>
             </>
           )}
         </div>
