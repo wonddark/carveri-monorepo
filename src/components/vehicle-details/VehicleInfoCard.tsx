@@ -5,19 +5,19 @@ import {
   IconExternalLink,
   IconGauge,
   IconMapPin,
-  IconShield
+  IconShield,
 } from "@tabler/icons-react";
-import { type Vehicle } from "@/types/vehicle-detail";
+import {type Vehicle} from "@/types/vehicle-detail";
 import {
   Card,
   CardAction,
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from "@/components/ui/card.tsx";
-import { Badge } from "@/components/ui/badge.tsx";
-import { Link } from "react-router";
+import {Badge} from "@/components/ui/badge.tsx";
+import {Link} from "react-router";
 
 interface Props {
   vehicle: Vehicle;
