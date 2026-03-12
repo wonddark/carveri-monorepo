@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import React, {useRef, useState} from "react";
+import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import {
   IconAlertTriangle,
   IconCamera,
@@ -10,12 +10,12 @@ import {
   IconShield,
   IconUsers,
 } from "@tabler/icons-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { Historial } from "@/types/vehicle-report";
-import { Inline, Thumbnails, Zoom } from "yet-another-react-lightbox/plugins";
+import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
+import type {Historial} from "@/types/vehicle-report";
+import {Inline, Thumbnails, Zoom} from "yet-another-react-lightbox/plugins";
 import Lightbox from "yet-another-react-lightbox";
-import type { ZoomRef } from "@/types/lightbox.ts";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area.tsx";
+import type {ZoomRef} from "@/types/lightbox.ts";
+import {ScrollArea, ScrollBar} from "@/components/ui/scroll-area.tsx";
 
 interface Props {
   historial: Historial;
@@ -62,7 +62,7 @@ export const HistorialTab: React.FC<Props> = ({ historial, currentImages }) => {
             </CardTitle>
           </CardHeader>
           <CardContent className="grid grid-cols-[1fr] gap-2 md:grid-cols-2 md:gap-3">
-            <div className="h-50 w-full min-w-0 overflow-hidden md:h-90">
+            <div className="h-70 w-full min-w-0 overflow-hidden md:h-90">
               <Lightbox
                 open={oldPhotosOpen}
                 close={() => setOldPhotosOpen(false)}

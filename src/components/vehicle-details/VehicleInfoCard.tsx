@@ -1,20 +1,20 @@
 import React from "react";
 import {
-  IconCalendar,
-  IconCheck,
-  IconExternalLink,
-  IconGauge,
-  IconMapPin,
-  IconShield,
+    IconCalendar,
+    IconCheck,
+    IconExternalLink,
+    IconGauge,
+    IconMapPin,
+    IconShield,
 } from "@tabler/icons-react";
 import {type Vehicle} from "@/types/vehicle-detail";
 import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
+    Card,
+    CardAction,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
 } from "@/components/ui/card.tsx";
 import {Badge} from "@/components/ui/badge.tsx";
 import {Link} from "react-router";
