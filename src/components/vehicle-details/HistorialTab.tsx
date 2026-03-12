@@ -62,7 +62,7 @@ export const HistorialTab: React.FC<Props> = ({ historial, currentImages }) => {
             </CardTitle>
           </CardHeader>
           <CardContent className="grid grid-cols-[1fr] gap-2 md:grid-cols-2 md:gap-3">
-            <div className="h-70 w-full min-w-0 overflow-hidden md:h-90">
+            <div className="h-60 w-full min-w-0 overflow-hidden md:h-90">
               <Lightbox
                 open={oldPhotosOpen}
                 close={() => setOldPhotosOpen(false)}
@@ -92,7 +92,7 @@ export const HistorialTab: React.FC<Props> = ({ historial, currentImages }) => {
                 }}
               />
             </div>
-            <div className="h-70 w-full min-w-0 overflow-hidden md:h-90">
+            <div className="h-60 w-full min-w-0 overflow-hidden md:h-90">
               <Lightbox
                 open={currentPhotosOpen}
                 close={() => setCurrentPhotosOpen(false)}
