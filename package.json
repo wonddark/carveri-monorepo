@@ -1,5 +1,5 @@
 {
-  "name": "carcheck-portal",
+  "name": "carveri-portal",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -34,7 +34,9 @@
     "yup": "^1.7.1"
   },
   "devDependencies": {
+    "@eslint-react/eslint-plugin": "^2.13.0",
     "@eslint/js": "^9.39.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
     "@types/node": "^24.10.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
