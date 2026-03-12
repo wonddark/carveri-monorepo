@@ -11,6 +11,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { comparablesData } from "@/data/mockData";
 import { fmt } from "@/lib/gauge";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area.tsx";
 
 interface Props {
   vehiclePrice: number;
@@ -20,26 +21,47 @@ export const MercadoTab: React.FC<Props> = ({ vehiclePrice }) => {
   return (
     <div className="tab-content pt-3 lg:px-0">
       <Tabs defaultValue="comparables" className="w-full">
-        <TabsList className="scrollbar-hide mb-4 h-auto w-full justify-start overflow-x-auto bg-transparent p-0">
-          <TabsTrigger
-            value="comparables"
-            className="sub-tab mr-1 flex items-center gap-1.5 rounded-full border border-[#e8e8ea] bg-white px-3.5 py-2 text-xs font-semibold text-[#888] transition-all data-[state=active]:bg-[#042CD7] data-[state=active]:text-white"
-          >
-            Comparables
-          </TabsTrigger>
-          <TabsTrigger
-            value="tendencia"
-            className="sub-tab mr-1 flex items-center gap-1.5 rounded-full border border-[#e8e8ea] bg-white px-3.5 py-2 text-xs font-semibold text-[#888] transition-all data-[state=active]:bg-[#042CD7] data-[state=active]:text-white"
-          >
-            Tendencia de Precio
-          </TabsTrigger>
-          <TabsTrigger
-            value="dealer"
-            className="sub-tab mr-1 flex items-center gap-1.5 rounded-full border border-[#e8e8ea] bg-white px-3.5 py-2 text-xs font-semibold text-[#888] transition-all data-[state=active]:bg-[#042CD7] data-[state=active]:text-white"
-          >
-            Datos del Dealer
-          </TabsTrigger>
-        </TabsList>
+        <ScrollArea className="w-full">
+          <TabsList>
+            <TabsTrigger
+              value="comparables"
+              onClick={({ currentTarget }) => {
+                currentTarget.scrollIntoView({
+                  behavior: "smooth",
+                  inline: "nearest",
+                  block: "nearest",
+                });
+              }}
+            >
+              Comparables
+            </TabsTrigger>
+            <TabsTrigger
+              value="tendencia"
+              onClick={({ currentTarget }) => {
+                currentTarget.scrollIntoView({
+                  behavior: "smooth",
+                  inline: "nearest",
+                  block: "nearest",
+                });
+              }}
+            >
+              Tendencia de Precio
+            </TabsTrigger>
+            <TabsTrigger
+              value="dealer"
+              onClick={({ currentTarget }) => {
+                currentTarget.scrollIntoView({
+                  behavior: "smooth",
+                  inline: "nearest",
+                  block: "nearest",
+                });
+              }}
+            >
+              Datos del Dealer
+            </TabsTrigger>
+          </TabsList>
+          <ScrollBar orientation="horizontal" />
+        </ScrollArea>
 
         <TabsContent value="comparables">
           <Card className="rounded-2xl border-[#e8e8ea]">

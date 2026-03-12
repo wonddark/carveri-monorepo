@@ -1,20 +1,20 @@
-import React, {Activity, useState} from "react";
-import {IconGauge as GaugeIcon, IconX} from "@tabler/icons-react";
-import {fmt} from "@/lib/gauge";
-import {type Book} from "@/types/vehicle-detail";
+import React, { Activity, useState } from "react";
+import { IconGauge as GaugeIcon, IconX } from "@tabler/icons-react";
+import { fmt } from "@/lib/gauge";
+import { type Book } from "@/types/vehicle-detail";
 import ReportGauge from "@/components/ReportGauge.tsx";
 import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
 } from "@/components/ui/alert-dialog.tsx";
-import {Card, CardContent} from "@/components/ui/card.tsx";
-import {Button} from "@/components/ui/button.tsx";
-import {cn} from "@/lib/utils.ts";
+import { Card, CardContent } from "@/components/ui/card.tsx";
+import { Button } from "@/components/ui/button.tsx";
+import { cn } from "@/lib/utils.ts";
 
 interface Props {
   price: number;

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { type ReactNode, useEffect, useState } from "react";
 import {
   IconChartBar,
   IconChevronLeft,
@@ -8,26 +8,26 @@ import {
   IconShare,
   IconSparkles,
 } from "@tabler/icons-react";
-import {Button} from "@/components/ui/button";
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
-import {VehicleHero} from "@/components/vehicle-details/VehicleHero";
-import {VehicleInfoCard} from "@/components/vehicle-details/VehicleInfoCard";
-import {PriceEvaluation} from "@/components/vehicle-details/PriceEvaluation";
-import {HistorialTab} from "@/components/vehicle-details/HistorialTab";
-import {MercadoTab} from "@/components/vehicle-details/MercadoTab";
-import {IATab} from "@/components/vehicle-details/IATab";
-import {DocumentsTab} from "@/components/vehicle-details/DocumentsTab";
-import {toast} from "sonner";
-import {ScrollArea, ScrollBar} from "@/components/ui/scroll-area.tsx";
-import {fetchVehicleReport} from "@/data/api";
-import type {VehicleReport} from "@/types/vehicle-report";
-import type {Book, Vehicle, VehicleImage} from "@/types/vehicle-detail";
-import {Skeleton} from "@/components/ui/skeleton";
-import {useParams} from "react-router";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { VehicleHero } from "@/components/vehicle-details/VehicleHero";
+import { VehicleInfoCard } from "@/components/vehicle-details/VehicleInfoCard";
+import { PriceEvaluation } from "@/components/vehicle-details/PriceEvaluation";
+import { HistorialTab } from "@/components/vehicle-details/HistorialTab";
+import { MercadoTab } from "@/components/vehicle-details/MercadoTab";
+import { IATab } from "@/components/vehicle-details/IATab";
+import { DocumentsTab } from "@/components/vehicle-details/DocumentsTab";
+import { toast } from "sonner";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area.tsx";
+import { fetchVehicleReport } from "@/data/api";
+import type { VehicleReport } from "@/types/vehicle-report";
+import type { Book, Vehicle, VehicleImage } from "@/types/vehicle-detail";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useParams } from "react-router";
 
 /** Parses a price string like "$2,600.00" into a number */
 function parsePriceStr(s: string): number {
-  return parseFloat(s.replace(/[$,]/g, "")) || 0;
+  return Number.parseFloat(s.replaceAll(/[$,]/g, "")) || 0;
 }
 
 function transformImages(report: VehicleReport): VehicleImage[] {
@@ -50,9 +50,9 @@ function transformVehicle(report: VehicleReport): Vehicle {
     trim: v.trim,
     package: packageParts.length > 0 ? packageParts.join(" · ") : "—",
     price: parsePriceStr(v.precioVenta),
-    mileage: v.odometro !== "-" ? v.odometro.replace(" mi", "") : "—",
+    mileage: v.odometro === "-" ? "—" : v.odometro.replace(" mi", ""),
     vin: v.vin,
-    color: v.color !== "-" ? v.color : "—",
+    color: v.color === "-" ? "—" : v.color,
     interior: "—",
     title: v.titleDetails,
     dealer: info?.subasta ?? "—",
@@ -148,12 +148,12 @@ const Report: React.FC = () => {
   }, [vin]);
 
   const handleBack = () => {
-    window.history.back();
+    globalThis.window.history.back();
   };
 
-  const handleShare = () => {
+  const handleShare = async () => {
     if (navigator.clipboard) {
-      navigator.clipboard.writeText(window.location.href);
+      await navigator.clipboard.writeText(globalThis.window.location.href);
       toast.success("Enlace copiado al portapapeles.");
     }
   };
@@ -165,6 +165,16 @@ const Report: React.FC = () => {
   const images = report ? transformImages(report) : [];
   const vehicle = report ? transformVehicle(report) : null;
   const books = report ? transformBooks(report) : [];
+
+  const scrollToTarget = () => {
+    const target = document.getElementById("tabs-container");
+    if (target) {
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
+    }
+  };
 
   return (
     <div id="app" className="flex h-full flex-col">
@@ -201,7 +211,7 @@ const Report: React.FC = () => {
       </header>
 
       {/* --- MAIN SCROLL --- */}
-      <main className="mb-10  lg:mb-0 flex-1">
+      <main className="mb-10 flex-1 lg:mb-0">
         <div className="flex flex-col gap-8 lg:mx-auto lg:max-w-7xl lg:px-8 lg:pb-8">
           {loading ? (
             <LoadingSkeleton />
@@ -217,50 +227,86 @@ const Report: React.FC = () => {
                 </div>
               </div>
 
+              <Tabs
+                value={activeTab}
+                onValueChange={setActiveTab}
+                className="w-full"
+                id="tabs-container"
+              >
+                {/* DESKTOP TABS LIST */}
+                <ScrollArea className="w-full whitespace-nowrap">
+                  <TabsList>
+                    <TabsTrigger
+                      value="historial"
+                      onClick={({ currentTarget }) => {
+                        currentTarget.scrollIntoView({
+                          behavior: "smooth",
+                          inline: "nearest",
+                          block: "nearest",
+                        });
+                      }}
+                    >
+                      <IconHistory /> Historial
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="mercado"
+                      onClick={({ currentTarget }) => {
+                        currentTarget.scrollIntoView({
+                          behavior: "smooth",
+                          inline: "nearest",
+                          block: "nearest",
+                        });
+                      }}
+                    >
+                      <IconChartBar /> Mercado
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="ia"
+                      onClick={({ currentTarget }) => {
+                        currentTarget.scrollIntoView({
+                          behavior: "smooth",
+                          inline: "nearest",
+                          block: "nearest",
+                        });
+                      }}
+                    >
+                      <IconSparkles /> Valoración IA
+                    </TabsTrigger>
+                    <TabsTrigger
+                      value="docs"
+                      onClick={({ currentTarget }) => {
+                        currentTarget.scrollIntoView({
+                          behavior: "smooth",
+                          inline: "nearest",
+                          block: "nearest",
+                        });
+                      }}
+                    >
+                      <IconFileText /> Documentos
+                    </TabsTrigger>
+                  </TabsList>
+                  <ScrollBar orientation="horizontal" />
+                </ScrollArea>
 
-                <Tabs
-                  value={activeTab}
-                  onValueChange={setActiveTab}
-                  className="w-full"
-                >
-                  {/* DESKTOP TABS LIST */}
-                  <ScrollArea className="w-full whitespace-nowrap">
-                    <TabsList>
-                      <TabsTrigger value="historial">
-                        <IconHistory /> Historial
-                      </TabsTrigger>
-                      <TabsTrigger value="mercado">
-                        <IconChartBar /> Mercado
-                      </TabsTrigger>
-                      <TabsTrigger value="ia">
-                        <IconSparkles /> Valoración IA
-                      </TabsTrigger>
-                      <TabsTrigger value="docs">
-                        <IconFileText /> Documentos
-                      </TabsTrigger>
-                    </TabsList>
-                    <ScrollBar orientation="horizontal" />
-                  </ScrollArea>
-
-                  {/* TAB CONTENT */}
-                  <TabsContent value="historial">
-                    {report && (
-                      <HistorialTab
-                        historial={report.historial}
-                        currentImages={report.currentImages}
-                      />
-                    )}
-                  </TabsContent>
-                  <TabsContent value="mercado">
-                    <MercadoTab vehiclePrice={vehicle?.price ?? 0} />
-                  </TabsContent>
-                  <TabsContent value="ia">
-                    <IATab />
-                  </TabsContent>
-                  <TabsContent value="docs">
-                    <DocumentsTab />
-                  </TabsContent>
-                </Tabs>
+                {/* TAB CONTENT */}
+                <TabsContent value="historial">
+                  {report && (
+                    <HistorialTab
+                      historial={report.historial}
+                      currentImages={report.currentImages}
+                    />
+                  )}
+                </TabsContent>
+                <TabsContent value="mercado">
+                  <MercadoTab vehiclePrice={vehicle?.price ?? 0} />
+                </TabsContent>
+                <TabsContent value="ia">
+                  <IATab />
+                </TabsContent>
+                <TabsContent value="docs">
+                  <DocumentsTab />
+                </TabsContent>
+              </Tabs>
             </>
           )}
         </div>
@@ -270,27 +316,39 @@ const Report: React.FC = () => {
       <nav className="fixed right-0 bottom-0 left-0 z-50 flex border-t border-black/5 bg-white pt-1.5 pb-[env(safe-area-inset-bottom,8px)] lg:hidden">
         <MobileNavBtn
           active={activeTab === "historial"}
-          onClick={() => setActiveTab("historial")}
+          onClick={() => {
+            setActiveTab("historial");
+            scrollToTarget();
+          }}
           label="Historial"
-          icon={<IconHistory />}
+          renderIcon={(className) => <IconHistory className={className} />}
         />
         <MobileNavBtn
           active={activeTab === "mercado"}
-          onClick={() => setActiveTab("mercado")}
+          onClick={() => {
+            setActiveTab("mercado");
+            scrollToTarget();
+          }}
           label="Mercado"
-          icon={<IconChartBar />}
+          renderIcon={(className) => <IconChartBar className={className} />}
         />
         <MobileNavBtn
           active={activeTab === "ia"}
-          onClick={() => setActiveTab("ia")}
+          onClick={() => {
+            setActiveTab("ia");
+            scrollToTarget();
+          }}
           label="Valoración IA"
-          icon={<IconSparkles />}
+          renderIcon={(className) => <IconSparkles className={className} />}
         />
         <MobileNavBtn
           active={activeTab === "docs"}
-          onClick={() => setActiveTab("docs")}
+          onClick={() => {
+            setActiveTab("docs");
+            scrollToTarget();
+          }}
           label="Documentos"
-          icon={<IconFileText />}
+          renderIcon={(className) => <IconFileText className={className} />}
         />
       </nav>
     </div>
@@ -299,7 +357,7 @@ const Report: React.FC = () => {
 
 const LoadingSkeleton: React.FC = () => (
   <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_37%]">
-    <Skeleton className="h-72 w-full rounded-2xl lg:h-[480px]" />
+    <Skeleton className="h-72 w-full rounded-2xl lg:h-120" />
     <div className="flex flex-col gap-4">
       <Skeleton className="h-48 w-full rounded-2xl" />
       <Skeleton className="h-40 w-full rounded-2xl" />
@@ -311,8 +369,8 @@ const MobileNavBtn: React.FC<{
   active: boolean;
   onClick: () => void;
   label: string;
-  icon: React.ReactElement<SVGSVGElement, "svg">;
-}> = ({ active, onClick, label, icon }) => (
+  renderIcon: (className: string) => ReactNode;
+}> = ({ active, onClick, label, renderIcon }) => (
   <button
     type="button"
     onClick={onClick}
@@ -321,9 +379,7 @@ const MobileNavBtn: React.FC<{
     {active && (
       <div className="absolute top-0.5 h-1 w-1 rounded-full bg-[#042CD7]" />
     )}
-    {React.cloneElement(icon, {
-      className: "h-[18px] w-[18px]",
-    })}
+    {renderIcon("h-[18px] w-[18px]")}
     <span className="font-display text-[10px] font-semibold">{label}</span>
   </button>
 );

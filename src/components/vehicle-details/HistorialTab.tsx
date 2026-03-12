@@ -1,5 +1,5 @@
-import React, {useRef, useState} from "react";
-import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
+import React, { useRef, useState } from "react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   IconAlertTriangle,
   IconCamera,
@@ -10,12 +10,12 @@ import {
   IconShield,
   IconUsers,
 } from "@tabler/icons-react";
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import type {Historial} from "@/types/vehicle-report";
-import {Inline, Thumbnails, Zoom} from "yet-another-react-lightbox/plugins";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import type { Historial } from "@/types/vehicle-report";
+import { Inline, Thumbnails, Zoom } from "yet-another-react-lightbox/plugins";
 import Lightbox from "yet-another-react-lightbox";
-import type {ZoomRef} from "@/types/lightbox.ts";
-import {ScrollArea, ScrollBar} from "@/components/ui/scroll-area.tsx";
+import type { ZoomRef } from "@/types/lightbox.ts";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area.tsx";
 
 interface Props {
   historial: Historial;
@@ -43,11 +43,66 @@ export const HistorialTab: React.FC<Props> = ({ historial, currentImages }) => {
     <Tabs defaultValue="fotos" className="w-full">
       <ScrollArea className="w-full">
         <TabsList>
-          <TabsTrigger value="fotos">Fotos Anteriores</TabsTrigger>
-          <TabsTrigger value="accidentes">Accidentes</TabsTrigger>
-          <TabsTrigger value="duenos">Dueños</TabsTrigger>
-          <TabsTrigger value="mantenimiento">Mantenimiento</TabsTrigger>
-          <TabsTrigger value="titulo">Título</TabsTrigger>
+          <TabsTrigger
+            value="fotos"
+            onClick={({ currentTarget }) => {
+              currentTarget.scrollIntoView({
+                behavior: "smooth",
+                inline: "nearest",
+                block: "nearest",
+              });
+            }}
+          >
+            Fotos Anteriores
+          </TabsTrigger>
+          <TabsTrigger
+            value="accidentes"
+            onClick={({ currentTarget }) => {
+              currentTarget.scrollIntoView({
+                behavior: "smooth",
+                inline: "nearest",
+                block: "nearest",
+              });
+            }}
+          >
+            Accidentes
+          </TabsTrigger>
+          <TabsTrigger
+            value="duenos"
+            onClick={({ currentTarget }) => {
+              currentTarget.scrollIntoView({
+                behavior: "smooth",
+                inline: "nearest",
+                block: "nearest",
+              });
+            }}
+          >
+            Dueños
+          </TabsTrigger>
+          <TabsTrigger
+            value="mantenimiento"
+            onClick={({ currentTarget }) => {
+              currentTarget.scrollIntoView({
+                behavior: "smooth",
+                inline: "nearest",
+                block: "nearest",
+              });
+            }}
+          >
+            Mantenimiento
+          </TabsTrigger>
+          <TabsTrigger
+            value="titulo"
+            onClick={({ currentTarget }) => {
+              currentTarget.scrollIntoView({
+                behavior: "smooth",
+                inline: "nearest",
+                block: "nearest",
+              });
+            }}
+          >
+            Título
+          </TabsTrigger>
         </TabsList>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
