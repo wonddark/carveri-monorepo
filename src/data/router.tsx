@@ -5,6 +5,8 @@ import Report from "@/pages/report.tsx";
 import Home from "@/pages/home.tsx";
 import ReportError from "@/pages/report-error.tsx";
 import RootError from "@/pages/root-error.tsx";
+import Login from "@/pages/login.tsx";
+import Register from "@/pages/register.tsx";
 import { fetchVehicleReport } from "@/data/api.ts";
 
 async function reportLoader({ params }: LoaderFunctionArgs) {
@@ -27,6 +29,8 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: "/login", element: <Login /> },
+  { path: "/register", element: <Register /> },
 ]);
 
 export default router;
