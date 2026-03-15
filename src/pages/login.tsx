@@ -1,6 +1,6 @@
 import { toast } from "sonner";
 import { Toaster as Sonner } from "sonner";
-import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -79,13 +79,12 @@ function Login() {
 
           <p className="text-muted-foreground mt-6 text-center text-sm">
             ¿No tienes cuenta?{" "}
-            <button
-              type="button"
-              onClick={() => navigate("/register")}
+            <Link
+              to="/register"
               className="font-semibold text-[#042CD7] hover:underline"
             >
               Regístrate
-            </button>
+            </Link>
           </p>
         </div>
       </div>
