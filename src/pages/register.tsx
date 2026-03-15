@@ -68,6 +68,7 @@ function Register() {
               <Label htmlFor="name">Nombre completo</Label>
               <Input
                 id="name"
+                name="name"
                 type="text"
                 placeholder="Juan García"
                 required
@@ -78,6 +79,7 @@ function Register() {
               <Label htmlFor="email">Correo electrónico</Label>
               <Input
                 id="email"
+                name="email"
                 type="email"
                 placeholder="correo@email.com"
                 required
