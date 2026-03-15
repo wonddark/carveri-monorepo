@@ -770,7 +770,9 @@ export default function CarCheckLanding() {
                 <div className="mt-8">
                   <Button
                     variant="outline"
-                    onClick={() => (globalThis.window.location.href = "/vehicle-detail")}
+                    onClick={() =>
+                      (globalThis.window.location.href = "/vehicle-detail")
+                    }
                     className="rounded-xl border-white/15 bg-white/10 px-6 py-3 font-[Outfit] text-sm font-bold text-white hover:bg-white/15 hover:text-white"
                   >
                     Ver reporte ejemplo
@@ -894,7 +896,7 @@ export default function CarCheckLanding() {
         className="bg-gray-50 py-16 lg:py-24"
         id="pricing"
       >
-        <div className="mx-auto max-w-[1200px] px-5">
+        <div className="mx-auto max-w-300 px-5">
           <FadeUp>
             <div className="mx-auto mb-10 max-w-135 text-center lg:mb-14">
               <span className="mb-3 inline-block font-[Outfit] text-xs font-bold tracking-widest text-[#042CD7] uppercase">
@@ -912,7 +914,7 @@ export default function CarCheckLanding() {
 
           {/* Free tier */}
           <FadeUp delay={0.05}>
-            <Card className="mx-auto mb-8 max-w-[480px] overflow-hidden border-0 bg-gradient-to-r from-green-500 to-emerald-600 py-0 text-center text-white">
+            <Card className="mx-auto mb-8 max-w-120 overflow-hidden border-0 bg-linear-to-r from-green-500 to-emerald-600 py-0 text-center text-white">
               <CardContent className="p-6">
                 <CardTitle className="font-[Outfit] text-xl font-black text-white">
                   Primer Reporte — GRATIS
@@ -1067,7 +1069,7 @@ export default function CarCheckLanding() {
         <div className="absolute top-0 right-0 h-96 w-96 translate-x-1/2 -translate-y-1/2 rounded-full bg-white/5" />
         <div className="absolute bottom-0 left-0 h-64 w-64 -translate-x-1/2 translate-y-1/2 rounded-full bg-white/5" />
 
-        <div className="relative mx-auto max-w-[700px] px-5 py-16 text-center lg:py-20">
+        <div className="relative mx-auto max-w-175 px-5 py-16 text-center lg:py-20">
           <FadeUp>
             <h2 className="font-[Outfit] text-[1.75rem] leading-tight font-black tracking-tight text-white sm:text-[2.5rem]">
               No compres a ciegas.
@@ -1142,7 +1144,7 @@ export default function CarCheckLanding() {
       <div className="safe-area-bottom fixed right-0 bottom-0 left-0 z-40 border-t border-gray-200 bg-white/95 p-3 backdrop-blur-xl sm:hidden">
         <Button
           onClick={scrollToVinForm}
-          className="h-12 w-full rounded-xl bg-gradient-to-r from-green-500 to-emerald-600 font-[Outfit] text-[15px] font-bold text-white hover:from-green-600 hover:to-emerald-700 active:scale-[0.97]"
+          className="h-12 w-full rounded-xl bg-linear-to-r from-green-500 to-emerald-600 font-[Outfit] text-[15px] font-bold text-white hover:from-green-600 hover:to-emerald-700 active:scale-[0.97]"
         >
           OBTENER MI REPORTE GRATIS
         </Button>
@@ -1164,7 +1166,7 @@ export default function CarCheckLanding() {
       {/* ═══ VIDEO MODAL (Dialog) ═══ */}
       <Dialog open={showModal} onOpenChange={setShowModal}>
         <DialogContent
-          className="max-w-[800px] overflow-hidden rounded-2xl border-gray-800 bg-gray-900 p-0"
+          className="max-w-200 overflow-hidden rounded-2xl border-gray-800 bg-gray-900 p-0"
           showCloseButton={true}
         >
           <DialogTitle className="sr-only">

@@ -176,9 +176,9 @@ export const IATab: React.FC = () => {
       </TabsContent>
 
       <TabsContent value="negociacion">
-        <div className="offer-card mb-3 rounded-2xl bg-linear-to-br from-[#042CD7] to-[#0635f0] p-5 text-center text-white">
+        <div className="offer-card mb-3 rounded-2xl bg-linear-to-r from-sky-100 to-blue-100 p-5 text-center">
           <div className="text-xs">Precio Sugerido de Oferta</div>
-          <div className="font-display my-1 text-[32px] leading-tight font-extrabold">
+          <div className="font-display my-1 text-[32px] leading-tight font-extrabold text-blue-600">
             {fmt(48500)}
           </div>
           <div className="text-xs opacity-70">Rango: $47,000 – $50,000</div>
