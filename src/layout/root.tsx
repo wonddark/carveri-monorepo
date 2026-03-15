@@ -1,4 +1,4 @@
-import { Outlet } from "react-router";
+import { NavLink, Outlet } from "react-router";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -14,7 +14,9 @@ function RootLayout() {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuLink asChild></NavigationMenuLink>
+              <NavigationMenuLink asChild>
+                <NavLink to="/register">Registro</NavLink>
+              </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
