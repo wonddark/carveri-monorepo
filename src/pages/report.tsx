@@ -1,14 +1,10 @@
 import React, { type ReactNode, useState } from "react";
 import {
   IconChartBar,
-  IconChevronLeft,
-  IconDownload,
   IconFileText,
   IconHistory,
-  IconShare,
   IconSparkles,
 } from "@tabler/icons-react";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { VehicleHero } from "@/components/vehicle-details/VehicleHero";
 import { VehicleInfoCard } from "@/components/vehicle-details/VehicleInfoCard";
@@ -17,7 +13,6 @@ import { HistorialTab } from "@/components/vehicle-details/HistorialTab";
 import { MercadoTab } from "@/components/vehicle-details/MercadoTab";
 import { IATab } from "@/components/vehicle-details/IATab";
 import { DocumentsTab } from "@/components/vehicle-details/DocumentsTab";
-import { toast } from "sonner";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area.tsx";
 import type { VehicleReport } from "@/types/vehicle-report";
 import type { Book, Vehicle, VehicleImage } from "@/types/vehicle-detail";
@@ -134,21 +129,6 @@ const Report: React.FC = () => {
   const report = useLoaderData<VehicleReport>();
   const [activeTab, setActiveTab] = useState("historial");
 
-  const handleBack = () => {
-    globalThis.window.history.back();
-  };
-
-  const handleShare = async () => {
-    if (navigator.clipboard) {
-      await navigator.clipboard.writeText(globalThis.window.location.href);
-      toast.success("Enlace copiado al portapapeles.");
-    }
-  };
-
-  const handleDownload = () => {
-    toast.warning("Esta funcionalidad no está definida/implementada");
-  };
-
   const images = transformImages(report);
   const vehicle = transformVehicle(report);
   const books = transformBooks(report);
@@ -165,38 +145,6 @@ const Report: React.FC = () => {
 
   return (
     <div id="app" className="flex h-full flex-col">
-      {/* --- TOP BAR --- */}
-      <header className="bg-background sticky top-0 z-50 flex h-12 items-center justify-between border-b px-4 lg:h-14 lg:border-none">
-        <div className="flex w-full items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleBack}
-              className="rounded-full"
-            >
-              <IconChevronLeft />
-            </Button>
-            <span className="carcheck-badge font-display rounded-full bg-[#042CD7]/5 px-2.5 py-1 text-[13px] font-bold text-[#042CD7]">
-              CarVeri
-            </span>
-          </div>
-          <div className="ml-auto flex items-center gap-1.5">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleShare}
-              className="rounded-full"
-            >
-              <IconShare />
-            </Button>
-            <Button variant="ghost" size="icon" onClick={handleDownload}>
-              <IconDownload />
-            </Button>
-          </div>
-        </div>
-      </header>
-
       {/* --- MAIN SCROLL --- */}
       <main className="mb-10 flex-1 lg:mb-0">
         <div className="flex flex-col gap-8 lg:mx-auto lg:max-w-7xl lg:px-8 lg:pb-8">

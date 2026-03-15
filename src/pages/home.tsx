@@ -14,7 +14,7 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardTitle
+  CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -22,7 +22,7 @@ import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger
+  AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
@@ -42,7 +42,7 @@ import {
   IconShield,
   IconShieldFilled,
   IconSparkles,
-  IconTrendingUp
+  IconTrendingUp,
 } from "@tabler/icons-react";
 import { useNavigate } from "react-router";
 
