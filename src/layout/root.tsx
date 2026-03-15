@@ -19,10 +19,7 @@ function RootLayout() {
           </NavigationMenuList>
         </NavigationMenu>
       </div>
-
-      <div className="mx-auto w-full max-w-380 px-4 lg:px-16">
-        <Outlet />
-      </div>
+      <Outlet />
       <Toaster />
     </div>
   );
