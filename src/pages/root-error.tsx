@@ -2,7 +2,7 @@ function RootError() {
   return (
     <div className="bg-background text-foreground flex min-h-screen flex-col items-center justify-center gap-4 px-6 text-center">
       <span className="rounded-full bg-[#042CD7]/5 px-2.5 py-1 text-[13px] font-bold text-[#042CD7]">
-        CarCheck
+        CarVeri
       </span>
 
       <div className="flex flex-col gap-1.5">

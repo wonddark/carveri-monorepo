@@ -7,7 +7,7 @@
 
 ## Overview
 
-Add dedicated 404 (VIN not found) and 500 (server error) error pages to the CarCheck Portal. When the report loader fails, React Router renders a `ReportError` component instead of the report page. Both pages use the existing dark theme and "Branded & Calm" visual style.
+Add dedicated 404 (VIN not found) and 500 (server error) error pages to the CarVeri Portal. When the report loader fails, React Router renders a `ReportError` component instead of the report page. Both pages use the existing dark theme and "Branded & Calm" visual style.
 
 ---
 
@@ -42,7 +42,7 @@ loader: async ({ params }) => {
 
 ### `ReportError` component (`src/pages/report-error.tsx`)
 
-- Self-contained layout: renders its own header bar (back button + CarCheck badge) without `RootLayout`.
+- Self-contained layout: renders its own header bar (back button + CarVeri badge) without `RootLayout`.
 - Uses `useRouteError()` and `isRouteErrorResponse()` to read the error.
 - Renders the 404 variant when `isRouteErrorResponse(error) && error.status === 404`, the 500 variant for everything else (including network `TypeError`s).
 - `ReportError` is only ever rendered at `/reports/:vin`, so `useLocation().pathname` will never be `/`. The CTA is always "← Volver" (`window.history.back()`). The conditional "Reintentar" for `"/"` does not apply to this error boundary.
@@ -58,10 +58,10 @@ loader: async ({ params }) => {
 
 ## Visual Design
 
-**Style:** Branded & Calm — no large error code as headline; CarCheck badge at top, error code as a small subdued label at the bottom.
+**Style:** Branded & Calm — no large error code as headline; CarVeri badge at top, error code as a small subdued label at the bottom.
 
 **Layout (both variants — self-contained, no RootLayout):**
-1. Header bar: back-chevron button + CarCheck badge (matches report page header visually)
+1. Header bar: back-chevron button + CarVeri badge (matches report page header visually)
 2. Centered content area:
    - Circular icon with tinted background (🔍 red tint for 404, ⚠️ yellow tint for 500)
    - Bold title

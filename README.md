@@ -1,6 +1,6 @@
-# CarCheck Portal
+# CarVeri Portal
 
-CarCheck Portal is a modern web application designed for car inspection and management. This project provides a robust, scalable interface built with the latest technologies in the React ecosystem.
+CarVeri Portal is a modern web application designed for car inspection and management. This project provides a robust, scalable interface built with the latest technologies in the React ecosystem.
 
 ## 🚀 Tech Stack
 

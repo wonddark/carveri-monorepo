@@ -19,7 +19,7 @@ export const DocumentsTab: React.FC = () => {
       <div className="space-y-2">
         <DocRow
           icon={<IconFileText className="text-[#042CD7]" />}
-          name="Reporte CarCheck Completo"
+          name="Reporte CarVeri Completo"
           detail="PDF · Incluye todos los datos del análisis"
           bgColor="bg-[#042CD7]/5"
         />
@@ -58,7 +58,7 @@ export const DocumentsTab: React.FC = () => {
             label="Fuentes Consultadas"
             value="Carfax, MMR, KBB, JDP, BB, MarketCheck, Google"
           />
-          <InfoRow label="Tipo de Reporte" value="CarCheck Pro" />
+          <InfoRow label="Tipo de Reporte" value="CarVeri Pro" />
         </CardContent>
       </Card>
 

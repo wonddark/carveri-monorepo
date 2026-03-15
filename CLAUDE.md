@@ -15,7 +15,7 @@ There are no tests in this project.
 
 ## Architecture
 
-**CarCheck Portal** is a React 19 SPA for car inspection reports and market analysis. It uses React Router 7 for client-side routing with a single `RootLayout` wrapping all routes.
+**CarVeri Portal** is a React 19 SPA for car inspection reports and market analysis. It uses React Router 7 for client-side routing with a single `RootLayout` wrapping all routes.
 
 ### Routing (`src/data/router.tsx`)
 

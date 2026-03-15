@@ -86,7 +86,7 @@
               <IconChevronLeft />
             </Button>
             <span className="font-display rounded-full bg-[#042CD7]/5 px-2.5 py-1 text-[13px] font-bold text-[#042CD7]">
-              CarCheck
+              CarVeri
             </span>
           </div>
         </header>
@@ -303,7 +303,7 @@
                 <IconChevronLeft />
               </Button>
               <span className="carcheck-badge font-display rounded-full bg-[#042CD7]/5 px-2.5 py-1 text-[13px] font-bold text-[#042CD7]">
-                CarCheck
+                CarVeri
               </span>
             </div>
             <div className="ml-auto flex items-center gap-1.5">

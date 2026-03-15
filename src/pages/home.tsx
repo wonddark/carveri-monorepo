@@ -1,5 +1,5 @@
 /**
- * CarCheckLanding.tsx — V6 shadcn/ui Refactor
+ * CarVeriLanding.tsx — V6 shadcn/ui Refactor
  * Same layout, colors, content — rebuilt with shadcn/ui components:
  * Button, Card, Input, Badge, Accordion, Dialog, Separator, ScrollArea
  * Design: Clean Confidence — Outfit bold headlines, Source Sans 3 body
@@ -44,6 +44,7 @@ import {
   IconSparkles,
   IconTrendingUp,
 } from "@tabler/icons-react";
+import { useNavigate } from "react-router";
 
 /* ─── Assets ─── */
 const LOGO_URL =
@@ -198,7 +199,7 @@ const faqs = [
   },
   {
     q: "¿Esto reemplaza un mecánico?",
-    a: "No. CarCheck es análisis de data, riesgo y valor de mercado. Siempre recomendamos una inspección mecánica profesional antes de comprar.",
+    a: "No. CarVeri es análisis de data, riesgo y valor de mercado. Siempre recomendamos una inspección mecánica profesional antes de comprar.",
   },
   {
     q: "¿Puedo usar el reporte gratis primero?",
@@ -264,7 +265,7 @@ const steps = [
   },
   {
     num: "03",
-    title: "Recibe tu CarCheck",
+    title: "Recibe tu CarVeri",
     desc: "Reporte visual con veredicto claro y datos que lo respaldan.",
     icon: <IconBolt className="h-7 w-7" />,
   },
@@ -342,13 +343,14 @@ const carCheckExamples = [
 /* ═══ MAIN COMPONENT ═══════════════════════════════════════════════ */
 /* ═══════════════════════════════════════════════════════════════════ */
 
-export default function CarCheckLanding() {
+export default function CarVeriLanding() {
   const [selectedPlan, setSelectedPlan] = useState(3);
   const [showModal, setShowModal] = useState(false);
   const [vinValue, setVinValue] = useState("");
   const pricingRef = useRef<HTMLDivElement>(null);
   const vinFormRef = useRef<HTMLInputElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate()
 
   const currentPlan = plans.find((p) => p.id === selectedPlan)!;
 
@@ -363,13 +365,7 @@ export default function CarCheckLanding() {
 
   const handleVinSubmit: SubmitEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    if (vinValue.trim().length >= 17) {
-      alert(
-        `VIN recibido: ${vinValue.toUpperCase()}\n\nTODO: Conectar flujo de reporte gratuito`,
-      );
-    } else {
-      alert("Por favor ingresa un VIN válido de 17 caracteres.");
-    }
+    navigate(`/register?vin=${vinValue}`)
   };
 
   const scrollSlider = (direction: "left" | "right") => {
@@ -390,7 +386,7 @@ export default function CarCheckLanding() {
             <img src={LOGO_URL} alt="La Subasta Cubana" className="h-8" />
             <Separator orientation="vertical" className="h-5 bg-gray-200" />
             <span className="font-[Outfit] text-lg font-bold text-[#042CD7]">
-              CarCheck
+              CarVeri
             </span>
           </div>
           <div className="hidden items-center gap-2 sm:flex">
@@ -443,7 +439,7 @@ export default function CarCheckLanding() {
               </h1>
 
               <p className="mx-auto mt-5 max-w-[600px] text-[1.05rem] leading-relaxed text-gray-400 sm:text-lg">
-                Mira cómo CarCheck analiza un vehículo real — historial, valor
+                Mira cómo CarVeri analiza un vehículo real — historial, valor
                 de mercado, riesgos y recomendación con IA.
               </p>
             </div>
@@ -457,7 +453,7 @@ export default function CarCheckLanding() {
             >
               <img
                 src={HERO_DASHBOARD}
-                alt="CarCheck Dashboard Preview"
+                alt="CarVeri Dashboard Preview"
                 className="absolute inset-0 h-full w-full object-cover opacity-60 transition-opacity group-hover:opacity-70"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
@@ -555,7 +551,7 @@ export default function CarCheckLanding() {
                   Reportes recientes
                 </span>
                 <h2 className="mt-1 font-[Outfit] text-[1.5rem] font-black tracking-tight text-[#1D1D1F] sm:text-[1.75rem]">
-                  CarChecks de clientes reales
+                  CarVeris de clientes reales
                 </h2>
               </div>
               <div className="hidden gap-2 sm:flex">
@@ -731,7 +727,7 @@ export default function CarCheckLanding() {
             <FadeUp>
               <img
                 src={AI_ANALYSIS}
-                alt="CarCheck AI Analysis"
+                alt="CarVeri AI Analysis"
                 className="w-full rounded-2xl shadow-2xl shadow-black/30"
               />
             </FadeUp>
@@ -856,7 +852,7 @@ export default function CarCheckLanding() {
               <div className="relative mx-auto max-w-[380px] lg:mx-0">
                 <img
                   src={REPORT_SAMPLE}
-                  alt="Ejemplo de Reporte CarCheck"
+                  alt="Ejemplo de Reporte CarVeri"
                   className="w-full rounded-2xl shadow-2xl shadow-gray-200/80"
                 />
               </div>
@@ -868,7 +864,7 @@ export default function CarCheckLanding() {
                   Mira cómo funciona
                 </Badge>
                 <h2 className="font-[Outfit] text-[1.75rem] leading-tight font-black tracking-tight text-[#1D1D1F] sm:text-[2rem]">
-                  En 2 minutos entiendes el valor de un CarCheck.
+                  En 2 minutos entiendes el valor de un CarVeri.
                 </h2>
                 <p className="mt-4 text-[1.05rem] leading-relaxed text-gray-500">
                   Mira un ejemplo real de cómo nuestro reporte te ayuda a tomar
@@ -1144,7 +1140,7 @@ export default function CarCheckLanding() {
           <Separator className="my-6 bg-gray-800" />
           <div className="text-center">
             <p className="mx-auto max-w-[600px] text-xs leading-relaxed text-gray-600">
-              CarCheck es un servicio de análisis de datos vehiculares. No
+              CarVeri es un servicio de análisis de datos vehiculares. No
               reemplaza una inspección mecánica profesional. Los resultados se
               basan en la información disponible en las fuentes consultadas al
               momento de generar el reporte.
@@ -1183,11 +1179,11 @@ export default function CarCheckLanding() {
           showCloseButton={true}
         >
           <DialogTitle className="sr-only">
-            Video explicativo de CarCheck
+            Video explicativo de CarVeri
           </DialogTitle>
           <div className="flex aspect-video items-center justify-center text-sm font-medium text-white/40">
             Video próximamente — espacio reservado para el video explicativo de
-            CarCheck
+            CarVeri
           </div>
         </DialogContent>
       </Dialog>
