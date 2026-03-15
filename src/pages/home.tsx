@@ -379,43 +379,6 @@ export default function CarVeriLanding() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-white">
-      {/* ═══ NAVBAR ═══ */}
-      <nav className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 shadow-sm shadow-gray-100/50 backdrop-blur-xl">
-        <div className="mx-auto flex h-16 max-w-300 items-center justify-between px-5">
-          <div className="flex items-center gap-3">
-            <img src={LOGO_URL} alt="La Subasta Cubana" className="h-8" />
-            <Separator orientation="vertical" className="h-5 bg-gray-200" />
-            <span className="font-[Outfit] text-lg font-bold text-[#042CD7]">
-              CarVeri
-            </span>
-          </div>
-          <div className="hidden items-center gap-2 sm:flex">
-            <Button
-              variant="ghost"
-              onClick={() =>
-                (globalThis.window.location.href = "/vehicle-detail")
-              }
-              className="text-sm font-medium text-gray-600 hover:text-[#1D1D1F]"
-            >
-              Ver ejemplo
-            </Button>
-            <Button
-              variant="ghost"
-              onClick={scrollToPricing}
-              className="text-sm font-medium text-gray-600 hover:text-[#1D1D1F]"
-            >
-              Planes
-            </Button>
-            <Button
-              onClick={scrollToVinForm}
-              className="rounded-xl bg-[#042CD7] px-5 font-[Outfit] text-sm font-bold text-white hover:bg-[#0635f0]"
-            >
-              Reporte Gratis
-            </Button>
-          </div>
-        </div>
-      </nav>
-
       {/* ═══ HERO ═══ */}
       <section className="relative overflow-hidden bg-[#0A1628]">
         <div className="absolute inset-0">
