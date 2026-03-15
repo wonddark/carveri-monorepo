@@ -1,14 +1,10 @@
-import React, { type ReactNode, useEffect, useState } from "react";
+import React, { type ReactNode, useState } from "react";
 import {
   IconChartBar,
-  IconChevronLeft,
-  IconDownload,
   IconFileText,
   IconHistory,
-  IconShare,
   IconSparkles,
 } from "@tabler/icons-react";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { VehicleHero } from "@/components/vehicle-details/VehicleHero";
 import { VehicleInfoCard } from "@/components/vehicle-details/VehicleInfoCard";
@@ -17,13 +13,10 @@ import { HistorialTab } from "@/components/vehicle-details/HistorialTab";
 import { MercadoTab } from "@/components/vehicle-details/MercadoTab";
 import { IATab } from "@/components/vehicle-details/IATab";
 import { DocumentsTab } from "@/components/vehicle-details/DocumentsTab";
-import { toast } from "sonner";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area.tsx";
-import { fetchVehicleReport } from "@/data/api";
 import type { VehicleReport } from "@/types/vehicle-report";
 import type { Book, Vehicle, VehicleImage } from "@/types/vehicle-detail";
-import { Skeleton } from "@/components/ui/skeleton";
-import { useParams } from "react-router";
+import { useLoaderData } from "react-router";
 
 /** Parses a price string like "$2,600.00" into a number */
 function parsePriceStr(s: string): number {
@@ -133,38 +126,12 @@ function transformBooks(report: VehicleReport): Book[] {
 }
 
 const Report: React.FC = () => {
-  const { vin } = useParams();
+  const report = useLoaderData<VehicleReport>();
   const [activeTab, setActiveTab] = useState("historial");
-  const [report, setReport] = useState<VehicleReport | null>(null);
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    if (vin) {
-      fetchVehicleReport(vin)
-        .then(setReport)
-        .catch(() => toast.error("No se pudo cargar el reporte del vehículo."))
-        .finally(() => setLoading(false));
-    }
-  }, [vin]);
-
-  const handleBack = () => {
-    globalThis.window.history.back();
-  };
-
-  const handleShare = async () => {
-    if (navigator.clipboard) {
-      await navigator.clipboard.writeText(globalThis.window.location.href);
-      toast.success("Enlace copiado al portapapeles.");
-    }
-  };
-
-  const handleDownload = () => {
-    toast.warning("Esta funcionalidad no está definida/implementada");
-  };
-
-  const images = report ? transformImages(report) : [];
-  const vehicle = report ? transformVehicle(report) : null;
-  const books = report ? transformBooks(report) : [];
+  const images = transformImages(report);
+  const vehicle = transformVehicle(report);
+  const books = transformBooks(report);
 
   const scrollToTarget = () => {
     const target = document.getElementById("tabs-container");
@@ -178,137 +145,95 @@ const Report: React.FC = () => {
 
   return (
     <div id="app" className="flex h-full flex-col">
-      {/* --- TOP BAR --- */}
-      <header className="bg-background sticky top-0 z-50 flex h-12 items-center justify-between border-b px-4 lg:h-14 lg:border-none">
-        <div className="flex w-full items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleBack}
-              className="rounded-full"
-            >
-              <IconChevronLeft />
-            </Button>
-            <span className="carcheck-badge font-display rounded-full bg-[#042CD7]/5 px-2.5 py-1 text-[13px] font-bold text-[#042CD7]">
-              CarCheck
-            </span>
-          </div>
-          <div className="ml-auto flex items-center gap-1.5">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={handleShare}
-              className="rounded-full"
-            >
-              <IconShare />
-            </Button>
-            <Button variant="ghost" size="icon" onClick={handleDownload}>
-              <IconDownload />
-            </Button>
-          </div>
-        </div>
-      </header>
-
       {/* --- MAIN SCROLL --- */}
       <main className="mb-10 flex-1 lg:mb-0">
         <div className="flex flex-col gap-8 lg:mx-auto lg:max-w-7xl lg:px-8 lg:pb-8">
-          {loading ? (
-            <LoadingSkeleton />
-          ) : (
-            <>
-              <div className="lag:gap-8 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_37%]">
-                <VehicleHero images={images} />
-                <div className="flex flex-col gap-4">
-                  {vehicle && <VehicleInfoCard vehicle={vehicle} />}
-                  {vehicle && (
-                    <PriceEvaluation price={vehicle.price} books={books} />
-                  )}
-                </div>
-              </div>
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_37%] lg:gap-8">
+            <VehicleHero images={images} />
+            <div className="flex flex-col gap-4">
+              <VehicleInfoCard vehicle={vehicle} />
+              <PriceEvaluation price={vehicle.price} books={books} />
+            </div>
+          </div>
 
-              <Tabs
-                value={activeTab}
-                onValueChange={setActiveTab}
-                className="w-full"
-                id="tabs-container"
-              >
-                {/* DESKTOP TABS LIST */}
-                <ScrollArea className="w-full whitespace-nowrap">
-                  <TabsList>
-                    <TabsTrigger
-                      value="historial"
-                      onClick={({ currentTarget }) => {
-                        currentTarget.scrollIntoView({
-                          behavior: "smooth",
-                          inline: "nearest",
-                          block: "nearest",
-                        });
-                      }}
-                    >
-                      <IconHistory /> Historial
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="mercado"
-                      onClick={({ currentTarget }) => {
-                        currentTarget.scrollIntoView({
-                          behavior: "smooth",
-                          inline: "nearest",
-                          block: "nearest",
-                        });
-                      }}
-                    >
-                      <IconChartBar /> Mercado
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="ia"
-                      onClick={({ currentTarget }) => {
-                        currentTarget.scrollIntoView({
-                          behavior: "smooth",
-                          inline: "nearest",
-                          block: "nearest",
-                        });
-                      }}
-                    >
-                      <IconSparkles /> Valoración IA
-                    </TabsTrigger>
-                    <TabsTrigger
-                      value="docs"
-                      onClick={({ currentTarget }) => {
-                        currentTarget.scrollIntoView({
-                          behavior: "smooth",
-                          inline: "nearest",
-                          block: "nearest",
-                        });
-                      }}
-                    >
-                      <IconFileText /> Documentos
-                    </TabsTrigger>
-                  </TabsList>
-                  <ScrollBar orientation="horizontal" />
-                </ScrollArea>
+          <Tabs
+            value={activeTab}
+            onValueChange={setActiveTab}
+            className="w-full"
+            id="tabs-container"
+          >
+            {/* DESKTOP TABS LIST */}
+            <ScrollArea className="w-full whitespace-nowrap">
+              <TabsList>
+                <TabsTrigger
+                  value="historial"
+                  onClick={({ currentTarget }) => {
+                    currentTarget.scrollIntoView({
+                      behavior: "smooth",
+                      inline: "nearest",
+                      block: "nearest",
+                    });
+                  }}
+                >
+                  <IconHistory /> Historial
+                </TabsTrigger>
+                <TabsTrigger
+                  value="mercado"
+                  onClick={({ currentTarget }) => {
+                    currentTarget.scrollIntoView({
+                      behavior: "smooth",
+                      inline: "nearest",
+                      block: "nearest",
+                    });
+                  }}
+                >
+                  <IconChartBar /> Mercado
+                </TabsTrigger>
+                <TabsTrigger
+                  value="ia"
+                  onClick={({ currentTarget }) => {
+                    currentTarget.scrollIntoView({
+                      behavior: "smooth",
+                      inline: "nearest",
+                      block: "nearest",
+                    });
+                  }}
+                >
+                  <IconSparkles /> Valoración IA
+                </TabsTrigger>
+                <TabsTrigger
+                  value="docs"
+                  onClick={({ currentTarget }) => {
+                    currentTarget.scrollIntoView({
+                      behavior: "smooth",
+                      inline: "nearest",
+                      block: "nearest",
+                    });
+                  }}
+                >
+                  <IconFileText /> Documentos
+                </TabsTrigger>
+              </TabsList>
+              <ScrollBar orientation="horizontal" />
+            </ScrollArea>
 
-                {/* TAB CONTENT */}
-                <TabsContent value="historial">
-                  {report && (
-                    <HistorialTab
-                      historial={report.historial}
-                      currentImages={report.currentImages}
-                    />
-                  )}
-                </TabsContent>
-                <TabsContent value="mercado">
-                  <MercadoTab vehiclePrice={vehicle?.price ?? 0} />
-                </TabsContent>
-                <TabsContent value="ia">
-                  <IATab />
-                </TabsContent>
-                <TabsContent value="docs">
-                  <DocumentsTab />
-                </TabsContent>
-              </Tabs>
-            </>
-          )}
+            {/* TAB CONTENT */}
+            <TabsContent value="historial">
+              <HistorialTab
+                historial={report.historial}
+                currentImages={report.currentImages}
+              />
+            </TabsContent>
+            <TabsContent value="mercado">
+              <MercadoTab vehiclePrice={vehicle.price} />
+            </TabsContent>
+            <TabsContent value="ia">
+              <IATab />
+            </TabsContent>
+            <TabsContent value="docs">
+              <DocumentsTab />
+            </TabsContent>
+          </Tabs>
         </div>
       </main>
 
@@ -354,16 +279,6 @@ const Report: React.FC = () => {
     </div>
   );
 };
-
-const LoadingSkeleton: React.FC = () => (
-  <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_37%]">
-    <Skeleton className="h-72 w-full rounded-2xl lg:h-120" />
-    <div className="flex flex-col gap-4">
-      <Skeleton className="h-48 w-full rounded-2xl" />
-      <Skeleton className="h-40 w-full rounded-2xl" />
-    </div>
-  </div>
-);
 
 const MobileNavBtn: React.FC<{
   active: boolean;

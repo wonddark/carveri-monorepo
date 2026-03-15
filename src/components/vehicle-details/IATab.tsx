@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { fmt } from "@/lib/gauge";
 import {
   IconAlertTriangle,
-  IconCamera,
   IconCircleCheck,
   IconShield,
   IconSparkles,
@@ -52,18 +51,6 @@ export const IATab: React.FC = () => {
             }}
           >
             Negociación
-          </TabsTrigger>
-          <TabsTrigger
-            value="beforeafter"
-            onClick={({ currentTarget }) => {
-              currentTarget.scrollIntoView({
-                behavior: "smooth",
-                inline: "nearest",
-                block: "nearest",
-              });
-            }}
-          >
-            Antes / Después
           </TabsTrigger>
         </TabsList>
         <ScrollBar orientation="horizontal" />
@@ -189,9 +176,9 @@ export const IATab: React.FC = () => {
       </TabsContent>
 
       <TabsContent value="negociacion">
-        <div className="offer-card mb-3 rounded-2xl bg-linear-to-br from-[#042CD7] to-[#0635f0] p-5 text-center text-white">
+        <div className="offer-card mb-3 rounded-2xl bg-linear-to-r from-sky-100 to-blue-100 p-5 text-center">
           <div className="text-xs">Precio Sugerido de Oferta</div>
-          <div className="font-display my-1 text-[32px] leading-tight font-extrabold">
+          <div className="font-display my-1 text-[32px] leading-tight font-extrabold text-blue-600">
             {fmt(48500)}
           </div>
           <div className="text-xs opacity-70">Rango: $47,000 – $50,000</div>
@@ -272,62 +259,6 @@ export const IATab: React.FC = () => {
             </div>
           </CardContent>
         </Card>
-      </TabsContent>
-
-      <TabsContent value="beforeafter">
-        <Card className="mb-3 rounded-2xl border-[#e8e8ea]">
-          <CardHeader className="p-4 pb-2">
-            <CardTitle className="flex items-center gap-1.5 text-[15px] font-bold">
-              <IconCamera className="h-4 w-4 text-[#042CD7]" /> Comparación
-              Visual
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-4 pt-2">
-            <p className="mb-3 text-[13px] text-[#888]">
-              Comparación entre fotos de subasta (daño) y fotos actuales del
-              vehículo reparado.
-            </p>
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <div className="font-display mb-1.5 flex items-center justify-center gap-1 text-center text-[11px] font-bold tracking-wider text-[#FF0400]">
-                  <IconAlertTriangle className="h-3 w-3" /> ANTES (Subasta)
-                </div>
-                <img
-                  src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400&h=300&fit=crop"
-                  className="h-35 w-full rounded-xl object-cover lg:h-65"
-                  alt="Antes"
-                />
-              </div>
-              <div>
-                <div className="font-display mb-1.5 flex items-center justify-center gap-1 text-center text-[11px] font-bold tracking-wider text-[#22C55E]">
-                  <IconCircleCheck className="h-3 w-3" /> DESPUÉS (Actual)
-                </div>
-                <img
-                  src="https://images.unsplash.com/photo-1542362567-b07e54358753?w=400&h=300&fit=crop"
-                  className="h-35 w-full rounded-xl object-cover lg:h-65"
-                  alt="Después"
-                />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        <div className="verdict-card rounded-2xl border border-green-200 bg-linear-to-br from-[#f0fdf4] to-[#ecfdf5] p-5">
-          <div className="font-display mb-1 text-center text-base font-extrabold text-[#22C55E]">
-            Análisis de Reparación
-          </div>
-          <div className="text-[13px] leading-relaxed text-[#555]">
-            <strong>Veredicto: Reparación aparentemente profesional.</strong>
-            <br />
-            <br />
-            Basado en las fotos disponibles, la reparación del panel frontal
-            parece haber sido realizada de manera profesional. Los paneles están
-            alineados y la pintura muestra un acabado uniforme. Sin embargo,
-            recomendamos verificar con un medidor de espesor de pintura para
-            confirmar la calidad del repintado, y realizar un escaneo OBD-II
-            para descartar códigos de error residuales.
-          </div>
-        </div>
       </TabsContent>
     </Tabs>
   );
