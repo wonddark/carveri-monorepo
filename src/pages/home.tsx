@@ -427,9 +427,9 @@ export default function CarCheckLanding() {
           <div className="absolute right-10 bottom-10 h-96 w-96 rounded-full bg-cyan-500/8 blur-3xl" />
         </div>
 
-        <div className="relative mx-auto max-w-[1200px] px-5 pt-12 pb-16 lg:pt-20 lg:pb-24">
+        <div className="relative mx-auto max-w-300 px-5 pt-12 pb-16 lg:pt-20 lg:pb-24">
           <FadeUp>
-            <div className="mx-auto max-w-[800px] text-center">
+            <div className="mx-auto max-w-200 text-center">
               <Badge className="mb-6 rounded-full border-green-500/20 bg-green-500/15 px-4 py-1.5 font-[Outfit] text-xs font-bold tracking-wider text-green-400">
                 <span className="mr-2 h-2 w-2 animate-pulse rounded-full bg-green-400" />
                 PRIMER REPORTE GRATIS — SIN TARJETA

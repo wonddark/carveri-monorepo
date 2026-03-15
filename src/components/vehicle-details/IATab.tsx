@@ -6,7 +6,7 @@ import {
   IconAlertTriangle,
   IconCircleCheck,
   IconShield,
-  IconSparkles
+  IconSparkles,
 } from "@tabler/icons-react";
 import { cn } from "@/lib/utils.ts";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area.tsx";

@@ -6,6 +6,10 @@ function ReportError() {
   const error = useRouteError();
   const is404 = isRouteErrorResponse(error) && error.status === 404;
 
+  function goBack() {
+    globalThis.window.history.back();
+  }
+
   return (
     <div className="bg-background flex min-h-screen flex-col">
       {/* Header */}
@@ -14,7 +18,7 @@ function ReportError() {
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => globalThis.window.history.back()}
+            onClick={goBack}
             className="rounded-full"
           >
             <IconChevronLeft />
@@ -48,14 +52,11 @@ function ReportError() {
 
         <div className="border-border w-full max-w-[220px] border-t" />
 
-        <p className="text-muted-foreground/40 text-[10px] font-semibold uppercase tracking-widest">
+        <p className="text-muted-foreground/40 text-[10px] font-semibold tracking-widest uppercase">
           Código · {is404 ? "404" : "500"}
         </p>
 
-        <Button
-          onClick={() => globalThis.window.history.back()}
-          className="mt-1"
-        >
+        <Button onClick={goBack} className="mt-1">
           ← Volver
         </Button>
       </main>

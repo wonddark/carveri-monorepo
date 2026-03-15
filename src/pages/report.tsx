@@ -131,7 +131,7 @@ function transformBooks(report: VehicleReport): Book[] {
 }
 
 const Report: React.FC = () => {
-  const report = useLoaderData() as VehicleReport;
+  const report = useLoaderData<VehicleReport>();
   const [activeTab, setActiveTab] = useState("historial");
 
   const handleBack = () => {
@@ -200,7 +200,7 @@ const Report: React.FC = () => {
       {/* --- MAIN SCROLL --- */}
       <main className="mb-10 flex-1 lg:mb-0">
         <div className="flex flex-col gap-8 lg:mx-auto lg:max-w-7xl lg:px-8 lg:pb-8">
-          <div className="lag:gap-8 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_37%]">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1fr_37%] lg:gap-8">
             <VehicleHero images={images} />
             <div className="flex flex-col gap-4">
               <VehicleInfoCard vehicle={vehicle} />
