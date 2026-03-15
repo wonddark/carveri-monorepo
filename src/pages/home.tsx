@@ -323,6 +323,19 @@ const carCheckExamples = [
     miles: "28,600 mi",
     location: "Hialeah, FL",
   },
+  {
+    id: "invalid-vin",
+    image:
+      "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=400&h=260&fit=crop",
+    year: "2022",
+    make: "Honda",
+    model: "Civic Sport",
+    price: "$22,800",
+    verdict: "Negociar",
+    verdictColor: "bg-amber-500",
+    miles: "28,600 mi",
+    location: "Hialeah, FL",
+  },
 ];
 
 /* ═══════════════════════════════════════════════════════════════════ */
