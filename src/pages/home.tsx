@@ -14,7 +14,7 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -22,7 +22,7 @@ import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger,
+  AccordionTrigger
 } from "@/components/ui/accordion";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
@@ -42,7 +42,7 @@ import {
   IconShield,
   IconShieldFilled,
   IconSparkles,
-  IconTrendingUp,
+  IconTrendingUp
 } from "@tabler/icons-react";
 import { useNavigate } from "react-router";
 
@@ -347,16 +347,11 @@ export default function CarVeriLanding() {
   const [selectedPlan, setSelectedPlan] = useState(3);
   const [showModal, setShowModal] = useState(false);
   const [vinValue, setVinValue] = useState("");
-  const pricingRef = useRef<HTMLDivElement>(null);
   const vinFormRef = useRef<HTMLInputElement>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const currentPlan = plans.find((p) => p.id === selectedPlan)!;
-
-  const scrollToPricing = () => {
-    pricingRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
 
   const scrollToVinForm = () => {
     vinFormRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -365,7 +360,7 @@ export default function CarVeriLanding() {
 
   const handleVinSubmit: SubmitEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    navigate(`/register?vin=${vinValue}`)
+    navigate(`/register?vin=${vinValue}`);
   };
 
   const scrollSlider = (direction: "left" | "right") => {
@@ -402,8 +397,8 @@ export default function CarVeriLanding() {
               </h1>
 
               <p className="mx-auto mt-5 max-w-[600px] text-[1.05rem] leading-relaxed text-gray-400 sm:text-lg">
-                Mira cómo CarVeri analiza un vehículo real — historial, valor
-                de mercado, riesgos y recomendación con IA.
+                Mira cómo CarVeri analiza un vehículo real — historial, valor de
+                mercado, riesgos y recomendación con IA.
               </p>
             </div>
           </FadeUp>
@@ -411,7 +406,7 @@ export default function CarVeriLanding() {
           {/* Video embed area */}
           <FadeUp delay={0.15}>
             <button
-              className="group w-full block relative mx-auto mt-10 aspect-video max-w-180 cursor-pointer overflow-hidden rounded-2xl border border-white/10 bg-gray-900/80"
+              className="group relative mx-auto mt-10 block aspect-video w-full max-w-180 cursor-pointer overflow-hidden rounded-2xl border border-white/10 bg-gray-900/80"
               onClick={() => setShowModal(true)}
             >
               <img
@@ -864,7 +859,6 @@ export default function CarVeriLanding() {
 
       {/* ═══ PRICING ═══ */}
       <section
-        ref={pricingRef}
         className="bg-gray-50 py-16 lg:py-24"
         id="pricing"
       >
