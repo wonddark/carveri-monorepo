@@ -452,7 +452,7 @@ export default function CarCheckLanding() {
           {/* Video embed area */}
           <FadeUp delay={0.15}>
             <button
-              className="group relative mx-auto mt-10 aspect-video max-w-180 cursor-pointer overflow-hidden rounded-2xl border border-white/10 bg-gray-900/80"
+              className="group w-full block relative mx-auto mt-10 aspect-video max-w-180 cursor-pointer overflow-hidden rounded-2xl border border-white/10 bg-gray-900/80"
               onClick={() => setShowModal(true)}
             >
               <img
@@ -460,7 +460,7 @@ export default function CarCheckLanding() {
                 alt="CarCheck Dashboard Preview"
                 className="absolute inset-0 h-full w-full object-cover opacity-60 transition-opacity group-hover:opacity-70"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/95 shadow-2xl transition-transform duration-300 group-hover:scale-110 sm:h-20 sm:w-20">
                   <IconPlayerPlay className="ml-1 h-7 w-7 text-[#042CD7] sm:h-8 sm:w-8" />
