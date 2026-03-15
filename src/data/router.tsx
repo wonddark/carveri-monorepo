@@ -4,6 +4,7 @@ import RootLayout from "@/layout/root.tsx";
 import Report from "@/pages/report.tsx";
 import Home from "@/pages/home.tsx";
 import ReportError from "@/pages/report-error.tsx";
+import RootError from "@/pages/root-error.tsx";
 import { fetchVehicleReport } from "@/data/api.ts";
 
 async function reportLoader({ params }: LoaderFunctionArgs) {
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <RootError />,
     children: [
       { index: true, element: <Home /> },
       {
