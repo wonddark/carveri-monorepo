@@ -23,7 +23,7 @@ function Register() {
     }
 
     toast.success("Cuenta creada. ¡Bienvenido!");
-    navigate("/");
+    setTimeout(() => navigate("/"), 1500);
   }
 
   return (

@@ -11,7 +11,7 @@ function Login() {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     toast.success("Sesión iniciada.");
-    navigate("/");
+    setTimeout(() => navigate("/"), 1500);
   }
 
   return (
@@ -56,6 +56,7 @@ function Login() {
               <Label htmlFor="email">Correo electrónico</Label>
               <Input
                 id="email"
+                name="email"
                 type="email"
                 placeholder="correo@email.com"
                 required
@@ -66,6 +67,7 @@ function Login() {
               <Label htmlFor="password">Contraseña</Label>
               <Input
                 id="password"
+                name="password"
                 type="password"
                 placeholder="••••••••"
                 required
