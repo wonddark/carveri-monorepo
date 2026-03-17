@@ -1,10 +1,3 @@
-/**
- * CarVeriLanding.tsx — V6 shadcn/ui Refactor
- * Same layout, colors, content — rebuilt with shadcn/ui components:
- * Button, Card, Input, Badge, Accordion, Dialog, Separator, ScrollArea
- * Design: Clean Confidence — Outfit bold headlines, Source Sans 3 body
- */
-
 import { type SubmitEventHandler, useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 
