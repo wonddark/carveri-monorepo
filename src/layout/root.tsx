@@ -13,7 +13,7 @@ function RootLayout() {
     <div className="flex min-h-screen flex-col">
       <div className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/95 shadow-sm shadow-gray-100/50 backdrop-blur-xl">
         <div className="mx-auto flex w-full max-w-380 items-center justify-between px-4 py-2 lg:px-16">
-          <Link to="/" className="font-display text-2xl font-bold">
+          <Link to="/" className="font-display text-2xl text-blue-600 font-bold">
             CarVeri
           </Link>
           <NavigationMenu>
