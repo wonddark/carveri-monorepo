@@ -6,6 +6,8 @@ import VehicleDataSection from "./VehicleDataSection";
 import AISummarySection from "./AISummarySection";
 import QuickNavGrid from "./QuickNavGrid";
 import type { TabId, VehicleReport } from "@/data/report";
+import ImageCarousel from "@/components/ImageCarousel.tsx";
+import CarSummaryCard from "@/components/CarSummaryCard.tsx";
 
 interface Props {
   report: VehicleReport;
@@ -15,6 +17,19 @@ interface Props {
 export default function HomeTab({ report, onNavigate }: Readonly<Props>) {
   return (
     <>
+      <ImageCarousel images={report.images} />
+      <CarSummaryCard
+        year={report.year}
+        make={report.make}
+        model={report.model}
+        trim={report.trim}
+        price={report.price}
+        mileage={report.mileage}
+        location={report.location}
+        score={report.score}
+        verdict={report.verdict}
+        aiSummary={report.aiSummary}
+      />
       <div className="flex items-center gap-2">
         <div className="rounded-lg bg-indigo-100 p-1.5">
           <LayoutDashboard size={14} className="text-indigo-600" />

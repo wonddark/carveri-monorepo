@@ -2,8 +2,6 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import AppHeader from "@/components/AppHeader";
 import BottomNavBar from "@/components/BottomNavBar";
-import ImageCarousel from "@/components/ImageCarousel";
-import CarSummaryCard from "@/components/CarSummaryCard";
 import HomeTab from "@/components/home/HomeTab";
 import MarketTab from "@/components/market/MarketTab";
 import NegotiateTab from "@/components/negotiate/NegotiateTab";
@@ -46,19 +44,6 @@ export default function ReportPage() {
   return (
     <div className="flex min-h-dvh flex-col bg-slate-50">
       <AppHeader />
-      <ImageCarousel images={report.images} />
-      <CarSummaryCard
-        year={report.year}
-        make={report.make}
-        model={report.model}
-        trim={report.trim}
-        price={report.price}
-        mileage={report.mileage}
-        location={report.location}
-        score={report.score}
-        verdict={report.verdict}
-        aiSummary={report.aiSummary}
-      />
 
       {/* Main scrollable content with slide transition between tabs */}
       <main className="flex-1 overflow-hidden pb-24">
