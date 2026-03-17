@@ -1,7 +1,7 @@
 import { DollarSign } from "lucide-react";
-import GaugePlaceholder from "./GaugePlaceholder";
 import BookValues from "./BookValues";
 import type { VehicleReport } from "@/data/report";
+import ReportGauge from "@/components/ReportGauge.tsx";
 
 const LABEL_TEXT: Record<string, string> = {
   BARGAIN: "Great deal",
@@ -23,6 +23,10 @@ export default function PriceEvalSection({
   const { label, marketAvgDeltaPct, bookValues } = priceEval;
   const isAbove = marketAvgDeltaPct > 0;
 
+  const min = 12000;
+  const max = 33000;
+  const percentile = ((price - min) / (max - min)) * 100;
+
   return (
     <div className="rounded-2xl border border-slate-100 bg-white p-4">
       <div className="mb-3 flex items-center gap-2">
@@ -40,7 +44,13 @@ export default function PriceEvalSection({
         </div>
       </div>
 
-      <GaugePlaceholder />
+      <ReportGauge
+        price={price}
+        label={label}
+        retail={min}
+        percentile={percentile}
+        wholesale={max}
+      />
       <BookValues bookValues={bookValues} />
     </div>
   );
