@@ -296,7 +296,7 @@ export const HistorialTab: React.FC<Props> = ({ historial, currentImages }) => {
                   className={`flex items-center gap-1.5 text-[15px] font-bold ${evento.redFlag ? "text-[#DC2626]" : "text-[#F97316]"}`}
                 >
                   <IconAlertTriangle className="h-4 w-4" />
-                  Evento #{evento.numero} — {evento.fecha}
+                  {t('historial.event')} #{evento.numero} — {evento.fecha}
                 </CardTitle>
               </CardHeader>
               <CardContent className="p-4 pt-2">

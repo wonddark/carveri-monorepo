@@ -131,13 +131,13 @@ export const MercadoTab: React.FC<Props> = ({ vehiclePrice }) => {
             </CardHeader>
             <CardContent className="p-4 pt-2">
               <p className="mb-2 text-[13px] text-[#888]">
-                Precio promedio de venta para 2024 BMW X5 xDrive40i en Florida
+                {t('mercado.averagePrice')} 2024 BMW X5 xDrive40i {t('mercado.in')} Florida
               </p>
               <div className="flex h-50 w-full items-center justify-center bg-gray-50 text-sm text-[#aaa] italic">
                 [Gráfico de Chart.js aquí]
               </div>
               <p className="mt-2 text-[11px] text-[#aaa] italic">
-                Basado en 835 ventas registradas en los últimos 6 meses
+                {t('mercado.basedOn')} 835 {t('mercado.registeredSales')}
               </p>
             </CardContent>
           </Card>
@@ -239,8 +239,7 @@ export const MercadoTab: React.FC<Props> = ({ vehiclePrice }) => {
             </CardContent>
           </Card>
           <div className="rounded-xl bg-[#f8f8fa] p-3 text-[11px] text-[#aaa]">
-            * Análisis basado en reviews públicos de Google. La Subasta Cubana
-            no verifica la autenticidad de los reviews individuales.
+            * {t('mercado.analysisDisclaimer')}
           </div>
         </TabsContent>
       </Tabs>

@@ -61,10 +61,10 @@ export const IATab: React.FC = () => {
       <TabsContent value="veredicto">
         <div className="verdict-card mb-3 rounded-2xl border border-green-200 bg-linear-to-br from-[#f0fdf4] to-[#ecfdf5] p-5 text-center">
           <div className="verdict-recommendation font-display text-xl font-extrabold text-[#22C55E]">
-            ✓ COMPRA RECOMENDADA CON PRECAUCIÓN
+            {t('ia.verdict')}
           </div>
           <div className="verdict-score font-display text-[40px] leading-none font-extrabold">
-            7.4 <span className="text-base font-medium text-[#888]">/ 10</span>
+            7.4 <span className="text-base font-medium text-[#888]">{t('ia.score')}</span>
           </div>
           <div className="verdict-summary mt-3 text-[13px] leading-relaxed text-[#555]">
             Este BMW X5 2024 presenta una buena relación precio-valor
@@ -83,15 +83,15 @@ export const IATab: React.FC = () => {
           </CardHeader>
           <CardContent className="space-y-0 p-4 pt-2">
             <FactorRow
-              name="Precio"
-              note="Dentro del rango de mercado"
+              name={t('ia.price')}
+              note={t('ia.withinMarket')}
               score={8}
               color="#22C55E"
               renderIcon={(className) => <IconSparkles className={className} />}
             />
             <FactorRow
               name="Historial"
-              note="1 accidente moderado reportado"
+              note={t('ia.accidentHistory')}
               score={6}
               color="#EAB308"
               renderIcon={(className) => (
@@ -100,21 +100,21 @@ export const IATab: React.FC = () => {
             />
             <FactorRow
               name="Millaje"
-              note="18,420 mi — bajo para un 2024"
+              note={t('ia.lowMileage')}
               score={9}
               color="#22C55E"
               renderIcon={(className) => <IconSparkles className={className} />}
             />
             <FactorRow
-              name="Mercado"
-              note="Tendencia a la baja favorece al comprador"
+              name={t('ia.market')}
+              note={t('ia.downwardTrend')}
               score={7.5}
               color="#042CD7"
               renderIcon={(className) => <IconSparkles className={className} />}
             />
             <FactorRow
-              name="Dealer"
-              note="Dealer franquiciado con buena reputación"
+              name={t('ia.dealer')}
+              note={t('ia.franchisedDealer')}
               score={7}
               color="#22C55E"
               renderIcon={(className) => (
@@ -134,8 +134,7 @@ export const IATab: React.FC = () => {
           </CardHeader>
           <CardContent className="p-4 pt-2">
             <p className="mb-3 text-[13px] text-[#888]">
-              Basado en el historial de accidente frontal y tipo de vehículo,
-              recomendamos verificar:
+              {t('ia.checklistIntro')}
             </p>
             <div className="space-y-0">
               <ChecklistItem
@@ -181,7 +180,7 @@ export const IATab: React.FC = () => {
           <div className="font-display my-1 text-[32px] leading-tight font-extrabold text-blue-600">
             {fmt(48500)}
           </div>
-          <div className="text-xs opacity-70">Rango: $47,000 – $50,000</div>
+          <div className="text-xs opacity-70">{t('ia.range')} $47,000 – $50,000</div>
         </div>
 
         <Card className="mb-3 rounded-2xl border-[#e8e8ea]">
