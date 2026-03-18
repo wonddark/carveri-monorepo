@@ -1,4 +1,5 @@
 import React, { type ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { fmt } from "@/lib/gauge";
@@ -12,6 +13,7 @@ import { cn } from "@/lib/utils.ts";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area.tsx";
 
 export const IATab: React.FC = () => {
+  const { t } = useTranslation("vehicle-details");
   return (
     <Tabs defaultValue="veredicto" className="w-full">
       <ScrollArea className="w-full">
@@ -76,8 +78,7 @@ export const IATab: React.FC = () => {
         <Card className="rounded-2xl border-[#e8e8ea]">
           <CardHeader className="p-4 pb-2">
             <CardTitle className="flex items-center gap-1.5 text-[15px] font-bold">
-              <IconSparkles className="h-4 w-4 text-[#042CD7]" /> Desglose por
-              Factor
+              <IconSparkles className="h-4 w-4 text-[#042CD7]" /> {t('ia.factorBreakdown')}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-0 p-4 pt-2">
@@ -128,8 +129,7 @@ export const IATab: React.FC = () => {
         <Card className="rounded-2xl border-[#e8e8ea]">
           <CardHeader className="p-4 pb-2">
             <CardTitle className="flex items-center gap-1.5 text-[15px] font-bold text-[#F97316]">
-              <IconShield className="h-4 w-4" /> Checklist de Inspección
-              Personalizado
+              <IconShield className="h-4 w-4" /> {t('ia.inspectionChecklist')}
             </CardTitle>
           </CardHeader>
           <CardContent className="p-4 pt-2">
@@ -177,7 +177,7 @@ export const IATab: React.FC = () => {
 
       <TabsContent value="negociacion">
         <div className="offer-card mb-3 rounded-2xl bg-linear-to-r from-sky-100 to-blue-100 p-5 text-center">
-          <div className="text-xs">Precio Sugerido de Oferta</div>
+          <div className="text-xs">{t('ia.offerPrice')}</div>
           <div className="font-display my-1 text-[32px] leading-tight font-extrabold text-blue-600">
             {fmt(48500)}
           </div>
@@ -187,8 +187,7 @@ export const IATab: React.FC = () => {
         <Card className="mb-3 rounded-2xl border-[#e8e8ea]">
           <CardHeader className="p-4 pb-2">
             <CardTitle className="flex items-center gap-1.5 text-[15px] font-bold">
-              <IconSparkles className="h-4 w-4 text-[#042CD7]" /> Argumentos de
-              Negociación
+              <IconSparkles className="h-4 w-4 text-[#042CD7]" /> {t('ia.negotiationArguments')}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2 p-4 pt-2">
@@ -238,7 +237,7 @@ export const IATab: React.FC = () => {
         <Card className="rounded-2xl border-[#e8e8ea]">
           <CardHeader className="p-4 pb-2">
             <CardTitle className="text-[15px] font-bold">
-              Script Sugerido
+              {t('ia.suggestedScript')}
             </CardTitle>
           </CardHeader>
           <CardContent className="p-4 pt-2">

@@ -1,4 +1,5 @@
 import React, { Activity, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { IconGauge as GaugeIcon, IconX } from "@tabler/icons-react";
 import { fmt } from "@/lib/gauge";
 import { type Book } from "@/types/vehicle-detail";
@@ -22,6 +23,7 @@ interface Props {
 }
 
 export const PriceEvaluation: React.FC<Props> = ({ price, books }) => {
+  const { t } = useTranslation("vehicle-details");
   const min = 12000;
   const max = 33000;
   const percentile = ((price - min) / (max - min)) * 100;
@@ -35,7 +37,7 @@ export const PriceEvaluation: React.FC<Props> = ({ price, books }) => {
         <CardContent className="space-y-3">
           <div className="flex items-center gap-1.5 text-sm font-bold">
             <GaugeIcon className="size-4 text-blue-600 dark:text-blue-400" />
-            Evaluación de Precio
+            {t('gauge.priceEvaluation')}
           </div>
 
           <ReportGauge

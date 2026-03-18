@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   IconAlertTriangle,
@@ -18,6 +19,7 @@ interface Props {
 }
 
 export const MercadoTab: React.FC<Props> = ({ vehiclePrice }) => {
+  const { t } = useTranslation("vehicle-details");
   return (
     <div className="tab-content pt-3 lg:px-0">
       <Tabs defaultValue="comparables" className="w-full">
@@ -33,7 +35,7 @@ export const MercadoTab: React.FC<Props> = ({ vehiclePrice }) => {
                 });
               }}
             >
-              Comparables
+              {t('mercado.comparables')}
             </TabsTrigger>
             <TabsTrigger
               value="tendencia"
@@ -45,7 +47,7 @@ export const MercadoTab: React.FC<Props> = ({ vehiclePrice }) => {
                 });
               }}
             >
-              Tendencia de Precio
+              {t('mercado.priceTrend')}
             </TabsTrigger>
             <TabsTrigger
               value="dealer"
@@ -57,7 +59,7 @@ export const MercadoTab: React.FC<Props> = ({ vehiclePrice }) => {
                 });
               }}
             >
-              Datos del Dealer
+              {t('mercado.dealerData')}
             </TabsTrigger>
           </TabsList>
           <ScrollBar orientation="horizontal" />
@@ -67,8 +69,7 @@ export const MercadoTab: React.FC<Props> = ({ vehiclePrice }) => {
           <Card className="rounded-2xl border-[#e8e8ea]">
             <CardHeader className="p-4 pb-2">
               <CardTitle className="flex items-center gap-1.5 text-[15px] font-bold">
-                <IconArrowRight className="h-4 w-4 text-[#042CD7]" /> 5
-                Vehículos Comparables (MarketCheck)
+                <IconArrowRight className="h-4 w-4 text-[#042CD7]" /> {t('mercado.vehicleComparables')}
               </CardTitle>
             </CardHeader>
             <CardContent className="p-4 pt-2">
@@ -125,8 +126,7 @@ export const MercadoTab: React.FC<Props> = ({ vehiclePrice }) => {
           <Card className="mb-3 rounded-2xl border-[#e8e8ea]">
             <CardHeader className="p-4 pb-2">
               <CardTitle className="flex items-center gap-1.5 text-[15px] font-bold">
-                <IconChartBar className="h-4 w-4 text-[#042CD7]" /> Tendencia de
-                Precio — Últimos 6 Meses
+                <IconChartBar className="h-4 w-4 text-[#042CD7]" /> {t('mercado.priceTrend6Months')}
               </CardTitle>
             </CardHeader>
             <CardContent className="p-4 pt-2">
@@ -145,23 +145,23 @@ export const MercadoTab: React.FC<Props> = ({ vehiclePrice }) => {
           <Card className="rounded-2xl border-[#e8e8ea]">
             <CardHeader className="p-4 pb-2">
               <CardTitle className="text-[15px] font-bold">
-                Resumen de Tendencia
+                {t('mercado.trendSummary')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 p-4 pt-2">
               <InfoRow
-                label="Dirección"
+                label={t('mercado.address')}
                 value="↘ A la baja (-2.8%)"
                 valueColor="#22C55E"
               />
-              <InfoRow label="Precio Hace 6 Meses" value="$55,200" />
-              <InfoRow label="Precio Actual Promedio" value="$51,200" />
+              <InfoRow label={t('mercado.price6MonthsAgo')} value="$55,200" />
+              <InfoRow label={t('mercado.currentAveragePrice')} value="$51,200" />
               <InfoRow
-                label="Cambio"
+                label={t('mercado.change')}
                 value="-$4,000 (-7.2%)"
                 valueColor="#22C55E"
               />
-              <InfoRow label="Proyección 30 días" value="$50,500 – $51,800" />
+              <InfoRow label={t('mercado.projection30Days')} value="$50,500 – $51,800" />
             </CardContent>
           </Card>
         </TabsContent>
@@ -202,7 +202,7 @@ export const MercadoTab: React.FC<Props> = ({ vehiclePrice }) => {
           <Card className="mb-3 rounded-2xl border-[#e8e8ea]">
             <CardHeader className="p-4 pb-2">
               <CardTitle className="flex items-center gap-1.5 text-[15px] font-bold text-[#22C55E]">
-                <IconCircleCheck className="h-4 w-4" /> Puntos Positivos
+                <IconCircleCheck className="h-4 w-4" /> {t('mercado.positivePoints')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 p-4 pt-2">
@@ -224,7 +224,7 @@ export const MercadoTab: React.FC<Props> = ({ vehiclePrice }) => {
           <Card className="mb-3 rounded-2xl border-[#e8e8ea]">
             <CardHeader className="p-4 pb-2">
               <CardTitle className="flex items-center gap-1.5 text-[15px] font-bold text-[#DC2626]">
-                <IconAlertTriangle className="h-4 w-4" /> Señales de Alerta
+                <IconAlertTriangle className="h-4 w-4" /> {t('mercado.alertSignals')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 p-4 pt-2">

@@ -1,6 +1,7 @@
 import { buildGaugeSvg, fmt } from "@/lib/gauge.ts";
 import parse from "html-react-parser";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   percentile: number;
@@ -12,6 +13,7 @@ type Props = {
 
 function ReportGauge(props: Readonly<Props>) {
   const { percentile, label, price, wholesale, retail } = props;
+  const { t } = useTranslation("vehicle-details");
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -41,23 +43,23 @@ function ReportGauge(props: Readonly<Props>) {
       <div className="mb-2 flex items-center justify-between">
         <div className="flex items-center gap-1.5">
           <div className="w-1"></div>
-          <span className="gauge-label">Evaluación de Precio</span>
+          <span className="gauge-label">{t('gauge.priceEvaluation')}</span>
         </div>
         <span className="gauge-trend">↘ -2.8%</span>
       </div>
       {parse(buildGaugeSvg(percentile, price, label))}
       <div className="gauge-bottom-stats">
         <div className="gauge-stat">
-          <div className="gauge-stat-label">Wholesale</div>
+          <div className="gauge-stat-label">{t('gauge.wholesale')}</div>
           <div className="gauge-stat-value">{fmt(wholesale)}</div>
         </div>
         <div className="gauge-stat">
-          <div className="gauge-stat-label">Retail</div>
+          <div className="gauge-stat-label">{t('gauge.retail')}</div>
           <div className="gauge-stat-value">{fmt(retail)}</div>
         </div>
         <div className="gauge-stat">
-          <div className="gauge-stat-label">Percentil</div>
-          <div className="gauge-stat-value">Top {percentile.toFixed(0)}%</div>
+          <div className="gauge-stat-label">{t('gauge.percentile')}</div>
+          <div className="gauge-stat-value">{t('gauge.top')} {percentile.toFixed(0)}%</div>
         </div>
       </div>
     </div>

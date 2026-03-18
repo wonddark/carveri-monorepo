@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/card.tsx";
 import { Badge } from "@/components/ui/badge.tsx";
 import { Link } from "react-router";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   vehicle: Vehicle;
@@ -25,6 +26,7 @@ interface Props {
 
 export const VehicleInfoCard: React.FC<Props> = ({ vehicle }) => {
   const fmt = (n: number) => "$" + n.toLocaleString("en-US");
+  const { t } = useTranslation("vehicle-details");
 
   return (
     <Card className="z-10 max-sm:-mt-6">
@@ -53,7 +55,7 @@ export const VehicleInfoCard: React.FC<Props> = ({ vehicle }) => {
           </Badge>
           <Badge variant="secondary">
             <IconCalendar />
-            {vehicle.daysOnLot} días en lote
+            {vehicle.daysOnLot} {t('infoCard.daysOnLot')}
           </Badge>
         </div>
 
@@ -62,7 +64,7 @@ export const VehicleInfoCard: React.FC<Props> = ({ vehicle }) => {
           className="border-green-400 bg-green-200 text-green-800 dark:border-green-100 dark:bg-green-100 dark:text-green-700"
         >
           <IconCheck className="stroke-2.5" />
-          Precio Justo — Dentro del rango de mercado
+          {t('infoCard.fairPrice')}
         </Badge>
 
         <div className="mt-2">
@@ -73,7 +75,7 @@ export const VehicleInfoCard: React.FC<Props> = ({ vehicle }) => {
             rel="noopener noreferrer"
           >
             <IconExternalLink className="h-3 w-3" />
-            Ver listing original en {vehicle.dealer}
+            {t('infoCard.viewListing')} {vehicle.dealer}
           </Link>
         </div>
       </CardContent>

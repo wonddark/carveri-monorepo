@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   IconAlertTriangle,
@@ -23,6 +24,7 @@ interface Props {
 }
 
 export const HistorialTab: React.FC<Props> = ({ historial, currentImages }) => {
+  const { t } = useTranslation("vehicle-details");
   const [oldPhotosOpen, setOldPhotosOpen] = useState(false);
   const oldPhotosZoomRef = useRef<ZoomRef>(null);
   const [currentPhotosOpen, setCurrentPhotosOpen] = useState(false);
@@ -112,8 +114,7 @@ export const HistorialTab: React.FC<Props> = ({ historial, currentImages }) => {
         <Card>
           <CardHeader>
             <CardTitle className="inline-flex items-center gap-1.5">
-              <IconCamera className="text-blue-700 dark:text-blue-400" /> Fotos
-              de Subasta
+              <IconCamera className="text-blue-700 dark:text-blue-400" /> {t('historial.auctionPhotos')}
             </CardTitle>
           </CardHeader>
           <CardContent className="grid grid-cols-[1fr] gap-2 md:grid-cols-2 md:gap-3">
@@ -187,49 +188,48 @@ export const HistorialTab: React.FC<Props> = ({ historial, currentImages }) => {
         <Card className="mb-3 rounded-2xl border-[#e8e8ea]">
           <CardHeader className="p-4 pb-2">
             <CardTitle className="flex items-center gap-1.5 text-[15px] font-bold">
-              <IconGavel className="h-4 w-4 text-[#042CD7]" /> Información de
-              Venta en Subasta
+              <IconGavel className="h-4 w-4 text-[#042CD7]" /> {t('historial.saleInfo')}
             </CardTitle>
           </CardHeader>
           <CardContent className="p-4 pt-2">
             <div className="space-y-2">
               <InfoRow
-                label="Subasta"
+                label={t('historial.auction')}
                 value={subastasAnteriores.info.subasta}
               />
               <InfoRow
-                label="Vendedor"
+                label={t('historial.seller')}
                 value={subastasAnteriores.info.vendedor}
               />
               <InfoRow
-                label="Fecha de Venta"
+                label={t('historial.saleDate')}
                 value={subastasAnteriores.info.fechaVenta}
               />
               <InfoRow
-                label="Oferta Final"
+                label={t('historial.finalBid')}
                 value={subastasAnteriores.info.finalBid}
                 valueColor="#042CD7"
               />
               <InfoRow
-                label="Odómetro"
+                label={t('historial.odometer')}
                 value={subastasAnteriores.info.odometro}
               />
               <InfoRow
-                label="Condición"
+                label={t('historial.condition')}
                 value={subastasAnteriores.info.condicion}
               />
-              <InfoRow label="Riesgo" value={subastasAnteriores.info.riesgo} />
-              <InfoRow label="Título" value={subastasAnteriores.info.titulo} />
+              <InfoRow label={t('historial.risk')} value={subastasAnteriores.info.riesgo} />
+              <InfoRow label={t('historial.titleHistory')} value={subastasAnteriores.info.titulo} />
               <InfoRow
-                label="Rango de Precio"
+                label={t('historial.priceRange')}
                 value={subastasAnteriores.info.precioRango}
               />
               <InfoRow
-                label="Valor Retail"
+                label={t('historial.retailValue')}
                 value={subastasAnteriores.info.valorRetail}
               />
               <InfoRow
-                label="Valor Reparación"
+                label={t('historial.repairValue')}
                 value={subastasAnteriores.info.valorReparacion}
               />
             </div>
@@ -248,8 +248,8 @@ export const HistorialTab: React.FC<Props> = ({ historial, currentImages }) => {
                 <IconCircleCheck className="text-[#22C55E]" />
               )
             }
-            label="Accidentes"
-            value={`${accidentes.resumen.totalAccidentes} reportado${accidentes.resumen.totalAccidentes !== 1 ? "s" : ""}`}
+            label={t('historial.accidents')}
+            value={`${accidentes.resumen.totalAccidentes} ${t('historial.reported')}`}
             colorClass={
               accidentes.resumen.totalAccidentes > 0
                 ? "bg-yellow-50"
@@ -258,30 +258,30 @@ export const HistorialTab: React.FC<Props> = ({ historial, currentImages }) => {
           />
           <StatusCard
             icon={<IconShield className="text-[#22C55E]" />}
-            label="Airbags"
+            label={t('historial.airbags')}
             value={
               accidentes.resumen.airbagsActivados === "-"
-                ? "No reportado"
+                ? t('historial.notReported')
                 : accidentes.resumen.airbagsActivados
             }
             colorClass="bg-green-50"
           />
           <StatusCard
             icon={<IconGavel className="text-[#042CD7]" />}
-            label="Reparado"
+            label={t('historial.repaired')}
             value={
               accidentes.resumen.reparado === "-"
-                ? "No reportado"
+                ? t('historial.notReported')
                 : accidentes.resumen.reparado
             }
             colorClass="bg-blue-50"
           />
           <StatusCard
             icon={<IconCircleCheck className="text-[#22C55E]" />}
-            label="Estructural"
+            label={t('historial.structural')}
             value={
               accidentes.resumen.danioEstructural === "-"
-                ? "No reportado"
+                ? t('historial.notReported')
                 : accidentes.resumen.danioEstructural
             }
             colorClass="bg-green-50"
@@ -301,13 +301,13 @@ export const HistorialTab: React.FC<Props> = ({ historial, currentImages }) => {
               </CardHeader>
               <CardContent className="p-4 pt-2">
                 <div className="space-y-2">
-                  <InfoRow label="Tipo" value={evento.titulo} />
+                  <InfoRow label={t('historial.type')} value={evento.titulo} />
                   {evento.severidad !== "-" && (
-                    <InfoRow label="Severidad" value={evento.severidad} />
+                    <InfoRow label={t('historial.severity')} value={evento.severidad} />
                   )}
                   {evento.impactAreas.length > 0 && (
                     <InfoRow
-                      label="Área de Impacto"
+                      label={t('historial.impactArea')}
                       value={evento.impactAreas.join(", ")}
                     />
                   )}
@@ -332,14 +332,13 @@ export const HistorialTab: React.FC<Props> = ({ historial, currentImages }) => {
         <Card className="rounded-2xl border-[#e8e8ea]">
           <CardHeader className="p-4 pb-2">
             <CardTitle className="flex items-center gap-1.5 text-[15px] font-bold">
-              <IconUsers className="h-4 w-4 text-[#042CD7]" /> Historial de
-              Propietarios
+              <IconUsers className="h-4 w-4 text-[#042CD7]" /> {t('historial.ownerHistory')}
             </CardTitle>
           </CardHeader>
           <CardContent className="p-4 pt-2">
             {propietarios.length === 0 && (
               <p className="text-[13px] text-[#aaa]">
-                Sin historial de propietarios disponible.
+                {t('historial.noOwnerHistory')}
               </p>
             )}
             <div className="space-y-2.5">
@@ -362,12 +361,12 @@ export const HistorialTab: React.FC<Props> = ({ historial, currentImages }) => {
                         {owner.etiqueta}
                       </div>
                       <div className="mt-0.5 text-[12px] text-[#888]">
-                        Comprado: {owner.anioPurchased} · {owner.duracion}
+                        {t('historial.purchased')}: {owner.anioPurchased} · {owner.duracion}
                         {owner.tipo !== "-" && ` · ${owner.tipo}`}
                       </div>
                       <div className="mt-0.5 text-[12px] text-[#888]">
                         {owner.estados !== "-" && `${owner.estados} · `}
-                        Último odómetro: {owner.ultimoOdometro}
+                        {t('historial.lastOdometer')}: {owner.ultimoOdometro}
                       </div>
                     </div>
                   </div>
@@ -383,8 +382,7 @@ export const HistorialTab: React.FC<Props> = ({ historial, currentImages }) => {
         <Card className="rounded-2xl border-[#e8e8ea]">
           <CardHeader className="p-4 pb-2">
             <CardTitle className="flex items-center gap-1.5 text-[15px] font-bold">
-              <IconGavel className="h-4 w-4 text-[#042CD7]" /> Registros de
-              Servicio ({mantenimiento.registros.length} entradas)
+              <IconGavel className="h-4 w-4 text-[#042CD7]" /> {t('historial.serviceRecords')} ({mantenimiento.registros.length} {t('historial.entries')})
             </CardTitle>
           </CardHeader>
           <CardContent className="p-4 pt-2">
@@ -432,7 +430,7 @@ export const HistorialTab: React.FC<Props> = ({ historial, currentImages }) => {
                 <IconCircleCheck className="text-[#22C55E]" />
               )
             }
-            label="Título"
+            label={t('historial.titleHistory')}
             value={tituloOdometro.titulo}
             valueColor={
               tituloOdometro.titulo.toLowerCase().includes("total loss") ||
@@ -455,7 +453,7 @@ export const HistorialTab: React.FC<Props> = ({ historial, currentImages }) => {
                 <IconGauge className="text-[#22C55E]" />
               )
             }
-            label="Odómetro"
+            label={t('historial.odometer')}
             value={tituloOdometro.odometroEstado}
             valueColor={
               tituloOdometro.odometroEstado.toLowerCase().includes("no")
@@ -470,7 +468,7 @@ export const HistorialTab: React.FC<Props> = ({ historial, currentImages }) => {
           />
           <StatusCard
             icon={<IconCircleCheck className="text-[#22C55E]" />}
-            label="Lemon Law"
+            label={t('historial.lemonLaw')}
             value={tituloOdometro.lemonLaw}
             colorClass="bg-green-50"
           />
@@ -482,8 +480,8 @@ export const HistorialTab: React.FC<Props> = ({ historial, currentImages }) => {
                 <IconCircleCheck className="text-[#22C55E]" />
               )
             }
-            label="Recalls"
-            value={`${tituloOdometro.recalls.pendientes} pendiente${tituloOdometro.recalls.pendientes !== 1 ? "s" : ""}`}
+            label={t('historial.recalls')}
+            value={`${tituloOdometro.recalls.pendientes} ${t('historial.pending')}`}
             valueColor={
               tituloOdometro.recalls.pendientes > 0 ? "#DC2626" : undefined
             }
@@ -499,8 +497,7 @@ export const HistorialTab: React.FC<Props> = ({ historial, currentImages }) => {
           <Card className="mb-3 rounded-2xl border-[#e8e8ea]">
             <CardHeader className="p-4 pb-2">
               <CardTitle className="flex items-center gap-1.5 text-[15px] font-bold">
-                <IconFileText className="h-4 w-4 text-[#042CD7]" /> Historial de
-                Título
+                <IconFileText className="h-4 w-4 text-[#042CD7]" /> {t('historial.titleHistory')}
               </CardTitle>
             </CardHeader>
             <CardContent className="p-4 pt-2">

@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   IconChevronRight,
   IconFileText,
@@ -10,29 +11,30 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { vehicleData } from "@/data/mockData";
 
 export const DocumentsTab: React.FC = () => {
+  const { t } = useTranslation("vehicle-details");
   return (
     <div className="tab-content pt-3 lg:px-0">
       <div className="section-header font-display mb-3 text-lg font-bold">
-        Documentos del Reporte
+        {t('documents.title')}
       </div>
 
       <div className="space-y-2">
         <DocRow
           icon={<IconFileText className="text-[#042CD7]" />}
-          name="Reporte CarVeri Completo"
-          detail="PDF · Incluye todos los datos del análisis"
+          name={t('documents.fullReport')}
+          detail={t('documents.fullReportDesc')}
           bgColor="bg-[#042CD7]/5"
         />
         <DocRow
           icon={<IconShieldCheck className="text-[#22C55E]" />}
-          name="Resumen Carfax"
-          detail="PDF · Historial del vehículo verificado"
+          name={t('documents.carfaxSummary')}
+          detail={t('documents.carfaxDesc')}
           bgColor="bg-[#22C55E]/5"
         />
         <DocRow
           icon={<IconShare className="text-[#042CD7]" />}
-          name="Compartir Reporte"
-          detail="Enviar por enlace, email o WhatsApp"
+          name={t('documents.shareReport')}
+          detail={t('documents.shareDesc')}
           bgColor="bg-[#042CD7]/5"
         />
       </div>
@@ -40,8 +42,7 @@ export const DocumentsTab: React.FC = () => {
       <Card className="mt-4 rounded-2xl border-[#e8e8ea]">
         <CardHeader className="p-4 pb-2">
           <CardTitle className="flex items-center gap-1.5 text-[15px] font-bold">
-            <IconInfoCircle className="h-4 w-4 text-[#042CD7]" /> Información
-            del Reporte
+            <IconInfoCircle className="h-4 w-4 text-[#042CD7]" /> {t('documents.reportInfo')}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-2 p-4 pt-2">
@@ -53,24 +54,17 @@ export const DocumentsTab: React.FC = () => {
               letterSpacing: "0.5px",
             }}
           />
-          <InfoRow label="Fecha de Generación" value="Feb 25, 2026" />
+          <InfoRow label={t('documents.generationDate')} value="Feb 25, 2026" />
           <InfoRow
-            label="Fuentes Consultadas"
+            label={t('documents.sourcesConsulted')}
             value="Carfax, MMR, KBB, JDP, BB, MarketCheck, Google"
           />
-          <InfoRow label="Tipo de Reporte" value="CarVeri Pro" />
+          <InfoRow label={t('documents.reportType')} value="CarVeri Pro" />
         </CardContent>
       </Card>
 
       <div className="mt-4 rounded-xl bg-[#f8f8fa] p-4 text-[11px] leading-relaxed text-[#aaa]">
-        <strong>Disclaimer Legal:</strong> Este reporte es generado con fines
-        informativos y educativos. La Subasta Cubana no garantiza la exactitud
-        de los datos proporcionados por terceros (Carfax, libros de valuación,
-        MarketCheck). Las recomendaciones de precio y negociación son
-        orientativas y no constituyen asesoría financiera. Siempre recomendamos
-        una inspección física profesional antes de cualquier compra. Al utilizar
-        este reporte, el usuario acepta que La Subasta Cubana no es responsable
-        por decisiones de compra basadas en esta información.
+        <strong>{t('documents.legalDisclaimer')}</strong> {t('documents.legalDisclaimerText')}
       </div>
     </div>
   );
