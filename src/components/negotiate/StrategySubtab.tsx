@@ -1,4 +1,5 @@
 import { Home, ChevronRight, Lightbulb, ArrowRight } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import type { VehicleReport } from '@/data/report'
 
 interface Props {
@@ -6,6 +7,7 @@ interface Props {
 }
 
 export default function StrategySubtab({ strategy }: Props) {
+  const { t } = useTranslation('negotiate')
   const { firstOffer, midpoint, maxRecommended, tips } = strategy
 
   return (
@@ -24,15 +26,15 @@ export default function StrategySubtab({ strategy }: Props) {
       {/* 3-column price row */}
       <div className="flex gap-2">
         <div className="flex-1 bg-white rounded-xl border border-slate-100 p-3 text-center">
-          <p className="text-[10px] font-semibold text-indigo-600 mb-1">First Offer</p>
+          <p className="text-[10px] font-semibold text-indigo-600 mb-1">{t('strategy.firstOffer')}</p>
           <p className="text-base font-black text-slate-900">${firstOffer.toLocaleString()}</p>
         </div>
         <div className="flex-1 bg-amber-50 rounded-xl border border-amber-100 p-3 text-center">
-          <p className="text-[10px] font-semibold text-amber-600 mb-1">Midpoint</p>
+          <p className="text-[10px] font-semibold text-amber-600 mb-1">{t('strategy.midpoint')}</p>
           <p className="text-base font-black text-amber-600">${midpoint.toLocaleString()}</p>
         </div>
         <div className="flex-1 bg-red-50 rounded-xl border border-red-100 p-3 text-center">
-          <p className="text-[10px] font-semibold text-red-600 mb-1">Max Recommended</p>
+          <p className="text-[10px] font-semibold text-red-600 mb-1">{t('strategy.maxRecommended')}</p>
           <p className="text-base font-black text-red-600">${maxRecommended.toLocaleString()}</p>
         </div>
       </div>
@@ -41,7 +43,7 @@ export default function StrategySubtab({ strategy }: Props) {
       <div className="bg-slate-50 rounded-2xl border border-slate-100 p-4">
         <div className="flex items-center gap-2 mb-3">
           <Lightbulb size={16} className="text-indigo-500" />
-          <h3 className="font-bold text-sm text-slate-900">Negotiation Tips</h3>
+          <h3 className="font-bold text-sm text-slate-900">{t('strategy.tips')}</h3>
         </div>
         <div className="space-y-0">
           {tips.map((tip, i) => (

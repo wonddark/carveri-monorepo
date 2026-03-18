@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ChevronRight, Home } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import ArgumentCard from "./ArgumentCard";
 import type { NegotiateArgument } from "@/data/report";
 
@@ -8,6 +9,7 @@ interface Props {
 }
 
 export default function ArgumentsSubtab({ args }: Readonly<Props>) {
+  const { t } = useTranslation('negotiate');
   return (
     <>
       {/* Breadcrumb */}
@@ -20,7 +22,7 @@ export default function ArgumentsSubtab({ args }: Readonly<Props>) {
       </div>
 
       <h2 className="text-xl font-black text-slate-900">
-        Negotiation Arguments
+        {t('arguments.heading')}
       </h2>
 
       <div className="space-y-3">

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import StrategySubtab from "./StrategySubtab";
 import ArgumentsSubtab from "./ArgumentsSubtab";
 import CostsSubtab from "./CostsSubtab";
@@ -6,17 +7,17 @@ import type { VehicleReport } from "@/data/report";
 
 type SubtabId = "strategy" | "arguments" | "costs";
 
-const SUBTABS: { id: SubtabId; label: string }[] = [
-  { id: "strategy", label: "Strategy" },
-  { id: "arguments", label: "Arguments" },
-  { id: "costs", label: "Costs" },
-];
-
 interface Props {
   report: VehicleReport;
 }
 
 export default function NegotiateTab({ report }: Readonly<Props>) {
+  const { t } = useTranslation('negotiate');
+  const SUBTABS: { id: SubtabId; label: string }[] = [
+    { id: "strategy", label: t('tabs.strategy') },
+    { id: "arguments", label: t('tabs.arguments') },
+    { id: "costs", label: t('tabs.costs') },
+  ];
   const [activeSubtab, setActiveSubtab] = useState<SubtabId>("strategy");
 
   return (
