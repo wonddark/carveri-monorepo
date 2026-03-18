@@ -25,8 +25,8 @@ interface Props {
 }
 
 export const VehicleInfoCard: React.FC<Props> = ({ vehicle }) => {
-  const fmt = (n: number) => "$" + n.toLocaleString("en-US");
   const { t } = useTranslation("vehicle-details");
+  const fmt = (n: number) => "$" + n.toLocaleString("en-US");
 
   return (
     <Card className="z-10 max-sm:-mt-6">
