@@ -1,5 +1,6 @@
 // src/components/home/HomeTab.tsx
 import { LayoutDashboard } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import StatsGrid from "./StatsGrid";
 import PriceEvalSection from "./PriceEvalSection";
 import VehicleDataSection from "./VehicleDataSection";
@@ -15,6 +16,7 @@ interface Props {
 }
 
 export default function HomeTab({ report, onNavigate }: Readonly<Props>) {
+  const { t } = useTranslation("home");
   return (
     <>
       <ImageCarousel images={report.images} />
@@ -35,14 +37,14 @@ export default function HomeTab({ report, onNavigate }: Readonly<Props>) {
           <LayoutDashboard size={14} className="text-indigo-600" />
         </div>
         <span className="text-xs font-semibold tracking-wide text-slate-500 uppercase">
-          Summary
+          {t("reportSummary")}
         </span>
       </div>
       <h2 className="-mt-1 text-xl font-black text-slate-900">
-        Report Summary
+        {t("reportSummary")}
       </h2>
       <p className="-mt-2 text-xs text-slate-400">
-        Overview for {report.year} {report.make} {report.model}
+        {t("overviewFor", { name: `${report.year} ${report.make} ${report.model}` })}
       </p>
       <StatsGrid stats={report.stats} />
       <PriceEvalSection price={report.price} priceEval={report.priceEval} />

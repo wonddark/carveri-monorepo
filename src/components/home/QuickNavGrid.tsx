@@ -1,44 +1,47 @@
 import { motion } from "framer-motion";
 import { BarChart2, CalendarDays, Handshake, Sparkles } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import type { TabId } from "@/data/report";
 
 interface Props {
   onNavigate: (tab: TabId) => void;
 }
 
-const ITEMS: {
-  tab: TabId;
-  icon: React.ReactNode;
-  title: string;
-  sub: string;
-}[] = [
-  {
-    tab: "history",
-    icon: <CalendarDays size={20} className="text-indigo-500" />,
-    title: "Timeline",
-    sub: "Full vehicle history",
-  },
-  {
-    tab: "market",
-    icon: <BarChart2 size={20} className="text-indigo-500" />,
-    title: "Market",
-    sub: "Price & comparables",
-  },
-  {
-    tab: "verdict",
-    icon: <Sparkles size={20} className="text-indigo-500" />,
-    title: "AI Verdict",
-    sub: "Detailed analysis",
-  },
-  {
-    tab: "negotiate",
-    icon: <Handshake size={20} className="text-indigo-500" />,
-    title: "Negotiate",
-    sub: "Strategy & arguments",
-  },
-];
-
 export default function QuickNavGrid({ onNavigate }: Readonly<Props>) {
+  const { t } = useTranslation("home");
+
+  const ITEMS: {
+    tab: TabId;
+    icon: React.ReactNode;
+    title: string;
+    sub: string;
+  }[] = [
+    {
+      tab: "history",
+      icon: <CalendarDays size={20} className="text-indigo-500" />,
+      title: t("quickNav.timeline"),
+      sub: t("quickNav.timelineDesc"),
+    },
+    {
+      tab: "market",
+      icon: <BarChart2 size={20} className="text-indigo-500" />,
+      title: t("quickNav.market"),
+      sub: t("quickNav.marketDesc"),
+    },
+    {
+      tab: "verdict",
+      icon: <Sparkles size={20} className="text-indigo-500" />,
+      title: t("quickNav.aiVerdict"),
+      sub: t("quickNav.aiVerdictDesc"),
+    },
+    {
+      tab: "negotiate",
+      icon: <Handshake size={20} className="text-indigo-500" />,
+      title: t("quickNav.negotiate"),
+      sub: t("quickNav.negotiateDesc"),
+    },
+  ];
+
   return (
     <div className="grid grid-cols-2 gap-2">
       {ITEMS.map((item) => (

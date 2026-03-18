@@ -1,4 +1,5 @@
 import { Car } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import type { VehicleReport } from '@/data/report'
 
 interface Props {
@@ -15,24 +16,25 @@ interface Props {
 
 export default function VehicleDataSection(props: Props) {
   const { vin, engine, transmission, drivetrain, color, auction, location, daysOnLot, previousOwners } = props
+  const { t } = useTranslation('home')
 
   const rows = [
-    { label: 'VIN',          value: vin },
-    { label: 'Engine',       value: engine },
-    { label: 'Transmission', value: transmission },
-    { label: 'Drivetrain',   value: drivetrain },
-    { label: 'Color',        value: color },
-    { label: 'Auction',      value: `${auction.name} — $${auction.price.toLocaleString()}` },
-    { label: 'Location',     value: location },
-    { label: 'Days on lot',  value: `${daysOnLot} days` },
-    { label: 'Prev. owners', value: `${previousOwners}` },
+    { label: t('vehicleDetails.vin'),          value: vin },
+    { label: t('vehicleDetails.engine'),        value: engine },
+    { label: t('vehicleDetails.transmission'),  value: transmission },
+    { label: t('vehicleDetails.drivetrain'),    value: drivetrain },
+    { label: t('vehicleDetails.color'),         value: color },
+    { label: t('vehicleDetails.auction'),       value: `${auction.name} — $${auction.price.toLocaleString()}` },
+    { label: t('vehicleDetails.location'),      value: location },
+    { label: t('vehicleDetails.daysOnLot'),     value: `${daysOnLot} ${t('vehicleDetails.days')}` },
+    { label: t('vehicleDetails.prevOwners'),    value: `${previousOwners}` },
   ]
 
   return (
     <div className="bg-white rounded-2xl p-4 border border-slate-100">
       <div className="flex items-center gap-2 mb-3">
         <Car size={16} className="text-indigo-500" />
-        <h3 className="font-bold text-slate-900 text-sm">Vehicle Details</h3>
+        <h3 className="font-bold text-slate-900 text-sm">{t('vehicleDetails.title')}</h3>
       </div>
       <div className="grid grid-cols-2 gap-x-4 gap-y-0">
         {rows.map(row => (

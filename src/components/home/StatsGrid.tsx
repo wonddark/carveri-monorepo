@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { ShieldCheck, AlertTriangle, Gauge, Tag } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import { cn } from '@/lib/utils'
 import type { VehicleReport } from '@/data/report'
 
@@ -8,28 +9,29 @@ interface Props {
 }
 
 export default function StatsGrid({ stats }: Props) {
+  const { t } = useTranslation('home')
   const items = [
     {
       icon: <ShieldCheck size={18} className="text-emerald-500" />,
-      label: 'Title',
-      value: stats.titleStatus,
+      label: t('stats.title'),
+      value: stats.titleStatus === 'Clean' ? t('stats.clean') : stats.titleStatus,
       good: stats.titleStatus === 'Clean',
     },
     {
       icon: <AlertTriangle size={18} className="text-slate-400" />,
-      label: 'Accidents',
-      value: stats.accidents === 0 ? '0 reported' : `${stats.accidents} reported`,
+      label: t('stats.accidents'),
+      value: stats.accidents === 0 ? `0 ${t('stats.reported')}` : `${stats.accidents} ${t('stats.reported')}`,
       good: stats.accidents === 0,
     },
     {
       icon: <Gauge size={18} className="text-slate-400" />,
-      label: 'Odometer',
-      value: stats.odometerVerified ? 'Verified' : 'Inconsistent',
+      label: t('stats.odometer'),
+      value: stats.odometerVerified ? t('stats.verified') : t('stats.inconsistent'),
       good: stats.odometerVerified,
     },
     {
       icon: <Tag size={18} className="text-slate-400" />,
-      label: 'Price',
+      label: t('stats.price'),
       value: `${stats.priceDeltaPct > 0 ? '+' : ''}${stats.priceDeltaPct}%`,
       good: stats.priceDeltaPct <= 0,
     },
