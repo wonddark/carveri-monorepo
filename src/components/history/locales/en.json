@@ -13,7 +13,7 @@
   },
   "auctionPhotos": {
     "heading": "Auction Photos",
-    "countSuffix": "auction photos — IAAI"
+    "countSuffix": "{{count}} auction photos — IAAI"
   },
   "accidents": {
     "cleanHistory": "Clean History",
@@ -21,7 +21,7 @@
   },
   "owners": {
     "heading": "Owner History",
-    "registeredOwners": "registered owners",
+    "registeredOwners": "{{count}} registered owners",
     "period": "Period",
     "startMileage": "Start mileage",
     "endMileage": "End mileage",
@@ -29,7 +29,7 @@
   },
   "service": {
     "heading": "Service History",
-    "recordsSuffix": "service records"
+    "recordsSuffix": "{{count}} service records"
   },
   "titleStatus": {
     "heading": "Title Status",

@@ -13,7 +13,7 @@
   },
   "auctionPhotos": {
     "heading": "Fotos de Subasta",
-    "countSuffix": "fotos de subasta — IAAI"
+    "countSuffix": "{{count}} fotos de subasta — IAAI"
   },
   "accidents": {
     "cleanHistory": "Sin Accidentes",
@@ -21,7 +21,7 @@
   },
   "owners": {
     "heading": "Historial de Propietarios",
-    "registeredOwners": "propietarios registrados",
+    "registeredOwners": "{{count}} propietarios registrados",
     "period": "Período",
     "startMileage": "Millaje inicial",
     "endMileage": "Millaje final",
@@ -29,7 +29,7 @@
   },
   "service": {
     "heading": "Historial de Servicio",
-    "recordsSuffix": "registros de servicio"
+    "recordsSuffix": "{{count}} registros de servicio"
   },
   "titleStatus": {
     "heading": "Estado del Título",

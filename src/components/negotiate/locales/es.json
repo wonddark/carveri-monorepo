@@ -15,7 +15,7 @@
   },
   "costs": {
     "heading": "Costos Estimados de Compra",
-    "breakdown": "Desglose completo de costos en",
+    "breakdown": "Desglose completo de costos en {{state}}",
     "vehiclePrice": "Precio del vehículo",
     "salesTax": "Impuesto de Venta",
     "tagTitle": "Matrícula y Título",

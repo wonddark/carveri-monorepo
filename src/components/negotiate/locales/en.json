@@ -15,7 +15,7 @@
   },
   "costs": {
     "heading": "Estimated Purchase Costs",
-    "breakdown": "Complete cost breakdown in",
+    "breakdown": "Complete cost breakdown in {{state}}",
     "vehiclePrice": "Vehicle price",
     "salesTax": "Sales Tax",
     "tagTitle": "Tag & Title",

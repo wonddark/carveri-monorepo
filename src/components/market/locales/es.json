@@ -5,11 +5,11 @@
   },
   "header": {
     "marketAnalysis": "Análisis de Mercado",
-    "pricingEvaluation": "Evaluación de precios y comparables en"
+    "pricingEvaluation": "Evaluación de precios y comparables en {{city}}"
   },
   "comparables": {
     "heading": "Comparables en Tu Área",
-    "similarVehicles": "Vehículos similares cerca de",
+    "similarVehicles": "Vehículos similares cerca de {{city}}",
     "cheaper": "Más Barato",
     "similar": "Similar",
     "pricier": "Más Caro"

@@ -1,6 +1,6 @@
 {
   "reportSummary": "Report Summary",
-  "overviewFor": "Overview for",
+  "overviewFor": "Overview for {{name}}",
   "stats": {
     "title": "Title",
     "accidents": "Accidents",
