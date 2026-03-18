@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router";
-import { ArrowLeft, Globe, Share2 } from "lucide-react";
+import { ArrowLeft, Share2 } from "lucide-react";
+import LanguageToggle from "@/components/LanguageToggle";
 
 export default function AppHeader() {
   const navigate = useNavigate();
@@ -21,10 +22,7 @@ export default function AppHeader() {
       </div>
 
       <div className="flex items-center gap-2">
-        <button className="flex items-center gap-1 rounded-lg bg-slate-100 px-2 py-1.5 text-xs font-semibold text-slate-500">
-          <Globe size={13} />
-          EN
-        </button>
+        <LanguageToggle />
         <button
           className="rounded-lg bg-slate-100 p-1.5 text-slate-400 hover:text-slate-600"
           aria-label="Share"
