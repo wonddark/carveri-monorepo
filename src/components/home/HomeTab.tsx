@@ -1,5 +1,5 @@
 // src/components/home/HomeTab.tsx
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { LayoutDashboard } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import StatsGrid from "./StatsGrid";
@@ -10,35 +10,51 @@ import QuickNavGrid from "./QuickNavGrid";
 import type { TabId, VehicleReport } from "@/data/report";
 import ImageCarousel from "@/components/ImageCarousel.tsx";
 import CarSummaryCard from "@/components/CarSummaryCard.tsx";
+import AppHeader from "@/components/AppHeader.tsx";
+import { cn } from "@/lib/utils.ts";
 
 interface Props {
   report: VehicleReport;
   onNavigate: (tab: TabId) => void;
-  onCarouselVisibilityChange: (visible: boolean) => void;
 }
 
-export default function HomeTab({ report, onNavigate, onCarouselVisibilityChange }: Readonly<Props>) {
+export default function HomeTab(props: Readonly<Props>) {
+  const { report, onNavigate } = props;
   const { t } = useTranslation("home");
+  const [isCarouselVisible, setIsCarouselVisible] = useState(true);
   const carouselRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = carouselRef.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => onCarouselVisibilityChange(entry.isIntersecting),
-      { threshold: 0 },
+      ([entry]) => setIsCarouselVisible(entry.isIntersecting),
+      { threshold: 0.45 },
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [onCarouselVisibilityChange]);
+  }, []);
 
   return (
-    <>
+    <div className="relative">
+      <AppHeader
+        isTransparent={isCarouselVisible}
+        showAppName={!isCarouselVisible}
+        title={`${report.year} ${report.make} ${report.model}`}
+      />
       <div ref={carouselRef}>
         <ImageCarousel images={report.images} />
       </div>
 
-      <div className="space-y-3 px-4 pt-3">
+      <div
+        className={cn(
+          "bg-background relative -mt-4 space-y-3 rounded-t-3xl px-4 pt-3",
+          "transition-all duration-300 ease-in-out",
+          {
+            "rounded-t-none": !isCarouselVisible,
+          },
+        )}
+      >
         <CarSummaryCard
           year={report.year}
           make={report.make}
@@ -83,6 +99,6 @@ export default function HomeTab({ report, onNavigate, onCarouselVisibilityChange
         <AISummarySection aiSummary={report.aiSummary} />
         <QuickNavGrid onNavigate={onNavigate} />
       </div>
-    </>
+    </div>
   );
 }

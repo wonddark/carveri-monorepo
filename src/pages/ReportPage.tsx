@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import AppHeader from "@/components/AppHeader";
 import BottomNavBar from "@/components/BottomNavBar";
 import HomeTab from "@/components/home/HomeTab";
 import MarketTab from "@/components/market/MarketTab";
@@ -25,12 +24,10 @@ export default function ReportPage() {
   const report = vin ? MOCK_REPORTS[vin] : null;
   const [activeTab, setActiveTab] = useState<TabId>("home");
   const [prevTab, setPrevTab] = useState<TabId>("home");
-  const [isCarouselVisible, setIsCarouselVisible] = useState(true);
 
   const handleTabChange = (tab: TabId) => {
     setPrevTab(activeTab);
     setActiveTab(tab);
-    if (tab === "home") setIsCarouselVisible(true);
   };
 
   const direction =
@@ -46,9 +43,7 @@ export default function ReportPage() {
 
   return (
     <div className="flex min-h-dvh flex-col bg-slate-50">
-      <AppHeader isTransparent={activeTab === "home" && isCarouselVisible} />
-
-      <main className="flex-1 pb-24 pt-[var(--header-height)]">
+      <main className="flex-1 pb-24">
         {/* overflow-hidden clips the horizontal slide animation without trapping vertical scroll */}
         <div className="overflow-hidden">
           <AnimatePresence mode="wait" initial={false} custom={direction}>
@@ -62,11 +57,7 @@ export default function ReportPage() {
               className={cn(activeTab !== "home" && "space-y-3 px-4 pt-4")}
             >
               {activeTab === "home" && (
-                <HomeTab
-                  report={report}
-                  onNavigate={handleTabChange}
-                  onCarouselVisibilityChange={setIsCarouselVisible}
-                />
+                <HomeTab report={report} onNavigate={handleTabChange} />
               )}
 
               {activeTab === "market" && <MarketTab report={report} />}

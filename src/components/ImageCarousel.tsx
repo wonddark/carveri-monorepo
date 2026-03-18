@@ -22,7 +22,7 @@ export default function ImageCarousel({ images }: Readonly<Props>) {
   };
 
   return (
-    <div className="relative h-52 w-full overflow-hidden bg-slate-900">
+    <div className="relative h-70 w-full overflow-hidden bg-slate-900">
       <motion.img
         key={index}
         src={images[index]}
@@ -38,7 +38,7 @@ export default function ImageCarousel({ images }: Readonly<Props>) {
       />
 
       {/* Counter */}
-      <div className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-black/50 px-2 py-1 text-[10px] font-semibold text-white">
+      <div className="absolute right-3 bottom-6.5 flex items-center gap-1 rounded-full bg-black/50 px-2 py-1 text-[10px] font-semibold text-white">
         <Camera size={10} />
         {index + 1}/{images.length}
       </div>
@@ -62,7 +62,7 @@ export default function ImageCarousel({ images }: Readonly<Props>) {
       )}
 
       {/* Dot indicators */}
-      <div className="absolute bottom-2 left-1/2 flex -translate-x-1/2 gap-1">
+      <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-1">
         {images.map((_, i) => (
           <button
             key={i}
