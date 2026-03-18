@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 import AppHeader from "@/components/AppHeader";
 import BottomNavBar from "@/components/BottomNavBar";
 import HomeTab from "@/components/home/HomeTab";
@@ -24,10 +25,12 @@ export default function ReportPage() {
   const report = vin ? MOCK_REPORTS[vin] : null;
   const [activeTab, setActiveTab] = useState<TabId>("home");
   const [prevTab, setPrevTab] = useState<TabId>("home");
+  const [isCarouselVisible, setIsCarouselVisible] = useState(true);
 
   const handleTabChange = (tab: TabId) => {
     setPrevTab(activeTab);
     setActiveTab(tab);
+    if (tab === "home") setIsCarouselVisible(true);
   };
 
   const direction =
@@ -43,46 +46,52 @@ export default function ReportPage() {
 
   return (
     <div className="flex min-h-dvh flex-col bg-slate-50">
-      <AppHeader />
+      <AppHeader isTransparent={activeTab === "home" && isCarouselVisible} />
 
-      {/* Main scrollable content with slide transition between tabs */}
-      <main className="flex-1 overflow-hidden pb-24">
-        <AnimatePresence mode="wait" initial={false} custom={direction}>
-          <motion.div
-            key={activeTab}
-            custom={direction}
-            initial={{ x: direction * 60, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            exit={{ x: direction * -60, opacity: 0 }}
-            transition={{ duration: 0.22, ease: "easeInOut" }}
-            className="space-y-3 px-4 pt-4"
-          >
-            {activeTab === "home" && (
-              <HomeTab report={report} onNavigate={handleTabChange} />
-            )}
-
-            {activeTab === "market" && <MarketTab report={report} />}
-
-            {activeTab === "negotiate" && <NegotiateTab report={report} />}
-
-            {activeTab === "verdict" && <VerdictTab report={report} />}
-
-            {activeTab === "history" && <HistoryTab report={report} />}
-
-            {activeTab !== "home" &&
-              activeTab !== "market" &&
-              activeTab !== "negotiate" &&
-              activeTab !== "verdict" &&
-              activeTab !== "history" && (
-                <div className="flex flex-col items-center justify-center py-20 text-slate-400">
-                  <p className="text-sm font-semibold capitalize">
-                    {activeTab} tab
-                  </p>
-                  <p className="mt-1 text-xs">Coming soon</p>
-                </div>
+      <main className="flex-1 pb-24 pt-[var(--header-height)]">
+        {/* overflow-hidden clips the horizontal slide animation without trapping vertical scroll */}
+        <div className="overflow-hidden">
+          <AnimatePresence mode="wait" initial={false} custom={direction}>
+            <motion.div
+              key={activeTab}
+              custom={direction}
+              initial={{ x: direction * 60, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: direction * -60, opacity: 0 }}
+              transition={{ duration: 0.22, ease: "easeInOut" }}
+              className={cn(activeTab !== "home" && "space-y-3 px-4 pt-4")}
+            >
+              {activeTab === "home" && (
+                <HomeTab
+                  report={report}
+                  onNavigate={handleTabChange}
+                  // onCarouselVisibilityChange={setIsCarouselVisible}
+                />
               )}
-          </motion.div>
-        </AnimatePresence>
+
+              {activeTab === "market" && <MarketTab report={report} />}
+
+              {activeTab === "negotiate" && <NegotiateTab report={report} />}
+
+              {activeTab === "verdict" && <VerdictTab report={report} />}
+
+              {activeTab === "history" && <HistoryTab report={report} />}
+
+              {activeTab !== "home" &&
+                activeTab !== "market" &&
+                activeTab !== "negotiate" &&
+                activeTab !== "verdict" &&
+                activeTab !== "history" && (
+                  <div className="flex flex-col items-center justify-center py-20 text-slate-400">
+                    <p className="text-sm font-semibold capitalize">
+                      {activeTab} tab
+                    </p>
+                    <p className="mt-1 text-xs">Coming soon</p>
+                  </div>
+                )}
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </main>
 
       <BottomNavBar activeTab={activeTab} onTabChange={handleTabChange} />
