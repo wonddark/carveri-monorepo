@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import type { VehicleReport } from "@/data/report";
 import TimelineSubtab from "./TimelineSubtab";
@@ -8,20 +9,20 @@ import OwnersSubtab from "./OwnersSubtab";
 import ServiceSubtab from "./ServiceSubtab";
 import TitleSubtab from "./TitleSubtab";
 
-const SUBTABS = [
-  { id: "timeline", label: "Timeline" },
-  { id: "photos", label: "Auction Photos" },
-  { id: "accidents", label: "Accidents" },
-  { id: "owners", label: "Owners" },
-  { id: "service", label: "Service" },
-  { id: "title", label: "Title" },
-] as const;
-
 interface Props {
   report: VehicleReport;
 }
 
 export default function HistoryTab({ report }: Readonly<Props>) {
+  const { t } = useTranslation('history');
+  const SUBTABS = [
+    { id: "timeline", label: t('tabs.timeline') },
+    { id: "auctionPhotos", label: t('tabs.auctionPhotos') },
+    { id: "accidents", label: t('tabs.accidents') },
+    { id: "owners", label: t('tabs.owners') },
+    { id: "service", label: t('tabs.service') },
+    { id: "title", label: t('tabs.title') },
+  ];
   const [activeIdx, setActiveIdx] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
 

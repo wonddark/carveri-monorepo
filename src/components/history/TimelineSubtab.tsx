@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { Home, ChevronRight, Factory, Ship, User, FileText, Wrench, Building2, MapPin } from 'lucide-react'
 import type { HistoryEvent } from '@/data/report'
 
@@ -37,6 +38,7 @@ interface Props {
 }
 
 export default function TimelineSubtab({ timeline }: Props) {
+  const { t } = useTranslation('history')
   return (
     <>
       <div className="flex items-center gap-1 text-[10px] text-slate-400">
@@ -47,8 +49,8 @@ export default function TimelineSubtab({ timeline }: Props) {
         <span>Timeline</span>
       </div>
 
-      <h2 className="font-black text-slate-900 text-xl">Vehicle Timeline</h2>
-      <p className="text-xs text-slate-400 -mt-2">Everything that has happened to this vehicle</p>
+      <h2 className="font-black text-slate-900 text-xl">{t('timeline.heading')}</h2>
+      <p className="text-xs text-slate-400 -mt-2">{t('timeline.subtitle')}</p>
 
       <div className="bg-white rounded-2xl border border-slate-100 p-4">
         {timeline.map((event, i) => {

@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useTranslation } from 'react-i18next'
 import { Home, ChevronRight, CheckCircle2 } from 'lucide-react'
 import type { HistoryTitleItem } from '@/data/report'
 
@@ -7,6 +8,7 @@ interface Props {
 }
 
 export default function TitleSubtab({ title }: Props) {
+  const { t } = useTranslation('history')
   return (
     <>
       <div className="flex items-center gap-1 text-[10px] text-slate-400">
@@ -17,8 +19,8 @@ export default function TitleSubtab({ title }: Props) {
         <span>Title</span>
       </div>
 
-      <h2 className="font-black text-slate-900 text-xl">Title Status</h2>
-      <p className="text-xs text-slate-400 -mt-2">Title and legal status for this vehicle</p>
+      <h2 className="font-black text-slate-900 text-xl">{t('titleStatus.heading')}</h2>
+      <p className="text-xs text-slate-400 -mt-2">{t('titleStatus.subtitle')}</p>
 
       {title.map((item, i) => (
         <motion.div

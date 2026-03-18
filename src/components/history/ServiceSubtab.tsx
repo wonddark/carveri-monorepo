@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { ChevronRight, Home, Wrench } from "lucide-react";
 import type { HistoryServiceRecord } from "@/data/report";
 
@@ -7,6 +8,7 @@ interface Props {
 }
 
 export default function ServiceSubtab({ service }: Readonly<Props>) {
+  const { t } = useTranslation('history');
   return (
     <>
       <div className="flex items-center gap-1 text-[10px] text-slate-400">
@@ -17,9 +19,9 @@ export default function ServiceSubtab({ service }: Readonly<Props>) {
         <span>Service</span>
       </div>
 
-      <h2 className="text-xl font-black text-slate-900">Service History</h2>
+      <h2 className="text-xl font-black text-slate-900">{t('service.heading')}</h2>
       <p className="-mt-2 text-xs text-slate-400">
-        {service.length} service records
+        {t('service.recordsSuffix', { count: service.length })}
       </p>
 
       {service.map((record, i) => (

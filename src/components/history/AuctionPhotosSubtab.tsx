@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ChevronRight, Home } from "lucide-react";
 
 interface Props {
@@ -6,6 +7,7 @@ interface Props {
 }
 
 export default function AuctionPhotosSubtab({ photos }: Readonly<Props>) {
+  const { t } = useTranslation('history');
   const [activePhoto, setActivePhoto] = useState(0);
 
   return (
@@ -18,9 +20,9 @@ export default function AuctionPhotosSubtab({ photos }: Readonly<Props>) {
         <span>Auction Photos</span>
       </div>
 
-      <h2 className="text-xl font-black text-slate-900">Auction Photos</h2>
+      <h2 className="text-xl font-black text-slate-900">{t('auctionPhotos.heading')}</h2>
       <p className="-mt-2 text-xs text-slate-400">
-        {photos.length} auction photos — IAAI
+        {t('auctionPhotos.countSuffix', { count: photos.length })}
       </p>
 
       <img

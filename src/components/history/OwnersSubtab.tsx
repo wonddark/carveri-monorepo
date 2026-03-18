@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import { ChevronRight, Home } from "lucide-react";
 import type { HistoryOwner } from "@/data/report";
 
@@ -7,6 +8,7 @@ interface Props {
 }
 
 export default function OwnersSubtab({ owners }: Readonly<Props>) {
+  const { t } = useTranslation('history');
   return (
     <>
       <div className="flex items-center gap-1 text-[10px] text-slate-400">
@@ -17,9 +19,9 @@ export default function OwnersSubtab({ owners }: Readonly<Props>) {
         <span>Owners</span>
       </div>
 
-      <h2 className="text-xl font-black text-slate-900">Owner History</h2>
+      <h2 className="text-xl font-black text-slate-900">{t('owners.heading')}</h2>
       <p className="-mt-2 text-xs text-slate-400">
-        {owners.length} registered owners
+        {t('owners.registeredOwners', { count: owners.length })}
       </p>
 
       {owners.map((owner, i) => (
@@ -45,19 +47,19 @@ export default function OwnersSubtab({ owners }: Readonly<Props>) {
           </div>
           {[
             {
-              label: "Period",
+              label: t('owners.period'),
               value: `${owner.periodStart} — ${owner.periodEnd} (${owner.periodMonths} mo)`,
             },
             {
-              label: "Start mileage",
+              label: t('owners.startMileage'),
               value: `${owner.startMileage.toLocaleString()} mi`,
             },
             {
-              label: "End mileage",
+              label: t('owners.endMileage'),
               value: `${owner.endMileage.toLocaleString()} mi`,
             },
             {
-              label: "Miles driven",
+              label: t('owners.milesDriven'),
               value: `${(owner.endMileage - owner.startMileage).toLocaleString()} mi`,
             },
           ].map(({ label, value }) => (
