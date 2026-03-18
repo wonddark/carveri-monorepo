@@ -18,9 +18,9 @@ export default function CostsSubtab({ price, costs }: Readonly<Props>) {
       <div className="flex items-center gap-1 text-[10px] text-slate-400">
         <Home size={10} />
         <ChevronRight size={10} />
-        <span>Negotiate</span>
+        <span>{t('bottomNav.negotiate', { ns: 'common' })}</span>
         <ChevronRight size={10} />
-        <span>Costs</span>
+        <span>{t('tabs.costs')}</span>
       </div>
 
       <h2 className="text-xl font-black text-slate-900">

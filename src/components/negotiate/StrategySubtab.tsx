@@ -16,9 +16,9 @@ export default function StrategySubtab({ strategy }: Props) {
       <div className="flex items-center gap-1 text-[10px] text-slate-400">
         <Home size={10} />
         <ChevronRight size={10} />
-        <span>Negotiate</span>
+        <span>{t('bottomNav.negotiate', { ns: 'common' })}</span>
         <ChevronRight size={10} />
-        <span>Strategy</span>
+        <span>{t('tabs.strategy')}</span>
       </div>
 
       <h2 className="font-black text-slate-900 text-xl">Negotiation Strategy</h2>

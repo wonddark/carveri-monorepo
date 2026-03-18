@@ -12,9 +12,9 @@ export default function AccidentsSubtab({ accidents }: Readonly<Props>) {
       <div className="flex items-center gap-1 text-[10px] text-slate-400">
         <Home size={10} />
         <ChevronRight size={10} />
-        <span>History</span>
+        <span>{t('bottomNav.history', { ns: 'common' })}</span>
         <ChevronRight size={10} />
-        <span>Accidents</span>
+        <span>{t('tabs.accidents')}</span>
       </div>
 
       <h2 className="text-xl font-black text-slate-900">Accident History</h2>

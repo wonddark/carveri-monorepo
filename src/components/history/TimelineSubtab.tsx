@@ -44,9 +44,9 @@ export default function TimelineSubtab({ timeline }: Props) {
       <div className="flex items-center gap-1 text-[10px] text-slate-400">
         <Home size={10} />
         <ChevronRight size={10} />
-        <span>History</span>
+        <span>{t('bottomNav.history', { ns: 'common' })}</span>
         <ChevronRight size={10} />
-        <span>Timeline</span>
+        <span>{t('tabs.timeline')}</span>
       </div>
 
       <h2 className="font-black text-slate-900 text-xl">{t('timeline.heading')}</h2>

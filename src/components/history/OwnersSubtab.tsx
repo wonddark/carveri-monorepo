@@ -14,9 +14,9 @@ export default function OwnersSubtab({ owners }: Readonly<Props>) {
       <div className="flex items-center gap-1 text-[10px] text-slate-400">
         <Home size={10} />
         <ChevronRight size={10} />
-        <span>History</span>
+        <span>{t('bottomNav.history', { ns: 'common' })}</span>
         <ChevronRight size={10} />
-        <span>Owners</span>
+        <span>{t('tabs.owners')}</span>
       </div>
 
       <h2 className="text-xl font-black text-slate-900">{t('owners.heading')}</h2>

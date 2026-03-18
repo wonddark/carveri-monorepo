@@ -15,9 +15,9 @@ export default function AuctionPhotosSubtab({ photos }: Readonly<Props>) {
       <div className="flex items-center gap-1 text-[10px] text-slate-400">
         <Home size={10} />
         <ChevronRight size={10} />
-        <span>History</span>
+        <span>{t('bottomNav.history', { ns: 'common' })}</span>
         <ChevronRight size={10} />
-        <span>Auction Photos</span>
+        <span>{t('tabs.auctionPhotos')}</span>
       </div>
 
       <h2 className="text-xl font-black text-slate-900">{t('auctionPhotos.heading')}</h2>

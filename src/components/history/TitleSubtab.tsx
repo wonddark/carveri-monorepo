@@ -14,9 +14,9 @@ export default function TitleSubtab({ title }: Props) {
       <div className="flex items-center gap-1 text-[10px] text-slate-400">
         <Home size={10} />
         <ChevronRight size={10} />
-        <span>History</span>
+        <span>{t('bottomNav.history', { ns: 'common' })}</span>
         <ChevronRight size={10} />
-        <span>Title</span>
+        <span>{t('tabs.title')}</span>
       </div>
 
       <h2 className="font-black text-slate-900 text-xl">{t('titleStatus.heading')}</h2>
