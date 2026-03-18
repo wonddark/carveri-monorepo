@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import type { VehicleReport } from "@/data/report";
 
 const DELTA_COLOR: Record<VehicleReport["priceEval"]["label"], string> = {
@@ -6,14 +7,6 @@ const DELTA_COLOR: Record<VehicleReport["priceEval"]["label"], string> = {
   FAIR: "text-indigo-500",
   HIGH: "text-amber-500",
   OVERPRICED: "text-red-500",
-};
-
-const LABEL_TEXT: Record<VehicleReport["priceEval"]["label"], string> = {
-  BARGAIN: "Great deal",
-  LOW: "Below market",
-  FAIR: "Fair price",
-  HIGH: "Above market",
-  OVERPRICED: "Overpriced",
 };
 
 interface Props {
@@ -25,8 +18,17 @@ export default function MarketPriceHeader({
   price,
   priceEval,
 }: Readonly<Props>) {
+  const { t } = useTranslation(['market', 'home']);
   const { label, marketAvgDeltaPct } = priceEval;
   const isAbove = marketAvgDeltaPct > 0;
+
+  const LABEL_TEXT: Record<VehicleReport["priceEval"]["label"], string> = {
+    BARGAIN: t('home:priceEval.greatDeal'),
+    LOW: t('home:priceEval.belowMarket'),
+    FAIR: t('home:priceEval.fairPrice'),
+    HIGH: t('home:priceEval.aboveMarket'),
+    OVERPRICED: t('home:priceEval.overpriced'),
+  };
 
   return (
     <div className="rounded-2xl border border-slate-100 bg-white p-4 text-center">
@@ -35,8 +37,8 @@ export default function MarketPriceHeader({
       </div>
       <div className={`text-xs font-semibold ${DELTA_COLOR[label]}`}>
         {isAbove ? "▲" : "▼"}
-        {Math.abs(marketAvgDeltaPct).toFixed(1)}% {isAbove ? "above" : "below"}{" "}
-        average · {LABEL_TEXT[label]}
+        {Math.abs(marketAvgDeltaPct).toFixed(1)}% {isAbove ? t('home:priceEval.above') : t('home:priceEval.below')}{" "}
+        {t('home:priceEval.average')} · {LABEL_TEXT[label]}
       </div>
     </div>
   );

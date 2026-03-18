@@ -1,16 +1,18 @@
+import { useTranslation } from "react-i18next";
 import type { ComparableVehicle } from "@/data/report";
-
-const BADGE_CONFIG = {
-  CHEAPER: { label: "Cheaper", classes: "bg-emerald-100 text-emerald-700" },
-  SIMILAR: { label: "Similar", classes: "bg-amber-100 text-amber-700" },
-  PRICIER: { label: "Pricier", classes: "bg-red-100 text-red-700" },
-};
 
 interface Props {
   vehicle: ComparableVehicle;
 }
 
 export default function ComparableCard({ vehicle }: Readonly<Props>) {
+  const { t } = useTranslation('market');
+  const BADGE_CONFIG = {
+    CHEAPER: { label: t('comparables.cheaper'), classes: "bg-emerald-100 text-emerald-700" },
+    SIMILAR: { label: t('comparables.similar'), classes: "bg-amber-100 text-amber-700" },
+    PRICIER: { label: t('comparables.pricier'), classes: "bg-red-100 text-red-700" },
+  };
+
   const {
     year,
     make,

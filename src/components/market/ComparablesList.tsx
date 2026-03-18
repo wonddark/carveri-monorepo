@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import ComparableCard from "./ComparableCard";
 import type { ComparableVehicle } from "@/data/report";
 
@@ -12,16 +13,17 @@ export default function ComparablesList({
   comparables,
   location,
 }: Readonly<Props>) {
+  const { t } = useTranslation('market');
   return (
     <div className="rounded-2xl border border-slate-100 bg-white p-4">
       <div className="mb-1 flex items-center gap-2">
         <MapPin size={16} className="text-indigo-500" />
         <h3 className="text-sm font-bold text-slate-900">
-          Comparables in Your Area
+          {t('comparables.heading')}
         </h3>
       </div>
       <p className="mb-3 text-[10px] text-slate-400">
-        Similar vehicles near {location}
+        {t('comparables.similarVehicles', { city: location })}
       </p>
 
       <div>
