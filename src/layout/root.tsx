@@ -7,8 +7,10 @@ import {
 } from "@/components/ui/navigation-menu.tsx";
 import { Button } from "@/components/ui/button.tsx";
 import { Toaster } from "@/components/ui/sonner.tsx";
+import { useTranslation } from "react-i18next";
 
 function RootLayout() {
+  const { t } = useTranslation("common");
   return (
     <div className="flex min-h-screen flex-col">
       <div className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white/95 shadow-sm shadow-gray-100/50 backdrop-blur-xl">
@@ -20,17 +22,17 @@ function RootLayout() {
             <NavigationMenuList>
               <NavigationMenuItem className="hidden md:inline">
                 <NavigationMenuLink asChild>
-                  <NavLink to="/login">Iniciar sesión</NavLink>
+                  <NavLink to="/login">{t('nav.signIn')}</NavLink>
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
-                  <NavLink to="/register">Registro</NavLink>
+                  <NavLink to="/register">{t('nav.register')}</NavLink>
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem className="hidden md:inline">
                 <Button asChild>
-                  <NavLink to="/">Reporte gratis</NavLink>
+                  <NavLink to="/">{t('nav.freeReport')}</NavLink>
                 </Button>
               </NavigationMenuItem>
             </NavigationMenuList>

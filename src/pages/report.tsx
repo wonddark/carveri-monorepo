@@ -17,6 +17,7 @@ import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area.tsx";
 import type { VehicleReport } from "@/types/vehicle-report";
 import type { Book, Vehicle, VehicleImage } from "@/types/vehicle-detail";
 import { useLoaderData } from "react-router";
+import { useTranslation } from "react-i18next";
 
 /** Parses a price string like "$2,600.00" into a number */
 function parsePriceStr(s: string): number {
@@ -128,6 +129,7 @@ function transformBooks(report: VehicleReport): Book[] {
 const Report: React.FC = () => {
   const report = useLoaderData<VehicleReport>();
   const [activeTab, setActiveTab] = useState("historial");
+  const { t } = useTranslation("common");
 
   const images = transformImages(report);
   const vehicle = transformVehicle(report);
@@ -175,7 +177,7 @@ const Report: React.FC = () => {
                     });
                   }}
                 >
-                  <IconHistory /> Historial
+                  <IconHistory /> {t('tabs.historial')}
                 </TabsTrigger>
                 <TabsTrigger
                   value="mercado"
@@ -187,7 +189,7 @@ const Report: React.FC = () => {
                     });
                   }}
                 >
-                  <IconChartBar /> Mercado
+                  <IconChartBar /> {t('tabs.mercado')}
                 </TabsTrigger>
                 <TabsTrigger
                   value="ia"
@@ -199,7 +201,7 @@ const Report: React.FC = () => {
                     });
                   }}
                 >
-                  <IconSparkles /> Valoración IA
+                  <IconSparkles /> {t('tabs.ia')}
                 </TabsTrigger>
                 <TabsTrigger
                   value="docs"
@@ -211,7 +213,7 @@ const Report: React.FC = () => {
                     });
                   }}
                 >
-                  <IconFileText /> Documentos
+                  <IconFileText /> {t('tabs.documentos')}
                 </TabsTrigger>
               </TabsList>
               <ScrollBar orientation="horizontal" />
@@ -245,7 +247,7 @@ const Report: React.FC = () => {
             setActiveTab("historial");
             scrollToTarget();
           }}
-          label="Historial"
+          label={t('tabs.historial')}
           renderIcon={(className) => <IconHistory className={className} />}
         />
         <MobileNavBtn
@@ -254,7 +256,7 @@ const Report: React.FC = () => {
             setActiveTab("mercado");
             scrollToTarget();
           }}
-          label="Mercado"
+          label={t('tabs.mercado')}
           renderIcon={(className) => <IconChartBar className={className} />}
         />
         <MobileNavBtn
@@ -263,7 +265,7 @@ const Report: React.FC = () => {
             setActiveTab("ia");
             scrollToTarget();
           }}
-          label="Valoración IA"
+          label={t('tabs.ia')}
           renderIcon={(className) => <IconSparkles className={className} />}
         />
         <MobileNavBtn
@@ -272,7 +274,7 @@ const Report: React.FC = () => {
             setActiveTab("docs");
             scrollToTarget();
           }}
-          label="Documentos"
+          label={t('tabs.documentos')}
           renderIcon={(className) => <IconFileText className={className} />}
         />
       </nav>
