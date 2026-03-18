@@ -41,7 +41,7 @@
   --yarl__container_background_color: transparent;
   --yarl__thumbnails_container_background_color: transparent;
   --yarl__color_backdrop: transparent;
-  --header-height: 52px;
+  --header-height: 44px;
 }
 
 .dark {
