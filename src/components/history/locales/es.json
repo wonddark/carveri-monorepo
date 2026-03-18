@@ -1,0 +1,38 @@
+{
+  "tabs": {
+    "timeline": "Cronología",
+    "auctionPhotos": "Fotos de Subasta",
+    "accidents": "Accidentes",
+    "owners": "Propietarios",
+    "service": "Servicio",
+    "title": "Título"
+  },
+  "timeline": {
+    "heading": "Cronología del Vehículo",
+    "subtitle": "Todo lo que le ha ocurrido a este vehículo"
+  },
+  "auctionPhotos": {
+    "heading": "Fotos de Subasta",
+    "countSuffix": "fotos de subasta — IAAI"
+  },
+  "accidents": {
+    "cleanHistory": "Sin Accidentes",
+    "noAccidents": "No se encontraron accidentes reportados para este vehículo"
+  },
+  "owners": {
+    "heading": "Historial de Propietarios",
+    "registeredOwners": "propietarios registrados",
+    "period": "Período",
+    "startMileage": "Millaje inicial",
+    "endMileage": "Millaje final",
+    "milesDriven": "Millas recorridas"
+  },
+  "service": {
+    "heading": "Historial de Servicio",
+    "recordsSuffix": "registros de servicio"
+  },
+  "titleStatus": {
+    "heading": "Estado del Título",
+    "subtitle": "Estado del título y situación legal de este vehículo"
+  }
+}

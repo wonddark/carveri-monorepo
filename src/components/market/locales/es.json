@@ -1,0 +1,17 @@
+{
+  "tabs": {
+    "market": "Mercado",
+    "bookValuations": "Libros de Valuación"
+  },
+  "header": {
+    "marketAnalysis": "Análisis de Mercado",
+    "pricingEvaluation": "Evaluación de precios y comparables en"
+  },
+  "comparables": {
+    "heading": "Comparables en Tu Área",
+    "similarVehicles": "Vehículos similares cerca de",
+    "cheaper": "Más Barato",
+    "similar": "Similar",
+    "pricier": "Más Caro"
+  }
+}

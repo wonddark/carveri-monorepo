@@ -1,0 +1,26 @@
+{
+  "tabs": {
+    "strategy": "Estrategia",
+    "arguments": "Argumentos",
+    "costs": "Costos"
+  },
+  "strategy": {
+    "firstOffer": "Primera Oferta",
+    "midpoint": "Punto Medio",
+    "maxRecommended": "Máximo Recomendado",
+    "tips": "Consejos de Negociación"
+  },
+  "arguments": {
+    "heading": "Argumentos de Negociación"
+  },
+  "costs": {
+    "heading": "Costos Estimados de Compra",
+    "breakdown": "Desglose completo de costos en",
+    "vehiclePrice": "Precio del vehículo",
+    "salesTax": "Impuesto de Venta",
+    "tagTitle": "Matrícula y Título",
+    "dealerFee": "Fee del Dealer",
+    "totalEstimated": "Total Estimado",
+    "monthlyHeading": "Costos Mensuales Estimados"
+  }
+}

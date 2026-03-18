@@ -1,0 +1,49 @@
+{
+  "reportSummary": "Resumen del Reporte",
+  "overviewFor": "Descripción general para",
+  "stats": {
+    "title": "Título",
+    "accidents": "Accidentes",
+    "odometer": "Odómetro",
+    "price": "Precio",
+    "reported": "reportado",
+    "clean": "Limpio",
+    "verified": "Verificado",
+    "inconsistent": "Inconsistente"
+  },
+  "vehicleDetails": {
+    "title": "Detalles del Vehículo",
+    "vin": "VIN",
+    "engine": "Motor",
+    "transmission": "Transmisión",
+    "drivetrain": "Tracción",
+    "color": "Color",
+    "auction": "Subasta",
+    "location": "Ubicación",
+    "daysOnLot": "Días en lote",
+    "prevOwners": "Propietarios anteriores",
+    "days": "días"
+  },
+  "aiSummary": "Resumen IA",
+  "priceEval": {
+    "title": "Evaluación de Precio",
+    "greatDeal": "Gran oferta",
+    "belowMarket": "Bajo el mercado",
+    "fairPrice": "Precio justo",
+    "aboveMarket": "Sobre el mercado",
+    "overpriced": "Sobreprecio",
+    "above": "arriba",
+    "below": "debajo",
+    "average": "promedio"
+  },
+  "quickNav": {
+    "timeline": "Cronología",
+    "timelineDesc": "Historial completo del vehículo",
+    "market": "Mercado",
+    "marketDesc": "Precio y comparables",
+    "aiVerdict": "Veredicto IA",
+    "aiVerdictDesc": "Análisis detallado",
+    "negotiate": "Negociar",
+    "negotiateDesc": "Estrategia y argumentos"
+  }
+}

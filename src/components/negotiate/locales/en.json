@@ -1,0 +1,26 @@
+{
+  "tabs": {
+    "strategy": "Strategy",
+    "arguments": "Arguments",
+    "costs": "Costs"
+  },
+  "strategy": {
+    "firstOffer": "First Offer",
+    "midpoint": "Midpoint",
+    "maxRecommended": "Max Recommended",
+    "tips": "Negotiation Tips"
+  },
+  "arguments": {
+    "heading": "Negotiation Arguments"
+  },
+  "costs": {
+    "heading": "Estimated Purchase Costs",
+    "breakdown": "Complete cost breakdown in",
+    "vehiclePrice": "Vehicle price",
+    "salesTax": "Sales Tax",
+    "tagTitle": "Tag & Title",
+    "dealerFee": "Dealer Fee",
+    "totalEstimated": "Total Estimated",
+    "monthlyHeading": "Estimated Monthly Costs"
+  }
+}

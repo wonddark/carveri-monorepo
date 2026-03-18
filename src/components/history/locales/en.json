@@ -1,0 +1,38 @@
+{
+  "tabs": {
+    "timeline": "Timeline",
+    "auctionPhotos": "Auction Photos",
+    "accidents": "Accidents",
+    "owners": "Owners",
+    "service": "Service",
+    "title": "Title"
+  },
+  "timeline": {
+    "heading": "Vehicle Timeline",
+    "subtitle": "Everything that has happened to this vehicle"
+  },
+  "auctionPhotos": {
+    "heading": "Auction Photos",
+    "countSuffix": "auction photos — IAAI"
+  },
+  "accidents": {
+    "cleanHistory": "Clean History",
+    "noAccidents": "No reported accidents found for this vehicle"
+  },
+  "owners": {
+    "heading": "Owner History",
+    "registeredOwners": "registered owners",
+    "period": "Period",
+    "startMileage": "Start mileage",
+    "endMileage": "End mileage",
+    "milesDriven": "Miles driven"
+  },
+  "service": {
+    "heading": "Service History",
+    "recordsSuffix": "service records"
+  },
+  "titleStatus": {
+    "heading": "Title Status",
+    "subtitle": "Title and legal status for this vehicle"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "tabs": {
+    "market": "Market",
+    "bookValuations": "Book Valuations"
+  },
+  "header": {
+    "marketAnalysis": "Market Analysis",
+    "pricingEvaluation": "Pricing evaluation & comparables in"
+  },
+  "comparables": {
+    "heading": "Comparables in Your Area",
+    "similarVehicles": "Similar vehicles near",
+    "cheaper": "Cheaper",
+    "similar": "Similar",
+    "pricier": "Pricier"
+  }
+}

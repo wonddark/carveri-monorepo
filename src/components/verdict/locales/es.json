@@ -1,0 +1,25 @@
+{
+  "tabs": {
+    "verdict": "Veredicto",
+    "risks": "Riesgos",
+    "checklist": "Lista de Verificación"
+  },
+  "main": {
+    "heading": "Veredicto CarVeri — Análisis Completo",
+    "subtitle": "Análisis inteligente basado en 11 fuentes de datos"
+  },
+  "badge": {
+    "label": "Veredicto CarVeri"
+  },
+  "risks": {
+    "heading": "Análisis de Riesgos"
+  },
+  "checklist": {
+    "heading": "Lista de Inspección"
+  },
+  "recommendation": {
+    "buy": "COMPRAR",
+    "consider": "CONSIDERAR",
+    "avoid": "EVITAR"
+  }
+}

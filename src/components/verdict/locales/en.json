@@ -1,0 +1,25 @@
+{
+  "tabs": {
+    "verdict": "Verdict",
+    "risks": "Risks",
+    "checklist": "Checklist"
+  },
+  "main": {
+    "heading": "CarVeri Verdict — Complete Analysis",
+    "subtitle": "Intelligent analysis based on 11 data sources"
+  },
+  "badge": {
+    "label": "CarVeri Verdict"
+  },
+  "risks": {
+    "heading": "Risk Analysis"
+  },
+  "checklist": {
+    "heading": "Inspection Checklist"
+  },
+  "recommendation": {
+    "buy": "BUY",
+    "consider": "CONSIDER",
+    "avoid": "AVOID"
+  }
+}

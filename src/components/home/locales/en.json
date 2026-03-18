@@ -1,0 +1,49 @@
+{
+  "reportSummary": "Report Summary",
+  "overviewFor": "Overview for",
+  "stats": {
+    "title": "Title",
+    "accidents": "Accidents",
+    "odometer": "Odometer",
+    "price": "Price",
+    "reported": "reported",
+    "clean": "Clean",
+    "verified": "Verified",
+    "inconsistent": "Inconsistent"
+  },
+  "vehicleDetails": {
+    "title": "Vehicle Details",
+    "vin": "VIN",
+    "engine": "Engine",
+    "transmission": "Transmission",
+    "drivetrain": "Drivetrain",
+    "color": "Color",
+    "auction": "Auction",
+    "location": "Location",
+    "daysOnLot": "Days on lot",
+    "prevOwners": "Prev. owners",
+    "days": "days"
+  },
+  "aiSummary": "AI Summary",
+  "priceEval": {
+    "title": "Price Evaluation",
+    "greatDeal": "Great deal",
+    "belowMarket": "Below market",
+    "fairPrice": "Fair price",
+    "aboveMarket": "Above market",
+    "overpriced": "Overpriced",
+    "above": "above",
+    "below": "below",
+    "average": "average"
+  },
+  "quickNav": {
+    "timeline": "Timeline",
+    "timelineDesc": "Full vehicle history",
+    "market": "Market",
+    "marketDesc": "Price & comparables",
+    "aiVerdict": "AI Verdict",
+    "aiVerdictDesc": "Detailed analysis",
+    "negotiate": "Negotiate",
+    "negotiateDesc": "Strategy & arguments"
+  }
+}
