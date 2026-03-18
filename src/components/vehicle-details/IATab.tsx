@@ -99,7 +99,7 @@ export const IATab: React.FC = () => {
               )}
             />
             <FactorRow
-              name="Millaje"
+              name={t('ia.mileage')}
               note={t('ia.lowMileage')}
               score={9}
               color="#22C55E"
