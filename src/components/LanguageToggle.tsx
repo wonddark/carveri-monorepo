@@ -1,7 +1,11 @@
 import { Globe } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-export default function LanguageToggle() {
+interface Props {
+  variant?: "default" | "light";
+}
+
+export default function LanguageToggle({ variant = "default" }: Props) {
   const { i18n } = useTranslation();
   const currentLang = i18n.language.startsWith("es") ? "es" : "en";
 
@@ -12,7 +16,11 @@ export default function LanguageToggle() {
   return (
     <button
       onClick={toggle}
-      className="flex items-center gap-1 rounded-lg bg-slate-100 px-2 py-1.5 text-xs font-semibold text-slate-500"
+      className={`flex items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-semibold ${
+        variant === "light"
+          ? "bg-white/15 text-white"
+          : "bg-slate-100 text-slate-500"
+      }`}
       aria-label="Toggle language"
     >
       <Globe size={13} />
