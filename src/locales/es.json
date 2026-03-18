@@ -1,0 +1,26 @@
+{
+  "nav": {
+    "signIn": "Iniciar sesión",
+    "register": "Registro",
+    "freeReport": "Reporte gratis"
+  },
+  "tabs": {
+    "historial": "Historial",
+    "mercado": "Mercado",
+    "ia": "Valoración IA",
+    "documentos": "Documentos"
+  },
+  "bottomNav": {
+    "home": "Inicio",
+    "history": "Historial",
+    "market": "Mercado",
+    "verdict": "Veredicto",
+    "negotiate": "Negociar"
+  },
+  "actions": {
+    "goBack": "Volver",
+    "share": "Compartir",
+    "download": "Descargar",
+    "send": "Enviar"
+  }
+}
