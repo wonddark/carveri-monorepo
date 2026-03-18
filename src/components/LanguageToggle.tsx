@@ -16,7 +16,7 @@ export default function LanguageToggle({ variant = "default" }: Props) {
   return (
     <button
       onClick={toggle}
-      className={`flex items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-semibold ${
+      className={`flex items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-semibold transition-colors duration-300 ${
         variant === "light"
           ? "bg-white/15 text-white"
           : "bg-slate-100 text-slate-500"
