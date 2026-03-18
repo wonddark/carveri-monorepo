@@ -65,7 +65,7 @@ export default function ReportPage() {
                 <HomeTab
                   report={report}
                   onNavigate={handleTabChange}
-                  // onCarouselVisibilityChange={setIsCarouselVisible}
+                  onCarouselVisibilityChange={setIsCarouselVisible}
                 />
               )}
 
