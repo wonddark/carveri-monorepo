@@ -27,6 +27,12 @@ interface Props {
   scoreBreakdown: VerdictScoreItem[]
 }
 
+const RECOMMENDATION_KEY = {
+  BUY: 'recommendation.buy',
+  CONSIDER: 'recommendation.consider',
+  AVOID: 'recommendation.avoid',
+} as const;
+
 export default function VerdictSubtab({ score, recommendation, summary, scoreBreakdown }: Props) {
   const { t } = useTranslation('verdict')
   return (
@@ -53,7 +59,7 @@ export default function VerdictSubtab({ score, recommendation, summary, scoreBre
           <p className="text-xs text-indigo-200 font-semibold">{t('badge.label')}</p>
           <span className={`${CHIP_BG[recommendation]} text-white rounded-full px-2 py-0.5 text-[10px] font-bold inline-flex items-center gap-1 mt-1`}>
             <CheckCircle size={10} />
-            {t(`recommendation.${recommendation.toLowerCase() as 'buy' | 'consider' | 'avoid'}`)}
+            {t(RECOMMENDATION_KEY[recommendation])}
           </span>
           <p className="text-xs text-indigo-100 leading-relaxed mt-1">{summary}</p>
         </div>
