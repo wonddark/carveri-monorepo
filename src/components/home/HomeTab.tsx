@@ -37,7 +37,7 @@ export default function HomeTab({ report, onNavigate }: Readonly<Props>) {
           <LayoutDashboard size={14} className="text-indigo-600" />
         </div>
         <span className="text-xs font-semibold tracking-wide text-slate-500 uppercase">
-          {t("reportSummary")}
+          Summary
         </span>
       </div>
       <h2 className="-mt-1 text-xl font-black text-slate-900">
