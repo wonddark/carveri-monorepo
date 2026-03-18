@@ -15,9 +15,9 @@ export default function RisksSubtab({ risks }: Readonly<Props>) {
       <div className="flex items-center gap-1 text-[10px] text-slate-400">
         <Home size={10} />
         <ChevronRight size={10} />
-        <span>Verdict</span>
+        <span>{t('tabs.verdict')}</span>
         <ChevronRight size={10} />
-        <span>Risks</span>
+        <span>{t('tabs.risks')}</span>
       </div>
 
       <h2 className="text-xl font-black text-slate-900">{t('risks.heading')}</h2>

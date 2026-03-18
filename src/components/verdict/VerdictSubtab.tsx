@@ -35,9 +35,9 @@ export default function VerdictSubtab({ score, recommendation, summary, scoreBre
       <div className="flex items-center gap-1 text-[10px] text-slate-400">
         <Home size={10} />
         <ChevronRight size={10} />
-        <span>Verdict</span>
+        <span>{t('tabs.verdict')}</span>
         <ChevronRight size={10} />
-        <span>Verdict</span>
+        <span>{t('tabs.verdict')}</span>
       </div>
 
       <h2 className="font-black text-slate-900 text-xl">{t('main.heading')}</h2>
@@ -53,7 +53,7 @@ export default function VerdictSubtab({ score, recommendation, summary, scoreBre
           <p className="text-xs text-indigo-200 font-semibold">{t('badge.label')}</p>
           <span className={`${CHIP_BG[recommendation]} text-white rounded-full px-2 py-0.5 text-[10px] font-bold inline-flex items-center gap-1 mt-1`}>
             <CheckCircle size={10} />
-            {recommendation}
+            {t(`recommendation.${recommendation.toLowerCase() as 'buy' | 'consider' | 'avoid'}`)}
           </span>
           <p className="text-xs text-indigo-100 leading-relaxed mt-1">{summary}</p>
         </div>
