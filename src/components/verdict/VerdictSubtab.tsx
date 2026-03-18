@@ -1,4 +1,5 @@
 import { Home, ChevronRight, CheckCircle, TrendingDown, ShieldCheck, Gauge, Users, Wrench, Building2 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import type { VerdictScoreItem } from '@/data/report'
 
 // ICON_MAP resolves icon name strings from mock data to lucide components.
@@ -27,6 +28,7 @@ interface Props {
 }
 
 export default function VerdictSubtab({ score, recommendation, summary, scoreBreakdown }: Props) {
+  const { t } = useTranslation('verdict')
   return (
     <>
       {/* Breadcrumb */}
@@ -38,8 +40,8 @@ export default function VerdictSubtab({ score, recommendation, summary, scoreBre
         <span>Verdict</span>
       </div>
 
-      <h2 className="font-black text-slate-900 text-xl">CarVeri Verdict — Complete Analysis</h2>
-      <p className="text-xs text-slate-400 -mt-2">Intelligent analysis based on 11 data sources</p>
+      <h2 className="font-black text-slate-900 text-xl">{t('main.heading')}</h2>
+      <p className="text-xs text-slate-400 -mt-2">{t('main.subtitle')}</p>
 
       {/* Score card */}
       <div className="bg-indigo-600 rounded-2xl p-4 flex gap-4 items-start">
@@ -48,7 +50,7 @@ export default function VerdictSubtab({ score, recommendation, summary, scoreBre
           <span className="text-xs text-indigo-200 font-semibold">/10</span>
         </div>
         <div className="flex-1">
-          <p className="text-xs text-indigo-200 font-semibold">CarVeri Verdict</p>
+          <p className="text-xs text-indigo-200 font-semibold">{t('badge.label')}</p>
           <span className={`${CHIP_BG[recommendation]} text-white rounded-full px-2 py-0.5 text-[10px] font-bold inline-flex items-center gap-1 mt-1`}>
             <CheckCircle size={10} />
             {recommendation}

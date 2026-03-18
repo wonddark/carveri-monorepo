@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import VerdictSubtab from './VerdictSubtab'
 import RisksSubtab from './RisksSubtab'
 import ChecklistSubtab from './ChecklistSubtab'
@@ -6,17 +7,17 @@ import type { VehicleReport } from '@/data/report'
 
 type SubtabId = 'verdict' | 'risks' | 'checklist'
 
-const SUBTABS: { id: SubtabId; label: string }[] = [
-  { id: 'verdict',   label: 'Verdict'   },
-  { id: 'risks',     label: 'Risks'     },
-  { id: 'checklist', label: 'Checklist' },
-]
-
 interface Props {
   report: VehicleReport
 }
 
 export default function VerdictTab({ report }: Props) {
+  const { t } = useTranslation('verdict')
+  const SUBTABS: { id: SubtabId; label: string }[] = [
+    { id: 'verdict',   label: t('tabs.verdict')   },
+    { id: 'risks',     label: t('tabs.risks')     },
+    { id: 'checklist', label: t('tabs.checklist') },
+  ]
   const [activeSubtab, setActiveSubtab] = useState<SubtabId>('verdict')
 
   return (

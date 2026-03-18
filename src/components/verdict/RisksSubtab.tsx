@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { AlertTriangle, CheckCircle2, ChevronRight, Home } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import type { VerdictRisk } from "@/data/report";
 
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
 }
 
 export default function RisksSubtab({ risks }: Readonly<Props>) {
+  const { t } = useTranslation('verdict')
   return (
     <>
       {/* Breadcrumb */}
@@ -18,7 +20,7 @@ export default function RisksSubtab({ risks }: Readonly<Props>) {
         <span>Risks</span>
       </div>
 
-      <h2 className="text-xl font-black text-slate-900">Risk Analysis</h2>
+      <h2 className="text-xl font-black text-slate-900">{t('risks.heading')}</h2>
 
       <div className="space-y-3">
         {risks.map((risk, i) => {

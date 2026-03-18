@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Check, ChevronRight, Eye, FileText, Home, Wrench } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import type { VerdictChecklistGroup } from "@/data/report";
 
 // ICON_MAP resolves categoryIcon strings from mock data to lucide components.
@@ -18,6 +19,7 @@ interface Props {
 }
 
 export default function ChecklistSubtab({ checklist }: Readonly<Props>) {
+  const { t } = useTranslation('verdict')
   const [checked, setChecked] = useState<Set<string>>(() => new Set());
 
   function toggle(key: string) {
@@ -44,7 +46,7 @@ export default function ChecklistSubtab({ checklist }: Readonly<Props>) {
       </div>
 
       <h2 className="text-xl font-black text-slate-900">
-        Inspection Checklist
+        {t('checklist.heading')}
       </h2>
 
       {checklist.map((group) => {
