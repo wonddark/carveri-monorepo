@@ -1,4 +1,4 @@
-import "@/lib/i18n"; // must be first — initializes i18next synchronously
+import "@carveri/shared/lib/i18n"; // must be first — initializes i18next synchronously
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router/dom";

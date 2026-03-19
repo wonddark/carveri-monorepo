@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router";
 import { ArrowLeft, Share2 } from "lucide-react";
-import LanguageToggle from "@/components/LanguageToggle";
+import LanguageToggle from "@carveri/shared/components/LanguageToggle";
 import { useTranslation } from "react-i18next";
-import { cn } from "@/lib/utils.ts";
+import { cn } from "@carveri/shared/lib/utils.ts";
 
 interface AppHeaderProps {
   isTransparent?: boolean;

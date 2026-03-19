@@ -1,6 +1,6 @@
 import { isRouteErrorResponse, useRouteError } from "react-router";
 import { IconChevronLeft } from "@tabler/icons-react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@carveri/shared/components/ui/button";
 
 function ReportError() {
   const error = useRouteError();

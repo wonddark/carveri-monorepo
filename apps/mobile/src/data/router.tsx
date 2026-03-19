@@ -7,7 +7,7 @@ import ReportError from "@/pages/report-error.tsx";
 import RootError from "@/pages/root-error.tsx";
 import Login from "@/pages/login.tsx";
 import Register from "@/pages/register.tsx";
-import { fetchVehicleReport } from "@/data/api.ts";
+import { fetchVehicleReport } from "@carveri/shared/data/api.ts";
 import ReportPage from "@/pages/ReportPage.tsx";
 
 async function reportLoader({ params }: LoaderFunctionArgs) {

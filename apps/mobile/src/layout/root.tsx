@@ -4,9 +4,9 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from "@/components/ui/navigation-menu.tsx";
-import { Button } from "@/components/ui/button.tsx";
-import { Toaster } from "@/components/ui/sonner.tsx";
+} from "@carveri/shared/components/ui/navigation-menu.tsx";
+import { Button } from "@carveri/shared/components/ui/button.tsx";
+import { Toaster } from "@carveri/shared/components/ui/sonner.tsx";
 import { useTranslation } from "react-i18next";
 
 function RootLayout() {

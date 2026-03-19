@@ -5,17 +5,17 @@ import {
   IconHistory,
   IconSparkles,
 } from "@tabler/icons-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { VehicleHero } from "@/components/vehicle-details/VehicleHero";
-import { VehicleInfoCard } from "@/components/vehicle-details/VehicleInfoCard";
-import { PriceEvaluation } from "@/components/vehicle-details/PriceEvaluation";
-import { HistorialTab } from "@/components/vehicle-details/HistorialTab";
-import { MercadoTab } from "@/components/vehicle-details/MercadoTab";
-import { IATab } from "@/components/vehicle-details/IATab";
-import { DocumentsTab } from "@/components/vehicle-details/DocumentsTab";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area.tsx";
-import type { VehicleReport } from "@/types/vehicle-report";
-import type { Book, Vehicle, VehicleImage } from "@/types/vehicle-detail";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@carveri/shared/components/ui/tabs";
+import { VehicleHero } from "@carveri/shared/components/vehicle-details/VehicleHero";
+import { VehicleInfoCard } from "@carveri/shared/components/vehicle-details/VehicleInfoCard";
+import { PriceEvaluation } from "@carveri/shared/components/vehicle-details/PriceEvaluation";
+import { HistorialTab } from "@carveri/shared/components/vehicle-details/HistorialTab";
+import { MercadoTab } from "@carveri/shared/components/vehicle-details/MercadoTab";
+import { IATab } from "@carveri/shared/components/vehicle-details/IATab";
+import { DocumentsTab } from "@carveri/shared/components/vehicle-details/DocumentsTab";
+import { ScrollArea, ScrollBar } from "@carveri/shared/components/ui/scroll-area.tsx";
+import type { VehicleReport } from "@carveri/shared/types/vehicle-report";
+import type { Book, Vehicle, VehicleImage } from "@carveri/shared/types/vehicle-detail";
 import { useLoaderData } from "react-router";
 import { useTranslation } from "react-i18next";
 

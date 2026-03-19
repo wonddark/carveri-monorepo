@@ -1,6 +1,6 @@
 import { BarChart2, Clock, Handshake, Home, Sparkles } from "lucide-react";
-import { cn } from "@/lib/utils";
-import type { TabId } from "@/data/report";
+import { cn } from "@carveri/shared/lib/utils";
+import type { TabId } from "@carveri/shared/data/report";
 import { useTranslation } from "react-i18next";
 
 interface Props {

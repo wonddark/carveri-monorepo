@@ -1,9 +1,9 @@
 import { toast } from "sonner";
 import { Toaster as Sonner } from "sonner";
 import { useNavigate, Link } from "react-router";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Button } from "@carveri/shared/components/ui/button";
+import { Input } from "@carveri/shared/components/ui/input";
+import { Label } from "@carveri/shared/components/ui/label";
 
 function Login() {
   const navigate = useNavigate();

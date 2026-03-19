@@ -2,10 +2,10 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { Toaster as Sonner } from "sonner";
 import { useNavigate, Link } from "react-router";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@carveri/shared/components/ui/button";
+import { Input } from "@carveri/shared/components/ui/input";
+import { Label } from "@carveri/shared/components/ui/label";
+import { Checkbox } from "@carveri/shared/components/ui/checkbox";
 
 function Register() {
   const navigate = useNavigate();

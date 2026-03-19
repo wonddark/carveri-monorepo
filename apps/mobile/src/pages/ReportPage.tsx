@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import BottomNavBar from "@/components/BottomNavBar";
-import HomeTab from "@/components/home/HomeTab";
-import MarketTab from "@/components/market/MarketTab";
-import NegotiateTab from "@/components/negotiate/NegotiateTab";
-import VerdictTab from "@/components/verdict/VerdictTab";
-import HistoryTab from "@/components/history/HistoryTab";
-import type { TabId } from "@/data/report";
-import { MOCK_REPORTS } from "@/data/report";
+import HomeTab from "@carveri/shared/components/home/HomeTab";
+import MarketTab from "@carveri/shared/components/market/MarketTab";
+import NegotiateTab from "@carveri/shared/components/negotiate/NegotiateTab";
+import VerdictTab from "@carveri/shared/components/verdict/VerdictTab";
+import HistoryTab from "@carveri/shared/components/history/HistoryTab";
+import type { TabId } from "@carveri/shared/data/report";
+import { MOCK_REPORTS } from "@carveri/shared/data/report";
 import { useParams } from "react-router";
 
 const TAB_ORDER: TabId[] = [

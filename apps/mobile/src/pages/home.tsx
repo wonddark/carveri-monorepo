@@ -2,23 +2,23 @@ import { type SubmitEventHandler, useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 
 /* ─── shadcn/ui components ─── */
-import { Button } from "@/components/ui/button";
+import { Button } from "@carveri/shared/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+} from "@carveri/shared/components/ui/card";
+import { Input } from "@carveri/shared/components/ui/input";
+import { Badge } from "@carveri/shared/components/ui/badge";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { Separator } from "@/components/ui/separator";
+} from "@carveri/shared/components/ui/accordion";
+import { Dialog, DialogContent, DialogTitle } from "@carveri/shared/components/ui/dialog";
+import { Separator } from "@carveri/shared/components/ui/separator";
 import {
   IconAlertTriangle,
   IconArrowRight,
