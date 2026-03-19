@@ -1,4 +1,4 @@
-import { buildGaugeSvg, fmt } from "@/lib/gauge.ts";
+import { buildGaugeSvg, fmt } from "@carveri/shared/lib/gauge.ts";
 import parse from "html-react-parser";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";

@@ -1,9 +1,9 @@
 import React, { Activity, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { IconGauge as GaugeIcon, IconX } from "@tabler/icons-react";
-import { fmt } from "@/lib/gauge";
-import { type Book } from "@/types/vehicle-detail";
-import ReportGauge from "@/components/ReportGauge.tsx";
+import { fmt } from "@carveri/shared/lib/gauge";
+import { type Book } from "@carveri/shared/types/vehicle-detail";
+import ReportGauge from "@carveri/shared/components/ReportGauge.tsx";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,10 +12,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog.tsx";
-import { Card, CardContent } from "@/components/ui/card.tsx";
-import { Button } from "@/components/ui/button.tsx";
-import { cn } from "@/lib/utils.ts";
+} from "@carveri/shared/components/ui/alert-dialog.tsx";
+import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
+import { Button } from "@carveri/shared/components/ui/button.tsx";
+import { cn } from "@carveri/shared/lib/utils.ts";
 
 interface Props {
   price: number;

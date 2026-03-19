@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@carveri/shared/components/ui/tabs";
 import {
   IconAlertTriangle,
   IconArrowRight,
@@ -9,10 +9,10 @@ import {
   IconCircleCheck,
   IconStar,
 } from "@tabler/icons-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { comparablesData } from "@/data/mockData";
-import { fmt } from "@/lib/gauge";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area.tsx";
+import { Card, CardContent, CardHeader, CardTitle } from "@carveri/shared/components/ui/card";
+import { comparablesData } from "@carveri/shared/data/mockData";
+import { fmt } from "@carveri/shared/lib/gauge";
+import { ScrollArea, ScrollBar } from "@carveri/shared/components/ui/scroll-area.tsx";
 
 interface Props {
   vehiclePrice: number;

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import VerdictSubtab from './VerdictSubtab'
 import RisksSubtab from './RisksSubtab'
 import ChecklistSubtab from './ChecklistSubtab'
-import type { VehicleReport } from '@/data/report'
+import type { VehicleReport } from '@carveri/shared/data/report'
 
 type SubtabId = 'verdict' | 'risks' | 'checklist'
 

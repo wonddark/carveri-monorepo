@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import type { HistoryOwner } from "@/data/report";
+import type { HistoryOwner } from "@carveri/shared/data/report";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card.tsx";
+} from "@carveri/shared/components/ui/card.tsx";
 
 interface Props {
   owners: HistoryOwner[];

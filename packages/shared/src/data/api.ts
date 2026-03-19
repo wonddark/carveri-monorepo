@@ -1,4 +1,4 @@
-import type { VehicleReport } from "@/types/vehicle-report";
+import type { VehicleReport } from "@carveri/shared/types/vehicle-report";
 
 export async function fetchVehicleReport(vin: string): Promise<VehicleReport> {
   const response = await fetch(`${import.meta.env.VITE_API_URL}/${vin}`);

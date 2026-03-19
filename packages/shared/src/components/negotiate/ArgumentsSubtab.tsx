@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { ChevronRight, Home } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import ArgumentCard from "./ArgumentCard";
-import type { NegotiateArgument } from "@/data/report";
+import type { NegotiateArgument } from "@carveri/shared/data/report";
 
 interface Props {
   args: NegotiateArgument[];

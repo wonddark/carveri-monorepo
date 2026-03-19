@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@carveri/shared/components/ui/tabs";
 import {
   IconAlertTriangle,
   IconCamera,
@@ -11,12 +11,12 @@ import {
   IconShield,
   IconUsers,
 } from "@tabler/icons-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import type { Historial } from "@/types/vehicle-report";
+import { Card, CardContent, CardHeader, CardTitle } from "@carveri/shared/components/ui/card";
+import type { Historial } from "@carveri/shared/types/vehicle-report";
 import { Inline, Thumbnails, Zoom } from "yet-another-react-lightbox/plugins";
 import Lightbox from "yet-another-react-lightbox";
-import type { ZoomRef } from "@/types/lightbox.ts";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area.tsx";
+import type { ZoomRef } from "@carveri/shared/types/lightbox.ts";
+import { ScrollArea, ScrollBar } from "@carveri/shared/components/ui/scroll-area.tsx";
 
 interface Props {
   historial: Historial;

@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import type { BookValue } from "@/data/report";
+import type { BookValue } from "@carveri/shared/data/report";
 
 const SOURCE_COLORS: Record<BookValue["source"], string> = {
   MMR: "bg-indigo-600",

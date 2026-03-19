@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Check, ChevronRight, Eye, FileText, Home, Wrench } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import type { VerdictChecklistGroup } from "@/data/report";
+import type { VerdictChecklistGroup } from "@carveri/shared/data/report";
 
 // ICON_MAP resolves categoryIcon strings from mock data to lucide components.
 // Check is imported separately for the checked checkbox state (not via ICON_MAP).

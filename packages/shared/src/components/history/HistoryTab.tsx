@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import type { VehicleReport } from "@/data/report";
+import type { VehicleReport } from "@carveri/shared/data/report";
 import TimelineSubtab from "./TimelineSubtab";
 import AuctionPhotosSubtab from "./AuctionPhotosSubtab";
 import AccidentsSubtab from "./AccidentsSubtab";

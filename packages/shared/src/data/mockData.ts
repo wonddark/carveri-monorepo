@@ -5,7 +5,7 @@ import type {
   ServiceRecord,
   Vehicle,
   VehicleImage,
-} from "@/types/vehicle-detail";
+} from "@carveri/shared/types/vehicle-detail";
 
 export const vehicleImages: VehicleImage[] = [
   {

@@ -7,10 +7,10 @@ import PriceEvalSection from "./PriceEvalSection";
 import VehicleDataSection from "./VehicleDataSection";
 import AISummarySection from "./AISummarySection";
 import QuickNavGrid from "./QuickNavGrid";
-import type { TabId, VehicleReport } from "@/data/report";
-import ImageCarousel from "@/components/ImageCarousel.tsx";
-import CarSummaryCard from "@/components/CarSummaryCard.tsx";
-import { cn } from "@/lib/utils.ts";
+import type { TabId, VehicleReport } from "@carveri/shared/data/report";
+import ImageCarousel from "@carveri/shared/components/ImageCarousel.tsx";
+import CarSummaryCard from "@carveri/shared/components/CarSummaryCard.tsx";
+import { cn } from "@carveri/shared/lib/utils.ts";
 
 interface Props {
   report: VehicleReport;

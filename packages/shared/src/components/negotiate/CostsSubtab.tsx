@@ -1,6 +1,6 @@
 import { ChevronRight, Home } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import type { VehicleReport } from "@/data/report";
+import type { VehicleReport } from "@carveri/shared/data/report";
 
 interface Props {
   price: number;

@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import type { VehicleReport } from "@/data/report";
+import type { VehicleReport } from "@carveri/shared/data/report";
 
 const DELTA_COLOR: Record<VehicleReport["priceEval"]["label"], string> = {
   BARGAIN: "text-indigo-500",

@@ -1,8 +1,8 @@
 import { DollarSign } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import BookValues from "./BookValues";
-import type { VehicleReport } from "@/data/report";
-import ReportGauge from "@/components/ReportGauge.tsx";
+import type { VehicleReport } from "@carveri/shared/data/report";
+import ReportGauge from "@carveri/shared/components/ReportGauge.tsx";
 
 interface Props {
   price: number;

@@ -1,6 +1,6 @@
 import { Home, ChevronRight, CheckCircle, TrendingDown, ShieldCheck, Gauge, Users, Wrench, Building2 } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import type { VerdictScoreItem } from '@/data/report'
+import type { VerdictScoreItem } from '@carveri/shared/data/report'
 
 // ICON_MAP resolves icon name strings from mock data to lucide components.
 // CheckCircle is imported separately for the recommendation chip (not via ICON_MAP).

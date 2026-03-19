@@ -7,8 +7,8 @@ import {
   IconShare,
   IconShieldCheck,
 } from "@tabler/icons-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { vehicleData } from "@/data/mockData";
+import { Card, CardContent, CardHeader, CardTitle } from "@carveri/shared/components/ui/card";
+import { vehicleData } from "@carveri/shared/data/mockData";
 
 export const DocumentsTab: React.FC = () => {
   const { t } = useTranslation("vehicle-details");

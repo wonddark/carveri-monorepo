@@ -3,32 +3,32 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 // Common namespace
-import enCommon from "@/locales/en.json";
-import esCommon from "@/locales/es.json";
+import enCommon from "@carveri/shared/locales/en.json";
+import esCommon from "@carveri/shared/locales/es.json";
 
 // Home namespace
-import enHome from "@/components/home/locales/en.json";
-import esHome from "@/components/home/locales/es.json";
+import enHome from "@carveri/shared/components/home/locales/en.json";
+import esHome from "@carveri/shared/components/home/locales/es.json";
 
 // Vehicle-details namespace
-import enVehicleDetails from "@/components/vehicle-details/locales/en.json";
-import esVehicleDetails from "@/components/vehicle-details/locales/es.json";
+import enVehicleDetails from "@carveri/shared/components/vehicle-details/locales/en.json";
+import esVehicleDetails from "@carveri/shared/components/vehicle-details/locales/es.json";
 
 // History namespace
-import enHistory from "@/components/history/locales/en.json";
-import esHistory from "@/components/history/locales/es.json";
+import enHistory from "@carveri/shared/components/history/locales/en.json";
+import esHistory from "@carveri/shared/components/history/locales/es.json";
 
 // Market namespace
-import enMarket from "@/components/market/locales/en.json";
-import esMarket from "@/components/market/locales/es.json";
+import enMarket from "@carveri/shared/components/market/locales/en.json";
+import esMarket from "@carveri/shared/components/market/locales/es.json";
 
 // Negotiate namespace
-import enNegotiate from "@/components/negotiate/locales/en.json";
-import esNegotiate from "@/components/negotiate/locales/es.json";
+import enNegotiate from "@carveri/shared/components/negotiate/locales/en.json";
+import esNegotiate from "@carveri/shared/components/negotiate/locales/es.json";
 
 // Verdict namespace
-import enVerdict from "@/components/verdict/locales/en.json";
-import esVerdict from "@/components/verdict/locales/es.json";
+import enVerdict from "@carveri/shared/components/verdict/locales/en.json";
+import esVerdict from "@carveri/shared/components/verdict/locales/es.json";
 
 i18next
   .use(LanguageDetector)

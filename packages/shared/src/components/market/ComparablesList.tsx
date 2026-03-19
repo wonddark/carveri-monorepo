@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import ComparableCard from "./ComparableCard";
-import type { ComparableVehicle } from "@/data/report";
+import type { ComparableVehicle } from "@carveri/shared/data/report";
 
 interface Props {
   comparables: ComparableVehicle[];

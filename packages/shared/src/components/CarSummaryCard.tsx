@@ -5,7 +5,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card.tsx";
+} from "@carveri/shared/components/ui/card.tsx";
 
 interface Props {
   year: number;

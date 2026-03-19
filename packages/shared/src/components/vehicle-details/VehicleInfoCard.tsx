@@ -7,7 +7,7 @@ import {
   IconMapPin,
   IconShield,
 } from "@tabler/icons-react";
-import { type Vehicle } from "@/types/vehicle-detail";
+import { type Vehicle } from "@carveri/shared/types/vehicle-detail";
 import {
   Card,
   CardAction,
@@ -15,8 +15,8 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card.tsx";
-import { Badge } from "@/components/ui/badge.tsx";
+} from "@carveri/shared/components/ui/card.tsx";
+import { Badge } from "@carveri/shared/components/ui/badge.tsx";
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 

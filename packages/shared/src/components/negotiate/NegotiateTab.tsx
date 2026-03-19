@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import StrategySubtab from "./StrategySubtab";
 import ArgumentsSubtab from "./ArgumentsSubtab";
 import CostsSubtab from "./CostsSubtab";
-import type { VehicleReport } from "@/data/report";
+import type { VehicleReport } from "@carveri/shared/data/report";
 
 type SubtabId = "strategy" | "arguments" | "costs";
 

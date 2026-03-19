@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { useTranslation } from 'react-i18next'
 import { Home, ChevronRight, CheckCircle2 } from 'lucide-react'
-import type { HistoryTitleItem } from '@/data/report'
+import type { HistoryTitleItem } from '@carveri/shared/data/report'
 
 interface Props {
   title: HistoryTitleItem[]

@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { AlertTriangle, CheckCircle2, ChevronRight, Home } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import type { VerdictRisk } from "@/data/report";
+import type { VerdictRisk } from "@carveri/shared/data/report";
 
 interface Props {
   risks: VerdictRisk[];

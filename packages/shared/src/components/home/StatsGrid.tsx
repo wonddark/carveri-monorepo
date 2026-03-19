@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
 import { ShieldCheck, AlertTriangle, Gauge, Tag } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
-import { cn } from '@/lib/utils'
-import type { VehicleReport } from '@/data/report'
+import { cn } from '@carveri/shared/lib/utils'
+import type { VehicleReport } from '@carveri/shared/data/report'
 
 interface Props {
   stats: VehicleReport['stats']

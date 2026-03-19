@@ -2,9 +2,9 @@ import { BarChart2, ChevronRight, Home } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import MarketPriceHeader from "./MarketPriceHeader";
 import ComparablesList from "./ComparablesList";
-import GaugePlaceholder from "@/components/home/GaugePlaceholder";
-import BookValues from "@/components/home/BookValues";
-import type { VehicleReport } from "@/data/report";
+import GaugePlaceholder from "@carveri/shared/components/home/GaugePlaceholder";
+import BookValues from "@carveri/shared/components/home/BookValues";
+import type { VehicleReport } from "@carveri/shared/data/report";
 
 interface Props {
   report: VehicleReport;

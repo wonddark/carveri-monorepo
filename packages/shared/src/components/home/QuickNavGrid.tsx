@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { BarChart2, CalendarDays, Handshake, Sparkles } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import type { TabId } from "@/data/report";
+import type { TabId } from "@carveri/shared/data/report";
 
 interface Props {
   onNavigate: (tab: TabId) => void;

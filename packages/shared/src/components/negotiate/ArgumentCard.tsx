@@ -1,5 +1,5 @@
 import { Lightbulb } from "lucide-react";
-import type { NegotiateArgument } from "@/data/report";
+import type { NegotiateArgument } from "@carveri/shared/data/report";
 
 interface Props {
   argument: NegotiateArgument;

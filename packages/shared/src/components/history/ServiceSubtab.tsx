@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { ChevronRight, Home, Wrench } from "lucide-react";
-import type { HistoryServiceRecord } from "@/data/report";
+import type { HistoryServiceRecord } from "@carveri/shared/data/report";
 
 interface Props {
   service: HistoryServiceRecord[];

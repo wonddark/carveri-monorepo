@@ -1,5 +1,5 @@
 import React from "react";
-import { type VehicleImage } from "@/types/vehicle-detail";
+import { type VehicleImage } from "@carveri/shared/types/vehicle-detail";
 
 interface Props {
   images: VehicleImage[];

@@ -9,9 +9,9 @@ import {
   User,
   Wrench,
 } from "lucide-react";
-import type { HistoryEvent } from "@/data/report";
-import { Card, CardContent } from "@/components/ui/card.tsx";
-import { cn } from "@/lib/utils.ts";
+import type { HistoryEvent } from "@carveri/shared/data/report";
+import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
+import { cn } from "@carveri/shared/lib/utils.ts";
 
 const TYPE_ICON: Record<
   string,

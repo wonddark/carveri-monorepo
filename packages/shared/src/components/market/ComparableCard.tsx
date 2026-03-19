@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import type { ComparableVehicle } from "@/data/report";
+import type { ComparableVehicle } from "@carveri/shared/data/report";
 
 interface Props {
   vehicle: ComparableVehicle;

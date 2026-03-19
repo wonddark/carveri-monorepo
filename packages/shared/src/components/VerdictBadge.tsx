@@ -1,7 +1,7 @@
 import { AlertCircle, CheckCircle, XCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { cn } from "@/lib/utils";
-import ScoreRing from "@/components/ScoreRing.tsx";
+import { cn } from "@carveri/shared/lib/utils";
+import ScoreRing from "@carveri/shared/components/ScoreRing.tsx";
 
 interface Props {
   score: number;
