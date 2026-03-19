@@ -64,7 +64,7 @@ export const PriceEvaluation: React.FC<Props> = ({ price, books }) => {
                 >
                   <span
                     className="inline-flex h-3.5 items-center rounded bg-(--book-color) px-1.5 text-[9px] font-extrabold text-white"
-                    style={{ "--book-color": book.color }}
+                    style={{ "--book-color": book.color } as React.CSSProperties}
                   >
                     {book.abbr}
                   </span>
