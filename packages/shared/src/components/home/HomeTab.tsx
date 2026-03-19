@@ -10,7 +10,6 @@ import QuickNavGrid from "./QuickNavGrid";
 import type { TabId, VehicleReport } from "@/data/report";
 import ImageCarousel from "@/components/ImageCarousel.tsx";
 import CarSummaryCard from "@/components/CarSummaryCard.tsx";
-import AppHeader from "@/components/AppHeader.tsx";
 import { cn } from "@/lib/utils.ts";
 
 interface Props {
@@ -37,11 +36,6 @@ export default function HomeTab(props: Readonly<Props>) {
 
   return (
     <div className="relative">
-      <AppHeader
-        isTransparent={isCarouselVisible}
-        showAppName={!isCarouselVisible}
-        title={`${report.year} ${report.make} ${report.model}`}
-      />
       <div ref={carouselRef}>
         <ImageCarousel images={report.images} />
       </div>

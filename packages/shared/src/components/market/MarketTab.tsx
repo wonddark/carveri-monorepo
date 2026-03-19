@@ -5,7 +5,6 @@ import ComparablesList from "./ComparablesList";
 import GaugePlaceholder from "@/components/home/GaugePlaceholder";
 import BookValues from "@/components/home/BookValues";
 import type { VehicleReport } from "@/data/report";
-import AppHeader from "@/components/AppHeader.tsx";
 
 interface Props {
   report: VehicleReport;
@@ -15,7 +14,6 @@ export default function MarketTab({ report }: Readonly<Props>) {
   const { t } = useTranslation("market");
   return (
     <div className="relative">
-      <AppHeader title={`${report.year} ${report.make} ${report.model}`} />
       {/* Breadcrumb */}
       <div className="-mb-1 flex items-center gap-1 text-[10px] text-slate-400">
         <Home size={10} />

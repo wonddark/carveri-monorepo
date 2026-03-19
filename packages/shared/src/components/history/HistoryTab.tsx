@@ -8,7 +8,6 @@ import AccidentsSubtab from "./AccidentsSubtab";
 import OwnersSubtab from "./OwnersSubtab";
 import ServiceSubtab from "./ServiceSubtab";
 import TitleSubtab from "./TitleSubtab";
-import AppHeader from "@/components/AppHeader.tsx";
 
 interface Props {
   report: VehicleReport;
@@ -39,8 +38,6 @@ export default function HistoryTab({ report }: Readonly<Props>) {
 
   return (
     <div className="relative">
-      <AppHeader title={`${report.year} ${report.make} ${report.model}`} />
-
       <div className="px-4 pt-16">
         {/* Pill carousel */}
         <div className="mb-4 flex items-center gap-1">
