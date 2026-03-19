@@ -22,7 +22,7 @@ export default function ImageCarousel({ images }: Readonly<Props>) {
   };
 
   return (
-    <div className="relative h-70 w-full overflow-hidden bg-slate-900">
+    <div className="relative h-80 w-full overflow-hidden bg-slate-900">
       <motion.img
         key={index}
         src={images[index]}
