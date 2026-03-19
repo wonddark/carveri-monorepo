@@ -1,6 +1,7 @@
 import VerdictBadge from "./VerdictBadge";
 import {
   Card,
+  CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
@@ -51,7 +52,9 @@ export default function CarSummaryCard(props: Readonly<Props>) {
           </div>
         </CardDescription>
       </CardHeader>
-      <VerdictBadge score={score} verdict={verdict} aiSummary={aiSummary} />
+      <CardContent>
+        <VerdictBadge score={score} verdict={verdict} aiSummary={aiSummary} />
+      </CardContent>
     </Card>
   );
 }
