@@ -5,7 +5,9 @@ interface Props {
   variant?: "default" | "light";
 }
 
-export default function LanguageToggle({ variant = "default" }: Props) {
+export default function LanguageToggle({
+  variant = "default",
+}: Readonly<Props>) {
   const { i18n } = useTranslation();
   const currentLang = i18n.language.startsWith("es") ? "es" : "en";
 
@@ -16,14 +18,14 @@ export default function LanguageToggle({ variant = "default" }: Props) {
   return (
     <button
       onClick={toggle}
-      className={`flex items-center gap-1 rounded-lg px-2 py-1.5 text-xs font-semibold transition-colors duration-300 ${
+      className={`flex items-center gap-1 rounded-full border px-2 py-2 text-xs font-semibold transition-colors duration-300 ${
         variant === "light"
-          ? "bg-white/15 text-white"
-          : "bg-slate-100 text-slate-500"
+          ? "bg-background/20 text-foreground/80 border-transparent"
+          : "text-foreground border-border bg-transparent"
       }`}
       aria-label="Toggle language"
     >
-      <Globe size={13} />
+      <Globe className="size-4" />
       {currentLang.toUpperCase()}
     </button>
   );
