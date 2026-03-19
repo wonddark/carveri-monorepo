@@ -5,20 +5,22 @@ import ComparablesList from "./ComparablesList";
 import GaugePlaceholder from "@/components/home/GaugePlaceholder";
 import BookValues from "@/components/home/BookValues";
 import type { VehicleReport } from "@/data/report";
+import AppHeader from "@/components/AppHeader.tsx";
 
 interface Props {
   report: VehicleReport;
 }
 
 export default function MarketTab({ report }: Readonly<Props>) {
-  const { t } = useTranslation('market');
+  const { t } = useTranslation("market");
   return (
-    <>
+    <div className="relative">
+      <AppHeader title={`${report.year} ${report.make} ${report.model}`} />
       {/* Breadcrumb */}
       <div className="-mb-1 flex items-center gap-1 text-[10px] text-slate-400">
         <Home size={10} />
         <ChevronRight size={10} />
-        <span>{t('tabs.market')}</span>
+        <span>{t("tabs.market")}</span>
       </div>
 
       {/* Heading */}
@@ -27,14 +29,14 @@ export default function MarketTab({ report }: Readonly<Props>) {
           <BarChart2 size={14} className="text-indigo-600" />
         </div>
         <span className="text-xs font-semibold tracking-wide text-slate-500 uppercase">
-          {t('tabs.market')}
+          {t("tabs.market")}
         </span>
       </div>
       <h2 className="-mt-1 text-xl font-black text-slate-900">
-        {t('header.marketAnalysis')}
+        {t("header.marketAnalysis")}
       </h2>
       <p className="-mt-2 text-xs text-slate-400">
-        {t('header.pricingEvaluation', { city: report.location })}
+        {t("header.pricingEvaluation", { city: report.location })}
       </p>
 
       {/* Price + gauge + book values */}
@@ -43,7 +45,7 @@ export default function MarketTab({ report }: Readonly<Props>) {
 
       <div className="rounded-2xl border border-slate-100 bg-white p-4">
         <h3 className="mb-3 text-sm font-bold text-slate-900">
-          {t('tabs.bookValuations')}
+          {t("tabs.bookValuations")}
         </h3>
         <BookValues bookValues={report.priceEval.bookValues} />
       </div>
@@ -53,6 +55,6 @@ export default function MarketTab({ report }: Readonly<Props>) {
         comparables={report.market.comparables}
         location={report.location}
       />
-    </>
+    </div>
   );
 }
