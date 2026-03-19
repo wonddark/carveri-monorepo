@@ -63,9 +63,9 @@ export default function ImageCarousel({ images }: Readonly<Props>) {
 
       {/* Dot indicators */}
       <div className="absolute bottom-6 left-1/2 flex -translate-x-1/2 gap-1">
-        {images.map((_, i) => (
+        {images.map((image, i) => (
           <button
-            key={i}
+            key={image}
             onClick={() => goTo(i)}
             className={`h-1.5 rounded-full transition-all ${i === index ? "w-3 bg-white" : "w-1.5 bg-white/50"}`}
           />
