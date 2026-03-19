@@ -14,10 +14,10 @@
   "rtl": false,
   "aliases": {
     "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks"
+    "utils": "@carveri/shared/lib/utils",
+    "ui": "@carveri/shared/components/ui",
+    "lib": "@carveri/shared/lib",
+    "hooks": "@carveri/shared/hooks"
   },
   "menuColor": "default",
   "menuAccent": "subtle",
