@@ -9,6 +9,18 @@ function ScoreRing({ score }: Readonly<{ score: number }>) {
 
   const [offset, setOffset] = useState(circumference);
 
+  const getStrokeColor = () => {
+    if (score <= 4) return "stroke-red-500 dark:stroke-red-400";
+    if (score <= 7) return "stroke-amber-500 dark:stroke-amber-400";
+    return "stroke-emerald-500 dark:stroke-emerald-400";
+  };
+
+  const getFillColor = () => {
+    if (score <= 4) return "fill-red-600 dark:fill-red-400";
+    if (score <= 7) return "fill-amber-600 dark:fill-amber-400";
+    return "fill-emerald-600 dark:fill-emerald-400";
+  };
+
   useEffect(() => {
     let raf2: number;
     const raf1: number = requestAnimationFrame(() => {
@@ -34,7 +46,7 @@ function ScoreRing({ score }: Readonly<{ score: number }>) {
         r={r}
         fill="none"
         strokeWidth={STROKE}
-        className="stroke-indigo-100 dark:stroke-indigo-900"
+        className="stroke-gray-100 dark:stroke-gray-950"
       />
       {/* Progress arc */}
       <circle
@@ -46,7 +58,7 @@ function ScoreRing({ score }: Readonly<{ score: number }>) {
         strokeLinecap="round"
         strokeDasharray={circumference}
         strokeDashoffset={offset}
-        className="stroke-indigo-600 dark:stroke-indigo-400"
+        className={getStrokeColor()}
         style={{
           transform: "rotate(-90deg)",
           transformOrigin: "50% 50%",
@@ -59,7 +71,7 @@ function ScoreRing({ score }: Readonly<{ score: number }>) {
         y={SIZE / 2}
         textAnchor="middle"
         dominantBaseline="central"
-        className="fill-indigo-700 dark:fill-indigo-300"
+        className={getFillColor()}
         style={{ fontSize: "12px", fontWeight: 900 }}
       >
         {score}
