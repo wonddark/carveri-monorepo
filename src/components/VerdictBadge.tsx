@@ -1,6 +1,7 @@
 import { AlertCircle, CheckCircle, XCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
+import ScoreRing from "@/components/ScoreRing.tsx";
 
 interface Props {
   score: number;
@@ -32,12 +33,9 @@ export default function VerdictBadge(props: Readonly<Props>) {
   const Icon = config.icon;
 
   return (
-    <div className="mt-2 flex flex-col gap-3 rounded-xl">
-      <div className="flex gap-3">
-        <div className="min-w-13 rounded-xl bg-indigo-600 px-3 py-2 text-center text-white">
-          <div className="text-xl leading-none font-black">{score}</div>
-          <div className="mt-0.5 text-[9px] opacity-70">/10</div>
-        </div>
+    <div className="flex flex-col gap-0">
+      <div className="flex items-center gap-3 py-1">
+        <ScoreRing score={score} />
         <div className="min-w-0 flex-1">
           <div className="mb-1 text-[10px] font-medium text-slate-400">
             {t("badge.label")}
