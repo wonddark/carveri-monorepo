@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { cn } from "@/lib/utils";
 import BottomNavBar from "@/components/BottomNavBar";
 import HomeTab from "@/components/home/HomeTab";
 import MarketTab from "@/components/market/MarketTab";
@@ -54,19 +53,18 @@ export default function ReportPage() {
               animate={{ x: 0, opacity: 1 }}
               exit={{ x: direction * -60, opacity: 0 }}
               transition={{ duration: 0.22, ease: "easeInOut" }}
-              className={cn(activeTab !== "home" && "space-y-3 px-4 pt-4")}
             >
               {activeTab === "home" && (
                 <HomeTab report={report} onNavigate={handleTabChange} />
               )}
+
+              {activeTab === "history" && <HistoryTab report={report} />}
 
               {activeTab === "market" && <MarketTab report={report} />}
 
               {activeTab === "negotiate" && <NegotiateTab report={report} />}
 
               {activeTab === "verdict" && <VerdictTab report={report} />}
-
-              {activeTab === "history" && <HistoryTab report={report} />}
 
               {activeTab !== "home" &&
                 activeTab !== "market" &&
