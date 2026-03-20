@@ -2,6 +2,7 @@ import type { LoaderFunctionArgs } from 'react-router'
 import { createBrowserRouter } from 'react-router'
 import RootLayout from '@/layout/root.tsx'
 import ReportError from '@/pages/ReportError.tsx'
+import ReportPage from '@/pages/ReportPage.tsx'
 import { fetchVehicleReport } from '@carveri/shared/data/api'
 
 async function reportLoader({ params }: LoaderFunctionArgs) {
@@ -24,8 +25,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'reports/:vin',
-        // ReportPage imported lazily — will be added in Task 7
-        element: <div className="p-8">Loading report page…</div>,
+        element: <ReportPage />,
         loader: reportLoader,
         errorElement: <ReportError />,
       },

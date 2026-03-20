@@ -5,7 +5,7 @@ import ImageCarousel from '@carveri/shared/components/ImageCarousel'
 import CarSummaryCard from '@carveri/shared/components/CarSummaryCard'
 import { cn } from '@/lib/utils'
 import type { VehicleReport } from '@carveri/shared/data/report'
-import type { SectionId } from '@/components/ResumenView'
+import type { SectionId } from '@/pages/ReportPage'
 
 interface NavItem {
   id: SectionId

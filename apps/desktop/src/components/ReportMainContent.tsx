@@ -14,7 +14,7 @@ import ArgumentsSubtab from '@carveri/shared/components/negotiate/ArgumentsSubta
 import CostsSubtab from '@carveri/shared/components/negotiate/CostsSubtab'
 import ResumenView from '@/components/ResumenView'
 import type { VehicleReport } from '@carveri/shared/data/report'
-import type { SectionId } from '@/components/ResumenView'
+import type { SectionId } from '@/pages/ReportPage'
 
 interface Props {
   activeSection: SectionId

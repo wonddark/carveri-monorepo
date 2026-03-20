@@ -8,22 +8,8 @@ import QuickNavGrid from '@carveri/shared/components/home/QuickNavGrid'
 import type { VehicleReport } from '@carveri/shared/data/report'
 import type { TabId } from '@carveri/shared/data/report'
 
-// Temporary local type — will be imported from '@/pages/ReportPage' once Task 7 is complete
-export type SectionId =
-  | 'resumen'
-  | 'timeline'
-  | 'fotos-subasta'
-  | 'accidentes'
-  | 'duenos'
-  | 'servicio'
-  | 'titulo'
-  | 'mercado'
-  | 'veredicto'
-  | 'riesgos'
-  | 'checklist'
-  | 'estrategia'
-  | 'argumentos'
-  | 'costos'
+import type { SectionId } from '@/pages/ReportPage'
+export type { SectionId } from '@/pages/ReportPage'
 
 const PRICE_LABEL_TEXT: Record<VehicleReport['priceEval']['label'], string> = {
   BARGAIN: 'Ganga',
