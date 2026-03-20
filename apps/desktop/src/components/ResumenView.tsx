@@ -25,7 +25,7 @@ export type SectionId =
   | 'argumentos'
   | 'costos'
 
-const PRICE_LABEL_TEXT: Record<string, string> = {
+const PRICE_LABEL_TEXT: Record<VehicleReport['priceEval']['label'], string> = {
   BARGAIN: 'Ganga',
   LOW: 'Por debajo del mercado',
   FAIR: 'Precio justo',
