@@ -28,7 +28,7 @@ export default function ReportPage() {
   const [activeSection, setActiveSection] = useState<SectionId>('resumen')
 
   return (
-    <div className="flex h-screen flex-col overflow-hidden">
+    <div className="flex flex-1 flex-col overflow-hidden">
       <ReportHeader vehicle={report} />
       <div className="flex flex-1 overflow-hidden">
         <ReportSidebar
