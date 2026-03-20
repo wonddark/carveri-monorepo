@@ -1,4 +1,4 @@
-import { useRouteError } from 'react-router'
+import { Link, useRouteError } from 'react-router'
 
 export default function ReportError() {
   const error = useRouteError() as { status?: number }
@@ -10,9 +10,9 @@ export default function ReportError() {
       <p className="text-base font-semibold text-slate-700">
         {error?.status === 404 ? 'Report not found' : 'Something went wrong'}
       </p>
-      <a href="/" className="text-sm text-blue-600 underline">
+      <Link to="/" className="text-sm text-blue-600 underline">
         Go home
-      </a>
+      </Link>
     </div>
   )
 }
