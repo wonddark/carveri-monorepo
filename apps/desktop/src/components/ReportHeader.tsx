@@ -59,6 +59,7 @@ export default function ReportHeader({ vehicle }: Readonly<Props>) {
         <ThemeToggle />
         <button
           type="button"
+          aria-label="Compartir vehículo"
           className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
         >
           <Share2 size={13} />
@@ -66,6 +67,7 @@ export default function ReportHeader({ vehicle }: Readonly<Props>) {
         </button>
         <button
           type="button"
+          aria-label="Descargar PDF"
           className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
         >
           <Download size={13} />
