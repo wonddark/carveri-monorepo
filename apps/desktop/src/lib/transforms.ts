@@ -1,7 +1,6 @@
 // apps/desktop/src/lib/transforms.ts
 import type { VehicleReport as ApiReport } from '@carveri/shared/types/vehicle-report'
 import type {
-  HistoryEvent,
   HistoryOwner,
   HistoryServiceRecord,
   HistoryTitleItem,
@@ -79,21 +78,21 @@ export function transformToSharedReport(raw: ApiReport): SharedReport {
     trim: v.trim,
     price: askingPrice,
     mileage: Number.parseInt(v.odometro.replace(/[^0-9]/g, '')) || 0,
-    location: '—',
-    color: v.color === '-' ? '—' : v.color,
+    location: '—', // TODO: not available in API
+    color: v.color === '-' ? '—' : v.color, // API returns '-' when color is unknown
     engine: v.engine,
     transmission: v.transmission,
     drivetrain: v.drive,
-    daysOnLot: 0,
+    daysOnLot: 0, // TODO: not available in API
     previousOwners: raw.historial.propietarios.length,
     auction: {
       name: raw.historial.subastasAnteriores.info.subasta,
       price: parsePriceStr(raw.historial.subastasAnteriores.info.finalBid),
     },
     images: raw.currentImages,
-    score: 0,
-    verdict: 'BUY',
-    aiSummary: '',
+    score: 0, // TODO: not available in API — derive from backend when available
+    verdict: 'BUY', // TODO: not available in API — derive from backend when available
+    aiSummary: '', // TODO: not available in API — derive from backend when available
     stats: {
       titleStatus: mapTitleStatus(raw.historial.tituloOdometro.titulo),
       accidents: raw.historial.accidentes.resumen.totalAccidentes,
@@ -120,7 +119,7 @@ export function transformToSharedReport(raw: ApiReport): SharedReport {
     },
     verdictTab: { scoreBreakdown: [], risks: [], checklist: [] },
     historyTab: {
-      timeline: [] as HistoryEvent[],
+      timeline: [], // TODO: synthesize from historial events when needed
       auctionPhotos: raw.historial.subastasAnteriores.imagenes,
       accidents: {
         count: raw.historial.accidentes.resumen.totalAccidentes,
