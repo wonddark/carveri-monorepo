@@ -4,11 +4,13 @@ import RootLayout from '@/layout/root.tsx'
 import ReportError from '@/pages/ReportError.tsx'
 import ReportPage from '@/pages/ReportPage.tsx'
 import { fetchVehicleReport } from '@carveri/shared/data/api'
+import { transformToSharedReport } from '@/lib/transforms'
 
 async function reportLoader({ params }: LoaderFunctionArgs) {
   if (!params.vin) throw new Response('Not Found', { status: 404 })
   if (!import.meta.env.VITE_API_URL) throw new Response('API not configured', { status: 503 })
-  return fetchVehicleReport(params.vin)
+  const raw = await fetchVehicleReport(params.vin)
+  return transformToSharedReport(raw)
 }
 
 const router = createBrowserRouter([

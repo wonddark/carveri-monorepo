@@ -9,7 +9,6 @@ import type { VehicleReport } from '@carveri/shared/data/report'
 import type { TabId } from '@carveri/shared/data/report'
 
 import type { SectionId } from '@/pages/ReportPage'
-export type { SectionId } from '@/pages/ReportPage'
 
 const PRICE_LABEL_TEXT: Record<VehicleReport['priceEval']['label'], string> = {
   BARGAIN: 'Ganga',

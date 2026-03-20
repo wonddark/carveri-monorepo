@@ -15,6 +15,8 @@ function mapTitleStatus(s: string): 'Clean' | 'Salvage' | 'Rebuilt' {
   const lower = s.toLowerCase()
   if (lower === 'limpio' || lower === 'clean') return 'Clean'
   if (lower === 'salvage') return 'Salvage'
+  if (lower === 'reconstruido' || lower === 'rebuilt') return 'Rebuilt'
+  console.warn(`[transforms] Unknown title status: "${s}", defaulting to 'Rebuilt'`)
   return 'Rebuilt'
 }
 

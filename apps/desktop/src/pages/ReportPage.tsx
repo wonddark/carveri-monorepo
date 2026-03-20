@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useLoaderData } from 'react-router'
-import type { VehicleReport as ApiReport } from '@carveri/shared/types/vehicle-report'
-import { transformToSharedReport } from '@/lib/transforms'
+import type { VehicleReport } from '@carveri/shared/data/report'
 import ReportHeader from '@/components/ReportHeader'
 import ReportSidebar from '@/components/ReportSidebar'
 import ReportMainContent from '@/components/ReportMainContent'
@@ -23,8 +22,7 @@ export type SectionId =
   | 'costos'
 
 export default function ReportPage() {
-  const apiReport = useLoaderData<ApiReport>()
-  const report = transformToSharedReport(apiReport)
+  const report = useLoaderData<VehicleReport>()
   const [activeSection, setActiveSection] = useState<SectionId>('resumen')
 
   return (
