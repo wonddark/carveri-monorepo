@@ -1,9 +1,17 @@
-import { createBrowserRouter } from "react-router";
-import RootLayout from "@/layout/root.tsx";
+import type { LoaderFunctionArgs } from 'react-router'
+import { createBrowserRouter } from 'react-router'
+import RootLayout from '@/layout/root.tsx'
+import ReportError from '@/pages/ReportError.tsx'
+import { fetchVehicleReport } from '@carveri/shared/data/api'
+
+async function reportLoader({ params }: LoaderFunctionArgs) {
+  if (!params.vin) throw new Response('Not Found', { status: 404 })
+  return fetchVehicleReport(params.vin)
+}
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <RootLayout />,
     children: [
       {
@@ -14,8 +22,15 @@ const router = createBrowserRouter([
           </div>
         ),
       },
+      {
+        path: 'reports/:vin',
+        // ReportPage imported lazily — will be added in Task 7
+        element: <div className="p-8">Loading report page…</div>,
+        loader: reportLoader,
+        errorElement: <ReportError />,
+      },
     ],
   },
-]);
+])
 
-export default router;
+export default router
