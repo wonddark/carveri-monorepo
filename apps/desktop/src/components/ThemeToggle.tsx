@@ -23,7 +23,7 @@ export default function ThemeToggle() {
         </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuRadioGroup value={theme} onValueChange={setTheme}>
+        <DropdownMenuRadioGroup value={theme ?? 'system'} onValueChange={setTheme}>
           <DropdownMenuRadioItem value="light">
             <Sun size={14} />
             Claro
