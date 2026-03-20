@@ -1,92 +1,138 @@
 # CarVeri Portal
 
-CarVeri Portal is a modern web application designed for car inspection and management. This project provides a robust, scalable interface built with the latest technologies in the React ecosystem.
+CarVeri Portal is a modern web application for car inspection reports and market analysis. Built as a pnpm monorepo with two React 19 SPAs (mobile and desktop) sharing a common component library.
 
-## 🚀 Tech Stack
+## Tech Stack
 
-The project leverages a high-performance stack for a seamless developer experience and optimized production builds:
+- **React 19** with React Compiler (via `babel-plugin-react-compiler`)
+- **Vite 7** — build tool and dev server
+- **TypeScript 5.9** — strict type safety across all packages
+- **React Router 7** — client-side routing
+- **Tailwind CSS 4** — via `@tailwindcss/vite` plugin, configured in CSS (no `tailwind.config.js`)
+- **Shadcn/UI & Base UI** — accessible component primitives
+- **React Hook Form & Yup** — form management and validation
+- **Framer Motion** — animations
+- **i18next / react-i18next** — EN/ES internationalization
+- **Sonner** — toast notifications
+- **Yet Another React Lightbox** — image gallery
+- **Tabler Icons & Lucide React** — icon sets
+- **next-themes** — dark/light mode
 
-- **React 19**: Utilizing the latest features including the React Compiler.
-- **Vite 7**: A fast frontend build tool and development server.
-- **TypeScript**: Ensuring type safety across the entire codebase.
-- **React Router 7**: Modern routing solution for React applications.
-- **Tailwind CSS 4**: Next-generation utility-first CSS framework integrated with Vite.
-- **Shadcn/UI & Radix UI**: High-quality, accessible UI components and primitives.
-- **React Hook Form & Yup**: Robust form management and schema validation.
-- **Sonner**: Elegant toast notifications.
-- **Yet Another React Lightbox**: High-performance lightbox component.
-- **Tabler Icons**: Versatile icon set for React.
-- **ESLint & Prettier**: Enforcing code quality and consistent formatting.
-
-## 📁 Project Structure
+## Monorepo Structure
 
 ```text
-carcheck-portal/
-├── public/              # Static assets (favicons, etc.)
-├── src/
-│   ├── assets/          # Images, fonts, and global assets
-│   ├── components/      # Reusable UI components
-│   │   └── ui/          # Base Shadcn/UI components
-│   ├── data/            # Data configurations and router definitions
-│   ├── layout/          # Application layouts (Root, etc.)
-│   ├── lib/             # Utility functions and shared logic
-│   ├── pages/           # Page components and feature playgrounds
-│   ├── main.tsx         # Application entry point
-│   └── index.css        # Global styles and Tailwind directives
-├── index.html           # HTML template
-├── vite.config.ts       # Vite configuration
-├── tsconfig.json        # TypeScript configuration
-├── eslint.config.js     # ESLint rules and configuration
-└── package.json         # Project dependencies and scripts
+carveri-portal/
+├── apps/
+│   ├── mobile/          # Mobile-optimized SPA (@carveri/mobile)
+│   └── desktop/         # Desktop SPA (@carveri/desktop)
+├── packages/
+│   └── shared/          # Shared component library (@carveri/shared)
+├── package.json         # Monorepo root (pnpm workspaces)
+└── pnpm-workspace.yaml  # Workspace config: apps/* + packages/*
 ```
 
-## 🛠️ Scripts
+## Scripts
 
-The following scripts are available for development and production:
+Run from the monorepo root:
 
-- `pnpm dev`: Starts the development server with Vite.
-- `pnpm build`: Runs TypeScript check and builds the application for production.
-- `pnpm lint`: Lints the codebase using ESLint.
-- `pnpm preview`: Locally previews the production build.
+```bash
+pnpm dev:mobile       # Start mobile dev server
+pnpm dev:desktop      # Start desktop dev server
+pnpm build:mobile     # Build mobile app for production
+pnpm build:desktop    # Build desktop app for production
+pnpm preview:mobile   # Preview mobile production build
+pnpm preview:desktop  # Preview desktop production build
+pnpm lint             # Lint all packages
+```
 
-## 🔧 Getting Started
+Per-app scripts (from within `apps/mobile/` or `apps/desktop/`):
 
-To get the project running locally, follow these steps:
+```bash
+pnpm dev      # Vite dev server
+pnpm build    # TypeScript check + Vite build
+pnpm lint     # ESLint
+pnpm preview  # Preview production build
+```
 
-1. **Install dependencies**:
+## Apps
 
-   ```bash
-   pnpm install
-   ```
+### Mobile (`apps/mobile/`)
 
-2. **Run the development server**:
+Mobile-optimized SPA. Key pages:
 
-   ```bash
-   pnpm dev
-   ```
+- `/` — Home (vehicle summary, stats, quick nav)
+- `/login`, `/register` — Auth
+- `/reports` — Full vehicle inspection report
 
-3. **Build for production**:
-   ```bash
-   pnpm build
-   ```
+Layout uses a `RootLayout` (`src/layout/root.tsx`) wrapping all routes defined in `src/data/router.tsx`. The report page includes a fixed bottom nav bar for tab switching on mobile.
 
-## 🧪 Playground Pages
+### Desktop (`apps/desktop/`)
 
-The project includes several playground pages to test and demonstrate the integration of new libraries:
+Desktop-optimized SPA. Shares the same `@carveri/shared` library. Routes defined in `src/data/router.tsx`, with `RootLayout` at `src/layout/root.tsx`.
 
-- `/test-router`: Demonstrates basic routing and navigation.
-- `/test-form`: Showcases form handling with `react-hook-form` and `yup` validation.
-- `/test-lightbox`: Features the `yet-another-react-lightbox` component for image galleries.
+## Shared Package (`packages/shared/`)
 
-These pages can be accessed during development to ensure dependencies are correctly configured.
+Common library consumed by both apps. Contains all major feature components, types, utilities, and locales.
 
-## 📜 Development Guidelines
+```text
+packages/shared/src/
+├── components/
+│   ├── ui/                  # Shadcn/UI base components (Button, Card, Badge, Tabs, etc.)
+│   ├── vehicle-details/     # Vehicle report page: VehicleHero, VehicleInfoCard, tabs
+│   ├── home/                # Home page sections (stats, AI summary, price eval, etc.)
+│   ├── history/             # History tab subtabs (accidents, owners, service, timeline, etc.)
+│   ├── market/              # Market analysis tab (comparables, pricing)
+│   ├── negotiate/           # Negotiation tab (arguments, costs, strategy)
+│   ├── verdict/             # Verdict tab (checklist, risks, verdict)
+│   ├── CarSummaryCard.tsx
+│   ├── ImageCarousel.tsx
+│   ├── LanguageToggle.tsx
+│   ├── ReportGauge.tsx
+│   ├── ScoreRing.tsx
+│   └── VerdictBadge.tsx
+├── data/
+│   ├── api.ts               # API integration
+│   ├── mockData.ts          # Mock vehicle data
+│   └── report.ts            # Report data helpers
+├── lib/
+│   ├── utils.ts             # cn() helper (clsx + tailwind-merge)
+│   ├── gauge.ts             # Gauge chart utilities
+│   └── i18n.ts              # i18next setup
+├── types/
+│   ├── vehicle-detail.ts    # Vehicle, Book, Comparable, ServiceRecord, etc.
+│   ├── vehicle-report.ts    # Report-level types
+│   ├── lightbox.ts
+│   └── css.d.ts
+└── locales/
+    ├── en.json              # English strings
+    └── es.json              # Spanish strings
+```
 
-- **Component Organization**: New reusable components should be placed in `src/components/`. Base UI components go into `src/components/ui/`.
-- **Styling**: Use Tailwind CSS utility classes. Custom styles should be kept to a minimum and defined in `src/index.css` if necessary.
-- **Code Quality**: Ensure all code passes linting (`pnpm lint`) and follows Prettier formatting rules.
-- **Type Safety**: Strictly use TypeScript interfaces and types for all props and data structures.
+## Styling
 
-## 🛡️ License
+- Tailwind CSS v4 via `@tailwindcss/vite` — configured entirely in each app's `index.css`
+- Theme tokens defined as CSS custom properties using `oklch()` color space
+- Shadcn/UI tokens imported via `@import "shadcn/tailwind.css"`
+- Font: Geist Variable via `@fontsource-variable/geist`
+- Dark mode uses `.dark` class selector
+- Use `cn()` from `@/lib/utils` to merge Tailwind classes
 
-This project is private and intended for internal use.
+## Path Aliases
+
+`@/` maps to `src/` in each app. Use this for all internal imports.
+
+## React Compiler
+
+Both apps use `babel-plugin-react-compiler`. Avoid manual `useMemo`/`useCallback` — the compiler handles these automatically.
+
+## Adding Shadcn Components
+
+```bash
+pnpm dlx shadcn@latest add <component>
+```
+
+Components are added to `packages/shared/src/components/ui/`.
+
+## License
+
+Private — internal use only.
