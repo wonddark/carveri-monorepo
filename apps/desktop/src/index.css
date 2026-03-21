@@ -82,36 +82,36 @@
 /* Responsive font-size scale: 14px base on sm/md, 18px base on lg+ */
 /* Spacing (rem-based) is NOT affected — only text-* utilities scale */
 @theme {
-  --text-xs:   0.65625rem;   /* 10.5px → 13.5px */
-  --text-sm:   0.765625rem;  /* 12.25px → 15.75px */
-  --text-base: 0.875rem;     /* 14px → 18px */
-  --text-lg:   0.984375rem;  /* 15.75px → 20.25px */
-  --text-xl:   1.09375rem;   /* 17.5px → 22.5px */
-  --text-2xl:  1.3125rem;    /* 21px → 27px */
-  --text-3xl:  1.640625rem;  /* 26.25px → 33.75px */
-  --text-4xl:  1.96875rem;   /* 31.5px → 40.5px */
-  --text-5xl:  2.625rem;     /* 42px → 54px */
-  --text-6xl:  3.28125rem;   /* 52.5px → 67.5px */
-  --text-7xl:  3.9375rem;    /* 63px → 81px */
-  --text-8xl:  5.25rem;      /* 84px → 108px */
-  --text-9xl:  7rem;         /* 112px → 144px */
+  --text-xs: 0.65625rem; /* 10.5px → 13.5px */
+  --text-sm: 0.765625rem; /* 12.25px → 15.75px */
+  --text-base: 0.875rem; /* 14px → 18px */
+  --text-lg: 0.984375rem; /* 15.75px → 20.25px */
+  --text-xl: 1.09375rem; /* 17.5px → 22.5px */
+  --text-2xl: 1.3125rem; /* 21px → 27px */
+  --text-3xl: 1.640625rem; /* 26.25px → 33.75px */
+  --text-4xl: 1.96875rem; /* 31.5px → 40.5px */
+  --text-5xl: 2.625rem; /* 42px → 54px */
+  --text-6xl: 3.28125rem; /* 52.5px → 67.5px */
+  --text-7xl: 3.9375rem; /* 63px → 81px */
+  --text-8xl: 5.25rem; /* 84px → 108px */
+  --text-9xl: 7rem; /* 112px → 144px */
 }
 
 @media (min-width: 1024px) {
   :root {
-    --text-xs:   0.84375rem;
-    --text-sm:   0.984375rem;
+    --text-xs: 0.84375rem;
+    --text-sm: 0.984375rem;
     --text-base: 1.125rem;
-    --text-lg:   1.265625rem;
-    --text-xl:   1.40625rem;
-    --text-2xl:  1.6875rem;
-    --text-3xl:  2.109375rem;
-    --text-4xl:  2.53125rem;
-    --text-5xl:  3.375rem;
-    --text-6xl:  4.21875rem;
-    --text-7xl:  5.0625rem;
-    --text-8xl:  6.75rem;
-    --text-9xl:  9rem;
+    --text-lg: 1.265625rem;
+    --text-xl: 1.40625rem;
+    --text-2xl: 1.6875rem;
+    --text-3xl: 2.109375rem;
+    --text-4xl: 2.53125rem;
+    --text-5xl: 3.375rem;
+    --text-6xl: 4.21875rem;
+    --text-7xl: 5.0625rem;
+    --text-8xl: 6.75rem;
+    --text-9xl: 9rem;
   }
 }
 

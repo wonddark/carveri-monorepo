@@ -16,6 +16,7 @@
     "countSuffix": "{{count}} auction photos — IAAI"
   },
   "accidents": {
+    "heading": "Accidents History",
     "cleanHistory": "Clean History",
     "noAccidents": "No reported accidents found for this vehicle"
   },

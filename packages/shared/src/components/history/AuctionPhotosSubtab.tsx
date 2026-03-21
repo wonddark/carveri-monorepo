@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 
 interface Props {
   photos: string[];
@@ -7,13 +7,10 @@ interface Props {
 
 export default function AuctionPhotosSubtab({ photos }: Readonly<Props>) {
   const { t } = useTranslation("history");
-  const [, setActivePhoto] = useState(0);
 
   return (
     <>
-      <h2 className="mb-5 text-lg font-semibold">
-        {t("auctionPhotos.heading")}
-      </h2>
+      <SubTabHeader title={t("auctionPhotos.heading")} subtitle="" />
 
       <div className="space-y-1.5">
         <p className="text-muted-foreground text-xs">
@@ -22,11 +19,7 @@ export default function AuctionPhotosSubtab({ photos }: Readonly<Props>) {
 
         <div className="columns-2 gap-2">
           {photos.map((src, i) => (
-            <button
-              key={src}
-              onClick={() => setActivePhoto(i)}
-              className="overflow-hidden rounded-lg"
-            >
+            <button key={src} className="overflow-hidden rounded-lg">
               <img
                 src={src}
                 alt={`Thumbnail ${i + 1}`}

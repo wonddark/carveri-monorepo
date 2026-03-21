@@ -7,11 +7,12 @@ import {
   MapPin,
   Ship,
   User,
-  Wrench,
+  Wrench
 } from "lucide-react";
 import type { HistoryEvent } from "@carveri/shared/data/report";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import { cn } from "@carveri/shared/lib/utils.ts";
+import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 
 const TYPE_ICON: Record<
   string,
@@ -54,10 +55,7 @@ export default function TimelineSubtab({ timeline }: Readonly<Props>) {
   const { t } = useTranslation("history");
   return (
     <>
-      <h2 className="text-lg font-semibold">{t("timeline.heading")}</h2>
-      <p className="text-muted-foreground -mt-0.5 mb-5 text-xs">
-        {t("timeline.subtitle")}
-      </p>
+      <SubTabHeader title={t("timeline.heading")} subtitle={t("timeline.subtitle")} />
 
       <div className="flex flex-col gap-2">
         {timeline.map((event, i) => {
