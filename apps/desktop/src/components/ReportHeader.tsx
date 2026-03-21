@@ -4,11 +4,6 @@ import { useNavigate } from "react-router";
 import LanguageToggle from "@carveri/shared/components/LanguageToggle";
 import ThemeToggle from "@/components/ThemeToggle";
 import { cn } from "@/lib/utils";
-import type { VehicleReport } from "@carveri/shared/data/report";
-
-interface Props {
-  vehicle: Pick<VehicleReport, "year" | "make" | "model" | "trim" | "vin">;
-}
 
 export default function ReportHeader() {
   const navigate = useNavigate();
