@@ -1,5 +1,4 @@
-import { type SubmitEventHandler, useEffect, useRef, useState } from "react";
-import { motion, useInView } from "framer-motion";
+import { type SubmitEventHandler, useRef, useState } from "react";
 
 /* ─── shadcn/ui components ─── */
 import { Button } from "@carveri/shared/components/ui/button";
@@ -7,7 +6,7 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardTitle,
+  CardTitle
 } from "@carveri/shared/components/ui/card";
 import { Input } from "@carveri/shared/components/ui/input";
 import { Badge } from "@carveri/shared/components/ui/badge";
@@ -15,9 +14,13 @@ import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger,
+  AccordionTrigger
 } from "@carveri/shared/components/ui/accordion";
-import { Dialog, DialogContent, DialogTitle } from "@carveri/shared/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle
+} from "@carveri/shared/components/ui/dialog";
 import { Separator } from "@carveri/shared/components/ui/separator";
 import {
   IconAlertTriangle,
@@ -35,9 +38,14 @@ import {
   IconShield,
   IconShieldFilled,
   IconSparkles,
-  IconTrendingUp,
+  IconTrendingUp
 } from "@tabler/icons-react";
 import { useNavigate } from "react-router";
+import {
+  AnimatedCounter,
+  FadeIn,
+  FadeUp
+} from "@carveri/shared/components/animations.tsx";
 
 /* ─── Assets ─── */
 const LOGO_URL =
@@ -48,82 +56,6 @@ const AI_ANALYSIS =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663263444526/eJKAGHfm7BbufMTYZr5k2D/carcheck-ai-analysis-v3-8apLrAQmFkomYzhsFG56Ex.webp";
 const REPORT_SAMPLE =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663263444526/eJKAGHfm7BbufMTYZr5k2D/carcheck-report-sample-v3-bT8qCeeLfrcNjEi8eVGdpc.webp";
-
-/* ─── Animation helpers ─── */
-function FadeUp({
-  children,
-  delay = 0,
-  className = "",
-}: Readonly<{
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}>) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.55, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-function FadeIn({
-  children,
-  delay = 0,
-  className = "",
-}: Readonly<{
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}>) {
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
-/* ─── Counter animation ─── */
-function AnimatedCounter({
-  end,
-  suffix = "",
-}: Readonly<{ end: number; suffix?: string }>) {
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true });
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    if (!isInView) return;
-    const duration = 1500;
-    const startTime = Date.now();
-    const timer = setInterval(() => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setCount(Math.round(eased * end));
-      if (progress >= 1) clearInterval(timer);
-    }, 16);
-    return () => clearInterval(timer);
-  }, [isInView, end]);
-
-  return (
-    <span ref={ref}>
-      {count.toLocaleString()}
-      {suffix}
-    </span>
-  );
-}
 
 /* ─── Data ─── */
 const plans = [
@@ -1040,7 +972,7 @@ export default function CarVeriLanding() {
 
       {/* ═══ STATS BAR ═══ */}
       <section className="border-y border-gray-100 bg-gray-50/50 py-10">
-        <div className="mx-auto max-w-[960px] px-5">
+        <div className="mx-auto max-w-240 px-5">
           <div className="grid grid-cols-2 gap-6 text-center lg:grid-cols-4">
             {[
               { value: 2577, suffix: "+", label: "Reportes generados" },
