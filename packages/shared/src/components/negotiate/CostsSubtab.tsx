@@ -1,6 +1,7 @@
-import { ChevronRight, Home } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { VehicleReport } from "@carveri/shared/data/report";
+import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
+import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 
 interface Props {
   price: number;
@@ -8,82 +9,77 @@ interface Props {
 }
 
 export default function CostsSubtab({ price, costs }: Readonly<Props>) {
-  const { t } = useTranslation('negotiate');
+  const { t } = useTranslation("negotiate");
   const salesTax = Math.round((price * costs.taxRatePct) / 100);
   const total = price + salesTax + costs.tagAndTitle + costs.dealerFee;
 
   return (
     <>
-      {/* Breadcrumb */}
-      <div className="flex items-center gap-1 text-[10px] text-slate-400">
-        <Home size={10} />
-        <ChevronRight size={10} />
-        <span>{t('bottomNav.negotiate', { ns: 'common' })}</span>
-        <ChevronRight size={10} />
-        <span>{t('tabs.costs')}</span>
-      </div>
+      <SubTabHeader
+        title={t("costs.heading")}
+        subtitle={t("costs.breakdown", { state: costs.state })}
+      />
 
-      <h2 className="text-xl font-black text-slate-900">
-        {t('costs.heading')}
-      </h2>
-      <p className="-mt-2 text-xs text-slate-400">
-        {t('costs.breakdown', { state: costs.state })}
-      </p>
+      <div className="flex flex-col gap-3">
+        {/* Purchase breakdown card */}
+        <Card>
+          <CardContent>
+            <div className="flex items-center justify-between py-1.25">
+              <span className="text-sm">{t("costs.vehiclePrice")}</span>
+              <span className="text-sm font-semibold">
+                ${price.toLocaleString()}
+              </span>
+            </div>
+            <div className="flex items-center justify-between py-1.25">
+              <span className="text-sm">
+                {t("costs.salesTax")} ({costs.taxRatePct}%)
+              </span>
+              <span className="text-sm font-semibold">
+                ${salesTax.toLocaleString()}
+              </span>
+            </div>
+            <div className="flex items-center justify-between py-1.25">
+              <span className="text-sm">{t("costs.tagTitle")}</span>
+              <span className="text-sm font-semibold">
+                ${costs.tagAndTitle.toLocaleString()}
+              </span>
+            </div>
+            <div className="flex items-center justify-between py-1.25">
+              <span className="text-sm">{t("costs.dealerFee")}</span>
+              <span className="text-sm font-semibold">
+                ${costs.dealerFee.toLocaleString()}
+              </span>
+            </div>
+            <div className="flex items-center justify-between pt-3">
+              <span className="text-sm font-bold">
+                {t("costs.totalEstimated")}
+              </span>
+              <span className="text-primary text-sm font-black">
+                ${total.toLocaleString()}
+              </span>
+            </div>
+          </CardContent>
+        </Card>
 
-      {/* Purchase breakdown card */}
-      <div className="rounded-2xl border border-slate-100 bg-white p-4">
-        <div className="flex items-center justify-between border-b border-slate-100 py-2">
-          <span className="text-sm text-slate-600">{t('costs.vehiclePrice')}</span>
-          <span className="text-sm font-semibold text-slate-900">
-            ${price.toLocaleString()}
-          </span>
-        </div>
-        <div className="flex items-center justify-between border-b border-slate-100 py-2">
-          <span className="text-sm text-slate-600">
-            {t('costs.salesTax')} ({costs.taxRatePct}%)
-          </span>
-          <span className="text-sm font-semibold text-slate-900">
-            ${salesTax.toLocaleString()}
-          </span>
-        </div>
-        <div className="flex items-center justify-between border-b border-slate-100 py-2">
-          <span className="text-sm text-slate-600">{t('costs.tagTitle')}</span>
-          <span className="text-sm font-semibold text-slate-900">
-            ${costs.tagAndTitle.toLocaleString()}
-          </span>
-        </div>
-        <div className="flex items-center justify-between border-b border-slate-100 py-2">
-          <span className="text-sm text-slate-600">{t('costs.dealerFee')}</span>
-          <span className="text-sm font-semibold text-slate-900">
-            ${costs.dealerFee.toLocaleString()}
-          </span>
-        </div>
-        <div className="mt-1 flex items-center justify-between border-t border-slate-200 pt-3">
-          <span className="text-sm font-bold text-slate-900">
-            {t('costs.totalEstimated')}
-          </span>
-          <span className="text-sm font-black text-indigo-600">
-            ${total.toLocaleString()}
-          </span>
-        </div>
-      </div>
-
-      {/* Monthly estimates card */}
-      <div className="rounded-2xl border border-slate-100 bg-white p-4">
-        <h3 className="mb-3 text-sm font-bold text-slate-900">
-          {t('costs.monthlyHeading')}
-        </h3>
-        {costs.monthlyEstimates.map((item) => (
-          <div
-            key={item.label}
-            className="flex items-center justify-between py-1.5"
-          >
-            <span className="text-sm text-slate-600">{item.label}</span>
-            <span className="text-sm font-semibold text-slate-900">
-              ${item.low} – ${item.high}
-            </span>
-          </div>
-        ))}
+        {/* Monthly estimates card */}
+        <Card>
+          <CardContent>
+            <h3 className="mb-3 text-sm font-bold">
+              {t("costs.monthlyHeading")}
+            </h3>
+            {costs.monthlyEstimates.map((item) => (
+              <div
+                key={item.label}
+                className="flex items-center justify-between py-1.5"
+              >
+                <span className="text-sm">{item.label}</span>
+                <span className="text-sm font-semibold">
+                  ${item.low} – ${item.high}
+                </span>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
       </div>
     </>
   );

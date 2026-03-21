@@ -2,9 +2,9 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import BottomNavBar from "@/components/BottomNavBar";
 import HomeTab from "@/components/home/HomeTab.tsx";
-import MarketTab from "@carveri/shared/components/market/MarketTab";
-import NegotiateTab from "@carveri/shared/components/negotiate/NegotiateTab";
-import VerdictTab from "@carveri/shared/components/verdict/VerdictTab";
+import MarketTab from "@/components/market/MarketTab";
+import NegotiateTab from "@/components/negotiate/NegotiateTab.tsx";
+import VerdictTab from "@/components/verdict/VerdictTab.tsx";
 import HistoryTab from "@/components/history/HistoryTab.tsx";
 import type { TabId } from "@carveri/shared/data/report";
 import { MOCK_REPORTS } from "@carveri/shared/data/report";
@@ -35,13 +35,13 @@ export default function ReportPage() {
   if (!report) {
     return (
       <div className="flex min-h-dvh items-center justify-center">
-        <p className="text-slate-400">Report not found</p>
+        <p className="text-muted-foreground">Report not found</p>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-dvh flex-col bg-slate-50">
+    <div className="flex min-h-dvh flex-col">
       <main className="flex-1 pb-24">
         {/* overflow-hidden clips the horizontal slide animation without trapping vertical scroll */}
         <div className="overflow-hidden">
@@ -54,17 +54,15 @@ export default function ReportPage() {
               exit={{ x: direction * -60, opacity: 0 }}
               transition={{ duration: 0.22, ease: "easeInOut" }}
             >
-              {activeTab === "home" && (
-                <HomeTab report={report} onNavigate={handleTabChange} />
-              )}
+              {activeTab === "home" && <HomeTab report={report} />}
 
               {activeTab === "history" && <HistoryTab report={report} />}
 
               {activeTab === "market" && <MarketTab report={report} />}
 
-              {activeTab === "negotiate" && <NegotiateTab report={report} />}
-
               {activeTab === "verdict" && <VerdictTab report={report} />}
+
+              {activeTab === "negotiate" && <NegotiateTab report={report} />}
 
               {activeTab !== "home" &&
                 activeTab !== "market" &&

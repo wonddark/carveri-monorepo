@@ -1,7 +1,12 @@
 import { useState } from "react";
-import { Check, ChevronRight, Eye, FileText, Home, Wrench } from "lucide-react";
+import { Eye, FileText, Wrench } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { VerdictChecklistGroup } from "@carveri/shared/data/report";
+import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
+import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
+import { Field, FieldLabel } from "@carveri/shared/components/ui/field.tsx";
+import { Checkbox } from "@carveri/shared/components/ui/checkbox.tsx";
+import { cn } from "@carveri/shared/lib/utils.ts";
 
 // ICON_MAP resolves categoryIcon strings from mock data to lucide components.
 // Check is imported separately for the checked checkbox state (not via ICON_MAP).
@@ -19,7 +24,7 @@ interface Props {
 }
 
 export default function ChecklistSubtab({ checklist }: Readonly<Props>) {
-  const { t } = useTranslation('verdict')
+  const { t } = useTranslation("verdict");
   const [checked, setChecked] = useState<Set<string>>(() => new Set());
 
   function toggle(key: string) {
@@ -36,59 +41,54 @@ export default function ChecklistSubtab({ checklist }: Readonly<Props>) {
 
   return (
     <>
-      {/* Breadcrumb */}
-      <div className="flex items-center gap-1 text-[10px] text-slate-400">
-        <Home size={10} />
-        <ChevronRight size={10} />
-        <span>{t('tabs.verdict')}</span>
-        <ChevronRight size={10} />
-        <span>{t('tabs.checklist')}</span>
+      <SubTabHeader title={t("checklist.heading")} subtitle="" />
+
+      <div className="flex flex-col gap-3">
+        {checklist.map((group) => {
+          const CategoryIcon = ICON_MAP[group.categoryIcon];
+          return (
+            <Card key={group.id}>
+              <CardContent>
+                <div className="flex items-center gap-2">
+                  {CategoryIcon && (
+                    <CategoryIcon size={16} className="text-primary" />
+                  )}
+                  <h3 className="font-semibold">{group.category}</h3>
+                </div>
+
+                <div className="mt-3 flex flex-col gap-2">
+                  {group.items.map((item, i) => {
+                    const key = `${group.id}-${i}`;
+                    const isChecked = checked.has(key);
+                    return (
+                      <Field
+                        key={item}
+                        orientation="horizontal"
+                        className="items-start"
+                      >
+                        <Checkbox
+                          id={`${group.id}-${i}`}
+                          className="mt-0.75"
+                          checked={isChecked}
+                          onCheckedChange={() => toggle(key)}
+                        />
+                        <FieldLabel
+                          htmlFor={`${group.id}-${i}`}
+                          className={cn("font-normal", {
+                            "text-muted-foreground line-through": isChecked,
+                          })}
+                        >
+                          {item}
+                        </FieldLabel>
+                      </Field>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
-
-      <h2 className="text-xl font-black text-slate-900">
-        {t('checklist.heading')}
-      </h2>
-
-      {checklist.map((group) => {
-        const CategoryIcon = ICON_MAP[group.categoryIcon];
-        return (
-          <div
-            key={group.id}
-            className="rounded-2xl border border-slate-100 bg-white p-4"
-          >
-            <div className="mb-3 flex items-center gap-2">
-              {CategoryIcon && (
-                <CategoryIcon size={16} className="text-indigo-500" />
-              )}
-              <h3 className="text-sm font-bold text-slate-900">
-                {group.category}
-              </h3>
-            </div>
-            {group.items.map((item, i) => {
-              const key = `${group.id}-${i}`;
-              const isChecked = checked.has(key);
-              return (
-                <button
-                  key={key}
-                  className="flex cursor-pointer appearance-none items-start gap-3 border-b border-slate-100 py-2 last:border-0"
-                  onClick={() => toggle(key)}
-                >
-                  <div
-                    className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded border-2 ${isChecked ? "border-indigo-600 bg-indigo-600" : "border-slate-300"}`}
-                  >
-                    {isChecked && <Check size={10} className="text-white" />}
-                  </div>
-                  <span
-                    className={`text-sm ${isChecked ? "text-slate-400 line-through" : "text-slate-700"}`}
-                  >
-                    {item}
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-        );
-      })}
     </>
   );
 }

@@ -2,7 +2,7 @@
 import { Download, Share2 } from "lucide-react";
 import { useNavigate } from "react-router";
 import LanguageToggle from "@carveri/shared/components/LanguageToggle";
-import ThemeToggle from "@/components/ThemeToggle";
+import ThemeToggle from "@carveri/shared/components/ThemeToggle";
 import { cn } from "@/lib/utils";
 
 export default function ReportHeader() {

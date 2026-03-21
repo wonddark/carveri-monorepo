@@ -7,9 +7,22 @@ import "./index.css";
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/counter.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+
+// next-themes ThemeProviderProps extends React.PropsWithChildren, but pnpm resolves
+// next-themes' 'react' peer to a separate type instance, causing a false 'children'
+// prop error under moduleResolution:bundler + @types/react v19.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ThemeProvider = NextThemesProvider as any;
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      disableTransitionOnChange
+    >
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </StrictMode>,
 );

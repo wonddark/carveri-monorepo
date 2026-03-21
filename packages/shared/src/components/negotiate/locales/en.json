@@ -5,8 +5,8 @@
     "costs": "Costs"
   },
   "strategy": {
-    "firstOffer": "First Offer",
-    "midpoint": "Midpoint",
+    "firstOffer": "First Offer Recommended",
+    "midpoint": "Midpoint Recommended",
     "maxRecommended": "Max Recommended",
     "tips": "Negotiation Tips"
   },

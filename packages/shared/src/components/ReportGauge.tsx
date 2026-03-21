@@ -38,28 +38,30 @@ function ReportGauge(props: Readonly<Props>) {
   return (
     <div
       ref={containerRef}
-      className={`mb-4 rounded-xl bg-linear-135 from-[#1a1c22] to-[#16181e] p-4${isVisible ? "" : " gauge-paused"}`}
+      className={`bg-card mb-4 rounded-xl p-4${isVisible ? "" : "gauge-paused"}`}
     >
       <div className="mb-2 flex items-center justify-between">
         <div className="flex items-center gap-1.5">
           <div className="w-1"></div>
-          <span className="gauge-label">{t('gauge.priceEvaluation')}</span>
+          <span className="gauge-label">{t("gauge.priceEvaluation")}</span>
         </div>
         <span className="gauge-trend">↘ -2.8%</span>
       </div>
       {parse(buildGaugeSvg(percentile, price, label))}
       <div className="gauge-bottom-stats">
         <div className="gauge-stat">
-          <div className="gauge-stat-label">{t('gauge.wholesale')}</div>
+          <div className="gauge-stat-label">{t("gauge.wholesale")}</div>
           <div className="gauge-stat-value">{fmt(wholesale)}</div>
         </div>
         <div className="gauge-stat">
-          <div className="gauge-stat-label">{t('gauge.retail')}</div>
+          <div className="gauge-stat-label">{t("gauge.retail")}</div>
           <div className="gauge-stat-value">{fmt(retail)}</div>
         </div>
         <div className="gauge-stat">
-          <div className="gauge-stat-label">{t('gauge.percentile')}</div>
-          <div className="gauge-stat-value">{t('gauge.top')} {percentile.toFixed(0)}%</div>
+          <div className="gauge-stat-label">{t("gauge.percentile")}</div>
+          <div className="gauge-stat-value">
+            {t("gauge.top")} {percentile.toFixed(0)}%
+          </div>
         </div>
       </div>
     </div>
