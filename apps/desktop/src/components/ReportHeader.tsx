@@ -1,56 +1,45 @@
 // apps/desktop/src/components/ReportHeader.tsx
-import { ChevronLeft, Download, Share2 } from 'lucide-react'
-import { useNavigate } from 'react-router'
-import LanguageToggle from '@carveri/shared/components/LanguageToggle'
-import ThemeToggle from '@/components/ThemeToggle'
-import { cn } from '@/lib/utils'
-import type { VehicleReport } from '@carveri/shared/data/report'
+import { Download, Share2 } from "lucide-react";
+import { useNavigate } from "react-router";
+import LanguageToggle from "@carveri/shared/components/LanguageToggle";
+import ThemeToggle from "@/components/ThemeToggle";
+import { cn } from "@/lib/utils";
+import type { VehicleReport } from "@carveri/shared/data/report";
 
 interface Props {
-  vehicle: Pick<VehicleReport, 'year' | 'make' | 'model' | 'trim' | 'vin'>
+  vehicle: Pick<VehicleReport, "year" | "make" | "model" | "trim" | "vin">;
 }
 
-export default function ReportHeader({ vehicle }: Readonly<Props>) {
-  const navigate = useNavigate()
-  const { year, make, model, trim, vin } = vehicle
+export default function ReportHeader() {
+  const navigate = useNavigate();
 
   return (
-    <header className={cn(
-      'sticky top-0 z-20 flex h-14 items-center justify-between',
-      'border-b border-slate-100 bg-white px-4',
-      'dark:border-slate-800 dark:bg-slate-900',
-    )}>
+    <header
+      className={cn(
+        "fixed top-0 right-0 left-0 z-20 flex h-14 items-center justify-between",
+        "border-border bg-background border-b px-4 shadow-sm",
+      )}
+    >
       {/* Left: back + logo */}
       <div className="flex items-center gap-3">
         <button
           type="button"
           onClick={() => navigate(-1)}
-          className="rounded-md p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700 dark:text-slate-500 dark:hover:bg-slate-800 dark:hover:text-slate-300"
+          className="cursor-pointer"
         >
-          <ChevronLeft size={18} />
+          <img
+            src="/logo.svg"
+            alt="CarVeri"
+            className="h-6"
+            onError={(e) => {
+              // Fallback if logo asset missing
+              (e.currentTarget as HTMLImageElement).style.display = "none";
+            }}
+          />
+          <span className="hidden text-base font-black tracking-tight text-slate-900 sm:block dark:text-slate-100">
+            CarVeri
+          </span>
         </button>
-        <img
-          src="/logo.svg"
-          alt="CarVeri"
-          className="h-6"
-          onError={(e) => {
-            // Fallback if logo asset missing
-            ;(e.currentTarget as HTMLImageElement).style.display = 'none'
-          }}
-        />
-        <span className="hidden text-base font-black tracking-tight text-slate-900 dark:text-slate-100 sm:block">
-          CarVeri
-        </span>
-      </div>
-
-      {/* Center: vehicle name + VIN */}
-      <div className="flex items-center gap-2">
-        <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">
-          {year} {make} {model} {trim}
-        </span>
-        <span className="rounded-full bg-slate-100 px-2.5 py-0.5 font-mono text-[11px] text-slate-500 dark:bg-slate-800 dark:text-slate-400">
-          {vin}
-        </span>
       </div>
 
       {/* Right: language + actions */}
@@ -75,5 +64,5 @@ export default function ReportHeader({ vehicle }: Readonly<Props>) {
         </button>
       </div>
     </header>
-  )
+  );
 }
