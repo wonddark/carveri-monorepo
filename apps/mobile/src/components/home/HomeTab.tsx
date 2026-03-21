@@ -2,15 +2,20 @@
 import { useEffect, useRef, useState } from "react";
 import { LayoutDashboard } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import StatsGrid from "./StatsGrid";
-import PriceEvalSection from "./PriceEvalSection";
-import VehicleDataSection from "./VehicleDataSection";
-import AISummarySection from "./AISummarySection";
-import QuickNavGrid from "./QuickNavGrid";
-import type { TabId, VehicleReport } from "@carveri/shared/data/report";
+import StatsGrid from "@carveri/shared/components/home/StatsGrid.tsx";
+import PriceEvalSection
+  from "@carveri/shared/components/home/PriceEvalSection.tsx";
+import VehicleDataSection
+  from "@carveri/shared/components/home/VehicleDataSection.tsx";
+import AISummarySection
+  from "@carveri/shared/components/home/AISummarySection.tsx";
+import QuickNavGrid from "@carveri/shared/components/home/QuickNavGrid.tsx";
+import type { TabId, VehicleReport } from "@carveri/shared/data/report.ts";
 import ImageCarousel from "@carveri/shared/components/ImageCarousel.tsx";
 import CarSummaryCard from "@carveri/shared/components/CarSummaryCard.tsx";
 import { cn } from "@carveri/shared/lib/utils.ts";
+import AppHeader from "@/components/AppHeader.tsx";
+import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
 
 interface Props {
   report: VehicleReport;
@@ -36,6 +41,16 @@ export default function HomeTab(props: Readonly<Props>) {
 
   return (
     <div className="relative">
+      <AppHeader
+        showAppName={!isCarouselVisible}
+        title={generateReportTitle({
+          year: report.year,
+          make: report.make,
+          model: report.model,
+        })}
+        isTransparent={isCarouselVisible}
+      />
+
       <div ref={carouselRef}>
         <ImageCarousel images={report.images} />
       </div>

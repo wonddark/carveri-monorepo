@@ -6,7 +6,7 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardTitle
+  CardTitle,
 } from "@carveri/shared/components/ui/card";
 import { Input } from "@carveri/shared/components/ui/input";
 import { Badge } from "@carveri/shared/components/ui/badge";
@@ -14,12 +14,12 @@ import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger
+  AccordionTrigger,
 } from "@carveri/shared/components/ui/accordion";
 import {
   Dialog,
   DialogContent,
-  DialogTitle
+  DialogTitle,
 } from "@carveri/shared/components/ui/dialog";
 import { Separator } from "@carveri/shared/components/ui/separator";
 import {
@@ -38,13 +38,13 @@ import {
   IconShield,
   IconShieldFilled,
   IconSparkles,
-  IconTrendingUp
+  IconTrendingUp,
 } from "@tabler/icons-react";
 import { useNavigate } from "react-router";
 import {
   AnimatedCounter,
   FadeIn,
-  FadeUp
+  FadeUp,
 } from "@carveri/shared/components/animations.tsx";
 
 /* ─── Assets ─── */
