@@ -51,7 +51,7 @@ export default function VerdictBadge(props: Readonly<Props>) {
           </div>
         </div>
       </div>
-      <p className="mt-1 line-clamp-2 text-[11px] leading-snug text-slate-500">
+      <p className="text-muted-foreground mt-1 text-xs leading-snug">
         {aiSummary}
       </p>
     </div>

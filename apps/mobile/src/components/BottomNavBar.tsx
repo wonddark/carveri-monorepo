@@ -33,14 +33,14 @@ export default function BottomNavBar({
     },
   ];
   return (
-    <nav className="fixed bottom-0 left-1/2 z-50 flex w-full max-w-107.5 -translate-x-1/2 justify-around border-t border-slate-100 bg-white px-1 pt-2 pb-4">
+    <nav className="border-border bg-background fixed bottom-0 left-1/2 z-50 flex w-full max-w-107.5 -translate-x-1/2 justify-around border-t px-1 pt-2 pb-4">
       {TABS.map((tab) => (
         <button
           key={tab.id}
           onClick={() => onTabChange(tab.id)}
           className={cn(
             "flex flex-col items-center gap-0.5 rounded-xl px-3 py-1 text-[10px] font-semibold transition-colors",
-            activeTab === tab.id ? "text-indigo-600" : "text-slate-400",
+            activeTab === tab.id ? "text-primary" : "text-slate-400",
           )}
         >
           {tab.icon}

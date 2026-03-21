@@ -1,59 +1,77 @@
-import { Home, ChevronRight, Lightbulb, ArrowRight } from 'lucide-react'
-import { useTranslation } from 'react-i18next'
-import type { VehicleReport } from '@carveri/shared/data/report'
+import { ArrowRight, Lightbulb } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import type { VehicleReport } from "@carveri/shared/data/report";
+import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
+import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 
 interface Props {
-  strategy: VehicleReport['negotiate']['strategy']
+  strategy: VehicleReport["negotiate"]["strategy"];
 }
 
-export default function StrategySubtab({ strategy }: Props) {
-  const { t } = useTranslation('negotiate')
-  const { firstOffer, midpoint, maxRecommended, tips } = strategy
+export default function StrategySubtab({ strategy }: Readonly<Props>) {
+  const { t } = useTranslation("negotiate");
+  const { firstOffer, midpoint, maxRecommended, tips } = strategy;
 
   return (
     <>
-      {/* Breadcrumb */}
-      <div className="flex items-center gap-1 text-[10px] text-slate-400">
-        <Home size={10} />
-        <ChevronRight size={10} />
-        <span>{t('bottomNav.negotiate', { ns: 'common' })}</span>
-        <ChevronRight size={10} />
-        <span>{t('tabs.strategy')}</span>
-      </div>
+      <SubTabHeader title={t("negotiaton.strategy")} subtitle={""} />
 
-      <h2 className="font-black text-slate-900 text-xl">Negotiation Strategy</h2>
+      <div className="flex flex-col gap-3">
+        {/* 3-column price row */}
+        <div className="grid grid-cols-3 gap-2">
+          <Card className="py-3">
+            <CardContent className="flex flex-col items-center gap-1.5 px-3">
+              <p className="text-muted-foreground text-center text-xs font-medium">
+                {t("strategy.firstOffer")}
+              </p>
+              <p className="text-base font-semibold">
+                ${firstOffer.toLocaleString()}
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="py-3">
+            <CardContent className="flex flex-col items-center gap-1.5 px-3">
+              <p className="text-muted-foreground text-center text-xs font-medium">
+                {t("strategy.midpoint")}
+              </p>
+              <p className="text-base font-semibold">
+                ${midpoint.toLocaleString()}
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="py-3">
+            <CardContent className="flex flex-col items-center gap-1.5 px-3">
+              <p className="text-muted-foreground text-center text-xs font-medium">
+                {t("strategy.maxRecommended")}
+              </p>
+              <p className="text-base font-semibold">
+                ${maxRecommended.toLocaleString()}
+              </p>
+            </CardContent>
+          </Card>
+        </div>
 
-      {/* 3-column price row */}
-      <div className="flex gap-2">
-        <div className="flex-1 bg-white rounded-xl border border-slate-100 p-3 text-center">
-          <p className="text-[10px] font-semibold text-indigo-600 mb-1">{t('strategy.firstOffer')}</p>
-          <p className="text-base font-black text-slate-900">${firstOffer.toLocaleString()}</p>
-        </div>
-        <div className="flex-1 bg-amber-50 rounded-xl border border-amber-100 p-3 text-center">
-          <p className="text-[10px] font-semibold text-amber-600 mb-1">{t('strategy.midpoint')}</p>
-          <p className="text-base font-black text-amber-600">${midpoint.toLocaleString()}</p>
-        </div>
-        <div className="flex-1 bg-red-50 rounded-xl border border-red-100 p-3 text-center">
-          <p className="text-[10px] font-semibold text-red-600 mb-1">{t('strategy.maxRecommended')}</p>
-          <p className="text-base font-black text-red-600">${maxRecommended.toLocaleString()}</p>
-        </div>
-      </div>
-
-      {/* Tips card */}
-      <div className="bg-slate-50 rounded-2xl border border-slate-100 p-4">
-        <div className="flex items-center gap-2 mb-3">
-          <Lightbulb size={16} className="text-indigo-500" />
-          <h3 className="font-bold text-sm text-slate-900">{t('strategy.tips')}</h3>
-        </div>
-        <div className="space-y-0">
-          {tips.map((tip, i) => (
-            <div key={i} className="flex gap-2 items-start py-2 border-b border-slate-100 last:border-0">
-              <ArrowRight size={12} className="text-indigo-400 flex-shrink-0 mt-0.5" />
-              <p className="text-xs text-slate-700">{tip}</p>
+        {/* Tips card */}
+        <Card>
+          <CardContent>
+            <div className="mb-3 flex items-center gap-2">
+              <Lightbulb className="text-primary size-4" />
+              <h3 className="font-semibold">{t("strategy.tips")}</h3>
             </div>
-          ))}
-        </div>
+            <div className="mt-3 flex flex-col gap-3">
+              {tips.map((tip) => (
+                <div
+                  key={tip}
+                  className="border-border flex items-start gap-2 border-b py-2 last:border-0"
+                >
+                  <ArrowRight className="text-primary mt-0.5 size-4 shrink-0" />
+                  <p className="text-xs">{tip}</p>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </>
-  )
+  );
 }

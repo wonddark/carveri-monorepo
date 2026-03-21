@@ -1,28 +1,22 @@
 import { motion } from "framer-motion";
-import { AlertTriangle, CheckCircle2, ChevronRight, Home } from "lucide-react";
+import { AlertCircle, CircleCheckBig } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import type { VerdictRisk } from "@carveri/shared/data/report";
+import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
+import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
+import { cn } from "@carveri/shared/lib/utils.ts";
 
 interface Props {
   risks: VerdictRisk[];
 }
 
 export default function RisksSubtab({ risks }: Readonly<Props>) {
-  const { t } = useTranslation('verdict')
+  const { t } = useTranslation("verdict");
   return (
     <>
-      {/* Breadcrumb */}
-      <div className="flex items-center gap-1 text-[10px] text-slate-400">
-        <Home size={10} />
-        <ChevronRight size={10} />
-        <span>{t('tabs.verdict')}</span>
-        <ChevronRight size={10} />
-        <span>{t('tabs.risks')}</span>
-      </div>
+      <SubTabHeader title={t("risks.heading")} subtitle="" />
 
-      <h2 className="text-xl font-black text-slate-900">{t('risks.heading')}</h2>
-
-      <div className="space-y-3">
+      <div className="flex flex-col gap-3">
         {risks.map((risk, i) => {
           const isPositive = risk.type === "positive";
           return (
@@ -31,29 +25,31 @@ export default function RisksSubtab({ risks }: Readonly<Props>) {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.07 }}
-              className={`flex gap-3 rounded-2xl p-4 ${isPositive ? "border border-indigo-100 bg-indigo-50" : "border border-amber-100 bg-amber-50"}`}
             >
-              {isPositive ? (
-                <CheckCircle2
-                  size={18}
-                  className="mt-0.5 flex-shrink-0 text-indigo-500"
-                />
-              ) : (
-                <AlertTriangle
-                  size={18}
-                  className="mt-0.5 flex-shrink-0 text-amber-500"
-                />
-              )}
-              <div>
-                <p
-                  className={`text-sm font-bold ${isPositive ? "text-indigo-700" : "text-amber-700"}`}
-                >
-                  {risk.title}
-                </p>
-                <p className="mt-0.5 text-xs text-slate-600">
-                  {risk.description}
-                </p>
-              </div>
+              <Card
+                className={cn({
+                  "bg-amber-50 ring-amber-100 dark:bg-amber-950 dark:ring-amber-900":
+                    !isPositive,
+                })}
+              >
+                <CardContent className="flex gap-3">
+                  {isPositive ? (
+                    <CircleCheckBig className="text-primary mt-0.5 size-4.5 shrink-0" />
+                  ) : (
+                    <AlertCircle className="mt-0.5 size-4.5 shrink-0 text-amber-800 dark:text-amber-600" />
+                  )}
+                  <div>
+                    <p
+                      className={`text-sm font-medium ${isPositive ? "text-primary" : "text-amber-800 dark:text-amber-600"}`}
+                    >
+                      {risk.title}
+                    </p>
+                    <p className="text-muted-foreground mt-0.5 text-xs">
+                      {risk.description}
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
             </motion.div>
           );
         })}

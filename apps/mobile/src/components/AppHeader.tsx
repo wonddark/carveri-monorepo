@@ -3,6 +3,7 @@ import { ArrowLeft, Share2 } from "lucide-react";
 import LanguageToggle from "@carveri/shared/components/LanguageToggle";
 import { useTranslation } from "react-i18next";
 import { cn } from "@carveri/shared/lib/utils.ts";
+import ThemeToggle from "@carveri/shared/components/ThemeToggle.tsx";
 
 interface AppHeaderProps {
   isTransparent?: boolean;
@@ -62,6 +63,7 @@ export default function AppHeader(props: Readonly<AppHeaderProps>) {
           >
             <Share2 className="size-4" />
           </button>
+          <ThemeToggle />
         </div>
       </div>
     </header>
