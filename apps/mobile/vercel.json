@@ -1,3 +1,17 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }],
+  "redirects": [
+    {
+      "source": "/",
+      "missing": [
+        {
+          "type": "header",
+          "key": "User-Agent",
+          "value": ".*(Mobile|Android|iPhone|iPad).*"
+        }
+      ],
+      "permanent": false,
+      "destination": "https://desktop.yourdomain.com"
+    }
+  ]
 }
