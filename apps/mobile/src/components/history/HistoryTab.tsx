@@ -1,13 +1,15 @@
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import type { VehicleReport } from "@carveri/shared/data/report";
-import TimelineSubtab from "./TimelineSubtab";
-import AuctionPhotosSubtab from "./AuctionPhotosSubtab";
-import AccidentsSubtab from "./AccidentsSubtab";
-import OwnersSubtab from "./OwnersSubtab";
-import ServiceSubtab from "./ServiceSubtab";
-import TitleSubtab from "./TitleSubtab";
+import type { VehicleReport } from "@carveri/shared/data/report.ts";
+import TimelineSubtab from "@carveri/shared/components/history/TimelineSubtab.tsx";
+import AuctionPhotosSubtab from "@carveri/shared/components/history/AuctionPhotosSubtab.tsx";
+import AccidentsSubtab from "@carveri/shared/components/history/AccidentsSubtab.tsx";
+import OwnersSubtab from "@carveri/shared/components/history/OwnersSubtab.tsx";
+import ServiceSubtab from "@carveri/shared/components/history/ServiceSubtab.tsx";
+import TitleSubtab from "@carveri/shared/components/history/TitleSubtab.tsx";
+import AppHeader from "@/components/AppHeader.tsx";
+import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
 
 interface Props {
   report: VehicleReport;
@@ -38,26 +40,28 @@ export default function HistoryTab({ report }: Readonly<Props>) {
 
   return (
     <div className="relative">
+      <AppHeader
+        showAppName={true}
+        title={generateReportTitle({
+          year: report.year,
+          make: report.make,
+          model: report.model,
+        })}
+        isTransparent={false}
+      />
+
       <div className="px-4 pt-16">
         {/* Pill carousel */}
         <div className="mb-4 flex items-center gap-1">
           <button
             disabled={activeIdx === 0}
             onClick={() => selectPill(activeIdx - 1)}
-            className="border-border bg-card text-card-foreground flex h-7 w-7 shrink-0 items-center justify-center rounded-full border disabled:pointer-events-none disabled:opacity-30"
+            className="border-border bg-card text-card-foreground flex h-7 w-7 shrink-0 items-center justify-center rounded-full border transition-all duration-200 ease-in-out active:scale-95 active:brightness-95 disabled:pointer-events-none disabled:opacity-30"
           >
             <ChevronLeft size={14} />
           </button>
 
-          <div
-            className="relative mx-1 flex-1 overflow-hidden"
-            style={{
-              maskImage:
-                "linear-gradient(to right, transparent, black 16px, black calc(100% - 16px), transparent)",
-              WebkitMaskImage:
-                "linear-gradient(to right, transparent, black 16px, black calc(100% - 16px), transparent)",
-            }}
-          >
+          <div className="relative mx-1 flex-1 overflow-hidden">
             <div
               ref={trackRef}
               className="flex gap-1.5 overflow-x-auto [&::-webkit-scrollbar]:hidden"
@@ -82,7 +86,7 @@ export default function HistoryTab({ report }: Readonly<Props>) {
           <button
             disabled={activeIdx === SUBTABS.length - 1}
             onClick={() => selectPill(activeIdx + 1)}
-            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-400 disabled:pointer-events-none disabled:opacity-30"
+            className="border-border bg-card text-card-foreground flex h-7 w-7 shrink-0 items-center justify-center rounded-full border transition-all duration-200 ease-in-out active:scale-95 active:brightness-95 disabled:pointer-events-none disabled:opacity-30"
           >
             <ChevronRight size={14} />
           </button>

@@ -6,8 +6,9 @@ import {
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@carveri/shared/components/ui/card.tsx";
+import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 
 interface Props {
   owners: HistoryOwner[];
@@ -17,10 +18,7 @@ export default function OwnersSubtab({ owners }: Readonly<Props>) {
   const { t } = useTranslation("history");
   return (
     <>
-      <h2 className="text-lg font-semibold">{t("owners.heading")}</h2>
-      <p className="text-muted-foreground mb-5 text-xs">
-        {t("owners.registeredOwners", { count: owners.length })}
-      </p>
+      <SubTabHeader title={t("owners.heading")} subtitle={t("owners.registeredOwners", { count: owners.length })} />
 
       <div className="flex flex-col gap-3">
         {owners.map((owner, i) => (
@@ -32,7 +30,7 @@ export default function OwnersSubtab({ owners }: Readonly<Props>) {
           >
             <Card>
               <CardHeader className="grid-cols-[36px_1fr]">
-                <div className="flex size-8 shrink-0 items-center justify-center rounded-xl bg-indigo-50 text-xs font-black text-indigo-600">
+                <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-indigo-50 text-xs font-black text-indigo-600">
                   #{i + 1}
                 </div>
                 <div className="flex flex-col">

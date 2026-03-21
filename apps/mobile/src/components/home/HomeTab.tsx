@@ -3,12 +3,9 @@ import { useEffect, useRef, useState } from "react";
 import { LayoutDashboard } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import StatsGrid from "@carveri/shared/components/home/StatsGrid.tsx";
-import PriceEvalSection
-  from "@carveri/shared/components/home/PriceEvalSection.tsx";
-import VehicleDataSection
-  from "@carveri/shared/components/home/VehicleDataSection.tsx";
-import AISummarySection
-  from "@carveri/shared/components/home/AISummarySection.tsx";
+import PriceEvalSection from "@carveri/shared/components/home/PriceEvalSection.tsx";
+import VehicleDataSection from "@carveri/shared/components/home/VehicleDataSection.tsx";
+import AISummarySection from "@carveri/shared/components/home/AISummarySection.tsx";
 import QuickNavGrid from "@carveri/shared/components/home/QuickNavGrid.tsx";
 import type { TabId, VehicleReport } from "@carveri/shared/data/report.ts";
 import ImageCarousel from "@carveri/shared/components/ImageCarousel.tsx";

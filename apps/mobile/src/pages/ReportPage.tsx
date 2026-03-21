@@ -5,7 +5,7 @@ import HomeTab from "@/components/home/HomeTab.tsx";
 import MarketTab from "@carveri/shared/components/market/MarketTab";
 import NegotiateTab from "@carveri/shared/components/negotiate/NegotiateTab";
 import VerdictTab from "@carveri/shared/components/verdict/VerdictTab";
-import HistoryTab from "@carveri/shared/components/history/HistoryTab";
+import HistoryTab from "@/components/history/HistoryTab.tsx";
 import type { TabId } from "@carveri/shared/data/report";
 import { MOCK_REPORTS } from "@carveri/shared/data/report";
 import { useParams } from "react-router";

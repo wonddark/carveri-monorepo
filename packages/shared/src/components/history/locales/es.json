@@ -16,6 +16,7 @@
     "countSuffix": "{{count}} fotos de subasta — IAAI"
   },
   "accidents": {
+    "heading": "Historial de Accidentes",
     "cleanHistory": "Sin Accidentes",
     "noAccidents": "No se encontraron accidentes reportados para este vehículo"
   },
