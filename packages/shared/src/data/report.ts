@@ -54,7 +54,7 @@ export interface HistoryEvent {
   date: string
   title: string
   description: string
-  type: 'manufacture' | 'import' | 'owner' | 'title' | 'service' | 'auction' | 'current'
+  type: 'manufacture' | 'import' | 'owner' | 'title' | 'service' | 'auction' | 'current' | 'accident'
 }
 
 export interface HistoryOwner {
