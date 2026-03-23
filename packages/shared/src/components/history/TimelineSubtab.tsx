@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import {
+  AlertTriangle,
   Building2,
   Factory,
   FileText,
@@ -25,6 +26,7 @@ const TYPE_ICON: Record<
   service: Wrench,
   auction: Building2,
   current: MapPin,
+  accident: AlertTriangle,
 };
 
 const TYPE_BOX: Record<string, string> = {
@@ -35,6 +37,7 @@ const TYPE_BOX: Record<string, string> = {
   service: "bg-green-50",
   auction: "bg-amber-50",
   current: "bg-indigo-600",
+  accident: "bg-red-50",
 };
 
 const TYPE_ICON_COLOR: Record<string, string> = {
@@ -45,6 +48,7 @@ const TYPE_ICON_COLOR: Record<string, string> = {
   service: "text-green-600",
   auction: "text-amber-500",
   current: "text-white",
+  accident: "text-red-500",
 };
 
 interface Props {
