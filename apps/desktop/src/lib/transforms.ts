@@ -1,6 +1,7 @@
 // apps/desktop/src/lib/transforms.ts
 import type { VehicleReport as ApiReport } from "@carveri/shared/types/vehicle-report";
 import type {
+  HistoryEvent,
   HistoryOwner,
   HistoryServiceRecord,
   HistoryTitleItem,
@@ -68,6 +69,62 @@ function mapTitle(raw: ApiReport): HistoryTitleItem[] {
     title: h.tipo,
     description: h.detalles.join(" · ") || h.fuente,
   }));
+}
+
+function sortKey(date: string, year?: number): number {
+  if (year !== undefined) return new Date(year, 0, 1).getTime();
+  const parsed = new Date(date).getTime();
+  return Number.isNaN(parsed) ? 0 : parsed;
+}
+
+export function buildTimeline(raw: ApiReport): HistoryEvent[] {
+  const accidents: HistoryEvent[] = raw.historial.accidentes.eventos.map(
+    (ev, i) => {
+      const desc = [ev.severidad, ...(ev.detalles ?? [])]
+        .filter((s) => s && s !== "-")
+        .join(" · ");
+      return {
+        id: `acc-${i}`,
+        date: ev.fecha,
+        title: ev.titulo,
+        description: desc || ev.titulo,
+        type: "accident",
+      };
+    },
+  );
+
+  const owners: HistoryEvent[] = raw.historial.propietarios.map((p) => ({
+    id: `own-${p.numero}`,
+    date: String(p.anioPurchased),
+    title: p.etiqueta,
+    description: [p.tipo, p.estados]
+      .filter((s) => s && s !== "-")
+      .join(" · "),
+    type: "owner",
+  }));
+
+  const service: HistoryEvent[] = raw.historial.mantenimiento.registros.map(
+    (r, i) => {
+      const desc = (r.detalles ?? [])
+        .filter((s) => s && s !== "-")
+        .join(" · ");
+      return {
+        id: `svc-${i}`,
+        date: r.fecha,
+        title: r.tipo,
+        description: desc || r.fuente,
+        type: "service",
+      };
+    },
+  );
+
+  return [...accidents, ...owners, ...service].sort((a, b) => {
+    const aYear =
+      a.type === "owner" ? Number(a.date) : undefined;
+    const bYear =
+      b.type === "owner" ? Number(b.date) : undefined;
+    return sortKey(a.date, aYear) - sortKey(b.date, bYear);
+  });
 }
 
 export function transformToSharedReport(raw: ApiReport): SharedReport {
