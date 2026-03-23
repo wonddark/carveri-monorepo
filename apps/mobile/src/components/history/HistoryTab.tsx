@@ -10,6 +10,7 @@ import ServiceSubtab from "@carveri/shared/components/history/ServiceSubtab.tsx"
 import TitleSubtab from "@carveri/shared/components/history/TitleSubtab.tsx";
 import AppHeader from "@/components/AppHeader.tsx";
 import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
+import SubtabButton from "@carveri/shared/components/subtab-button.tsx";
 
 interface Props {
   report: VehicleReport;
@@ -68,17 +69,13 @@ export default function HistoryTab({ report }: Readonly<Props>) {
               style={{ scrollbarWidth: "none" }}
             >
               {SUBTABS.map((tab, i) => (
-                <button
+                <SubtabButton
                   key={tab.id}
                   onClick={() => selectPill(i)}
-                  className={`shrink-0 rounded-full border px-3 py-1.5 text-xs font-semibold ${
-                    i === activeIdx
-                      ? "border-indigo-600 bg-indigo-600 text-white"
-                      : "border-slate-200 bg-white text-slate-500"
-                  }`}
+                  active={activeIdx === i}
                 >
                   {tab.label}
-                </button>
+                </SubtabButton>
               ))}
             </div>
           </div>

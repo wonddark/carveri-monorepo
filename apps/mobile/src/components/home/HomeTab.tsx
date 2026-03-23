@@ -47,7 +47,7 @@ export default function HomeTab(props: Readonly<Props>) {
         isTransparent={isCarouselVisible}
       />
 
-      <div ref={carouselRef}>
+      <div ref={carouselRef} className="h-80">
         <ImageCarousel images={report.images} />
       </div>
 

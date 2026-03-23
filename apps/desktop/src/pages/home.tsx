@@ -275,9 +275,6 @@ const carCheckExamples = [
       "https://images.unsplash.com/photo-1555215695-3004980ad54e?w=400&h=260&fit=crop",
     verdictColor: "bg-green-500",
     miles: "18,420 mi",
-    //
-    //
-    //
     vin: "JA4J4VA86RZ079851",
     year: 2024,
     make: "MITSUBISHI",
@@ -722,6 +719,7 @@ const carCheckExamples = [
   },
   {
     id: "2HKRS6H76RH219194",
+    vin: "2HKRS6H76RH219194",
     image:
       "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=400&h=260&fit=crop",
     year: "2023",
@@ -735,6 +733,7 @@ const carCheckExamples = [
   },
   {
     id: "2HGFC2F81MH516378",
+    vin: "2HGFC2F81MH516378",
     image:
       "https://images.unsplash.com/photo-1621993202323-f438eec934ff?w=400&h=260&fit=crop",
     year: "2023",
@@ -748,6 +747,7 @@ const carCheckExamples = [
   },
   {
     id: "1FMCU9GX0DUA27119",
+    vin: "1FMCU9GX0DUA27119",
     image:
       "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=400&h=260&fit=crop",
     year: "2022",
@@ -761,6 +761,7 @@ const carCheckExamples = [
   },
   {
     id: "invalid-vin",
+    vin: "invalid-vin",
     image:
       "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=400&h=260&fit=crop",
     year: "2022",
