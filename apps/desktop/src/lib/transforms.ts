@@ -196,7 +196,7 @@ export function transformToSharedReport(raw: ApiReport): SharedReport {
     },
     verdictTab: { scoreBreakdown: [], risks: [], checklist: [] },
     historyTab: {
-      timeline: [], // TODO: synthesize from historial events when needed
+      timeline: buildTimeline(raw),
       auctionPhotos: raw.historial.subastasAnteriores.imagenes,
       accidents: {
         count: raw.historial.accidentes.resumen.totalAccidentes,
