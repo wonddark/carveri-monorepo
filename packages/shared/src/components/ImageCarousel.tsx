@@ -22,7 +22,7 @@ export default function ImageCarousel({ images }: Readonly<Props>) {
   };
 
   return (
-    <div className="relative h-80 w-full overflow-hidden bg-slate-900">
+    <div className="bg-background relative h-full w-full overflow-hidden">
       <motion.img
         key={index}
         src={images[index]}
@@ -47,7 +47,7 @@ export default function ImageCarousel({ images }: Readonly<Props>) {
       {index > 0 && (
         <button
           onClick={() => goTo(index - 1)}
-          className="absolute top-1/2 left-2 -translate-y-1/2 rounded-full bg-black/40 p-1.5 text-white"
+          className="bg-background/40 text-foreground absolute top-1/2 left-2 -translate-y-1/2 rounded-full p-1.5"
         >
           <ChevronLeft size={16} />
         </button>
@@ -55,7 +55,7 @@ export default function ImageCarousel({ images }: Readonly<Props>) {
       {index < images.length - 1 && (
         <button
           onClick={() => goTo(index + 1)}
-          className="absolute top-1/2 right-2 -translate-y-1/2 rounded-full bg-black/40 p-1.5 text-white"
+          className="bg-background/40 text-foreground absolute top-1/2 right-2 -translate-y-1/2 rounded-full p-1.5"
         >
           <ChevronRight size={16} />
         </button>

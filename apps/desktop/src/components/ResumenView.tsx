@@ -4,10 +4,11 @@ import StatsGrid from "@carveri/shared/components/home/StatsGrid";
 import BookValues from "@carveri/shared/components/home/BookValues";
 import VehicleDataSection from "@carveri/shared/components/home/VehicleDataSection";
 import AISummarySection from "@carveri/shared/components/home/AISummarySection";
-import QuickNavGrid from "@carveri/shared/components/home/QuickNavGrid";
-import type { TabId, VehicleReport } from "@carveri/shared/data/report";
-
-import type { SectionId } from "@/pages/ReportPage";
+import type { VehicleReport } from "@carveri/shared/data/report";
+import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
+import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
+import ReportGauge from "@carveri/shared/components/ReportGauge.tsx";
+import { getPercentile } from "@carveri/shared/lib/utils.ts";
 
 const PRICE_LABEL_TEXT: Record<VehicleReport["priceEval"]["label"], string> = {
   BARGAIN: "Ganga",
@@ -17,44 +18,42 @@ const PRICE_LABEL_TEXT: Record<VehicleReport["priceEval"]["label"], string> = {
   OVERPRICED: "Caro",
 };
 
-function tabIdToSection(tab: TabId): SectionId {
-  const map: Record<TabId, SectionId> = {
-    home: "resumen",
-    history: "timeline",
-    market: "mercado",
-    verdict: "veredicto",
-    negotiate: "estrategia",
-  };
-  return map[tab];
-}
-
 interface Props {
   report: VehicleReport;
-  onNavigate: (s: SectionId) => void;
 }
 
-export default function ResumenView({ report, onNavigate }: Readonly<Props>) {
+export default function ResumenView({ report }: Readonly<Props>) {
   const { priceEval, stats } = report;
   const isAbove = priceEval.marketAvgDeltaPct > 0;
   const absPct = Math.abs(priceEval.marketAvgDeltaPct).toFixed(1);
 
+  const wholesale = 12000;
+  const retail = 33000;
+  const percentile = getPercentile({
+    min: wholesale,
+    max: retail,
+    value: report.price,
+  });
+
   return (
     <div className="space-y-6">
       {/* Breadcrumb */}
-      <div className="flex items-center gap-1.5 text-xs text-slate-400">
+      <div className="text-muted-foreground flex items-center gap-1.5 text-xs">
         <Home size={11} />
         <span>Resumen</span>
       </div>
 
       {/* Heading */}
       <div>
-        <h2 className="text-2xl font-black text-slate-900">
-          Resumen del Reporte
-        </h2>
-        <p className="mt-0.5 text-sm text-slate-500">
+        <h2 className="text-xl font-semibold">Resumen del Reporte</h2>
+        <p className="text-muted-foreground mt-0.5 text-sm">
           Vista general de tu CarVeri para{" "}
           <span className="font-semibold">
-            {report.year} {report.make} {report.model}
+            {generateReportTitle({
+              year: report.year,
+              make: report.make,
+              model: report.model,
+            })}
           </span>
         </p>
       </div>
@@ -63,21 +62,32 @@ export default function ResumenView({ report, onNavigate }: Readonly<Props>) {
       <StatsGrid stats={stats} />
 
       {/* Price Evaluation (no gauge) */}
-      <div className="rounded-2xl border border-slate-100 bg-white p-5">
-        <div className="mb-4 flex items-center gap-2">
-          <span className="text-sm font-bold text-slate-900">
-            $ Evaluación de Precio
-          </span>
-        </div>
-        <div className="mb-1 text-center text-3xl font-black text-slate-900">
-          ${report.price.toLocaleString()}
-        </div>
-        <p className="mb-4 text-center text-xs font-semibold tracking-wide text-blue-600 uppercase">
-          {PRICE_LABEL_TEXT[priceEval.label]} — {absPct}%{" "}
-          {isAbove ? "por encima" : "por debajo"} del promedio
-        </p>
-        <BookValues bookValues={priceEval.bookValues} />
-      </div>
+      <Card className="w-fit">
+        <CardContent>
+          <div className="mb-4 flex items-center gap-2">
+            <span className="text-sm font-medium">$ Evaluación de Precio</span>
+          </div>
+
+          <div className="grid w-fit grid-cols-2 items-center gap-5">
+            <div className="col-start-1 -col-end-1 mb-1 text-center text-3xl font-semibold">
+              ${report.price.toLocaleString()}
+            </div>
+            <p className="col-start-1 -col-end-1 mb-4 text-center text-xs font-semibold tracking-wide text-blue-600 uppercase">
+              {PRICE_LABEL_TEXT[priceEval.label]} — {absPct}%{" "}
+              {isAbove ? "por encima" : "por debajo"} del promedio
+            </p>
+            <ReportGauge
+              percentile={percentile}
+              label={priceEval.label}
+              price={report.price}
+              wholesale={wholesale}
+              retail={retail}
+            />
+
+            <BookValues bookValues={priceEval.bookValues} />
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Vehicle data */}
       <VehicleDataSection
@@ -96,9 +106,6 @@ export default function ResumenView({ report, onNavigate }: Readonly<Props>) {
       {report.aiSummary ? (
         <AISummarySection aiSummary={report.aiSummary} />
       ) : null}
-
-      {/* Quick-nav cards */}
-      <QuickNavGrid onNavigate={(tab) => onNavigate(tabIdToSection(tab))} />
     </div>
   );
 }

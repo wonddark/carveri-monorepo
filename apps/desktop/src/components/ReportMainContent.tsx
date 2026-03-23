@@ -19,19 +19,17 @@ import type { SectionId } from "@/pages/ReportPage";
 interface Props {
   activeSection: SectionId;
   report: VehicleReport;
-  onNavigate: (s: SectionId) => void;
 }
 
 export default function ReportMainContent({
   activeSection,
   report,
-  onNavigate,
 }: Readonly<Props>) {
   const { historyTab, verdictTab, negotiate } = report;
 
   switch (activeSection) {
     case "resumen":
-      return <ResumenView report={report} onNavigate={onNavigate} />;
+      return <ResumenView report={report} />;
     case "timeline":
       return <TimelineSubtab timeline={historyTab.timeline} />;
     case "fotos-subasta":

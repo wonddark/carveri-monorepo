@@ -8,7 +8,7 @@ import {
   MapPin,
   Ship,
   User,
-  Wrench
+  Wrench,
 } from "lucide-react";
 import type { HistoryEvent } from "@carveri/shared/data/report";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
@@ -30,25 +30,25 @@ const TYPE_ICON: Record<
 };
 
 const TYPE_BOX: Record<string, string> = {
-  manufacture: "bg-slate-100",
-  import: "bg-slate-100",
-  owner: "bg-indigo-50",
-  title: "bg-indigo-50",
-  service: "bg-green-50",
-  auction: "bg-amber-50",
-  current: "bg-indigo-600",
-  accident: "bg-red-50",
+  manufacture: "bg-slate-100 dark:bg-slate-100/20",
+  import: "bg-slate-100 dark:bg-slate-100/20",
+  owner: "bg-indigo-50 dark:bg-indigo-50/20",
+  title: "bg-indigo-50 dark:bg-indigo-50/20",
+  service: "bg-green-50 dark:bg-green-50/20",
+  auction: "bg-amber-50 dark:bg-amber-50/20",
+  current: "bg-indigo-600 dark:bg-indigo-600/20",
+  accident: "bg-red-50 dark:bg-red-50/20",
 };
 
 const TYPE_ICON_COLOR: Record<string, string> = {
-  manufacture: "text-slate-500",
-  import: "text-slate-500",
-  owner: "text-indigo-500",
-  title: "text-indigo-500",
-  service: "text-green-600",
-  auction: "text-amber-500",
-  current: "text-white",
-  accident: "text-red-500",
+  manufacture: "text-slate-500 dark:text-slate-500/80",
+  import: "text-slate-500 dark:text-slate-500/80",
+  owner: "text-indigo-500 dark:text-indigo-500/80",
+  title: "text-indigo-500 dark:text-indigo-500/80",
+  service: "text-green-600 dark:text-green-600/80",
+  auction: "text-amber-500 dark:text-amber-500/80",
+  current: "text-white dark:text-white/80",
+  accident: "text-red-500 dark:text-red-500/80",
 };
 
 interface Props {
@@ -59,7 +59,10 @@ export default function TimelineSubtab({ timeline }: Readonly<Props>) {
   const { t } = useTranslation("history");
   return (
     <>
-      <SubTabHeader title={t("timeline.heading")} subtitle={t("timeline.subtitle")} />
+      <SubTabHeader
+        title={t("timeline.heading")}
+        subtitle={t("timeline.subtitle")}
+      />
 
       <div className="flex flex-col gap-2">
         {timeline.map((event, i) => {

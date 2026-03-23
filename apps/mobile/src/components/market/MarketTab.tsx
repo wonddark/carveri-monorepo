@@ -8,6 +8,7 @@ import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import ReportGauge from "@carveri/shared/components/ReportGauge.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
+import { getPercentile } from "@carveri/shared/lib/utils.ts";
 
 interface Props {
   report: VehicleReport;
@@ -18,7 +19,7 @@ export default function MarketTab({ report }: Readonly<Props>) {
 
   const min = 12000;
   const max = 33000;
-  const percentile = ((report.price - min) / (max - min)) * 100;
+  const percentile = getPercentile({ min, max, value: report.price });
 
   return (
     <div className="relative">

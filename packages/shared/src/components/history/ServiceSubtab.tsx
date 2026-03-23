@@ -28,8 +28,8 @@ export default function ServiceSubtab({ service }: Readonly<Props>) {
           >
             <Card>
               <CardContent className="flex items-center gap-3">
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-full bg-indigo-50">
-                  <Wrench size={16} className="text-indigo-500" />
+                <div className="bg-primary/20 text-primary flex size-9 shrink-0 items-center justify-center rounded-full">
+                  <Wrench size={16} />
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="text-sm font-medium">{record.name}</div>

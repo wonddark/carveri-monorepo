@@ -6,6 +6,7 @@ import CarSummaryCard from "@carveri/shared/components/CarSummaryCard";
 import { cn } from "@/lib/utils";
 import type { VehicleReport } from "@carveri/shared/data/report";
 import type { SectionId } from "@/pages/ReportPage";
+import { useTranslation } from "react-i18next";
 
 interface NavItem {
   id: SectionId;
@@ -23,44 +24,44 @@ type NavEntry =
   | { type: "group"; group: NavGroup };
 
 const NAV: NavEntry[] = [
-  { type: "item", id: "resumen", label: "Resumen" },
+  { type: "item", id: "resumen", label: "resume" },
   {
     type: "group",
     group: {
-      label: "Historial",
+      label: "history",
       icon: "🕒",
       children: [
-        { id: "timeline", label: "Timeline" },
-        { id: "fotos-subasta", label: "Fotos Subasta" },
-        { id: "accidentes", label: "Accidentes" },
-        { id: "duenos", label: "Dueños" },
-        { id: "servicio", label: "Servicio" },
-        { id: "titulo", label: "Título" },
+        { id: "timeline", label: "timeline" },
+        { id: "fotos-subasta", label: "auction_photos" },
+        { id: "accidentes", label: "accidents" },
+        { id: "duenos", label: "owners" },
+        { id: "servicio", label: "service" },
+        { id: "titulo", label: "title" },
       ],
     },
   },
-  { type: "item", id: "mercado", label: "Mercado" },
+  { type: "item", id: "mercado", label: "market" },
   {
     type: "group",
     group: {
-      label: "Veredicto IA",
+      label: "verdict_ai",
       icon: "✨",
       children: [
-        { id: "veredicto", label: "Veredicto" },
-        { id: "riesgos", label: "Riesgos" },
+        { id: "veredicto", label: "verdict" },
+        { id: "riesgos", label: "risks" },
       ],
     },
   },
-  { type: "item", id: "checklist", label: "Checklist" },
+  { type: "item", id: "checklist", label: "checklist" },
   {
     type: "group",
     group: {
-      label: "Negociación",
+      label: "negotiation",
       icon: "💬",
       children: [
-        { id: "estrategia", label: "Estrategia" },
-        { id: "argumentos", label: "Argumentos" },
-        { id: "costos", label: "Costos" },
+        { id: "estrategia", label: "strategy" },
+        { id: "argumentos", label: "arguments" },
+        { id: "costos", label: "costs" },
       ],
     },
   },
@@ -77,30 +78,31 @@ export default function ReportSidebar({
   activeSection,
   onNavigate,
 }: Readonly<Props>) {
+  const { t } = useTranslation("common");
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({
-    Historial: true,
-    "Veredicto IA": true,
-    Negociación: true,
+    history: true,
+    verdict_ai: true,
+    negotiation: true,
   });
 
   const toggleGroup = (label: string) =>
     setOpenGroups((prev) => ({ ...prev, [label]: !prev[label] }));
 
   return (
-    <aside className="flex w-64 shrink-0 flex-col overflow-y-auto border-r border-slate-100 bg-slate-50">
+    <aside className="border-border bg-card/30 flex w-full max-w-80 min-w-60 flex-col overflow-y-auto border-r">
       {/* Image carousel */}
       <div className="p-3">
-        <div className="overflow-hidden rounded-xl">
+        <div className="aspect-16/10 overflow-hidden rounded-xl">
           <ImageCarousel images={report.images} />
         </div>
       </div>
 
       {/* Price + mileage */}
-      <div className="border-b border-slate-100 px-4 pb-3">
-        <p className="text-2xl font-black text-slate-900">
+      <div className="border-border border-b px-4 pb-3">
+        <p className="text-2xl font-semibold">
           ${report.price.toLocaleString()}
         </p>
-        <p className="text-xs text-slate-500">
+        <p className="text-muted-foreground text-xs">
           {report.mileage.toLocaleString()} mi
         </p>
       </div>
@@ -132,13 +134,13 @@ export default function ReportSidebar({
                 type="button"
                 onClick={() => onNavigate(entry.id)}
                 className={cn(
-                  "flex w-full items-center gap-2 px-4 py-2.5 text-sm font-semibold transition-colors",
+                  "flex w-full cursor-pointer items-center gap-2 border-l-2 border-transparent px-4 py-2.5 text-sm font-semibold transition-colors",
                   active
-                    ? "border-l-2 border-blue-600 bg-blue-50 text-blue-700"
-                    : "border-l-2 border-transparent text-slate-700 hover:bg-slate-100",
+                    ? "border-primary bg-primary/15 text-primary border-l-2"
+                    : "hover:bg-primary/5",
                 )}
               >
-                {entry.label}
+                {t(entry.label)}
               </button>
             );
           }
@@ -155,11 +157,11 @@ export default function ReportSidebar({
                 type="button"
                 onClick={() => toggleGroup(group.label)}
                 className={cn(
-                  "flex w-full items-center justify-between px-4 py-2.5 text-sm font-semibold text-slate-700",
-                  "border-l-2 border-transparent transition-colors hover:bg-slate-100",
+                  "flex w-full items-center justify-between px-4 py-2.5 text-sm font-semibold",
+                  "hover:bg-primary/5 border-l-2 border-transparent transition-colors",
                   isChildActive &&
                     !isOpen &&
-                    "border-blue-600 bg-blue-50 text-blue-700",
+                    "border-primary bg-primary/15 text-primary",
                 )}
               >
                 <span>
@@ -182,10 +184,10 @@ export default function ReportSidebar({
                         type="button"
                         onClick={() => onNavigate(child.id)}
                         className={cn(
-                          "flex w-full items-center py-1.5 pl-9 pr-4 text-xs transition-colors",
+                          "flex w-full cursor-pointer items-center border-l-2 border-transparent py-1.5 pr-4 pl-9 text-xs transition-colors",
                           active
-                            ? "border-l-2 border-blue-600 bg-blue-50 font-semibold text-blue-700"
-                            : "border-l-2 border-transparent font-medium text-slate-500 hover:bg-slate-100 hover:text-slate-700",
+                            ? "text-primary border-primary bg-primary/15 font-semibold"
+                            : "hover:bg-primary/5 hover:text-foreground/85 font-medium",
                         )}
                       >
                         {child.label}
@@ -200,8 +202,8 @@ export default function ReportSidebar({
       </nav>
 
       {/* VIN footer */}
-      <div className="border-t border-slate-100 px-4 py-3">
-        <p className="font-mono text-[10px] text-slate-400">{report.vin}</p>
+      <div className="border-border border-t px-4 py-3">
+        <p className="text-muted-foreground font-mono text-xs">{report.vin}</p>
       </div>
     </aside>
   );
