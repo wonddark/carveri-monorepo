@@ -19,16 +19,18 @@ In `packages/shared/src/data/report.ts`, extend `HistoryEvent.type`:
 type: 'manufacture' | 'import' | 'owner' | 'title' | 'service' | 'auction' | 'current' | 'accident'
 ```
 
+The existing mock data in that file does not use `'accident'` and remains unchanged — the new value is additive only.
+
 ## Data Mapping
 
 ### `historial.accidentes.eventos` → `type: 'accident'`
 
 | `HistoryEvent` field | Source |
 |---|---|
-| `id` | `"acc-" + evento.numero` |
+| `id` | `"acc-" + index` (array index, not `evento.numero` — `numero` is not guaranteed unique) |
 | `date` | `evento.fecha` (as-is, e.g. `"08/10/2025"`) |
 | `title` | `evento.titulo` |
-| `description` | `[evento.severidad, ...evento.detalles].filter(Boolean).join(" · ")` — falls back to `detalles.join(" · ")` if severidad is `"-"` |
+| `description` | `[evento.severidad, ...(evento.detalles ?? [])].filter(s => s && s !== "-").join(" · ")` — if the result is empty, fall back to `evento.titulo` |
 
 ### `historial.propietarios` → `type: 'owner'`
 
@@ -46,14 +48,19 @@ type: 'manufacture' | 'import' | 'owner' | 'title' | 'service' | 'auction' | 'cu
 | `id` | `"svc-" + index` |
 | `date` | `registro.fecha` (as-is, e.g. `"06/26/2025"`) |
 | `title` | `registro.tipo` |
-| `description` | `registro.detalles.join(" · ")` — falls back to `registro.fuente` if detalles is empty |
+| `description` | `(registro.detalles ?? []).filter(s => s && s !== "-").join(" · ")` — falls back to `registro.fuente` if the result is empty |
 
 ## Sorting
 
-All events are sorted ascending (oldest → newest) by a parsed sort key:
+All events are sorted ascending (oldest → newest) using a numeric sort key derived as follows:
 
-- `fecha` strings (`MM/DD/YYYY`) → parsed to `Date`
-- `anioPurchased` (year number) → treated as `Jan 1, <year>` for sort order only; the stored `date` string remains just the year
+- For events with a `fecha` string (`MM/DD/YYYY`): parse using `new Date(fecha)`. If the parse fails (returns `NaN`), use `0` as the sort key so the event sorts to the front.
+- For owner events with only `anioPurchased` (year number): use `new Date(anioPurchased, 0, 1).getTime()` — i.e. Jan 1 of that year. This means an owner event in year 2024 will sort before any service or accident event in 2024 that has a specific date. The `date` string stored on the event remains just the year string for display purposes.
+- Tie-breaking is not specified beyond the above — stable sort order of the underlying JS engine is accepted.
+
+## Empty arrays
+
+If any of the three source arrays is empty, that source produces zero events and no error. The resulting timeline may itself be empty if all sources are empty — this is valid and the UI must handle it.
 
 ## Integration
 
