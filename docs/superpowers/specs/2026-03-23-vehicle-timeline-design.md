@@ -1,0 +1,76 @@
+# Vehicle Timeline Transform — Design Spec
+
+**Date:** 2026-03-23
+**Status:** Approved
+
+## Problem
+
+`transformToSharedReport` currently returns `historyTab.timeline: []`. The history tab (both mobile and desktop) needs a chronological timeline built from three sources in the API response: accident events, ownership changes, and maintenance records.
+
+## Solution
+
+Add a `buildTimeline` helper in `apps/desktop/src/lib/transforms.ts` that merges and sorts all three sources into `HistoryEvent[]`, then call it from `transformToSharedReport`.
+
+## Type Change
+
+In `packages/shared/src/data/report.ts`, extend `HistoryEvent.type`:
+
+```ts
+type: 'manufacture' | 'import' | 'owner' | 'title' | 'service' | 'auction' | 'current' | 'accident'
+```
+
+## Data Mapping
+
+### `historial.accidentes.eventos` → `type: 'accident'`
+
+| `HistoryEvent` field | Source |
+|---|---|
+| `id` | `"acc-" + evento.numero` |
+| `date` | `evento.fecha` (as-is, e.g. `"08/10/2025"`) |
+| `title` | `evento.titulo` |
+| `description` | `[evento.severidad, ...evento.detalles].filter(Boolean).join(" · ")` — falls back to `detalles.join(" · ")` if severidad is `"-"` |
+
+### `historial.propietarios` → `type: 'owner'`
+
+| `HistoryEvent` field | Source |
+|---|---|
+| `id` | `"own-" + propietario.numero` |
+| `date` | `String(propietario.anioPurchased)` (display as year only) |
+| `title` | `propietario.etiqueta` |
+| `description` | `[propietario.tipo, propietario.estados].filter(s => s && s !== "-").join(" · ")` |
+
+### `historial.mantenimiento.registros` → `type: 'service'`
+
+| `HistoryEvent` field | Source |
+|---|---|
+| `id` | `"svc-" + index` |
+| `date` | `registro.fecha` (as-is, e.g. `"06/26/2025"`) |
+| `title` | `registro.tipo` |
+| `description` | `registro.detalles.join(" · ")` — falls back to `registro.fuente` if detalles is empty |
+
+## Sorting
+
+All events are sorted ascending (oldest → newest) by a parsed sort key:
+
+- `fecha` strings (`MM/DD/YYYY`) → parsed to `Date`
+- `anioPurchased` (year number) → treated as `Jan 1, <year>` for sort order only; the stored `date` string remains just the year
+
+## Integration
+
+In `transformToSharedReport`, replace:
+
+```ts
+timeline: [], // TODO: synthesize from historial events when needed
+```
+
+with:
+
+```ts
+timeline: buildTimeline(raw),
+```
+
+## Out of Scope
+
+- No grouping or collapsing of same-day events (UI responsibility)
+- No `manufacture`, `import`, `auction`, or `current` events synthesized here — those require data not available in the current API response
+- `buildTimeline` lives in `apps/desktop/src/lib/transforms.ts` for now; can be moved to `packages/shared` if the mobile app needs the same transform later
