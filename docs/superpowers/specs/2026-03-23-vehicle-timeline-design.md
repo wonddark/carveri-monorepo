@@ -27,10 +27,10 @@ The existing mock data in that file does not use `'accident'` and remains unchan
 
 | `HistoryEvent` field | Source |
 |---|---|
-| `id` | `"acc-" + index` (array index, not `evento.numero` — `numero` is not guaranteed unique) |
-| `date` | `evento.fecha` (as-is, e.g. `"08/10/2025"`) |
-| `title` | `evento.titulo` |
-| `description` | `[evento.severidad, ...(evento.detalles ?? [])].filter(s => s && s !== "-").join(" · ")` — if the result is empty, fall back to `evento.titulo` |
+| `id` | `"acc-" + index` (array index, not `event.numero` — `numero` is not guaranteed unique) |
+| `date` | `event.fecha` (as-is, e.g. `"08/10/2025"`) |
+| `title` | `event.titulo` |
+| `description` | `[event.severidad, ...(event.detalles ?? [])].filter(s => s && s !== "-").join(" · ")` — if the result is empty, fall back to `event.titulo` |
 
 ### `historial.propietarios` → `type: 'owner'`
 

@@ -64,7 +64,7 @@ export interface AccidenteResumen {
   danioEstructural: string;
 }
 
-export interface AccidenteEvento {
+export interface Accident {
   numero: number;
   fecha: string;
   titulo: string;
@@ -76,7 +76,7 @@ export interface AccidenteEvento {
 
 export interface Accidentes {
   resumen: AccidenteResumen;
-  eventos: AccidenteEvento[];
+  eventos: Accident[];
 }
 
 export interface Propietario {
