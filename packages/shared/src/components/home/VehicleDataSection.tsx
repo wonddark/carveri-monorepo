@@ -48,7 +48,7 @@ export default function VehicleDataSection(props: Readonly<Props>) {
   ];
 
   return (
-    <Card>
+    <Card className="lg:w-fit">
       <CardContent>
         <div className="mb-3 flex items-center gap-2">
           <Car size={16} className="text-primary" />

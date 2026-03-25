@@ -11,6 +11,7 @@ import type { VerdictScoreItem } from "@carveri/shared/data/report";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import VerdictBadge from "@carveri/shared/components/VerdictBadge.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
+import { cn } from "@carveri/shared/lib/utils.ts";
 
 // ICON_MAP resolves icon name strings from mock data to lucide components.
 // CheckCircle is imported separately for the recommendation chip (not via ICON_MAP).
@@ -48,7 +49,7 @@ export default function VerdictSubtab(props: Readonly<Props>) {
 
       <div className="flex flex-col gap-3">
         {/* Score card */}
-        <Card>
+        <Card className="hidden w-fit">
           <CardContent>
             <VerdictBadge
               score={score}
@@ -90,7 +91,10 @@ export default function VerdictSubtab(props: Readonly<Props>) {
                     </p>
                   </div>
                   <span
-                    className={`flex-shrink-0 text-sm font-black ${isPositive ? "text-indigo-600 dark:text-indigo-200" : "text-red-500 dark:text-red-200"}`}
+                    className={cn("shrink-0 text-sm font-black", {
+                      "text-indigo-600 dark:text-indigo-200": isPositive,
+                      "text-red-500 dark:text-red-200": !isPositive,
+                    })}
                   >
                     {formatDelta(item.delta)}
                   </span>

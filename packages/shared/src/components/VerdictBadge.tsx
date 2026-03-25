@@ -16,17 +16,20 @@ export default function VerdictBadge(props: Readonly<Props>) {
     BUY: {
       label: t("recommendation.buy"),
       icon: CheckCircle,
-      classes: "bg-emerald-50 text-emerald-700 border-emerald-200",
+      classes:
+        "bg-emerald-50 dark:bg-emerald-800/80 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-600/80",
     },
     CONSIDER: {
       label: t("recommendation.consider"),
       icon: AlertCircle,
-      classes: "bg-amber-50 text-amber-700 border-amber-200",
+      classes:
+        "bg-amber-50 dark:bg-amber-800/80 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-600/80",
     },
     AVOID: {
       label: t("recommendation.avoid"),
       icon: XCircle,
-      classes: "bg-red-50 text-red-700 border-red-200",
+      classes:
+        "bg-red-50 dark:bg-red-800/80 text-red-700 dark:text-red-300 border-red-200 dark:border-red-600/80",
     },
   };
   const config = VERDICT_CONFIG[verdict];

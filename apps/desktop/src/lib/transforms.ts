@@ -1,6 +1,7 @@
 // apps/desktop/src/lib/transforms.ts
 import type { VehicleReport as ApiReport } from "@carveri/shared/types/vehicle-report";
 import type {
+  HistoryEvent,
   HistoryOwner,
   HistoryServiceRecord,
   HistoryTitleItem,
@@ -70,6 +71,56 @@ function mapTitle(raw: ApiReport): HistoryTitleItem[] {
   }));
 }
 
+function sortKey(date: string, year?: number): number {
+  if (year !== undefined) return new Date(year, 0, 1).getTime();
+  const parsed = new Date(date).getTime();
+  return Number.isNaN(parsed) ? 0 : parsed;
+}
+
+export function buildTimeline(raw: ApiReport): HistoryEvent[] {
+  const accidents: HistoryEvent[] = raw.historial.accidentes.eventos.map(
+    (ev, i) => {
+      const desc = [ev.severidad, ...(ev.detalles ?? [])]
+        .filter((s) => s && s !== "-")
+        .join(" · ");
+      return {
+        id: `acc-${i}`,
+        date: ev.fecha,
+        title: ev.titulo,
+        description: desc || ev.titulo,
+        type: "accident",
+      };
+    },
+  );
+
+  const owners: HistoryEvent[] = raw.historial.propietarios.map((p) => ({
+    id: `own-${p.numero}`,
+    date: String(p.anioPurchased),
+    title: p.etiqueta,
+    description: [p.tipo, p.estados].filter((s) => s && s !== "-").join(" · "),
+    type: "owner",
+  }));
+
+  const service: HistoryEvent[] = raw.historial.mantenimiento.registros.map(
+    (r, i) => {
+      const desc = (r.detalles ?? []).filter((s) => s && s !== "-").join(" · ");
+      return {
+        id: `svc-${i}`,
+        date: r.fecha,
+        title: r.tipo,
+        description: desc || r.fuente,
+        type: "service",
+      };
+    },
+  );
+
+  return [...accidents, ...owners, ...service].sort((a, b) => {
+    const aYear = a.type === "owner" ? Number(a.date) : undefined;
+    const bYear = b.type === "owner" ? Number(b.date) : undefined;
+    return sortKey(a.date, aYear) - sortKey(b.date, bYear);
+  });
+}
+
 export function transformToSharedReport(raw: ApiReport): SharedReport {
   const v = raw.vehiculo;
   const manheim = raw.mercado.manheim;
@@ -83,6 +134,8 @@ export function transformToSharedReport(raw: ApiReport): SharedReport {
   const bbValue = parsePriceStr(bb.wholesale.avg?.total ?? "$0");
   const priceDeltaPct =
     mmrValue > 0 ? ((askingPrice - mmrValue) / mmrValue) * 100 : 0;
+
+  console.log(raw);
 
   return {
     vin: v.vin,
@@ -104,7 +157,7 @@ export function transformToSharedReport(raw: ApiReport): SharedReport {
       price: parsePriceStr(raw.historial.subastasAnteriores.info.finalBid),
     },
     images: raw.currentImages,
-    score: 0, // TODO: not available in API — derive from backend when available
+    score: 8.2, // TODO: not available in API — derive from backend when available
     verdict: "BUY", // TODO: not available in API — derive from backend when available
     aiSummary: "", // TODO: not available in API — derive from backend when available
     stats: {
@@ -137,9 +190,58 @@ export function transformToSharedReport(raw: ApiReport): SharedReport {
         monthlyEstimates: [],
       },
     },
-    verdictTab: { scoreBreakdown: [], risks: [], checklist: [] },
+    verdictTab: {
+      scoreBreakdown:
+        // TODO: USe real data from backend when available
+        [
+          {
+            id: "1",
+            label: "Price vs. market",
+            description: "2.8% below fair price",
+            delta: 0.2,
+            icon: "TrendingDown",
+          },
+          {
+            id: "2",
+            label: "Accident history",
+            description: "No reported accidents",
+            delta: -0.2,
+            icon: "ShieldCheck",
+          },
+          {
+            id: "1",
+            label: "Odometer",
+            description: "Miles consistent with age",
+            delta: 0.2,
+            icon: "Gauge",
+          },
+          {
+            id: "1",
+            label: "Number of owners",
+            description: "2 owners in 1 year (normal for auction)",
+            delta: 0.2,
+            icon: "Users",
+          },
+          {
+            id: "1",
+            label: "Service history",
+            description: "Limited documented service",
+            delta: 0.2,
+            icon: "Wrench",
+          },
+          {
+            id: "1",
+            label: "Auction origin",
+            description: "Vehicle went through IAAI auction",
+            delta: -0.2,
+            icon: "Building2",
+          },
+        ],
+      risks: [],
+      checklist: [],
+    },
     historyTab: {
-      timeline: [], // TODO: synthesize from historial events when needed
+      timeline: buildTimeline(raw),
       auctionPhotos: raw.historial.subastasAnteriores.imagenes,
       accidents: {
         count: raw.historial.accidentes.resumen.totalAccidentes,

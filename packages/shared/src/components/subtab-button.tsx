@@ -14,7 +14,7 @@ function SubtabButton(props: Readonly<Props>) {
     <button
       onClick={onClick}
       className={cn(
-        "rounded-full border px-4 py-1.5 text-xs font-semibold transition-colors",
+        "rounded-full border px-4 py-1.5 text-xs font-semibold text-nowrap transition-colors",
         {
           "border-primary bg-primary text-primary-foreground": active,
           "border-border bg-background text-muted-foreground": !active,

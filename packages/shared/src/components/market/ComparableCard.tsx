@@ -48,9 +48,14 @@ export default function ComparableCard({ vehicle }: Readonly<Props>) {
         className="size-16 shrink-0 rounded-lg object-cover"
       />
       <div className="flex min-w-0 flex-auto flex-col items-start gap-1">
-        <span className="text-sm font-medium">${price.toLocaleString()}</span>
+        <div className="flex items-baseline gap-1">
+          <span className="text-lg font-medium">${price.toLocaleString()}</span>
+          <small className="text-xs text-red-600 dark:text-red-300">
+            +$2300
+          </small>
+        </div>
         <span
-          className={`rounded-full px-2 py-0.5 text-xs font-semibold ${badge.classes}`}
+          className={`rounded-full px-2 py-0.5 text-xs leading-[1.05] font-medium ${badge.classes}`}
         >
           {badge.label}
         </span>

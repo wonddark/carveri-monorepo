@@ -17,13 +17,16 @@ export default function AuctionPhotosSubtab({ photos }: Readonly<Props>) {
           {t("auctionPhotos.countSuffix", { count: photos.length })}
         </p>
 
-        <div className="columns-2 gap-2">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(240px,320px))] gap-3">
           {photos.map((src, i) => (
-            <button key={src} className="overflow-hidden rounded-lg">
+            <button
+              key={src}
+              className="aspect-video w-full overflow-hidden rounded-xl"
+            >
               <img
                 src={src}
                 alt={`Thumbnail ${i + 1}`}
-                className="h-auto w-full"
+                className="size-full object-cover"
               />
             </button>
           ))}

@@ -34,12 +34,8 @@ export default function ReportPage() {
           activeSection={activeSection}
           onNavigate={setActiveSection}
         />
-        <main className="flex-1 overflow-y-auto bg-white p-8">
-          <ReportMainContent
-            activeSection={activeSection}
-            report={report}
-            onNavigate={setActiveSection}
-          />
+        <main className="flex-1 overflow-y-auto p-8">
+          <ReportMainContent activeSection={activeSection} report={report} />
         </main>
       </div>
     </div>
