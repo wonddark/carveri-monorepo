@@ -19,7 +19,11 @@
   "accidents": {
     "heading": "Accidents History",
     "cleanHistory": "Clean History",
-    "noAccidents": "No reported accidents found for this vehicle"
+    "noAccidents": "No reported accidents found for this vehicle",
+    "event": "Event #{{number}}",
+    "type": "Type",
+    "severity": "Severity",
+    "impactArea": "Impact area"
   },
   "owners": {
     "heading": "Owner History",
