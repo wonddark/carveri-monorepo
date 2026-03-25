@@ -13,7 +13,8 @@
   },
   "auctionPhotos": {
     "heading": "Auction Photos",
-    "countSuffix": "{{count}} auction photos — IAAI"
+    "countSuffix": "{{count}} auction photos — IAAI",
+    "openPhoto": "Open photo {{index}}"
   },
   "accidents": {
     "heading": "Accidents History",
