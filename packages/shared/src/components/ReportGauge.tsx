@@ -38,7 +38,7 @@ function ReportGauge(props: Readonly<Props>) {
   return (
     <div
       ref={containerRef}
-      className={`bg-card mb-4 rounded-xl p-4${isVisible ? "" : "gauge-paused"}`}
+      className={`bg-card mb-4 rounded-xl p-4 ${isVisible ? "" : "gauge-paused"}`}
     >
       <div className="mb-2 flex items-center justify-between">
         <div className="flex items-center gap-1.5">
