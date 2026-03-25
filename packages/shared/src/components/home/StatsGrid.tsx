@@ -45,7 +45,7 @@ export default function StatsGrid({ stats }: Readonly<Props>) {
   ];
 
   return (
-    <div className="grid w-full grid-cols-1 gap-2 lg:w-fit lg:grid-cols-4">
+    <div className="grid w-full grid-cols-2 gap-2 lg:w-fit lg:grid-cols-4">
       {items.map((item, i) => (
         <motion.div
           key={item.label}

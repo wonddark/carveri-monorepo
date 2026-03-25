@@ -1,10 +1,9 @@
 import VerdictBadge from "./VerdictBadge";
 import {
-  Card,
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle
+  CardTitle,
 } from "@carveri/shared/components/ui/card.tsx";
 import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
 
@@ -36,12 +35,10 @@ export default function CarSummaryCard(props: Readonly<Props>) {
   } = props;
 
   return (
-    <Card>
+    <div>
       <CardHeader>
         <CardTitle className="flex justify-between">
-          <span>
-            {generateReportTitle({year, make, model})}
-          </span>
+          <span>{generateReportTitle({ year, make, model })}</span>
           <span>${price.toLocaleString()}</span>
         </CardTitle>
         <CardDescription>
@@ -56,6 +53,6 @@ export default function CarSummaryCard(props: Readonly<Props>) {
       <CardContent>
         <VerdictBadge score={score} verdict={verdict} aiSummary={aiSummary} />
       </CardContent>
-    </Card>
+    </div>
   );
 }

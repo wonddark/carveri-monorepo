@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import type { VehicleReport } from "@carveri/shared/data/report";
 import type { SectionId } from "@/pages/ReportPage";
 import { useTranslation } from "react-i18next";
+import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 
 interface NavItem {
   id: SectionId;
@@ -89,7 +90,7 @@ export default function ReportSidebar({
     setOpenGroups((prev) => ({ ...prev, [label]: !prev[label] }));
 
   return (
-    <aside className="border-border bg-card/30 flex w-full max-w-80 min-w-60 flex-col overflow-y-auto border-r">
+    <aside className="border-border bg-card/30 flex w-full max-w-80 min-w-60 flex-col gap-4 overflow-y-auto border-r">
       {/* Image carousel */}
       <div className="p-3">
         <div className="aspect-16/10 overflow-hidden rounded-xl">
@@ -108,20 +109,22 @@ export default function ReportSidebar({
       </div>
 
       {/* Verdict card */}
-      <div className="p-3">
-        <CarSummaryCard
-          year={report.year}
-          make={report.make}
-          model={report.model}
-          trim={report.trim}
-          price={report.price}
-          mileage={report.mileage}
-          location={report.location}
-          score={report.score}
-          verdict={report.verdict}
-          aiSummary={report.aiSummary}
-        />
-      </div>
+      <Card>
+        <CardContent>
+          <CarSummaryCard
+            year={report.year}
+            make={report.make}
+            model={report.model}
+            trim={report.trim}
+            price={report.price}
+            mileage={report.mileage}
+            location={report.location}
+            score={report.score}
+            verdict={report.verdict}
+            aiSummary={report.aiSummary}
+          />
+        </CardContent>
+      </Card>
 
       {/* Nav tree */}
       <nav className="flex-1 pb-4">
