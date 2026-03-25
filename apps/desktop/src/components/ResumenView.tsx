@@ -61,46 +61,50 @@ export default function ResumenView({ report }: Readonly<Props>) {
       {/* Quick stats 2×2 */}
       <StatsGrid stats={stats} />
 
-      {/* Price Evaluation (no gauge) */}
-      <Card className="w-fit">
-        <CardContent>
-          <div className="mb-4 flex items-center gap-2">
-            <span className="text-sm font-medium">$ Evaluación de Precio</span>
-          </div>
-
-          <div className="grid w-fit grid-cols-2 items-center gap-5">
-            <div className="col-start-1 -col-end-1 mb-1 text-center text-3xl font-semibold">
-              ${report.price.toLocaleString()}
+      <div className="flex flex-col md:flex-row gap-4 lg:gap-6">
+        {/* Price Evaluation (no gauge) */}
+        <Card className="w-fit">
+          <CardContent>
+            <div className="mb-4 flex items-center gap-2">
+              <span className="text-sm font-medium">
+                $ Evaluación de Precio
+              </span>
             </div>
-            <p className="col-start-1 -col-end-1 mb-4 text-center text-xs font-semibold tracking-wide text-blue-600 uppercase">
-              {PRICE_LABEL_TEXT[priceEval.label]} — {absPct}%{" "}
-              {isAbove ? "por encima" : "por debajo"} del promedio
-            </p>
-            <ReportGauge
-              percentile={percentile}
-              label={priceEval.label}
-              price={report.price}
-              wholesale={wholesale}
-              retail={retail}
-            />
 
-            <BookValues bookValues={priceEval.bookValues} />
-          </div>
-        </CardContent>
-      </Card>
+            <div className="grid w-fit grid-cols-2 items-center gap-5">
+              <div className="col-start-1 -col-end-1 mb-1 text-center text-3xl font-semibold">
+                ${report.price.toLocaleString()}
+              </div>
+              <p className="col-start-1 -col-end-1 mb-4 text-center text-xs font-semibold tracking-wide text-blue-600 uppercase">
+                {PRICE_LABEL_TEXT[priceEval.label]} — {absPct}%{" "}
+                {isAbove ? "por encima" : "por debajo"} del promedio
+              </p>
+              <ReportGauge
+                percentile={percentile}
+                label={priceEval.label}
+                price={report.price}
+                wholesale={wholesale}
+                retail={retail}
+              />
 
-      {/* Vehicle data */}
-      <VehicleDataSection
-        vin={report.vin}
-        engine={report.engine}
-        transmission={report.transmission}
-        drivetrain={report.drivetrain}
-        color={report.color}
-        auction={report.auction}
-        location={report.location}
-        daysOnLot={report.daysOnLot}
-        previousOwners={report.previousOwners}
-      />
+              <BookValues bookValues={priceEval.bookValues} />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Vehicle data */}
+        <VehicleDataSection
+          vin={report.vin}
+          engine={report.engine}
+          transmission={report.transmission}
+          drivetrain={report.drivetrain}
+          color={report.color}
+          auction={report.auction}
+          location={report.location}
+          daysOnLot={report.daysOnLot}
+          previousOwners={report.previousOwners}
+        />
+      </div>
 
       {/* AI summary */}
       {report.aiSummary ? (
