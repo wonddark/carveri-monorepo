@@ -45,6 +45,37 @@ export default function MarketTab({ report }: Readonly<Props>) {
 
         {/* Price + gauge + book values */}
         <MarketPriceHeader price={report.price} priceEval={report.priceEval} />
+
+        {/* TODO: Revaluate this content */}
+        <Card>
+          <CardContent className="grid grid-cols-3 gap-2">
+            <div className="flex flex-col items-center gap-0.5">
+              <small className="text-muted-foreground text-xs">
+                Asking price
+              </small>
+              <strong className="text-xl font-semibold">$21500</strong>
+            </div>
+            <div className="flex flex-col items-center gap-0.5">
+              <small className="text-muted-foreground text-xs">
+                Average book value
+              </small>
+              <strong className="text-xl font-semibold">$21228</strong>
+            </div>
+            <div className="flex flex-col items-center gap-0.5">
+              <small className="text-muted-foreground text-xs">
+                Over average
+              </small>
+              <strong className="text-xl font-semibold text-orange-600 dark:text-orange-300">
+                +$276
+              </strong>
+              <small className="text-xs text-orange-600 dark:text-orange-300">
+                +1.3%
+              </small>
+            </div>
+          </CardContent>
+        </Card>
+        {/* TODO: Revaluate this content */}
+
         <ReportGauge
           price={report.price}
           label={report.priceEval.label}
