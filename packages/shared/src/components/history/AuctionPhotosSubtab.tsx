@@ -51,6 +51,7 @@ export default function AuctionPhotosSubtab({ photos }: Readonly<Props>) {
         index={index}
         slides={slides}
         plugins={[Zoom]}
+        zoom={{ scrollToZoom: true }}
       />
     </>
   );
