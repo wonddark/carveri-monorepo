@@ -65,7 +65,9 @@ YARL expects `{ src: string }[]` for basic image slides.
 `AuctionPhotosSubtab` changes:
 
 1. Add `open` and `index` state.
-2. Each grid `<button>` onClick: `setIndex(i); setOpen(true)`.
+2. Each grid `<button>` gets `onClick: () => { setIndex(i); setOpen(true); }` and `aria-label={t("auctionPhotos.openPhoto", { index: i + 1 })}`. Add the following keys to the `history` namespace translation files:
+   - `packages/shared/src/components/history/locales/en.json` → `"openPhoto": "Open photo {{index}}"`
+   - `packages/shared/src/components/history/locales/es.json` → `"openPhoto": "Abrir foto {{index}}"`
 3. Render `<Lightbox>` at the bottom of the component with:
    - `open={open}`
    - `close={() => setOpen(false)}`
@@ -82,12 +84,11 @@ No new files needed. The change is self-contained to `AuctionPhotosSubtab.tsx`.
 Consistent with the existing usage in `HistorialTab.tsx`:
 
 ```ts
-import Lightbox from "yet-another-react-lightbox";
 import { Zoom } from "yet-another-react-lightbox/plugins";
-import "yet-another-react-lightbox/styles.css";
+import Lightbox from "yet-another-react-lightbox";
 ```
 
-> Note: check whether the CSS is already globally imported (it is in `HistorialTab.tsx` area); if already imported globally, the per-file import is not needed. Confirm during implementation.
+> The CSS (`yet-another-react-lightbox/styles.css`) is already imported globally in both app entry points (`apps/mobile/src/main.tsx` and `apps/desktop/src/main.tsx`). Do NOT add a per-file CSS import in `AuctionPhotosSubtab.tsx`.
 
 ---
 
