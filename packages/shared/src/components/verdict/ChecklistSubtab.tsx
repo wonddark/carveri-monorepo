@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { Eye, FileText, Wrench } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import type { VerdictChecklistGroup } from "@carveri/shared/data/report";
+import {
+  MOCK_REPORTS,
+  type VerdictChecklistGroup,
+} from "@carveri/shared/data/report";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import { Field, FieldLabel } from "@carveri/shared/components/ui/field.tsx";
@@ -23,9 +26,16 @@ interface Props {
   checklist: VerdictChecklistGroup[];
 }
 
-export default function ChecklistSubtab({ checklist }: Readonly<Props>) {
+export default function ChecklistSubtab({
+  checklist: externalData,
+}: Readonly<Props>) {
   const { t } = useTranslation("verdict");
   const [checked, setChecked] = useState<Set<string>>(() => new Set());
+
+  const checklist =
+    externalData.length > 0
+      ? externalData
+      : MOCK_REPORTS.JA4J4VA86RZ079851.verdictTab.checklist;
 
   function toggle(key: string) {
     setChecked((prev) => {
