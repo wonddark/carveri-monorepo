@@ -42,17 +42,7 @@ const NAV: NavEntry[] = [
     },
   },
   { type: "item", id: "mercado", label: "market" },
-  {
-    type: "group",
-    group: {
-      label: "verdict_ai",
-      icon: "✨",
-      children: [
-        { id: "veredicto", label: "verdict" },
-        { id: "riesgos", label: "risks" },
-      ],
-    },
-  },
+  { type: "item", label: "verdict_ai", id: "verdict_ai" },
   { type: "item", id: "checklist", label: "checklist" },
   {
     type: "group",

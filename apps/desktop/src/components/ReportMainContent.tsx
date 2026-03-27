@@ -44,17 +44,22 @@ export default function ReportMainContent({
       return <TitleSubtab title={historyTab.title} />;
     case "mercado":
       return <MarketTab report={report} />;
-    case "veredicto":
+    case "verdict_ai":
       return (
-        <VerdictSubtab
-          score={report.score}
-          recommendation={report.verdict}
-          summary={report.aiSummary}
-          scoreBreakdown={verdictTab.scoreBreakdown}
-        />
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div>
+            <VerdictSubtab
+              score={report.score}
+              recommendation={report.verdict}
+              summary={report.aiSummary}
+              scoreBreakdown={verdictTab.scoreBreakdown}
+            />
+          </div>
+          <div>
+            <RisksSubtab risks={verdictTab.risks} />
+          </div>
+        </div>
       );
-    case "riesgos":
-      return <RisksSubtab risks={verdictTab.risks} />;
     case "checklist":
       return <ChecklistSubtab checklist={verdictTab.checklist} />;
     case "estrategia":
