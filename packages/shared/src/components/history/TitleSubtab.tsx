@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import type { HistoryTitleItem } from "@carveri/shared/data/report";
+import {
+  type HistoryTitleItem,
+  MOCK_REPORTS,
+} from "@carveri/shared/data/report";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import { CircleCheckBig } from "lucide-react";
@@ -9,8 +12,14 @@ interface Props {
   title: HistoryTitleItem[];
 }
 
-export default function TitleSubtab({ title }: Readonly<Props>) {
+export default function TitleSubtab({ title: externalData }: Readonly<Props>) {
   const { t } = useTranslation("history");
+
+  const title =
+    externalData.length > 0
+      ? externalData
+      : MOCK_REPORTS.JA4J4VA86RZ079851.historyTab.title;
+
   return (
     <>
       <SubTabHeader
