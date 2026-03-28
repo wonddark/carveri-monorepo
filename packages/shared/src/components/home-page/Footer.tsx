@@ -21,20 +21,17 @@ function Footer() {
             </span>
           </div>
           <div className="flex gap-6 text-sm text-gray-500">
-            <Link
-              href="/terms"
-              className="transition-colors hover:text-gray-300"
-            >
+            <Link to="/terms" className="transition-colors hover:text-gray-300">
               Términos
             </Link>
             <Link
-              href="/privacy"
+              to="/privacy"
               className="transition-colors hover:text-gray-300"
             >
               Privacidad
             </Link>
             <Link
-              href="/contact"
+              to="/contact"
               className="transition-colors hover:text-gray-300"
             >
               Contacto
