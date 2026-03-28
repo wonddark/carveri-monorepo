@@ -39,9 +39,8 @@
   --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
   --sidebar-border: oklch(0.92 0.004 286.32);
   --sidebar-ring: oklch(0.705 0.015 286.067);
-  --yarl__container_background_color: transparent;
-  --yarl__thumbnails_container_background_color: transparent;
-  --yarl__color_backdrop: transparent;
+  --yarl__container_background_color: rgba(0, 0, 0, 0.9);
+  --yarl__color_backdrop: rgba(0, 0, 0, 0.9);
   --header-height: 44px;
 }
 
