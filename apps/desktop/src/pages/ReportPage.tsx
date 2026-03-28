@@ -24,6 +24,11 @@ export default function ReportPage() {
   const report = useLoaderData<VehicleReport>();
   const [activeSection, setActiveSection] = useState<SectionId>("resumen");
 
+  const onNavigate = (section: SectionId) => {
+    setActiveSection(section);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div className="relative flex flex-1 flex-col overflow-hidden">
       <ReportHeader />
@@ -31,7 +36,7 @@ export default function ReportPage() {
         <ReportSidebar
           report={report}
           activeSection={activeSection}
-          onNavigate={setActiveSection}
+          onNavigate={onNavigate}
         />
         <main className="flex-1 overflow-y-auto p-8">
           <ReportMainContent activeSection={activeSection} report={report} />
