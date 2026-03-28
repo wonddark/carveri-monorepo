@@ -1,6 +1,6 @@
 import { ArrowRight, Lightbulb } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import type { VehicleReport } from "@carveri/shared/data/report";
+import { MOCK_REPORTS, type VehicleReport } from "@carveri/shared/data/report";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 
@@ -10,15 +10,31 @@ interface Props {
 
 export default function StrategySubtab({ strategy }: Readonly<Props>) {
   const { t } = useTranslation("negotiate");
-  const { firstOffer, midpoint, maxRecommended, tips } = strategy;
+  const {
+    firstOffer: fo,
+    midpoint: mp,
+    maxRecommended: mr,
+    tips: externalTips,
+  } = strategy;
+
+  const firstOffer =
+    fo || MOCK_REPORTS.JA4J4VA86RZ079851.negotiate.strategy.firstOffer;
+  const midpoint =
+    mp || MOCK_REPORTS.JA4J4VA86RZ079851.negotiate.strategy.midpoint;
+  const maxRecommended =
+    mr || MOCK_REPORTS.JA4J4VA86RZ079851.negotiate.strategy.maxRecommended;
+  const tips =
+    externalTips.length > 0
+      ? externalTips
+      : MOCK_REPORTS.JA4J4VA86RZ079851.negotiate.strategy.tips;
 
   return (
     <>
       <SubTabHeader title={t("negotiation.strategy")} subtitle={""} />
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-3 lg:flex-row lg:gap-6">
         {/* 3-column price row */}
-        <div className="grid grid-cols-3 gap-2">
+        <div className="grid grid-cols-3 gap-2 lg:grid-cols-1">
           <Card className="py-3">
             <CardContent className="flex flex-col items-center gap-1.5 px-3">
               <p className="text-muted-foreground text-center text-xs font-medium">
