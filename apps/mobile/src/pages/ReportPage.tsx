@@ -27,6 +27,7 @@ export default function ReportPage() {
   const handleTabChange = (tab: TabId) => {
     setPrevTab(activeTab);
     setActiveTab(tab);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const direction =
