@@ -71,9 +71,8 @@ export default function ReportSidebar({
 }: Readonly<Props>) {
   const { t } = useTranslation("common");
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({
-    history: true,
-    verdict_ai: true,
-    negotiation: true,
+    "pages.history": true,
+    "pages.negotiation": true,
   });
 
   const toggleGroup = (label: string) =>
