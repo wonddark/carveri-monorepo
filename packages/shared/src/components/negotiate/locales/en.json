@@ -22,5 +22,8 @@
     "dealerFee": "Dealer Fee",
     "totalEstimated": "Total Estimated",
     "monthlyHeading": "Estimated Monthly Costs"
+  },
+  "negotiation": {
+    "strategy": "Strategy"
   }
 }
