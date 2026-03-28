@@ -1,7 +1,6 @@
 import type { LoaderFunctionArgs } from "react-router";
 import { createBrowserRouter } from "react-router";
 import RootLayout from "@/layout/root.tsx";
-import Report from "@/pages/report.tsx";
 import Home from "@/pages/home.tsx";
 import ReportError from "@/pages/report-error.tsx";
 import RootError from "@/pages/root-error.tsx";
@@ -24,13 +23,8 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       {
         path: "reports/:vin",
-        element: <Report />,
-        loader: reportLoader,
-        errorElement: <ReportError />,
-      },
-      {
-        path: "reports-v2/:vin",
         element: <ReportPage />,
+        loader: reportLoader,
         errorElement: <ReportError />,
       },
     ],
