@@ -80,7 +80,7 @@ export default function ReportSidebar({
     setOpenGroups((prev) => ({ ...prev, [label]: !prev[label] }));
 
   return (
-    <aside className="border-border bg-card/30 flex w-full max-w-80 min-w-60 flex-col gap-4 overflow-y-auto border-r">
+    <aside className="border-border bg-card/30 flex w-full max-w-100 min-w-60 flex-col gap-4 overflow-y-auto border-r">
       {/* Image carousel */}
       <div className="p-3">
         <div className="aspect-16/10 overflow-hidden rounded-xl">
