@@ -14,7 +14,7 @@ export default function StrategySubtab({ strategy }: Readonly<Props>) {
 
   return (
     <>
-      <SubTabHeader title={t("negotiaton.strategy")} subtitle={""} />
+      <SubTabHeader title={t("negotiation.strategy")} subtitle={""} />
 
       <div className="flex flex-col gap-3">
         {/* 3-column price row */}

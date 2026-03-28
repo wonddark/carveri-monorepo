@@ -25,34 +25,34 @@ type NavEntry =
   | { type: "group"; group: NavGroup };
 
 const NAV: NavEntry[] = [
-  { type: "item", id: "resumen", label: "resume" },
+  { type: "item", id: "resumen", label: "pages.resume" },
   {
     type: "group",
     group: {
-      label: "history",
+      label: "pages.history",
       icon: "🕒",
       children: [
-        { id: "timeline", label: "timeline" },
-        { id: "fotos-subasta", label: "auction_photos" },
-        { id: "accidentes", label: "accidents" },
-        { id: "duenos", label: "owners" },
-        { id: "servicio", label: "service" },
-        { id: "titulo", label: "title" },
+        { id: "timeline", label: "pages.timeline" },
+        { id: "fotos-subasta", label: "pages.auction_photos" },
+        { id: "accidentes", label: "pages.accidents" },
+        { id: "duenos", label: "pages.owners" },
+        { id: "servicio", label: "pages.service" },
+        { id: "titulo", label: "pages.title" },
       ],
     },
   },
-  { type: "item", id: "mercado", label: "market" },
-  { type: "item", label: "verdict_ai", id: "verdict_ai" },
-  { type: "item", id: "checklist", label: "checklist" },
+  { type: "item", id: "mercado", label: "pages.market" },
+  { type: "item", label: "pages.verdict_ai", id: "verdict_ai" },
+  { type: "item", id: "checklist", label: "pages.checklist" },
   {
     type: "group",
     group: {
-      label: "negotiation",
+      label: "pages.negotiation",
       icon: "💬",
       children: [
-        { id: "estrategia", label: "strategy" },
-        { id: "argumentos", label: "arguments" },
-        { id: "costos", label: "costs" },
+        { id: "estrategia", label: "pages.strategy" },
+        { id: "argumentos", label: "pages.arguments" },
+        { id: "costos", label: "pages.costs" },
       ],
     },
   },
@@ -158,7 +158,7 @@ export default function ReportSidebar({
                 )}
               >
                 <span>
-                  {group.icon} {group.label}
+                  {group.icon} {t(group.label)}
                 </span>
                 {isOpen ? (
                   <ChevronDown size={14} />
@@ -183,7 +183,7 @@ export default function ReportSidebar({
                             : "hover:bg-primary/5 hover:text-foreground/85 font-medium",
                         )}
                       >
-                        {child.label}
+                        {t(child.label)}
                       </button>
                     );
                   })}
