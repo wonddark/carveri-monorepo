@@ -22,5 +22,22 @@
     "share": "Compartir",
     "download": "Descargar",
     "send": "Enviar"
+  },
+  "pages": {
+    "resume": "Resumen",
+    "history": "Historial",
+    "timeline": "Cronología",
+    "auction_photos": "Fotos de subastas",
+    "accidents": "Accidentes",
+    "owners": "Dueños",
+    "service": "Servicios",
+    "title": "Título",
+    "market": "Mercado",
+    "verdict_ai": "Veredicto IA",
+    "checklist": "Lista de chequeo",
+    "negotiation": "Negociación",
+    "strategy": "Estrategia",
+    "arguments": "Argumentos",
+    "costs": "Costos"
   }
 }

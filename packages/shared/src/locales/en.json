@@ -22,5 +22,22 @@
     "share": "Share",
     "download": "Download",
     "send": "Send"
+  },
+  "pages": {
+    "resume": "Resume",
+    "history": "History",
+    "timeline": "Timeline",
+    "auction_photos": "Auction Photos",
+    "accidents": "Accidents",
+    "owners": "Owners",
+    "service": "Service",
+    "title": "Title",
+    "market": "Market",
+    "verdict_ai": "Verdict AI",
+    "checklist": "Checklist",
+    "negotiation": "Negotiation",
+    "strategy": "Strategy",
+    "arguments": "Arguments",
+    "costs": "Costs"
   }
 }
