@@ -4,12 +4,14 @@ import { IconArrowRight, IconPlayerPlay } from "@tabler/icons-react";
 import { Button } from "@carveri/shared/components/ui/button.tsx";
 import { Activity, useState } from "react";
 import VideoModal from "@carveri/shared/components/home-page/VideoModal.tsx";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   scrollToVinForm: () => void;
 };
 
 function ReportSample(props: Readonly<Props>) {
+  const { t } = useTranslation("homepage");
   const { scrollToVinForm } = props;
   const [showModal, setShowModal] = useState(false);
   const REPORT_SAMPLE =
@@ -31,13 +33,13 @@ function ReportSample(props: Readonly<Props>) {
 
           <FadeUp delay={0.1}>
             <div>
-              <Badge className="mb-4 rounded-full border-[#042CD7]/20 bg-[#042CD7]/10 px-3 py-1 font-[Outfit] text-xs font-bold tracking-wider text-[#042CD7]">
+              <Badge variant="secondary" className="mb-4 font-[Outfit]">
                 Mira cómo funciona
               </Badge>
-              <h2 className="font-[Outfit] text-[1.75rem] leading-tight font-black tracking-tight text-[#1D1D1F] sm:text-[2rem]">
+              <h2 className="font-[Outfit] text-[1.75rem] leading-tight font-black tracking-tight sm:text-[2rem]">
                 En 2 minutos entiendes el valor de un CarVeri.
               </h2>
-              <p className="mt-4 text-[1.05rem] leading-relaxed text-gray-500">
+              <p className="text-muted-foreground mt-4 text-[1.05rem] leading-relaxed">
                 Mira un ejemplo real de cómo nuestro reporte te ayuda a tomar la
                 decisión correcta — con datos, no con suerte.
               </p>
@@ -59,10 +61,11 @@ function ReportSample(props: Readonly<Props>) {
 
               <Button
                 onClick={scrollToVinForm}
-                className="mt-6 rounded-xl bg-linear-to-r from-green-500 to-emerald-600 px-7 py-3.5 font-[Outfit] text-[15px] font-bold text-white shadow-lg shadow-green-500/25 hover:from-green-600 hover:to-emerald-700 active:scale-[0.97]"
+                size="lg"
+                className="mt-6 rounded-xl bg-linear-to-r from-green-500 to-emerald-600 font-[Outfit] text-[15px] font-bold text-white shadow-lg shadow-green-500/25 hover:from-green-600 hover:to-emerald-700 active:scale-[0.97]"
               >
-                Obtener reporte gratis
-                <IconArrowRight className="ml-2 h-4 w-4" />
+                {t("get_first_report")}
+                <IconArrowRight className="ml-2 size-4" />
               </Button>
             </div>
           </FadeUp>
