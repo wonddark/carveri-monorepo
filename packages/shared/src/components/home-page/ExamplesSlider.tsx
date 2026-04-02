@@ -30,15 +30,15 @@ function ExamplesSlider() {
   }, []);
 
   return (
-    <section className="overflow-hidden bg-white py-12 lg:py-16">
+    <section className="overflow-hidden py-12 lg:py-16">
       <div className="mx-auto max-w-300 px-5">
         <FadeUp>
           <div className="mb-8 flex items-end justify-between">
             <div>
-              <span className="font-[Outfit] text-xs font-bold tracking-widest text-[#042CD7] uppercase">
+              <span className="text-primary font-[Outfit] text-xs font-bold tracking-widest uppercase">
                 Reportes recientes
               </span>
-              <h2 className="mt-1 font-[Outfit] text-[1.5rem] font-black tracking-tight text-[#1D1D1F] sm:text-[1.75rem]">
+              <h2 className="mt-1 font-[Outfit] text-[1.5rem] font-black tracking-tight sm:text-[1.75rem]">
                 CarVeris de clientes reales
               </h2>
             </div>
@@ -47,17 +47,17 @@ function ExamplesSlider() {
                 variant="outline"
                 size="icon"
                 onClick={() => scrollSlider("left")}
-                className="rounded-full border-gray-200 hover:border-gray-300"
+                className="border-border hover:border-border/90 rounded-full"
               >
-                <IconChevronLeft className="h-4 w-4" />
+                <IconChevronLeft className="size-4" />
               </Button>
               <Button
                 variant="outline"
                 size="icon"
                 onClick={() => scrollSlider("right")}
-                className="rounded-full border-gray-200 hover:border-gray-300"
+                className="border-border hover:border-border/90 rounded-full"
               >
-                <IconChevronRight className="h-4 w-4" />
+                <IconChevronRight className="size-4" />
               </Button>
             </div>
           </div>
@@ -75,7 +75,7 @@ function ExamplesSlider() {
                 href={`/reports/${car.vin}`}
                 className="group w-65 shrink-0 snap-start sm:w-70"
               >
-                <Card className="gap-0 overflow-hidden border-gray-100 py-0 transition-all duration-300 hover:-translate-y-1 hover:border-gray-200 hover:shadow-xl">
+                <Card className="gap-0 overflow-hidden py-0 transition-all duration-300 hover:-translate-y-1 hover:ring-2">
                   <div className="relative h-40 overflow-hidden">
                     <img
                       src={car.imageThumbnail}
@@ -89,19 +89,19 @@ function ExamplesSlider() {
                     </Badge>*/}
                   </div>
                   <CardContent className="p-4">
-                    <h3 className="truncate font-[Outfit] text-[15px] font-bold text-[#1D1D1F]">
+                    <h3 className="truncate font-[Outfit] text-[15px] font-bold">
                       {car.year} {car.make} {car.model}
                     </h3>
                     <div className="mt-1 flex items-baseline gap-3">
-                      <span className="font-[Outfit] text-lg font-black text-[#1D1D1F]">
+                      <span className="font-[Outfit] text-lg font-black">
                         {car.retailPrice}
                         {/* it was car.price */}
                       </span>
-                      <span className="text-xs text-gray-400">
+                      <span className="text-muted-foreground text-xs">
                         {car.odometro}
                       </span>
                     </div>
-                    <div className="mt-1.5 flex items-center gap-1 text-xs text-gray-400">
+                    <div className="text-muted-foreground mt-1.5 flex items-center gap-1 text-xs">
                       <svg
                         className="h-3 w-3"
                         fill="none"
@@ -124,7 +124,7 @@ function ExamplesSlider() {
                       {car.auction}
                       {/* It was car.location */}
                     </div>
-                    <div className="mt-3 flex items-center gap-1 text-xs font-semibold text-[#042CD7] transition-all group-hover:gap-2">
+                    <div className="text-primary mt-3 flex items-center gap-1 text-xs font-semibold transition-all group-hover:gap-2">
                       Ver reporte completo{" "}
                       <IconArrowRight className="h-3 w-3" />
                     </div>
