@@ -5,7 +5,7 @@ interface Props {
   activeSection: SectionId;
 }
 
-export default function MainContent({ activeSection }: Props) {
+export default function MainContent({ report: _report, activeSection }: Props) {
   return (
     <div className="p-4">
       <p className="text-sm text-gray-500">Section: {activeSection}</p>
