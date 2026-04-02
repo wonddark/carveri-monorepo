@@ -31,6 +31,7 @@ export function transformToSharedReport(raw: VehicleReport): AppReport {
     stats: raw.stats,
     priceEval: raw.priceEval,
     market: raw.market,
+    // TODO: map raw.negotiate when shape is finalized
     negotiate: {
       strategy: { firstOffer: 0, midpoint: 0, maxRecommended: 0, tips: [] },
       arguments: [],
@@ -51,8 +52,8 @@ export function transformToSharedReport(raw: VehicleReport): AppReport {
         { id: "5", label: "Service history", description: "Limited documented service", delta: 0.2, icon: "Wrench" },
         { id: "6", label: "Auction origin", description: "Vehicle went through IAAI auction", delta: -0.2, icon: "Building2" },
       ],
-      risks: [],
-      checklist: [],
+      risks: [], // TODO: map when shape is finalized
+      checklist: [], // TODO: map when shape is finalized
     },
     historyTab: {
       timeline: raw.history.timeline,
