@@ -4,10 +4,13 @@
   "scripts": {
     "dev:mobile": "pnpm --filter @carveri/mobile dev",
     "dev:desktop": "pnpm --filter @carveri/desktop dev",
+    "dev:desktop-v2": "pnpm --filter @carveri/desktop-v2 dev",
     "build:mobile": "pnpm --filter @carveri/mobile build",
     "build:desktop": "pnpm --filter @carveri/desktop build",
+    "build:desktop-v2": "pnpm --filter @carveri/desktop-v2 build",
     "preview:mobile": "pnpm --filter @carveri/mobile preview",
     "preview:desktop": "pnpm --filter @carveri/desktop preview",
+    "preview:desktop-v2": "pnpm --filter @carveri/desktop-v2 preview",
     "lint": "pnpm -r lint"
   }
 }
