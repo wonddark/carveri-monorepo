@@ -8,12 +8,7 @@ import { Separator } from "@carveri/shared/components/ui/separator.tsx";
 import { useState } from "react";
 import { cn } from "@carveri/shared/lib/utils.ts";
 
-type Props = {
-  scrollToVinForm: () => void;
-};
-
-function PricingSection(props: Readonly<Props>) {
-  const { scrollToVinForm } = props;
+function PricingSection() {
   const [selectedPlan, setSelectedPlan] = useState(3);
 
   const currentPlan = plans.find((p) => p.id === selectedPlan)!;
