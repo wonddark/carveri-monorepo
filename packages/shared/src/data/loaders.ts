@@ -7,7 +7,8 @@ async function reportLoader({ params }: LoaderFunctionArgs) {
   if (!import.meta.env.VITE_API_URL)
     throw new Response("API not configured", { status: 503 });
   const raw = await fetchVehicleReport(params.vin);
-  return transformToSharedReport(raw);
+
+  return transformToSharedReport(raw.data);
 }
 
 export { reportLoader };
