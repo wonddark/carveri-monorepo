@@ -7,8 +7,8 @@ import NegotiateTab from "@/components/negotiate/NegotiateTab.tsx";
 import VerdictTab from "@/components/verdict/VerdictTab.tsx";
 import HistoryTab from "@/components/history/HistoryTab.tsx";
 import type { TabId } from "@carveri/shared/data/report";
-import { MOCK_REPORTS } from "@carveri/shared/data/report";
-import { useParams } from "react-router";
+import { useLoaderData } from "react-router";
+import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 
 const TAB_ORDER: TabId[] = [
   "home",
@@ -19,8 +19,7 @@ const TAB_ORDER: TabId[] = [
 ];
 
 export default function ReportPage() {
-  const { vin } = useParams<{ vin: string }>();
-  const report = vin ? MOCK_REPORTS[vin] : null;
+  const report = useLoaderData<TransformedReport>();
   const [activeTab, setActiveTab] = useState<TabId>("home");
   const [prevTab, setPrevTab] = useState<TabId>("home");
 

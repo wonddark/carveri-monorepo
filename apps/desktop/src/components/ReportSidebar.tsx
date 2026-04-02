@@ -4,10 +4,10 @@ import { ChevronDown, ChevronRight } from "lucide-react";
 import ImageCarousel from "@carveri/shared/components/ImageCarousel";
 import CarSummaryCard from "@carveri/shared/components/CarSummaryCard";
 import { cn } from "@/lib/utils";
-import type { VehicleReport } from "@carveri/shared/data/report";
 import type { SectionId } from "@/pages/ReportPage";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
+import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 
 interface NavItem {
   id: SectionId;
@@ -59,7 +59,7 @@ const NAV: NavEntry[] = [
 ];
 
 interface Props {
-  report: VehicleReport;
+  report: TransformedReport;
   activeSection: SectionId;
   onNavigate: (s: SectionId) => void;
 }
@@ -79,7 +79,7 @@ export default function ReportSidebar({
     setOpenGroups((prev) => ({ ...prev, [label]: !prev[label] }));
 
   return (
-    <aside className="border-border bg-card/30 flex w-full max-w-100 min-w-60 flex-col gap-4 overflow-y-auto border-r">
+    <aside className="border-border bg-card/30 sticky top-15 flex w-75 min-w-60 flex-col gap-4 overflow-y-auto border-r">
       {/* Image carousel */}
       <div className="p-3">
         <div className="aspect-16/10 overflow-hidden rounded-xl">

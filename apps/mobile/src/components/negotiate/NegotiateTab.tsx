@@ -3,15 +3,15 @@ import { useTranslation } from "react-i18next";
 import StrategySubtab from "@carveri/shared/components/negotiate/StrategySubtab.tsx";
 import ArgumentsSubtab from "@carveri/shared/components/negotiate/ArgumentsSubtab.tsx";
 import CostsSubtab from "@carveri/shared/components/negotiate/CostsSubtab.tsx";
-import type { VehicleReport } from "@carveri/shared/data/report.ts";
 import AppHeader from "@/components/AppHeader.tsx";
 import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
 import SubtabButton from "@carveri/shared/components/subtab-button.tsx";
+import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 
 type SubtabId = "strategy" | "arguments" | "costs";
 
 interface Props {
-  report: VehicleReport;
+  report: TransformedReport;
 }
 
 export default function NegotiateTab({ report }: Readonly<Props>) {

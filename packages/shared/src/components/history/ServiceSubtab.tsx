@@ -1,12 +1,12 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Wrench } from "lucide-react";
-import type { HistoryServiceRecord } from "@carveri/shared/data/report";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
+import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 
 interface Props {
-  service: HistoryServiceRecord[];
+  service: TransformedReport["historyTab"]["service"];
 }
 
 export default function ServiceSubtab({ service }: Readonly<Props>) {
@@ -40,7 +40,7 @@ export default function ServiceSubtab({ service }: Readonly<Props>) {
                 <div className="shrink-0 text-right">
                   <div className="text-xs">{record.date}</div>
                   <div className="text-muted-foreground text-xs">
-                    {record.mileage.toLocaleString()} mi
+                    {record.mileage?.toLocaleString()} mi
                   </div>
                 </div>
               </CardContent>

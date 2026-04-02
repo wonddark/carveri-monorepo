@@ -10,10 +10,10 @@ import {
   User,
   Wrench,
 } from "lucide-react";
-import type { HistoryEvent } from "@carveri/shared/data/report";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import { cn } from "@carveri/shared/lib/utils.ts";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
+import type { TransformedReport } from "../../lib/transforms.ts";
 
 const TYPE_ICON: Record<
   string,
@@ -52,7 +52,7 @@ const TYPE_ICON_COLOR: Record<string, string> = {
 };
 
 interface Props {
-  timeline: HistoryEvent[];
+  timeline: TransformedReport["historyTab"]["timeline"];
 }
 
 export default function TimelineSubtab({ timeline }: Readonly<Props>) {
@@ -66,7 +66,7 @@ export default function TimelineSubtab({ timeline }: Readonly<Props>) {
 
       <div className="flex flex-col gap-2">
         {timeline.map((event, i) => {
-          const Icon = TYPE_ICON[event.type];
+          const Icon = TYPE_ICON[event.type ?? ""];
           return (
             <motion.div
               key={event.id}
@@ -79,12 +79,15 @@ export default function TimelineSubtab({ timeline }: Readonly<Props>) {
                   <div
                     className={cn(
                       "flex shrink-0 items-center justify-center rounded-full p-2",
-                      TYPE_BOX[event.type],
+                      TYPE_BOX[event.type ?? ""],
                     )}
                   >
                     {Icon && (
                       <Icon
-                        className={cn("size-4", TYPE_ICON_COLOR[event.type])}
+                        className={cn(
+                          "size-4",
+                          TYPE_ICON_COLOR[event.type ?? ""],
+                        )}
                       />
                     )}
                   </div>

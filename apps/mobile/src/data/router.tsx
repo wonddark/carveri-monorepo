@@ -1,4 +1,3 @@
-import type { LoaderFunctionArgs } from "react-router";
 import { createBrowserRouter } from "react-router";
 import RootLayout from "@/layout/root.tsx";
 import Home from "@/pages/home.tsx";
@@ -6,13 +5,8 @@ import ReportError from "@/pages/report-error.tsx";
 import RootError from "@/pages/root-error.tsx";
 import Login from "@/pages/login.tsx";
 import Register from "@/pages/register.tsx";
-import { fetchVehicleReport } from "@carveri/shared/data/api.ts";
 import ReportPage from "@/pages/ReportPage.tsx";
-
-async function reportLoader({ params }: LoaderFunctionArgs) {
-  if (!params.vin) throw new Response("Not Found", { status: 404 });
-  return fetchVehicleReport(params.vin);
-}
+import { reportLoader } from "@carveri/shared/data/loaders.ts";
 
 const router = createBrowserRouter([
   {

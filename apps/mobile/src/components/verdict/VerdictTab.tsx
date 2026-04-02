@@ -3,15 +3,15 @@ import { useTranslation } from "react-i18next";
 import VerdictSubtab from "@carveri/shared/components/verdict/VerdictSubtab.tsx";
 import RisksSubtab from "@carveri/shared/components/verdict/RisksSubtab.tsx";
 import ChecklistSubtab from "@carveri/shared/components/verdict/ChecklistSubtab.tsx";
-import type { VehicleReport } from "@carveri/shared/data/report.ts";
 import AppHeader from "@/components/AppHeader.tsx";
 import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
 import SubtabButton from "@carveri/shared/components/subtab-button.tsx";
+import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 
 type SubtabId = "verdict" | "risks" | "checklist";
 
 interface Props {
-  report: VehicleReport;
+  report: TransformedReport;
 }
 
 export default function VerdictTab({ report }: Readonly<Props>) {

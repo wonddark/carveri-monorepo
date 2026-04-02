@@ -1,4 +1,4 @@
-import type { VehicleReport } from "@carveri/shared/types/vehicle-report";
+import type { VehicleReportResponse } from "@carveri/shared/types/vehicle-report";
 import type { VehicleList } from "@carveri/shared/types/vehicle-list.ts";
 
 export async function getAuthToken() {
@@ -42,7 +42,17 @@ export async function getVehicleList() {
   return response.json() as Promise<{ data: VehicleList }>;
 }
 
-export async function fetchVehicleReport(vin: string): Promise<VehicleReport> {
+export async function fetchVehicleReport(
+  vin: string,
+): Promise<VehicleReportResponse> {
+  /*return {
+    data: MOCK_REPORTS["1FMCU9GX0DUA27119"],
+    succeeded: true,
+    error: null,
+    message: "",
+    statusCode: 200,
+  };*/
+
   const response = await fetch(`${import.meta.env.VITE_API_URL}/${vin}`);
 
   if (!response.ok) {
@@ -52,5 +62,5 @@ export async function fetchVehicleReport(vin: string): Promise<VehicleReport> {
     throw new Response("Server Error", { status: 500 });
   }
 
-  return response.json() as Promise<VehicleReport>;
+  return response.json() as Promise<VehicleReportResponse>;
 }

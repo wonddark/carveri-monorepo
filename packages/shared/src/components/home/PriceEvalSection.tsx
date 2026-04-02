@@ -1,13 +1,13 @@
 import { DollarSign } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import BookValues from "./BookValues";
-import type { VehicleReport } from "@carveri/shared/data/report";
 import ReportGauge from "@carveri/shared/components/ReportGauge.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
+import type { TransformedReport } from "../../lib/transforms.ts";
 
 interface Props {
   price: number;
-  priceEval: VehicleReport["priceEval"];
+  priceEval: TransformedReport["priceEval"];
 }
 
 export default function PriceEvalSection({

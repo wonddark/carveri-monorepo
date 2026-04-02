@@ -1,14 +1,14 @@
-// apps/desktop/src/components/ResumenView.tsx
 import { Home } from "lucide-react";
 import StatsGrid from "@carveri/shared/components/home/StatsGrid";
 import BookValues from "@carveri/shared/components/home/BookValues";
 import VehicleDataSection from "@carveri/shared/components/home/VehicleDataSection";
 import AISummarySection from "@carveri/shared/components/home/AISummarySection";
-import type { VehicleReport } from "@carveri/shared/data/report";
 import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import ReportGauge from "@carveri/shared/components/ReportGauge.tsx";
 import { getPercentile } from "@carveri/shared/lib/utils.ts";
+import type { VehicleReport } from "@carveri/shared/types/vehicle-report.ts";
+import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 
 const PRICE_LABEL_TEXT: Record<VehicleReport["priceEval"]["label"], string> = {
   BARGAIN: "Ganga",
@@ -19,7 +19,7 @@ const PRICE_LABEL_TEXT: Record<VehicleReport["priceEval"]["label"], string> = {
 };
 
 interface Props {
-  report: VehicleReport;
+  report: TransformedReport;
 }
 
 export default function ResumenView({ report }: Readonly<Props>) {
@@ -61,9 +61,9 @@ export default function ResumenView({ report }: Readonly<Props>) {
       {/* Quick stats 2×2 */}
       <StatsGrid stats={stats} />
 
-      <div className="flex flex-col md:flex-row gap-4 lg:gap-6">
+      <div className="flex flex-col gap-4 lg:gap-6">
         {/* Price Evaluation (no gauge) */}
-        <Card className="w-fit">
+        <Card>
           <CardContent>
             <div className="mb-4 flex items-center gap-2">
               <span className="text-sm font-medium">
@@ -71,8 +71,8 @@ export default function ResumenView({ report }: Readonly<Props>) {
               </span>
             </div>
 
-            <div className="grid w-fit grid-cols-2 items-center gap-5">
-              <div className="col-start-1 -col-end-1 mb-1 text-center text-3xl font-semibold">
+            <div className="grid grid-cols-2 items-center gap-5">
+              <div className="col-start-1 -col-end-1 text-center text-3xl font-semibold">
                 ${report.price.toLocaleString()}
               </div>
               <p className="col-start-1 -col-end-1 mb-4 text-center text-xs font-semibold tracking-wide text-blue-600 uppercase">

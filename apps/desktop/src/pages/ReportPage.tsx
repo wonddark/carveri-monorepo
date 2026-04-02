@@ -3,7 +3,7 @@ import { useLoaderData } from "react-router";
 import ReportHeader from "@/components/ReportHeader";
 import ReportSidebar from "@/components/ReportSidebar";
 import ReportMainContent from "@/components/ReportMainContent";
-import type { VehicleReport } from "@carveri/shared/types/vehicle-report.ts";
+import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 
 export type SectionId =
   | "resumen"
@@ -21,7 +21,7 @@ export type SectionId =
   | "costos";
 
 export default function ReportPage() {
-  const report = useLoaderData<VehicleReport>();
+  const report = useLoaderData<TransformedReport>();
   const [activeSection, setActiveSection] = useState<SectionId>("resumen");
 
   const onNavigate = (section: SectionId) => {

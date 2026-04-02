@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { AlertCircle, CircleCheckBig } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { MOCK_REPORTS, type VerdictRisk } from "@carveri/shared/data/report";
+import { type VerdictRisk } from "@carveri/shared/data/report";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import { cn } from "@carveri/shared/lib/utils.ts";
@@ -10,12 +10,8 @@ interface Props {
   risks: VerdictRisk[];
 }
 
-export default function RisksSubtab({ risks: externalData }: Readonly<Props>) {
+export default function RisksSubtab({ risks }: Readonly<Props>) {
   const { t } = useTranslation("verdict");
-  const risks =
-    externalData.length > 0
-      ? externalData
-      : MOCK_REPORTS.JA4J4VA86RZ079851.verdictTab.risks;
   return (
     <>
       <SubTabHeader title={t("risks.heading")} subtitle="" />

@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import type { VehicleReport } from "@carveri/shared/data/report.ts";
 import TimelineSubtab from "@carveri/shared/components/history/TimelineSubtab.tsx";
 import AuctionPhotosSubtab from "@carveri/shared/components/history/AuctionPhotosSubtab.tsx";
 import AccidentsSubtab from "@carveri/shared/components/history/AccidentsSubtab.tsx";
@@ -11,9 +10,10 @@ import TitleSubtab from "@carveri/shared/components/history/TitleSubtab.tsx";
 import AppHeader from "@/components/AppHeader.tsx";
 import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
 import SubtabButton from "@carveri/shared/components/subtab-button.tsx";
+import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 
 interface Props {
-  report: VehicleReport;
+  report: TransformedReport;
 }
 
 export default function HistoryTab({ report }: Readonly<Props>) {

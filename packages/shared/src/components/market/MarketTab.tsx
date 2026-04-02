@@ -3,14 +3,14 @@ import { useTranslation } from "react-i18next";
 import MarketPriceHeader from "./MarketPriceHeader";
 import ComparablesList from "./ComparablesList";
 import BookValues from "@carveri/shared/components/home/BookValues";
-import type { VehicleReport } from "@carveri/shared/data/report";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import ReportGauge from "@carveri/shared/components/ReportGauge.tsx";
 import { getPercentile } from "@carveri/shared/lib/utils.ts";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
+import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 
 interface Props {
-  report: VehicleReport;
+  report: TransformedReport;
 }
 
 export default function MarketTab({ report }: Readonly<Props>) {

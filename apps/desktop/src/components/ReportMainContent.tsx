@@ -13,12 +13,12 @@ import StrategySubtab from "@carveri/shared/components/negotiate/StrategySubtab"
 import ArgumentsSubtab from "@carveri/shared/components/negotiate/ArgumentsSubtab";
 import CostsSubtab from "@carveri/shared/components/negotiate/CostsSubtab";
 import ResumenView from "@/components/ResumenView";
-import type { VehicleReport } from "@carveri/shared/data/report";
 import type { SectionId } from "@/pages/ReportPage";
+import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 
 interface Props {
   activeSection: SectionId;
-  report: VehicleReport;
+  report: TransformedReport;
 }
 
 export default function ReportMainContent({

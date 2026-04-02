@@ -6,6 +6,7 @@ import {
   CardTitle,
 } from "@carveri/shared/components/ui/card.tsx";
 import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
+import type { TransformedReport } from "../lib/transforms.ts";
 
 interface Props {
   year: number;
@@ -16,7 +17,7 @@ interface Props {
   mileage: number;
   location: string;
   score: number;
-  verdict: "BUY" | "CONSIDER" | "AVOID";
+  verdict: TransformedReport["verdict"];
   aiSummary: string;
 }
 

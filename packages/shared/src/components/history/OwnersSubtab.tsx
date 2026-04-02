@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
-import type { HistoryOwner } from "@carveri/shared/data/report";
 import {
   Card,
   CardContent,
@@ -9,9 +8,10 @@ import {
   CardTitle,
 } from "@carveri/shared/components/ui/card.tsx";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
+import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 
 interface Props {
-  owners: HistoryOwner[];
+  owners: TransformedReport["historyTab"]["owners"];
 }
 
 export default function OwnersSubtab({ owners }: Readonly<Props>) {
@@ -51,15 +51,15 @@ export default function OwnersSubtab({ owners }: Readonly<Props>) {
                   },
                   {
                     label: t("owners.startMileage"),
-                    value: `${owner.startMileage.toLocaleString()} mi`,
+                    value: `${owner.startMileage?.toLocaleString()} mi`,
                   },
                   {
                     label: t("owners.endMileage"),
-                    value: `${owner.endMileage.toLocaleString()} mi`,
+                    value: `${owner.endMileage?.toLocaleString()} mi`,
                   },
                   {
                     label: t("owners.milesDriven"),
-                    value: `${(owner.endMileage - owner.startMileage).toLocaleString()} mi`,
+                    value: `${((owner.endMileage ?? 0) - (owner.startMileage ?? 0)).toLocaleString()} mi`,
                   },
                 ].map(({ label, value }) => (
                   <div key={label} className="flex justify-between py-1.5">

@@ -12,6 +12,7 @@ import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import VerdictBadge from "@carveri/shared/components/VerdictBadge.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import { cn } from "@carveri/shared/lib/utils.ts";
+import type { TransformedReport } from "../../lib/transforms.ts";
 
 // ICON_MAP resolves icon name strings from mock data to lucide components.
 // CheckCircle is imported separately for the recommendation chip (not via ICON_MAP).
@@ -35,7 +36,7 @@ function formatDelta(delta: number): string {
 
 interface Props {
   score: number;
-  recommendation: "BUY" | "CONSIDER" | "AVOID";
+  recommendation: TransformedReport["verdict"];
   summary: string;
   scoreBreakdown: VerdictScoreItem[];
 }

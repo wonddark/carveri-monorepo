@@ -1,6 +1,6 @@
 import type { LoaderFunctionArgs } from "react-router";
 import { fetchVehicleReport } from "@carveri/shared/data/api.ts";
-import { transformToSharedReport } from "../../../../apps/desktop/src/lib/transforms";
+import { transformToSharedReport } from "../lib/transforms.ts";
 
 async function reportLoader({ params }: LoaderFunctionArgs) {
   if (!params.vin) throw new Response("Not Found", { status: 404 });

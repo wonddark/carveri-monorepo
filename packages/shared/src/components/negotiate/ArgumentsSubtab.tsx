@@ -1,24 +1,15 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import ArgumentCard from "./ArgumentCard";
-import {
-  MOCK_REPORTS,
-  type NegotiateArgument,
-} from "@carveri/shared/data/report";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
+import type { TransformedReport } from "../../lib/transforms.ts";
 
 interface Props {
-  args: NegotiateArgument[];
+  args: TransformedReport["negotiate"]["arguments"];
 }
 
-export default function ArgumentsSubtab({
-  args: externalArgs,
-}: Readonly<Props>) {
+export default function ArgumentsSubtab({ args }: Readonly<Props>) {
   const { t } = useTranslation("negotiate");
-  const args =
-    externalArgs.length > 0
-      ? externalArgs
-      : MOCK_REPORTS.JA4J4VA86RZ079851.negotiate.arguments;
   return (
     <>
       <SubTabHeader title={t("arguments.heading")} subtitle="" />

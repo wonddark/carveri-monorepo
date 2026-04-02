@@ -4,15 +4,15 @@ import StatsGrid from "@carveri/shared/components/home/StatsGrid.tsx";
 import PriceEvalSection from "@carveri/shared/components/home/PriceEvalSection.tsx";
 import VehicleDataSection from "@carveri/shared/components/home/VehicleDataSection.tsx";
 import AISummarySection from "@carveri/shared/components/home/AISummarySection.tsx";
-import type { VehicleReport } from "@carveri/shared/data/report.ts";
 import ImageCarousel from "@carveri/shared/components/ImageCarousel.tsx";
 import CarSummaryCard from "@carveri/shared/components/CarSummaryCard.tsx";
 import { cn } from "@carveri/shared/lib/utils.ts";
 import AppHeader from "@/components/AppHeader.tsx";
 import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
+import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 
 interface Props {
-  report: VehicleReport;
+  report: TransformedReport;
 }
 
 export default function HomeTab(props: Readonly<Props>) {
@@ -50,7 +50,7 @@ export default function HomeTab(props: Readonly<Props>) {
       <div
         className={cn(
           "bg-background relative -mt-4 rounded-t-3xl px-4 pt-4",
-          "transition-all duration-300 ease-in-out flex flex-col gap-4",
+          "flex flex-col gap-4 transition-all duration-300 ease-in-out",
           {
             "rounded-t-none": !isCarouselVisible,
           },

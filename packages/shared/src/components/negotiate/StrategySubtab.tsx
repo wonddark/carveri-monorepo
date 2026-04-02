@@ -1,32 +1,16 @@
 import { ArrowRight, Lightbulb } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { MOCK_REPORTS, type VehicleReport } from "@carveri/shared/data/report";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
+import type { TransformedReport } from "../../lib/transforms.ts";
 
 interface Props {
-  strategy: VehicleReport["negotiate"]["strategy"];
+  strategy: TransformedReport["negotiate"]["strategy"];
 }
 
 export default function StrategySubtab({ strategy }: Readonly<Props>) {
   const { t } = useTranslation("negotiate");
-  const {
-    firstOffer: fo,
-    midpoint: mp,
-    maxRecommended: mr,
-    tips: externalTips,
-  } = strategy;
-
-  const firstOffer =
-    fo || MOCK_REPORTS.JA4J4VA86RZ079851.negotiate.strategy.firstOffer;
-  const midpoint =
-    mp || MOCK_REPORTS.JA4J4VA86RZ079851.negotiate.strategy.midpoint;
-  const maxRecommended =
-    mr || MOCK_REPORTS.JA4J4VA86RZ079851.negotiate.strategy.maxRecommended;
-  const tips =
-    externalTips.length > 0
-      ? externalTips
-      : MOCK_REPORTS.JA4J4VA86RZ079851.negotiate.strategy.tips;
+  const { firstOffer, midpoint, maxRecommended, tips } = strategy;
 
   return (
     <>

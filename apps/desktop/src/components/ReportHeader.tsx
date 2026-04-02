@@ -1,4 +1,3 @@
-// apps/desktop/src/components/ReportHeader.tsx
 import { Download, Share2 } from "lucide-react";
 import { useNavigate } from "react-router";
 import LanguageToggle from "@carveri/shared/components/LanguageToggle";
@@ -11,7 +10,7 @@ export default function ReportHeader() {
   return (
     <header
       className={cn(
-        "fixed top-0 right-0 left-0 z-20 flex h-14 items-center justify-between",
+        "fixed top-0 right-0 left-0 z-20 mx-auto flex h-14 max-w-7xl items-center justify-between",
         "border-border bg-background border-b px-4 shadow-sm",
       )}
     >

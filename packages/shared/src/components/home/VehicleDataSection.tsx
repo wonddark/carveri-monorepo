@@ -1,7 +1,7 @@
 import { Car } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import type { VehicleReport } from "@carveri/shared/data/report";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
+import type { TransformedReport } from "../../lib/transforms.ts";
 
 interface Props {
   vin: string;
@@ -9,7 +9,7 @@ interface Props {
   transmission: string;
   drivetrain: string;
   color: string;
-  auction: VehicleReport["auction"];
+  auction: TransformedReport["auction"];
   location: string;
   daysOnLot: number;
   previousOwners: number;

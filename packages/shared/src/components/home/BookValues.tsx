@@ -1,10 +1,13 @@
 import { useTranslation } from "react-i18next";
-import type { BookValue } from "@carveri/shared/data/report";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import { IconTrendingDown, IconTrendingUp } from "@tabler/icons-react";
 import { cn } from "@carveri/shared/lib/utils.ts";
+import type { TransformedReport } from "../../lib/transforms.ts";
 
-const SOURCE_COLORS: Record<BookValue["source"], string> = {
+const SOURCE_COLORS: Record<
+  TransformedReport["priceEval"]["bookValues"][0]["source"],
+  string
+> = {
   MMR: "bg-indigo-600",
   KBB: "bg-blue-600",
   JDP: "bg-violet-600",
@@ -12,7 +15,7 @@ const SOURCE_COLORS: Record<BookValue["source"], string> = {
 };
 
 interface Props {
-  bookValues: BookValue[];
+  bookValues: TransformedReport["priceEval"]["bookValues"];
 }
 
 export default function BookValues({ bookValues }: Readonly<Props>) {

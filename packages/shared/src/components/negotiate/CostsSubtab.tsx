@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import { MOCK_REPORTS, type VehicleReport } from "@carveri/shared/data/report";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
+import type { VehicleReport } from "@carveri/shared/types/vehicle-report.ts";
 
 interface Props {
   price: number;
@@ -10,7 +10,19 @@ interface Props {
 
 export default function CostsSubtab({ price }: Readonly<Props>) {
   const { t } = useTranslation("negotiate");
-  const costs = MOCK_REPORTS.JA4J4VA86RZ079851.negotiate.costs;
+  const costs = {
+    taxRatePct: 8.75,
+    tagAndTitle: 100,
+    dealerFee: 100,
+    state: "CA",
+    monthlyEstimates: [
+      {
+        label: "",
+        low: 0,
+        high: 0,
+      },
+    ],
+  };
   const salesTax = Math.round((price * costs.taxRatePct) / 100);
   const total = price + salesTax + costs.tagAndTitle + costs.dealerFee;
 

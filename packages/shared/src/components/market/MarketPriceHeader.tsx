@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
-import type { VehicleReport } from "@carveri/shared/data/report";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
+import type { TransformedReport } from "../../lib/transforms.ts";
 
-const DELTA_COLOR: Record<VehicleReport["priceEval"]["label"], string> = {
+const DELTA_COLOR: Record<TransformedReport["priceEval"]["label"], string> = {
   BARGAIN: "text-indigo-500",
   LOW: "text-indigo-500",
   FAIR: "text-indigo-500",
@@ -12,7 +12,7 @@ const DELTA_COLOR: Record<VehicleReport["priceEval"]["label"], string> = {
 
 interface Props {
   price: number;
-  priceEval: VehicleReport["priceEval"];
+  priceEval: TransformedReport["priceEval"];
 }
 
 export default function MarketPriceHeader({
@@ -23,7 +23,7 @@ export default function MarketPriceHeader({
   const { label, marketAvgDeltaPct } = priceEval;
   const isAbove = marketAvgDeltaPct > 0;
 
-  const LABEL_TEXT: Record<VehicleReport["priceEval"]["label"], string> = {
+  const LABEL_TEXT: Record<TransformedReport["priceEval"]["label"], string> = {
     BARGAIN: t("home:priceEval.greatDeal"),
     LOW: t("home:priceEval.belowMarket"),
     FAIR: t("home:priceEval.fairPrice"),

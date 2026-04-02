@@ -49,7 +49,7 @@ export default function CarVeriLanding() {
       <ReportSample scrollToVinForm={scrollToVinForm} />
 
       {/* ═══ PRICING ═══ */}
-      <PricingSection scrollToVinForm={scrollToVinForm} />
+      <PricingSection />
 
       {/* ═══ FAQ ═══ */}
       <FaqSection />
