@@ -30,6 +30,10 @@ import esNegotiate from "@carveri/shared/components/negotiate/locales/es.json";
 import enVerdict from "@carveri/shared/components/verdict/locales/en.json";
 import esVerdict from "@carveri/shared/components/verdict/locales/es.json";
 
+// Homepage namespace
+import enHomePage from "@carveri/shared/components/home-page/locales/en.json";
+import esHomePage from "@carveri/shared/components/home-page/locales/es.json";
+
 i18next
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -38,7 +42,15 @@ i18next
     fallbackLng: "en",
     supportedLngs: ["en", "es"],
     defaultNS: "common",
-    ns: ["common", "home", "vehicle-details", "history", "market", "negotiate", "verdict"],
+    ns: [
+      "common",
+      "home",
+      "vehicle-details",
+      "history",
+      "market",
+      "negotiate",
+      "verdict",
+    ],
     resources: {
       en: {
         common: enCommon,
@@ -48,6 +60,7 @@ i18next
         market: enMarket,
         negotiate: enNegotiate,
         verdict: enVerdict,
+        homepage: enHomePage,
       },
       es: {
         common: esCommon,
@@ -57,6 +70,7 @@ i18next
         market: esMarket,
         negotiate: esNegotiate,
         verdict: esVerdict,
+        homepage: esHomePage,
       },
     },
     detection: {
