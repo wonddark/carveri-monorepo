@@ -23,7 +23,7 @@ export default function CarVeriLanding() {
   };
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-white">
+    <div className="min-h-screen overflow-x-hidden">
       {/* ═══ HERO ═══ */}
       <HeroSection />
 
@@ -49,7 +49,7 @@ export default function CarVeriLanding() {
       <ReportSample scrollToVinForm={scrollToVinForm} />
 
       {/* ═══ PRICING ═══ */}
-      <PricingSection scrollToVinForm={scrollToVinForm} />
+      <PricingSection />
 
       {/* ═══ FAQ ═══ */}
       <FaqSection />
