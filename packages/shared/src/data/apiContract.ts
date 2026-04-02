@@ -26,6 +26,7 @@ export interface BookValue {
   value: number;
   /** Difference vs the vehicle's asking price in USD (negative = below asking price) */
   delta: number;
+  // TODO: here add the values we had in the modal from previous versions
 }
 
 /**

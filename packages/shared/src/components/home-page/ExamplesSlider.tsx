@@ -4,13 +4,14 @@ import {
   IconChevronLeft,
   IconChevronRight,
 } from "@tabler/icons-react";
-import { carCheckExamples } from "@carveri/shared/data/static.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
-import { Badge } from "@carveri/shared/components/ui/badge.tsx";
 import { FadeIn, FadeUp } from "@carveri/shared/components/animations.tsx";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { getVehicleList } from "@carveri/shared/data/api.ts";
+import type { VehicleList } from "@carveri/shared/types/vehicle-list.ts";
 
 function ExamplesSlider() {
+  const [examples, setExamples] = useState<VehicleList>([]);
   const sliderRef = useRef<HTMLDivElement>(null);
   const scrollSlider = (direction: "left" | "right") => {
     if (!sliderRef.current) return;
@@ -20,6 +21,13 @@ function ExamplesSlider() {
       behavior: "smooth",
     });
   };
+
+  useEffect(() => {
+    (async () => {
+      const vList = await getVehicleList();
+      setExamples(vList.data);
+    })();
+  }, []);
 
   return (
     <section className="overflow-hidden bg-white py-12 lg:py-16">
@@ -61,7 +69,7 @@ function ExamplesSlider() {
             className="scrollbar-hide flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-            {carCheckExamples.map((car) => (
+            {examples.map((car) => (
               <a
                 key={car.id}
                 href={`/reports/${car.vin}`}
@@ -70,15 +78,15 @@ function ExamplesSlider() {
                 <Card className="gap-0 overflow-hidden border-gray-100 py-0 transition-all duration-300 hover:-translate-y-1 hover:border-gray-200 hover:shadow-xl">
                   <div className="relative h-40 overflow-hidden">
                     <img
-                      src={car.image}
+                      src={car.imageThumbnail}
                       alt={`${car.year} ${car.make} ${car.model}`}
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    <Badge
+                    {/*<Badge
                       className={`absolute top-3 left-3 ${car.verdictColor} rounded-md border-0 px-2 py-0.5 text-[11px] font-bold text-white`}
                     >
                       {car.verdict}
-                    </Badge>
+                    </Badge>*/}
                   </div>
                   <CardContent className="p-4">
                     <h3 className="truncate font-[Outfit] text-[15px] font-bold text-[#1D1D1F]">
@@ -86,9 +94,12 @@ function ExamplesSlider() {
                     </h3>
                     <div className="mt-1 flex items-baseline gap-3">
                       <span className="font-[Outfit] text-lg font-black text-[#1D1D1F]">
-                        {car.price}
+                        {car.retailPrice}
+                        {/* it was car.price */}
                       </span>
-                      <span className="text-xs text-gray-400">{car.miles}</span>
+                      <span className="text-xs text-gray-400">
+                        {car.odometro}
+                      </span>
                     </div>
                     <div className="mt-1.5 flex items-center gap-1 text-xs text-gray-400">
                       <svg
@@ -110,7 +121,8 @@ function ExamplesSlider() {
                           d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                         />
                       </svg>
-                      {car.location}
+                      {car.auction}
+                      {/* It was car.location */}
                     </div>
                     <div className="mt-3 flex items-center gap-1 text-xs font-semibold text-[#042CD7] transition-all group-hover:gap-2">
                       Ver reporte completo{" "}
