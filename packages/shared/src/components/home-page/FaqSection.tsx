@@ -13,10 +13,10 @@ function FaqSection() {
       <div className="mx-auto max-w-180 px-5">
         <FadeUp>
           <div className="mb-10 text-center lg:mb-14">
-            <span className="mb-3 inline-block font-[Outfit] text-xs font-bold tracking-widest text-[#042CD7] uppercase">
+            <span className="text-primary mb-3 inline-block font-[Outfit] text-xs font-bold tracking-widest uppercase">
               FAQ
             </span>
-            <h2 className="font-[Outfit] text-[1.75rem] font-black tracking-tight text-[#1D1D1F] sm:text-[2.25rem]">
+            <h2 className="font-[Outfit] text-[1.75rem] font-black tracking-tight sm:text-[2.25rem]">
               Preguntas frecuentes
             </h2>
           </div>
@@ -28,12 +28,12 @@ function FaqSection() {
               <AccordionItem
                 key={faq.q}
                 value={`faq-${i}`}
-                className="border-gray-100"
+                className="border-border"
               >
-                <AccordionTrigger className="py-5 font-[Outfit] text-[15px] font-semibold text-[#1D1D1F] hover:text-[#042CD7] hover:no-underline">
+                <AccordionTrigger className="hover:text-primary font-[Outfit] font-semibold hover:no-underline">
                   {faq.q}
                 </AccordionTrigger>
-                <AccordionContent className="text-[15px] leading-relaxed text-gray-500">
+                <AccordionContent className="text-muted-foreground text-[15px] leading-relaxed">
                   {faq.a}
                 </AccordionContent>
               </AccordionItem>
