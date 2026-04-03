@@ -1,10 +1,9 @@
-// apps/desktop/src/components/ReportSidebar.tsx
-import { type ReactNode, useState } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
+import { NavLink, useLocation, useParams } from "react-router";
 import ImageCarousel from "@carveri/shared/components/ImageCarousel";
 import CarSummaryCard from "@carveri/shared/components/CarSummaryCard";
 import { cn } from "@/lib/utils";
-import type { SectionId } from "@/pages/ReportPage";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
@@ -17,7 +16,7 @@ import {
 } from "@tabler/icons-react";
 
 interface NavItem {
-  id: SectionId;
+  id: string;
   label: string;
 }
 
@@ -28,7 +27,7 @@ interface NavGroup {
 }
 
 type NavEntry =
-  | { type: "item"; id: SectionId; label: string; icon: ReactNode }
+  | { type: "item"; id: string; label: string; icon: ReactNode }
   | { type: "group"; group: NavGroup };
 
 const NAV: NavEntry[] = [
@@ -59,8 +58,12 @@ const NAV: NavEntry[] = [
     label: "pages.market",
     icon: <IconChartHistogram className="w-5" />,
   },
-  { type: "item", label: "pages.verdict_ai", id: "verdict_ai", icon:<IconSparkles className="w-5"/> },
-  // { type: "item", id: "checklist", label: "pages.checklist" },
+  {
+    type: "item",
+    id: "verdict_ai",
+    label: "pages.verdict_ai",
+    icon: <IconSparkles className="w-5" />,
+  },
   {
     type: "group",
     group: {
@@ -77,20 +80,40 @@ const NAV: NavEntry[] = [
 
 interface Props {
   report: TransformedReport;
-  activeSection: SectionId;
-  onNavigate: (s: SectionId) => void;
 }
 
-export default function ReportSidebar({
-  report,
-  activeSection,
-  onNavigate,
-}: Readonly<Props>) {
+export default function ReportSidebar({ report }: Readonly<Props>) {
   const { t } = useTranslation("common");
-  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({
-    "pages.history": true,
-    "pages.negotiation": true,
+  const { vin } = useParams<{ vin: string }>();
+  const location = useLocation();
+  const currentSection = location.pathname.split("/").pop() ?? "";
+
+  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() => {
+    const initial: Record<string, boolean> = {};
+    for (const entry of NAV) {
+      if (entry.type === "group") {
+        initial[entry.group.label] = entry.group.children.some(
+          (c) => currentSection === c.id,
+        );
+      }
+    }
+    return initial;
   });
+
+  useEffect(() => {
+    setOpenGroups((prev) => {
+      const next = { ...prev };
+      for (const entry of NAV) {
+        if (entry.type === "group") {
+          const hasActive = entry.group.children.some(
+            (c) => currentSection === c.id,
+          );
+          if (hasActive) next[entry.group.label] = true;
+        }
+      }
+      return next;
+    });
+  }, [currentSection]);
 
   const toggleGroup = (label: string) =>
     setOpenGroups((prev) => ({ ...prev, [label]: !prev[label] }));
@@ -136,28 +159,28 @@ export default function ReportSidebar({
       <nav className="flex-1 pb-4">
         {NAV.map((entry) => {
           if (entry.type === "item") {
-            const active = activeSection === entry.id;
             return (
-              <button
+              <NavLink
                 key={entry.id}
-                type="button"
-                onClick={() => onNavigate(entry.id)}
-                className={cn(
-                  "flex w-full items-center gap-2 px-3 py-2.5 text-sm font-medium",
-                  "text-foreground/70 hover:bg-card rounded-lg transition-colors",
-                  {"bg-primary/5 text-primary pointer-events-none": active}
-                )}
+                to={`/reports/${vin}/${entry.id}`}
+                className={({ isActive }: { isActive: boolean }) =>
+                  cn(
+                    "flex w-full items-center gap-2 px-3 py-2.5 text-sm font-medium",
+                    "text-foreground/70 hover:bg-card rounded-lg transition-colors",
+                    isActive && "bg-primary/5 text-primary pointer-events-none",
+                  )
+                }
               >
                 {entry.icon}
                 {t(entry.label)}
-              </button>
+              </NavLink>
             );
           }
 
           const { group } = entry;
           const isOpen = openGroups[group.label] ?? false;
           const isChildActive = group.children.some(
-            (c) => c.id === activeSection,
+            (c) => currentSection === c.id,
           );
 
           return (
@@ -183,26 +206,24 @@ export default function ReportSidebar({
 
               {isOpen && (
                 <div className="border-border mt-0.5 ml-4 space-y-0.5 border-l pl-3">
-                  {group.children.map((child) => {
-                    const active = activeSection === child.id;
-                    return (
-                      <button
-                        key={child.id}
-                        type="button"
-                        onClick={() => onNavigate(child.id)}
-                        className={cn(
+                  {group.children.map((child) => (
+                    <NavLink
+                      key={child.id}
+                      to={`/reports/${vin}/${child.id}`}
+                      className={({ isActive }: { isActive: boolean }) =>
+                        cn(
                           "gap-2 rounded-md px-2",
                           "text-muted-foreground flex w-full cursor-pointer items-center py-1.5 pr-4 text-xs transition-colors duration-200 ease-in-out",
-                          active
+                          isActive
                             ? "text-primary font-semibold"
                             : "hover:text-foreground/80 font-medium",
-                        )}
-                      >
-                        <div className="size-1.5 rounded-full bg-current/40"></div>
-                        {t(child.label)}
-                      </button>
-                    );
-                  })}
+                        )
+                      }
+                    >
+                      <div className="size-1.5 rounded-full bg-current/40" />
+                      {t(child.label)}
+                    </NavLink>
+                  ))}
                 </div>
               )}
             </div>

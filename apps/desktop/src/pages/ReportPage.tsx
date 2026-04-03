@@ -1,45 +1,18 @@
-import { useState } from "react";
-import { useLoaderData } from "react-router";
+import { useLoaderData, Outlet } from "react-router";
 import ReportHeader from "@/components/ReportHeader";
 import ReportSidebar from "@/components/ReportSidebar";
-import ReportMainContent from "@/components/ReportMainContent";
 import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
-
-export type SectionId =
-  | "resumen"
-  | "timeline"
-  | "fotos-subasta"
-  | "accidentes"
-  | "duenos"
-  | "servicio"
-  | "titulo"
-  | "mercado"
-  | "verdict_ai"
-  | "checklist"
-  | "estrategia"
-  | "argumentos"
-  | "costos";
 
 export default function ReportPage() {
   const report = useLoaderData<TransformedReport>();
-  const [activeSection, setActiveSection] = useState<SectionId>("resumen");
-
-  const onNavigate = (section: SectionId) => {
-    setActiveSection(section);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
 
   return (
     <div className="relative mx-auto flex max-w-7xl flex-1 flex-col overflow-hidden">
       <ReportHeader />
       <div className="fixed inset-0 mx-auto flex max-w-7xl flex-1 overflow-auto pt-15">
-        <ReportSidebar
-          report={report}
-          activeSection={activeSection}
-          onNavigate={onNavigate}
-        />
+        <ReportSidebar report={report} />
         <main className="flex-1 overflow-y-auto p-8">
-          <ReportMainContent activeSection={activeSection} report={report} />
+          <Outlet />
         </main>
       </div>
     </div>
