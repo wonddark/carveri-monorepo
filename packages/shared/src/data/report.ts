@@ -1,7 +1,5 @@
 import type { VehicleReport } from "@carveri/shared/types/vehicle-report.ts";
 
-export type TabId = "home" | "history" | "market" | "verdict" | "negotiate";
-
 export interface ComparableVehicle {
   id: string;
   year: number;
