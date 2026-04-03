@@ -21,6 +21,7 @@ export default function ReportPage() {
 
   useEffect(() => {
     prevTabRef.current = currentTab;
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [currentTab]);
 
   return (
