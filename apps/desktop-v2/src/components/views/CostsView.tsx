@@ -25,7 +25,7 @@ export default function CostsView({ costs }: Props) {
       ) : (
         <>
           {/* Fees */}
-          <div className="rounded-xl border border-gray-200 bg-white p-5">
+          {(costs.taxRatePct > 0 || costs.tagAndTitle > 0 || costs.dealerFee > 0) && <div className="rounded-xl border border-gray-200 bg-white p-5">
             <p className="mb-3 text-sm font-semibold text-gray-700">
               Impuestos y Cargos
               {costs.state && (
@@ -58,7 +58,7 @@ export default function CostsView({ costs }: Props) {
                 </div>
               )}
             </div>
-          </div>
+          </div>}
 
           {/* Monthly estimates */}
           {costs.monthlyEstimates.length > 0 && (
