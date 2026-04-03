@@ -19,7 +19,8 @@ export default function MarketView({ market }: Props) {
       ) : (
         <div className="space-y-3">
           {market.comparables.map((comp, i) => (
-            <div key={i} className="rounded-lg border border-gray-200 bg-white p-4">
+            // eslint-disable-next-line @eslint-react/no-array-index-key
+            <div key={`comparable-${i}`} className="rounded-lg border border-gray-200 bg-white p-4">
               <p className="text-sm text-gray-700">{JSON.stringify(comp)}</p>
             </div>
           ))}

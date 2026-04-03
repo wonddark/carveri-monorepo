@@ -37,7 +37,8 @@ export default function ServiceView({ records }: Props) {
               {record.details.length > 0 && (
                 <ul className="space-y-0.5">
                   {record.details.map((d, i) => (
-                    <li key={i} className="text-xs text-gray-600">
+                    // eslint-disable-next-line @eslint-react/no-array-index-key
+                    <li key={`${record.id}-detail-${i}`} className="text-xs text-gray-600">
                       • {d}
                     </li>
                   ))}

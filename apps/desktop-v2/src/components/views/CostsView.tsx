@@ -68,8 +68,10 @@ export default function CostsView({ costs }: Props) {
               </p>
               <div className="grid grid-cols-3 gap-3">
                 {costs.monthlyEstimates.map((est, i) => (
+                   
                   <div
-                    key={i}
+                    // eslint-disable-next-line @eslint-react/no-array-index-key
+                    key={`estimate-${est.term}-${i}`}
                     className="rounded-lg bg-gray-50 p-3 text-center"
                   >
                     <p className="text-xs text-gray-500">{est.term} meses</p>

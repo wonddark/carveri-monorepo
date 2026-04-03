@@ -52,7 +52,8 @@ export default function StrategyView({ strategy }: Props) {
               </p>
               <ul className="space-y-2">
                 {strategy.tips.map((tip, i) => (
-                  <li key={i} className="text-sm text-blue-800">
+                  // eslint-disable-next-line @eslint-react/no-array-index-key
+                  <li key={`tip-${i}`} className="text-sm text-blue-800">
                     • {tip}
                   </li>
                 ))}

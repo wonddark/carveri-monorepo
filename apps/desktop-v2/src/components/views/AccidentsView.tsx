@@ -39,8 +39,10 @@ export default function AccidentsView({ accidents }: Props) {
       {accidents.events.length > 0 && (
         <div className="space-y-3">
           {accidents.events.map((event, i) => (
+             
             <div
-              key={i}
+              // eslint-disable-next-line @eslint-react/no-array-index-key
+              key={`${event.title}-${i}`}
               className="rounded-lg border border-gray-200 bg-white p-4"
             >
               <div className="mb-1 flex items-start justify-between gap-2">
@@ -57,7 +59,8 @@ export default function AccidentsView({ accidents }: Props) {
               {event.details.length > 0 && (
                 <ul className="space-y-1">
                   {event.details.map((d, j) => (
-                    <li key={j} className="text-xs text-gray-600">
+                    // eslint-disable-next-line @eslint-react/no-array-index-key
+                    <li key={`${event.title}-detail-${j}`} className="text-xs text-gray-600">
                       • {d}
                     </li>
                   ))}

@@ -18,8 +18,10 @@ export default function AuctionPhotosView({ photos }: Props) {
         <>
           <div className="grid grid-cols-3 gap-3">
             {photos.map((src, i) => (
+               
               <button
-                key={i}
+                // eslint-disable-next-line @eslint-react/no-array-index-key
+                key={`photo-${i}`}
                 type="button"
                 onClick={() => setSelected(src)}
                 className="aspect-video overflow-hidden rounded-lg border border-gray-200 bg-gray-100 hover:opacity-90"
