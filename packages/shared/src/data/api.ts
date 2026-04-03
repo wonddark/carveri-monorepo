@@ -45,15 +45,9 @@ export async function getVehicleList() {
 export async function fetchVehicleReport(
   vin: string,
 ): Promise<VehicleReportResponse> {
-  /*return {
-    data: MOCK_REPORTS["1FMCU9GX0DUA27119"],
-    succeeded: true,
-    error: null,
-    message: "",
-    statusCode: 200,
-  };*/
-
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/${vin}`);
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/Vehicle/${vin}/expediente`,
+  );
 
   if (!response.ok) {
     if (response.status === 404) {
