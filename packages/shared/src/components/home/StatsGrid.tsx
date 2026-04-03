@@ -15,14 +15,14 @@ export default function StatsGrid({ stats }: Readonly<Props>) {
       icon: <IconCircleCheck className="size-5" />,
       label: t("stats.title"),
       value:
-        stats.titleStatus === "Clean" ? t("stats.clean") : stats.titleStatus,
-      good: stats.titleStatus === "Clean",
+        stats?.titleStatus === "Clean" ? t("stats.clean") : stats?.titleStatus,
+      good: stats?.titleStatus === "Clean",
     },
     {
       icon: <IconCircleCheck className="size-5" />,
       label: t("stats.accidents"),
       value:
-        stats.accidents === 0
+        stats?.accidents === 0
           ? `0 ${t("stats.reported")}`
           : `${stats.accidents} ${t("stats.reported")}`,
       good: stats.accidents === 0,
@@ -30,16 +30,16 @@ export default function StatsGrid({ stats }: Readonly<Props>) {
     {
       icon: <IconCircleCheck className="size-5" />,
       label: t("stats.odometer"),
-      value: stats.odometerVerified
+      value: stats?.odometerVerified
         ? t("stats.verified")
         : t("stats.inconsistent"),
-      good: stats.odometerVerified,
+      good: stats?.odometerVerified,
     },
     {
       icon: <IconCircleCheck className="size-5" />,
       label: t("stats.price"),
-      value: `${stats.priceDeltaPct > 0 ? "+" : ""}${stats.priceDeltaPct}%`,
-      good: stats.priceDeltaPct <= 0,
+      value: `${stats?.priceDeltaPct > 0 ? "+" : ""}${stats?.priceDeltaPct}%`,
+      good: stats?.priceDeltaPct <= 0,
     },
   ];
 

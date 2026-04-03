@@ -59,7 +59,7 @@ export default function ResumenView({ report }: Readonly<Props>) {
       </div>
 
       {/* Quick stats 2×2 */}
-      <StatsGrid stats={stats} />
+      {stats && <StatsGrid stats={stats} />}
 
       <div className="flex flex-col gap-4 lg:gap-6">
         {/* Price Evaluation (no gauge) */}

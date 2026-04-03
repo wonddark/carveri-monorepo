@@ -12,7 +12,7 @@ export type VehicleReport = {
   stats: VehicleStats;
   priceEval: DealEvaluation;
   market: MarketAnalysis;
-  history: VehicleHistory;
+  history: VehicleHistory | null;
   negotiate: any;
   verdict: string | null;
 };
