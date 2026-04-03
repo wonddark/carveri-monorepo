@@ -1,5 +1,5 @@
 // apps/desktop/src/components/ReportSidebar.tsx
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import ImageCarousel from "@carveri/shared/components/ImageCarousel";
 import CarSummaryCard from "@carveri/shared/components/CarSummaryCard";
@@ -8,6 +8,13 @@ import type { SectionId } from "@/pages/ReportPage";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
+import {
+  IconChartHistogram,
+  IconClock,
+  IconHeartHandshake,
+  IconHome,
+  IconSparkles,
+} from "@tabler/icons-react";
 
 interface NavItem {
   id: SectionId;
@@ -16,21 +23,26 @@ interface NavItem {
 
 interface NavGroup {
   label: string;
-  icon: string;
+  icon: ReactNode;
   children: NavItem[];
 }
 
 type NavEntry =
-  | { type: "item"; id: SectionId; label: string }
+  | { type: "item"; id: SectionId; label: string; icon: ReactNode }
   | { type: "group"; group: NavGroup };
 
 const NAV: NavEntry[] = [
-  { type: "item", id: "resumen", label: "pages.resume" },
+  {
+    type: "item",
+    id: "resumen",
+    label: "pages.resume",
+    icon: <IconHome className="w-5" />,
+  },
   {
     type: "group",
     group: {
       label: "pages.history",
-      icon: "🕒",
+      icon: <IconClock className="w-5" />,
       children: [
         { id: "timeline", label: "pages.timeline" },
         { id: "fotos-subasta", label: "pages.auction_photos" },
@@ -41,14 +53,19 @@ const NAV: NavEntry[] = [
       ],
     },
   },
-  { type: "item", id: "mercado", label: "pages.market" },
-  { type: "item", label: "pages.verdict_ai", id: "verdict_ai" },
-  { type: "item", id: "checklist", label: "pages.checklist" },
+  {
+    type: "item",
+    id: "mercado",
+    label: "pages.market",
+    icon: <IconChartHistogram className="w-5" />,
+  },
+  { type: "item", label: "pages.verdict_ai", id: "verdict_ai", icon:<IconSparkles className="w-5"/> },
+  // { type: "item", id: "checklist", label: "pages.checklist" },
   {
     type: "group",
     group: {
       label: "pages.negotiation",
-      icon: "💬",
+      icon: <IconHeartHandshake className="w-5" />,
       children: [
         { id: "estrategia", label: "pages.strategy" },
         { id: "argumentos", label: "pages.arguments" },
@@ -126,12 +143,12 @@ export default function ReportSidebar({
                 type="button"
                 onClick={() => onNavigate(entry.id)}
                 className={cn(
-                  "flex w-full cursor-pointer items-center gap-2 border-l-2 border-transparent px-4 py-2.5 text-sm font-semibold transition-colors",
-                  active
-                    ? "border-primary bg-primary/15 text-primary border-l-2"
-                    : "hover:bg-primary/5",
+                  "flex w-full items-center gap-2 px-3 py-2.5 text-sm font-medium",
+                  "text-foreground/70 hover:bg-card rounded-lg transition-colors",
+                  {"bg-primary/5 text-primary pointer-events-none": active}
                 )}
               >
+                {entry.icon}
                 {t(entry.label)}
               </button>
             );
@@ -149,16 +166,14 @@ export default function ReportSidebar({
                 type="button"
                 onClick={() => toggleGroup(group.label)}
                 className={cn(
-                  "flex w-full items-center justify-between px-4 py-2.5 text-sm font-semibold",
-                  "hover:bg-primary/5 border-l-2 border-transparent transition-colors",
-                  isChildActive &&
-                    !isOpen &&
-                    "border-primary bg-primary/15 text-primary",
+                  "flex w-full items-center justify-between px-3 py-2.5 text-sm font-medium",
+                  "text-foreground/70 hover:bg-card rounded-lg transition-colors",
+                  isChildActive && !isOpen && "text-primary",
                 )}
               >
-                <span>
+                <div className="flex items-center gap-2">
                   {group.icon} {t(group.label)}
-                </span>
+                </div>
                 {isOpen ? (
                   <ChevronDown size={14} />
                 ) : (
@@ -167,7 +182,7 @@ export default function ReportSidebar({
               </button>
 
               {isOpen && (
-                <div>
+                <div className="border-border mt-0.5 ml-4 space-y-0.5 border-l pl-3">
                   {group.children.map((child) => {
                     const active = activeSection === child.id;
                     return (
@@ -176,12 +191,14 @@ export default function ReportSidebar({
                         type="button"
                         onClick={() => onNavigate(child.id)}
                         className={cn(
-                          "flex w-full cursor-pointer items-center border-l-2 border-transparent py-1.5 pr-4 pl-9 text-xs transition-colors",
+                          "gap-2 rounded-md px-2",
+                          "text-muted-foreground flex w-full cursor-pointer items-center py-1.5 pr-4 text-xs transition-colors duration-200 ease-in-out",
                           active
-                            ? "text-primary border-primary bg-primary/15 font-semibold"
-                            : "hover:bg-primary/5 hover:text-foreground/85 font-medium",
+                            ? "text-primary font-semibold"
+                            : "hover:text-foreground/80 font-medium",
                         )}
                       >
+                        <div className="size-1.5 rounded-full bg-current/40"></div>
                         {t(child.label)}
                       </button>
                     );
