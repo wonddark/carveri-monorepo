@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
-import MarketPriceHeader from "@carveri/shared/components/market/MarketPriceHeader";
+import MarketPriceHeader
+  from "@carveri/shared/components/market/MarketPriceHeader";
 import ComparablesList from "@carveri/shared/components/market/ComparablesList";
 import BookValues from "@carveri/shared/components/home/BookValues";
 import AppHeader from "@/components/AppHeader.tsx";
