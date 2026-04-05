@@ -86,15 +86,14 @@ export default function ReportSidebar({ report }: Readonly<Props>) {
   const { t } = useTranslation("common");
   const { vin } = useParams<{ vin: string }>();
   const location = useLocation();
-  const currentSection = location.pathname.replace(/\/$/, "").split("/").pop() ?? "";
+  const currentSection =
+    location.pathname.replace(/\/$/, "").split("/").pop() ?? "";
 
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() => {
     const initial: Record<string, boolean> = {};
     for (const entry of NAV) {
       if (entry.type === "group") {
-        initial[entry.group.label] = entry.group.children.some(
-          (c) => currentSection === c.id,
-        );
+        initial[entry.group.label] = true;
       }
     }
     return initial;
