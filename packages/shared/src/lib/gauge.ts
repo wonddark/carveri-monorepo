@@ -2,7 +2,12 @@ function fmt(n: number) {
   return "$" + n.toLocaleString("en-US");
 }
 
-function buildGaugeSvg(percentile: number, price: number, label: string) {
+function buildGaugeSvg(
+  percentile: number,
+  price: number,
+  label: string,
+  lang: "es" | "en",
+) {
   const needleTarget = 150 + (percentile / 100) * 240;
   const cx = 160,
     cy = 145,
@@ -58,16 +63,16 @@ function buildGaugeSvg(percentile: number, price: number, label: string) {
 
   // Labels
   const labels = [
-    { pct: 0, text: "GANGA" },
-    { pct: 0.25, text: "BAJO" },
-    { pct: 0.5, text: "JUSTO" },
-    { pct: 0.75, text: "ALTO" },
-    { pct: 1, text: "CARO" },
+    { pct: 0, text: { es: "GANGA", en: "GANGA" } },
+    { pct: 0.25, text: { es: "BAJO", en: "LOW" } },
+    { pct: 0.5, text: { es: "JUSTO", en: "FAIR" } },
+    { pct: 0.75, text: { es: "ALTO", en: "HIGH" } },
+    { pct: 1, text: { es: "CARO", en: "EXPENSIVE" } },
   ];
   const lbls = labels
     .map((l) => {
-      const pos = polar(outerR + 24, arcStart + l.pct * arcSpan);
-      return `<text x="${pos.x}" y="${pos.y}" text-anchor="middle" dominant-baseline="middle" fill="#888" font-size="7.5" font-weight="700" font-family="'Outfit',sans-serif" letter-spacing="0.8">${l.text}</text>`;
+      const pos = polar(outerR + 20, arcStart + l.pct * arcSpan);
+      return `<text x="${pos.x}" y="${pos.y}" text-anchor="${l.pct === 0.5 ? "middle" : l.pct < 0.5 ? "end" : "start"}" dominant-baseline="middle" fill="#888" font-size="7.5" font-weight="700" font-family="'Outfit',sans-serif" letter-spacing="0.8">${l.text[lang]}</text>`;
     })
     .join("");
 
