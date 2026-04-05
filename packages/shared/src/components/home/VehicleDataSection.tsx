@@ -42,24 +42,24 @@ export default function VehicleDataSection(props: Readonly<Props>) {
     { label: t("vehicleDetails.location"), value: location },
     {
       label: t("vehicleDetails.daysOnLot"),
-      value: `${daysOnLot} ${t("vehicleDetails.days")}`,
+      value: daysOnLot ? `${daysOnLot} ${t("vehicleDetails.days")}` : "-",
     },
     { label: t("vehicleDetails.prevOwners"), value: `${previousOwners}` },
   ];
 
   return (
-    <Card className="lg:w-fit">
+    <Card>
       <CardContent>
         <div className="mb-3 flex items-center gap-2">
           <Car size={16} className="text-primary" />
           <h3 className="text-sm font-semibold">{t("vehicleDetails.title")}</h3>
         </div>
-        <div className="grid grid-cols-2 gap-x-4 gap-y-2">
+        <div className="grid grid-cols-2 gap-x-4 gap-y-2 lg:grid-cols-4">
           {rows.map((row) => (
             <div key={row.label} className="py-2">
               <div className="text-muted-foreground text-xs">{row.label}</div>
               <div className="text-xs leading-snug font-medium break-words">
-                {row.value}
+                {row.value || "-"}
               </div>
             </div>
           ))}
