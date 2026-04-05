@@ -15,7 +15,7 @@ export default function AISummarySection({ aiSummary }: Readonly<Props>) {
           <Sparkles size={16} className="text-primary" />
           <h3 className="text-sm font-semibold">{t("aiSummary")}</h3>
         </div>
-        <p className="text-xs leading-relaxed">{aiSummary}</p>
+        <p className="text-xs leading-relaxed">{aiSummary || "-"}</p>
       </CardContent>
     </Card>
   );
