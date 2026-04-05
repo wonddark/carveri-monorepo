@@ -9,6 +9,7 @@ import { FadeIn, FadeUp } from "@carveri/shared/components/animations.tsx";
 import { useEffect, useRef, useState } from "react";
 import { getVehicleList } from "@carveri/shared/data/api.ts";
 import type { VehicleList } from "@carveri/shared/types/vehicle-list.ts";
+import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
 
 function ExamplesSlider() {
   const [examples, setExamples] = useState<VehicleList>([]);
@@ -90,7 +91,12 @@ function ExamplesSlider() {
                   </div>
                   <CardContent className="p-4">
                     <h3 className="truncate font-[Outfit] text-[15px] font-bold">
-                      {car.year} {car.make} {car.model}
+                      {generateReportTitle({
+                        year: car.year || 0,
+                        make: car.make || "-",
+                        model: car.model || "-",
+                        trim: car.trim || "-",
+                      })}
                     </h3>
                     <div className="mt-1 flex items-baseline gap-3">
                       <span className="font-[Outfit] text-lg font-black">

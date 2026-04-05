@@ -88,8 +88,8 @@ export function transformToSharedReport(raw: VehicleReport): TransformedReport {
       daysOnLot: v.daysOnLot,
       previousOwners: raw.history?.owners?.length ?? 0,
       auction: {
-        name: raw.priceEval.auction.name,
-        price: raw.priceEval.auction.price,
+        name: raw.priceEval?.auction?.name,
+        price: raw.priceEval?.auction?.price,
       },
       images: v.images,
       score: 8.2,

@@ -107,9 +107,7 @@ export default function ResumenView({ report }: Readonly<Props>) {
       </div>
 
       {/* AI summary */}
-      {report.aiSummary ? (
-        <AISummarySection aiSummary={report.aiSummary} />
-      ) : null}
+      <AISummarySection aiSummary={report.aiSummary} />
     </div>
   );
 }

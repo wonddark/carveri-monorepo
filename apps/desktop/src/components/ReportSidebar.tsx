@@ -5,7 +5,6 @@ import ImageCarousel from "@carveri/shared/components/ImageCarousel";
 import CarSummaryCard from "@carveri/shared/components/CarSummaryCard";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
-import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 import {
   IconChartHistogram,
@@ -33,7 +32,7 @@ type NavEntry =
 const NAV: NavEntry[] = [
   {
     type: "item",
-    id: "resumen",
+    id: "overview",
     label: "pages.resume",
     icon: <IconHome className="w-5" />,
   },
@@ -44,19 +43,25 @@ const NAV: NavEntry[] = [
       icon: <IconClock className="w-5" />,
       children: [
         { id: "timeline", label: "pages.timeline" },
-        { id: "fotos-subasta", label: "pages.auction_photos" },
-        { id: "accidentes", label: "pages.accidents" },
-        { id: "duenos", label: "pages.owners" },
-        { id: "servicio", label: "pages.service" },
-        { id: "titulo", label: "pages.title" },
+        { id: "auction-photos", label: "pages.auction_photos" },
+        { id: "accidents", label: "pages.accidents" },
+        { id: "owners", label: "pages.owners" },
+        { id: "service", label: "pages.service" },
+        { id: "title", label: "pages.title" },
       ],
     },
   },
   {
-    type: "item",
-    id: "mercado",
-    label: "pages.market",
-    icon: <IconChartHistogram className="w-5" />,
+    type: "group",
+    group: {
+      label: "pages.market",
+      icon: <IconChartHistogram className="w-5" />,
+      children: [
+        { id: "analysis", label: "pages.analysis" },
+        { id: "price-dynamics", label: "pages.price_dynamics" },
+        { id: "comparables", label: "pages.comparables" },
+      ],
+    },
   },
   {
     type: "item",
@@ -70,9 +75,9 @@ const NAV: NavEntry[] = [
       label: "pages.negotiation",
       icon: <IconHeartHandshake className="w-5" />,
       children: [
-        { id: "estrategia", label: "pages.strategy" },
-        { id: "argumentos", label: "pages.arguments" },
-        { id: "costos", label: "pages.costs" },
+        { id: "strategy", label: "pages.strategy" },
+        { id: "arguments", label: "pages.arguments" },
+        { id: "costs", label: "pages.costs" },
       ],
     },
   },
@@ -86,15 +91,14 @@ export default function ReportSidebar({ report }: Readonly<Props>) {
   const { t } = useTranslation("common");
   const { vin } = useParams<{ vin: string }>();
   const location = useLocation();
-  const currentSection = location.pathname.replace(/\/$/, "").split("/").pop() ?? "";
+  const currentSection =
+    location.pathname.replace(/\/$/, "").split("/").pop() ?? "";
 
   const [openGroups, setOpenGroups] = useState<Record<string, boolean>>(() => {
     const initial: Record<string, boolean> = {};
     for (const entry of NAV) {
       if (entry.type === "group") {
-        initial[entry.group.label] = entry.group.children.some(
-          (c) => currentSection === c.id,
-        );
+        initial[entry.group.label] = true;
       }
     }
     return initial;
@@ -138,22 +142,18 @@ export default function ReportSidebar({ report }: Readonly<Props>) {
       </div>
 
       {/* Verdict card */}
-      <Card>
-        <CardContent>
-          <CarSummaryCard
-            year={report.year}
-            make={report.make}
-            model={report.model}
-            trim={report.trim}
-            price={report.price}
-            mileage={report.mileage}
-            location={report.location}
-            score={report.score}
-            verdict={report.verdict}
-            aiSummary={report.aiSummary}
-          />
-        </CardContent>
-      </Card>
+      <CarSummaryCard
+        year={report.year}
+        make={report.make}
+        model={report.model}
+        trim={report.trim}
+        price={report.price}
+        mileage={report.mileage}
+        location={report.location}
+        score={report.score}
+        verdict={report.verdict}
+        aiSummary={report.aiSummary}
+      />
 
       {/* Nav tree */}
       <nav className="flex-1 pb-4">
