@@ -37,7 +37,7 @@ export default function VehicleDataSection(props: Readonly<Props>) {
     { label: t("vehicleDetails.color"), value: color },
     {
       label: t("vehicleDetails.auction"),
-      value: `${auction.name} — $${auction.price.toLocaleString()}`,
+      value: `${auction.name} — $${auction.price?.toLocaleString()}`,
     },
     { label: t("vehicleDetails.location"), value: location },
     {

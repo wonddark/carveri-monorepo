@@ -52,12 +52,14 @@ export default function StatsGrid({ stats }: Readonly<Props>) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: i * 0.05 }}
         >
-          <Card className="border-blue-200 bg-blue-50 py-3 text-blue-700">
+          <Card>
             <CardContent className="flex items-center gap-3 px-3">
               {item.icon}
               <div className="flex flex-col gap-0.5">
                 <div className="text-xs font-semibold">{item.label}</div>
-                <div className="text-sm text-gray-800">{item.value}</div>
+                <div className="text-muted-foreground text-sm">
+                  {item.value}
+                </div>
               </div>
             </CardContent>
           </Card>
