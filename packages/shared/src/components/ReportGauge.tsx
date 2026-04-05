@@ -13,7 +13,8 @@ type Props = {
 
 function ReportGauge(props: Readonly<Props>) {
   const { percentile, label, price, wholesale, retail } = props;
-  const { t } = useTranslation("vehicle-details");
+  const { t, i18n } = useTranslation("vehicle-details");
+  const lang = (i18n.resolvedLanguage || "en") as "es" | "en";
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -47,7 +48,7 @@ function ReportGauge(props: Readonly<Props>) {
         </div>
         <span className="gauge-trend">↘ -2.8%</span>
       </div>
-      {parse(buildGaugeSvg(percentile, price, label))}
+      {parse(buildGaugeSvg(percentile, price, label, lang))}
       <div className="gauge-bottom-stats">
         <div className="gauge-stat">
           <div className="gauge-stat-label">{t("gauge.wholesale")}</div>
