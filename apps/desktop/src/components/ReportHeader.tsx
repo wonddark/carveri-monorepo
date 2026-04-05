@@ -18,7 +18,7 @@ export default function ReportHeader() {
       <div className="flex items-center gap-3">
         <button
           type="button"
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/")}
           className="cursor-pointer"
         >
           <img
