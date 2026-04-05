@@ -36,10 +36,10 @@ export default function CarSummaryCard(props: Readonly<Props>) {
   } = props;
 
   return (
-    <div>
+    <>
       <CardHeader>
         <CardTitle className="flex justify-between">
-          <span>{generateReportTitle({ year, make, model })}</span>
+          <span>{generateReportTitle({ year, make, model, trim })}</span>
           <span>${price.toLocaleString()}</span>
         </CardTitle>
         <CardDescription>
@@ -54,6 +54,6 @@ export default function CarSummaryCard(props: Readonly<Props>) {
       <CardContent>
         <VerdictBadge score={score} verdict={verdict} aiSummary={aiSummary} />
       </CardContent>
-    </div>
+    </>
   );
 }

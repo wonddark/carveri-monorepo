@@ -5,7 +5,6 @@ import ImageCarousel from "@carveri/shared/components/ImageCarousel";
 import CarSummaryCard from "@carveri/shared/components/CarSummaryCard";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
-import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 import {
   IconChartHistogram,
@@ -137,22 +136,18 @@ export default function ReportSidebar({ report }: Readonly<Props>) {
       </div>
 
       {/* Verdict card */}
-      <Card>
-        <CardContent>
-          <CarSummaryCard
-            year={report.year}
-            make={report.make}
-            model={report.model}
-            trim={report.trim}
-            price={report.price}
-            mileage={report.mileage}
-            location={report.location}
-            score={report.score}
-            verdict={report.verdict}
-            aiSummary={report.aiSummary}
-          />
-        </CardContent>
-      </Card>
+      <CarSummaryCard
+        year={report.year}
+        make={report.make}
+        model={report.model}
+        trim={report.trim}
+        price={report.price}
+        mileage={report.mileage}
+        location={report.location}
+        score={report.score}
+        verdict={report.verdict}
+        aiSummary={report.aiSummary}
+      />
 
       {/* Nav tree */}
       <nav className="flex-1 pb-4">
