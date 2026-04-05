@@ -52,10 +52,16 @@ const NAV: NavEntry[] = [
     },
   },
   {
-    type: "item",
-    id: "market",
-    label: "pages.market",
-    icon: <IconChartHistogram className="w-5" />,
+    type: "group",
+    group: {
+      label: "pages.market",
+      icon: <IconChartHistogram className="w-5" />,
+      children: [
+        { id: "analysis", label: "pages.analysis" },
+        { id: "price-dynamics", label: "pages.price_dynamics" },
+        { id: "comparables", label: "pages.comparables" },
+      ],
+    },
   },
   {
     type: "item",
