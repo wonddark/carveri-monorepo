@@ -1,7 +1,10 @@
 {
   "tabs": {
     "market": "Mercado",
-    "bookValuations": "Libros de Valuación"
+    "bookValuations": "Libros de Valuación",
+    "analysis": "Analysis",
+    "price_dynamics": "Price Dynamics",
+    "comparables": "Comparables"
   },
   "header": {
     "marketAnalysis": "Análisis de Mercado",
