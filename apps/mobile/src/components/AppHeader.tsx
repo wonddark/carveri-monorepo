@@ -26,7 +26,7 @@ export default function AppHeader(props: Readonly<AppHeaderProps>) {
     >
       <div className="flex flex-auto items-center justify-between gap-2">
         <button
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/")}
           className={`rounded-full border p-2 transition-colors duration-300 ${
             isTransparent
               ? "bg-background/20 text-foreground/80 border-transparent"
