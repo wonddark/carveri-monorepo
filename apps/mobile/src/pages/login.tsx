@@ -1,66 +1,20 @@
-// apps/mobile/src/pages/login.tsx
-
-import { Form, Link, redirect, useActionData } from "react-router";
-import type { ActionFunctionArgs } from "react-router";
+import { Form, Link, useActionData } from "react-router";
 import { Button } from "@carveri/shared/components/ui/button";
 import { Input } from "@carveri/shared/components/ui/input";
 import { Label } from "@carveri/shared/components/ui/label";
-import { auth } from "@carveri/shared/lib/auth.ts";
-import { login } from "@carveri/shared/data/api.ts";
-
-export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
-  const email = formData.get("email");
-  const password = formData.get("password");
-
-  if (typeof email !== "string" || typeof password !== "string" || !email || !password) {
-    return { error: "Correo y contraseña son requeridos." };
-  }
-
-  try {
-    const { token } = await login(email, password);
-    auth.setToken(token);
-    return redirect("/");
-  } catch (err) {
-    const isCredentialError =
-      err instanceof Error && err.message === "Invalid credentials";
-    return {
-      error: isCredentialError
-        ? "Correo o contraseña incorrectos."
-        : "Error de conexión. Intente nuevamente.",
-    };
-  }
-}
+import LogoFullVertical from "@carveri/shared/components/logos/LogoFullVertical.tsx";
 
 function Login() {
   const actionData = useActionData() as { error?: string } | undefined;
 
   return (
     <div className="flex min-h-screen">
-      {/* Brand panel */}
-      <div className="hidden w-[38%] flex-col justify-between bg-[#042CD7] p-10 md:flex">
-        <span className="text-sm font-extrabold tracking-tight text-white">
-          CarVeri
-        </span>
-        <div className="flex flex-col gap-2">
-          <p className="text-lg font-bold leading-snug text-white">
-            Análisis vehicular inteligente.
-          </p>
-          <p className="text-sm leading-relaxed text-white/60">
-            Historial, valor y riesgo en 2 minutos.
-          </p>
-        </div>
-        <span className="text-[11px] text-white/30">© 2026 CarVeri</span>
-      </div>
-
       {/* Form panel */}
       <div className="flex flex-1 flex-col items-center justify-center px-6">
         <div className="w-full max-w-sm">
           {/* Mobile brand badge */}
-          <div className="mb-8 flex md:hidden">
-            <span className="rounded-full bg-[#042CD7]/8 px-3 py-1 text-[13px] font-bold text-[#042CD7]">
-              CarVeri
-            </span>
+          <div className="mb-8 flex items-center justify-center">
+            <LogoFullVertical className="h-auto w-full max-w-24" />
           </div>
 
           <div className="mb-6 flex flex-col gap-1">
@@ -72,7 +26,10 @@ function Login() {
 
           <Form method="post" className="flex flex-col gap-4">
             {actionData?.error && (
-              <p role="alert" className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600">
+              <p
+                role="alert"
+                className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600"
+              >
                 {actionData.error}
               </p>
             )}
