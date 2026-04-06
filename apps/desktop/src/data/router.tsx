@@ -3,7 +3,7 @@ import RootLayout from "@/layout/root.tsx";
 import ReportError from "@/pages/ReportError.tsx";
 import ReportPage from "@/pages/ReportPage.tsx";
 import CarVeriLanding from "@/pages/home.tsx";
-import Login, { action as loginAction } from "@/pages/login.tsx";
+import Login from "@/pages/login.tsx";
 import Register, { action as registerAction } from "@/pages/register.tsx";
 import {
   redirectIfAuthLoader,
@@ -22,6 +22,7 @@ import ChecklistSection from "@/pages/report-sections/ChecklistSection.tsx";
 import StrategySection from "@/pages/report-sections/StrategySection.tsx";
 import ArgumentsSection from "@/pages/report-sections/ArgumentsSection.tsx";
 import CostsSection from "@/pages/report-sections/CostsSection.tsx";
+import { loginAction } from "@carveri/shared/data/actions.ts";
 
 const router = createBrowserRouter([
   {
