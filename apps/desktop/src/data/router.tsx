@@ -3,7 +3,9 @@ import RootLayout from "@/layout/root.tsx";
 import ReportError from "@/pages/ReportError.tsx";
 import ReportPage from "@/pages/ReportPage.tsx";
 import CarVeriLanding from "@/pages/home.tsx";
-import { reportLoader } from "@carveri/shared/data/loaders.ts";
+import Login, { action as loginAction } from "@/pages/login.tsx";
+import Register, { action as registerAction } from "@/pages/register.tsx";
+import { reportLoader, redirectIfAuthLoader } from "@carveri/shared/data/loaders.ts";
 import ResumenSection from "@/pages/report-sections/ResumenSection.tsx";
 import TimelineSection from "@/pages/report-sections/TimelineSection.tsx";
 import AuctionPhotosSection from "@/pages/report-sections/AuctionPhotosSection.tsx";
@@ -54,6 +56,18 @@ const router = createBrowserRouter([
         ],
       },
     ],
+  },
+  {
+    path: "/login",
+    element: <Login />,
+    loader: redirectIfAuthLoader,
+    action: loginAction,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+    loader: redirectIfAuthLoader,
+    action: registerAction,
   },
 ]);
 
