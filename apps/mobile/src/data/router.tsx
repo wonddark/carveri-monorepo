@@ -4,7 +4,7 @@ import Home from "@/pages/home.tsx";
 import ReportError from "@/pages/report-error.tsx";
 import RootError from "@/pages/root-error.tsx";
 import Login from "@/pages/login.tsx";
-import Register, { action as registerAction } from "@/pages/register.tsx";
+import Register from "@/pages/register.tsx";
 import ReportPage from "@/pages/ReportPage.tsx";
 import {
   redirectIfAuthLoader,
@@ -15,7 +15,7 @@ import HistoryTabSection from "@/pages/report-tabs/HistoryTabSection.tsx";
 import MarketTabSection from "@/pages/report-tabs/MarketTabSection.tsx";
 import VerdictTabSection from "@/pages/report-tabs/VerdictTabSection.tsx";
 import NegotiateTabSection from "@/pages/report-tabs/NegotiateTabSection.tsx";
-import { loginAction } from "@carveri/shared/data/actions.ts";
+import { loginAction, registerAction } from "@carveri/shared/data/actions.ts";
 
 const router = createBrowserRouter([
   {
