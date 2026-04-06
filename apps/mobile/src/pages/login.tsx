@@ -10,15 +10,25 @@ import { login } from "@carveri/shared/data/api.ts";
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
-  const email = formData.get("email") as string;
-  const password = formData.get("password") as string;
+  const email = formData.get("email");
+  const password = formData.get("password");
+
+  if (typeof email !== "string" || typeof password !== "string" || !email || !password) {
+    return { error: "Correo y contraseña son requeridos." };
+  }
 
   try {
     const { token } = await login(email, password);
     auth.setToken(token);
     return redirect("/");
-  } catch {
-    return { error: "Correo o contraseña incorrectos." };
+  } catch (err) {
+    const isCredentialError =
+      err instanceof Error && err.message === "Invalid credentials";
+    return {
+      error: isCredentialError
+        ? "Correo o contraseña incorrectos."
+        : "Error de conexión. Intente nuevamente.",
+    };
   }
 }
 
@@ -62,7 +72,7 @@ function Login() {
 
           <Form method="post" className="flex flex-col gap-4">
             {actionData?.error && (
-              <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600">
+              <p role="alert" className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600">
                 {actionData.error}
               </p>
             )}
