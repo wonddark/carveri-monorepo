@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { Activity, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import TimelineSubtab from "@carveri/shared/components/history/TimelineSubtab.tsx";
 import AuctionPhotosSubtab from "@carveri/shared/components/history/AuctionPhotosSubtab.tsx";
@@ -60,20 +60,29 @@ export default function HistoryTab({ report }: Readonly<Props>) {
         />
 
         {/* Active subtab */}
-        {activeIdx === 0 && (
+        <Activity mode={activeIdx === 0 ? "visible" : "hidden"}>
           <TimelineSubtab timeline={report.historyTab.timeline} />
-        )}
-        {activeIdx === 1 && (
+        </Activity>
+
+        <Activity mode={activeIdx === 1 ? "visible" : "hidden"}>
           <AuctionPhotosSubtab photos={report.historyTab.auctionPhotos} />
-        )}
-        {activeIdx === 2 && (
+        </Activity>
+
+        <Activity mode={activeIdx === 2 ? "visible" : "hidden"}>
           <AccidentsSubtab accidents={report.historyTab.accidents} />
-        )}
-        {activeIdx === 3 && <OwnersSubtab owners={report.historyTab.owners} />}
-        {activeIdx === 4 && (
+        </Activity>
+
+        <Activity mode={activeIdx === 3 ? "visible" : "hidden"}>
+          <OwnersSubtab owners={report.historyTab.owners} />
+        </Activity>
+
+        <Activity mode={activeIdx === 4 ? "visible" : "hidden"}>
           <ServiceSubtab service={report.historyTab.service} />
-        )}
-        {activeIdx === 5 && <TitleSubtab title={report.historyTab.title} />}
+        </Activity>
+
+        <Activity mode={activeIdx === 5 ? "visible" : "hidden"}>
+          <TitleSubtab title={report.historyTab.title} />
+        </Activity>
       </div>
     </div>
   );
