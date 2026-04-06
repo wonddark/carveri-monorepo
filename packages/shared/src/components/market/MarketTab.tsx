@@ -14,13 +14,9 @@ import {
   TabsList,
   TabsTrigger,
 } from "@carveri/shared/components/ui/tabs.tsx";
-import {
-  IconCar,
-  IconChartHistogram,
-  IconTrendingDown,
-} from "@tabler/icons-react";
 import { useLocation } from "react-router";
 import { useEffect, useState } from "react";
+import { marketSubtabs } from "@carveri/shared/data/subtabs.tsx";
 
 interface Props {
   report: TransformedReport;
@@ -67,23 +63,7 @@ export default function MarketTab({ report }: Readonly<Props>) {
 
       <Tabs value={currentTab} onValueChange={setCurrentTab} className="w-full">
         <TabsList className="w-full">
-          {[
-            {
-              id: "analysis",
-              label: t("tabs.analysis"),
-              icon: <IconChartHistogram />,
-            },
-            {
-              id: "price-dynamics",
-              label: t("tabs.price_dynamics"),
-              icon: <IconTrendingDown />,
-            },
-            {
-              id: "comparables",
-              label: t("tabs.comparables"),
-              icon: <IconCar />,
-            },
-          ].map((item) => (
+          {marketSubtabs(t).map((item) => (
             <TabsTrigger key={item.id} value={item.id} className="py-3!">
               {item.icon}
               {item.label}
