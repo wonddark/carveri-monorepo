@@ -19,17 +19,35 @@ import {
   IconChartHistogram,
   IconTrendingDown,
 } from "@tabler/icons-react";
+import { useLocation } from "react-router";
+import { useEffect, useState } from "react";
 
 interface Props {
   report: TransformedReport;
 }
 
 export default function MarketTab({ report }: Readonly<Props>) {
+  const { pathname } = useLocation();
   const { t } = useTranslation("market");
+  const [currentTab, setCurrentTab] = useState<string>("analysis");
+
+  const isAnalysis = pathname.includes("/analysis");
+  const isPriceDynamics = pathname.includes("/price-dynamics");
+  const isComparables = pathname.includes("/comparables");
+  const getCurrentTab = () => {
+    if (isAnalysis) return "analysis";
+    if (isPriceDynamics) return "price-dynamics";
+    if (isComparables) return "comparables";
+    return "analysis";
+  };
 
   const min = 12000;
   const max = 33000;
   const percentile = getPercentile({ min, max, value: report.price });
+
+  useEffect(() => {
+    setCurrentTab(getCurrentTab());
+  }, [pathname]);
 
   return (
     <div className="relative">
@@ -47,7 +65,7 @@ export default function MarketTab({ report }: Readonly<Props>) {
         subtitle={t("header.pricingEvaluation", { city: report.location })}
       />
 
-      <Tabs defaultValue="analysis" className="w-full">
+      <Tabs value={currentTab} onValueChange={setCurrentTab} className="w-full">
         <TabsList className="w-full">
           {[
             {
