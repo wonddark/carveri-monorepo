@@ -107,7 +107,11 @@ function Register() {
               </Label>
             </div>
 
-            <Button type="submit" className="mt-2 w-full" disabled={!accepted}>
+            <Button
+              type="submit"
+              className="mt-2 w-full"
+              disabled={!accepted || isSubmitting}
+            >
               <Activity mode={isSubmitting ? "visible" : "hidden"}>
                 <Spinner />
               </Activity>
