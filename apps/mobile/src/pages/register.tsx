@@ -1,50 +1,9 @@
-// apps/mobile/src/pages/register.tsx
-
 import { useState } from "react";
-import { Form, Link, redirect, useActionData } from "react-router";
-import type { ActionFunctionArgs } from "react-router";
+import { Form, Link, useActionData } from "react-router";
 import { Button } from "@carveri/shared/components/ui/button";
 import { Input } from "@carveri/shared/components/ui/input";
 import { Label } from "@carveri/shared/components/ui/label";
 import { Checkbox } from "@carveri/shared/components/ui/checkbox";
-import { auth } from "@carveri/shared/lib/auth.ts";
-import { register } from "@carveri/shared/data/api.ts";
-
-export async function action({ request }: ActionFunctionArgs) {
-  const formData = await request.formData();
-  const email = formData.get("email");
-  const password = formData.get("password");
-  const confirm = formData.get("confirm");
-
-  if (
-    typeof email !== "string" ||
-    typeof password !== "string" ||
-    typeof confirm !== "string" ||
-    !email ||
-    !password ||
-    !confirm
-  ) {
-    return { error: "Todos los campos son requeridos." };
-  }
-
-  if (password !== confirm) {
-    return { error: "Las contraseñas no coinciden." };
-  }
-
-  try {
-    const result = await register(email, password);
-    auth.setToken(result.token);
-    return redirect("/");
-  } catch (err) {
-    const isRegistrationError =
-      err instanceof Error && err.message === "Registration failed";
-    return {
-      error: isRegistrationError
-        ? "No se pudo crear la cuenta. Intenta con otro correo."
-        : "Error de conexión. Intente nuevamente.",
-    };
-  }
-}
 
 function Register() {
   const actionData = useActionData() as { error?: string } | undefined;
@@ -58,7 +17,7 @@ function Register() {
           CarVeri
         </span>
         <div className="flex flex-col gap-2">
-          <p className="text-lg font-bold leading-snug text-white">
+          <p className="text-lg leading-snug font-bold text-white">
             Empieza gratis hoy.
           </p>
           <p className="text-sm leading-relaxed text-white/60">
@@ -87,7 +46,10 @@ function Register() {
 
           <Form method="post" className="flex flex-col gap-4">
             {actionData?.error && (
-              <p role="alert" className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600">
+              <p
+                role="alert"
+                className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600"
+              >
                 {actionData.error}
               </p>
             )}
