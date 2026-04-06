@@ -1,23 +1,32 @@
-import { toast } from "sonner";
-import { Toaster as Sonner } from "sonner";
-import { useNavigate, Link } from "react-router";
+// apps/mobile/src/pages/login.tsx
+
+import { Form, Link, redirect, useActionData } from "react-router";
+import type { ActionFunctionArgs } from "react-router";
 import { Button } from "@carveri/shared/components/ui/button";
 import { Input } from "@carveri/shared/components/ui/input";
 import { Label } from "@carveri/shared/components/ui/label";
+import { auth } from "@carveri/shared/lib/auth.ts";
+import { login } from "@carveri/shared/data/api.ts";
+
+export async function action({ request }: ActionFunctionArgs) {
+  const formData = await request.formData();
+  const email = formData.get("email") as string;
+  const password = formData.get("password") as string;
+
+  try {
+    const { token } = await login(email, password);
+    auth.setToken(token);
+    return redirect("/");
+  } catch {
+    return { error: "Correo o contraseña incorrectos." };
+  }
+}
 
 function Login() {
-  const navigate = useNavigate();
-
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    toast.success("Sesión iniciada.");
-    setTimeout(() => navigate("/"), 1500);
-  }
+  const actionData = useActionData() as { error?: string } | undefined;
 
   return (
     <div className="flex min-h-screen">
-      <Sonner theme="light" />
-
       {/* Brand panel */}
       <div className="hidden w-[38%] flex-col justify-between bg-[#042CD7] p-10 md:flex">
         <span className="text-sm font-extrabold tracking-tight text-white">
@@ -51,7 +60,13 @@ function Login() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <Form method="post" className="flex flex-col gap-4">
+            {actionData?.error && (
+              <p className="rounded-md bg-red-50 px-3 py-2 text-sm text-red-600">
+                {actionData.error}
+              </p>
+            )}
+
             <div className="flex flex-col gap-1.5">
               <Label htmlFor="email">Correo electrónico</Label>
               <Input
@@ -77,7 +92,7 @@ function Login() {
             <Button type="submit" className="mt-2 w-full">
               Iniciar sesión
             </Button>
-          </form>
+          </Form>
 
           <p className="text-muted-foreground mt-6 text-center text-sm">
             ¿No tienes cuenta?{" "}
