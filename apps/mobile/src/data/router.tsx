@@ -3,10 +3,10 @@ import RootLayout from "@/layout/root.tsx";
 import Home from "@/pages/home.tsx";
 import ReportError from "@/pages/report-error.tsx";
 import RootError from "@/pages/root-error.tsx";
-import Login from "@/pages/login.tsx";
-import Register from "@/pages/register.tsx";
+import Login, { action as loginAction } from "@/pages/login.tsx";
+import Register, { action as registerAction } from "@/pages/register.tsx";
 import ReportPage from "@/pages/ReportPage.tsx";
-import { reportLoader } from "@carveri/shared/data/loaders.ts";
+import { reportLoader, redirectIfAuthLoader } from "@carveri/shared/data/loaders.ts";
 import HomeTabSection from "@/pages/report-tabs/HomeTabSection.tsx";
 import HistoryTabSection from "@/pages/report-tabs/HistoryTabSection.tsx";
 import MarketTabSection from "@/pages/report-tabs/MarketTabSection.tsx";
@@ -41,8 +41,18 @@ const router = createBrowserRouter([
       },
     ],
   },
-  { path: "/login", element: <Login /> },
-  { path: "/register", element: <Register /> },
+  {
+    path: "/login",
+    element: <Login />,
+    loader: redirectIfAuthLoader,
+    action: loginAction,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+    loader: redirectIfAuthLoader,
+    action: registerAction,
+  },
 ]);
 
 export default router;
