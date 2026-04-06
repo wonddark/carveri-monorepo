@@ -21,7 +21,8 @@ export async function action({ request }: ActionFunctionArgs) {
     typeof password !== "string" ||
     typeof confirm !== "string" ||
     !email ||
-    !password
+    !password ||
+    !confirm
   ) {
     return { error: "Todos los campos son requeridos." };
   }
