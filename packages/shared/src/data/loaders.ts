@@ -8,6 +8,7 @@ async function reportLoader({ params }: LoaderFunctionArgs) {
     throw new Response("API not configured", { status: 503 });
   const raw = await fetchVehicleReport(params.vin);
 
+  if (raw instanceof Response) return raw;
   return transformToSharedReport(raw.data);
 }
 

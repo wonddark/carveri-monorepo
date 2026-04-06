@@ -26,6 +26,7 @@ function ExamplesSlider() {
   useEffect(() => {
     (async () => {
       const vList = await getVehicleList();
+      if (vList instanceof Response) return;
       setExamples(vList.data);
     })();
   }, []);

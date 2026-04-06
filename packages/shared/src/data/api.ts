@@ -102,13 +102,14 @@ export async function fetchWithAuth(
 // Data API
 // ---------------------------------------------------------------------------
 
-export async function getVehicleList() {
+export async function getVehicleList(): Promise<{ data: VehicleList } | Response> {
   const response = await fetchWithAuth(
     `${import.meta.env.VITE_API_URL}/Vehicle/all`,
     { headers: { Accept: "application/json" } },
   );
 
   if (!response.ok) {
+    if (response.status === 401) return response;
     if (response.status === 404) throw new Response("Not Found", { status: 404 });
     throw new Response("Server Error", { status: 500 });
   }
@@ -118,12 +119,13 @@ export async function getVehicleList() {
 
 export async function fetchVehicleReport(
   vin: string,
-): Promise<VehicleReportResponse> {
+): Promise<VehicleReportResponse | Response> {
   const response = await fetchWithAuth(
     `${import.meta.env.VITE_API_URL}/Vehicle/${vin}/expediente`,
   );
 
   if (!response.ok) {
+    if (response.status === 401) return response;
     if (response.status === 404) throw new Response("Not Found", { status: 404 });
     throw new Response("Server Error", { status: 500 });
   }
