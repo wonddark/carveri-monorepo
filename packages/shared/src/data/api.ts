@@ -1,4 +1,3 @@
-import { redirect } from "react-router";
 import { auth } from "@carveri/shared/lib/auth.ts";
 import type { VehicleReportResponse } from "@carveri/shared/types/vehicle-report";
 import type { VehicleList } from "@carveri/shared/types/vehicle-list.ts";
@@ -46,6 +45,11 @@ export async function fetchWithAuth(
 ): Promise<Response> {
   const token = auth.getToken();
 
+  if (!token) {
+    window.location.assign("/login");
+    return new Response(null, { status: 401 });
+  }
+
   const response = await fetch(url, {
     ...init,
     headers: {
@@ -67,7 +71,8 @@ export async function fetchWithAuth(
 
   if (!refreshResponse.ok) {
     auth.clearToken();
-    throw redirect("/login");
+    window.location.assign("/login");
+    return new Response(null, { status: 401 });
   }
 
   const { token: newToken } = (await refreshResponse.json()) as {
@@ -76,13 +81,21 @@ export async function fetchWithAuth(
   auth.setToken(newToken);
 
   // Retry original request once with the new token
-  return fetch(url, {
+  const retryResponse = await fetch(url, {
     ...init,
     headers: {
       ...init.headers,
       Authorization: `Bearer ${newToken}`,
     },
   });
+
+  if (retryResponse.status === 401) {
+    auth.clearToken();
+    window.location.assign("/login");
+    return new Response(null, { status: 401 });
+  }
+
+  return retryResponse;
 }
 
 // ---------------------------------------------------------------------------
