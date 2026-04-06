@@ -1,11 +1,15 @@
-import { Form, Link, useActionData } from "react-router";
+import { Form, Link, useActionData, useNavigation } from "react-router";
 import { Button } from "@carveri/shared/components/ui/button";
 import { Input } from "@carveri/shared/components/ui/input";
 import { Label } from "@carveri/shared/components/ui/label";
 import LogoFullVertical from "@carveri/shared/components/logos/LogoFullVertical.tsx";
+import { Activity } from "react";
+import { Spinner } from "@carveri/shared/components/ui/spinner.tsx";
 
 function Login() {
   const actionData = useActionData() as { error?: string } | undefined;
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
 
   return (
     <div className="flex min-h-screen">
@@ -56,7 +60,14 @@ function Login() {
               />
             </div>
 
-            <Button type="submit" className="mt-2 w-full">
+            <Button
+              type="submit"
+              className="mt-2 w-full"
+              disabled={isSubmitting}
+            >
+              <Activity mode={isSubmitting ? "visible" : "hidden"}>
+                <Spinner />
+              </Activity>
               Iniciar sesión
             </Button>
           </Form>
