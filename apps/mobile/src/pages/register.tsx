@@ -16,8 +16,14 @@ export async function action({ request }: ActionFunctionArgs) {
   const password = formData.get("password");
   const confirm = formData.get("confirm");
 
-  if (typeof email !== "string" || typeof password !== "string" || !email || !password) {
-    return { error: "Correo y contraseña son requeridos." };
+  if (
+    typeof email !== "string" ||
+    typeof password !== "string" ||
+    typeof confirm !== "string" ||
+    !email ||
+    !password
+  ) {
+    return { error: "Todos los campos son requeridos." };
   }
 
   if (password !== confirm) {
@@ -26,11 +32,8 @@ export async function action({ request }: ActionFunctionArgs) {
 
   try {
     const result = await register(email, password);
-    if (result.token) {
-      auth.setToken(result.token);
-      return redirect("/");
-    }
-    return redirect("/login");
+    auth.setToken(result.token);
+    return redirect("/");
   } catch (err) {
     const isRegistrationError =
       err instanceof Error && err.message === "Registration failed";
