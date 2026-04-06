@@ -1,21 +1,23 @@
-import { useState } from "react";
-import { Form, Link, useActionData } from "react-router";
+import { Activity, useState } from "react";
+import { Form, Link, useActionData, useNavigation } from "react-router";
 import { Button } from "@carveri/shared/components/ui/button";
 import { Input } from "@carveri/shared/components/ui/input";
 import { Label } from "@carveri/shared/components/ui/label";
 import { Checkbox } from "@carveri/shared/components/ui/checkbox";
+import LogoFullHorizontal from "@carveri/shared/components/logos/LogoFullHorizontal.tsx";
+import { Spinner } from "@carveri/shared/components/ui/spinner.tsx";
 
 function Register() {
   const actionData = useActionData() as { error?: string } | undefined;
   const [accepted, setAccepted] = useState(false);
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
 
   return (
     <div className="flex min-h-screen">
       {/* Brand panel */}
-      <div className="hidden w-[38%] flex-col justify-between bg-[#042CD7] p-10 md:flex">
-        <span className="text-sm font-extrabold tracking-tight text-white">
-          CarVeri
-        </span>
+      <div className="hidden w-[38%] flex-col items-start justify-between bg-[#042CD7] p-10 md:flex">
+        <LogoFullHorizontal className="h-10 w-auto" />
         <div className="flex flex-col gap-2">
           <p className="text-lg leading-snug font-bold text-white">
             Empieza gratis hoy.
@@ -106,6 +108,9 @@ function Register() {
             </div>
 
             <Button type="submit" className="mt-2 w-full" disabled={!accepted}>
+              <Activity mode={isSubmitting ? "visible" : "hidden"}>
+                <Spinner />
+              </Activity>
               Crear cuenta
             </Button>
           </Form>

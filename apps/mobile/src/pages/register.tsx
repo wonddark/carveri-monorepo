@@ -1,40 +1,26 @@
-import { useState } from "react";
-import { Form, Link, useActionData } from "react-router";
+import { Activity, useState } from "react";
+import { Form, Link, useActionData, useNavigation } from "react-router";
 import { Button } from "@carveri/shared/components/ui/button";
 import { Input } from "@carveri/shared/components/ui/input";
 import { Label } from "@carveri/shared/components/ui/label";
 import { Checkbox } from "@carveri/shared/components/ui/checkbox";
+import LogoFullVertical from "@carveri/shared/components/logos/LogoFullVertical.tsx";
+import { Spinner } from "@carveri/shared/components/ui/spinner.tsx";
 
 function Register() {
   const actionData = useActionData() as { error?: string } | undefined;
   const [accepted, setAccepted] = useState(false);
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
 
   return (
     <div className="flex min-h-screen">
-      {/* Brand panel */}
-      <div className="hidden w-[38%] flex-col justify-between bg-[#042CD7] p-10 md:flex">
-        <span className="text-sm font-extrabold tracking-tight text-white">
-          CarVeri
-        </span>
-        <div className="flex flex-col gap-2">
-          <p className="text-lg leading-snug font-bold text-white">
-            Empieza gratis hoy.
-          </p>
-          <p className="text-sm leading-relaxed text-white/60">
-            Tu primer reporte en minutos.
-          </p>
-        </div>
-        <span className="text-[11px] text-white/30">© 2026 CarVeri</span>
-      </div>
-
       {/* Form panel */}
       <div className="flex flex-1 flex-col items-center justify-center px-6 py-10">
         <div className="w-full max-w-sm">
           {/* Mobile brand badge */}
-          <div className="mb-8 flex md:hidden">
-            <span className="rounded-full bg-[#042CD7]/8 px-3 py-1 text-[13px] font-bold text-[#042CD7]">
-              CarVeri
-            </span>
+          <div className="mb-8 flex items-center justify-center">
+            <LogoFullVertical className="h-auto w-full max-w-24" />
           </div>
 
           <div className="mb-6 flex flex-col gap-1">
@@ -113,6 +99,9 @@ function Register() {
             </div>
 
             <Button type="submit" className="mt-2 w-full" disabled={!accepted}>
+              <Activity mode={isSubmitting ? "visible" : "hidden"}>
+                <Spinner />
+              </Activity>
               Crear cuenta
             </Button>
           </Form>
