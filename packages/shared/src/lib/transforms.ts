@@ -4,6 +4,30 @@ import type {
 } from "@carveri/shared/types/vehicle-report.ts";
 import type { NegotiateArgument } from "@carveri/shared/data/report.ts";
 
+export type PriceHistoryPoint = {
+  date: string;
+  price: number;
+};
+
+export type SaleCycle = {
+  id: string;
+  startDate: string;
+  endDate: string;
+  startPrice: number;
+  endPrice: number;
+  drops: number;
+};
+
+export type PriceDynamics = {
+  daysListed: number;
+  priceDropsCount: number;
+  currentPrice: number;
+  history: PriceHistoryPoint[];
+  totalDrop: number;
+  totalDropPct: number;
+  saleCycles: SaleCycle[];
+};
+
 export type TransformedReport = {
   vin: string;
   year: number;
@@ -30,6 +54,7 @@ export type TransformedReport = {
   stats: VehicleReport["stats"] | null;
   priceEval: VehicleReport["priceEval"];
   market: VehicleReport["market"];
+  priceDynamics: PriceDynamics;
   negotiate: {
     strategy: {
       firstOffer: number;
@@ -98,6 +123,30 @@ export function transformToSharedReport(raw: VehicleReport): TransformedReport {
       stats: raw.stats,
       priceEval: raw.priceEval,
       market: raw.market,
+      priceDynamics: {
+        daysListed: 26,
+        priceDropsCount: 4,
+        currentPrice: 38373,
+        history: [
+          { date: "Feb 3", price: 40817 },
+          { date: "Feb 5", price: 40200 },
+          { date: "Feb 14", price: 39500 },
+          { date: "Feb 21", price: 39100 },
+          { date: "Feb 25", price: 38373 },
+        ],
+        totalDrop: 2444,
+        totalDropPct: 4,
+        saleCycles: [
+          {
+            id: "1",
+            startDate: "Feb 3",
+            endDate: "Feb 25",
+            startPrice: 40817,
+            endPrice: 38373,
+            drops: 4,
+          },
+        ],
+      },
       negotiate: {
         strategy: { firstOffer: 0, midpoint: 0, maxRecommended: 0, tips: [] },
         arguments: [],

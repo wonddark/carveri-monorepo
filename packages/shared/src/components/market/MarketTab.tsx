@@ -2,6 +2,7 @@ import { BarChart2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import MarketPriceHeader from "./MarketPriceHeader";
 import ComparablesList from "./ComparablesList";
+import PriceDynamicsSubtab from "./PriceDynamicsSubtab";
 import BookValues from "@carveri/shared/components/home/BookValues";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import ReportGauge from "@carveri/shared/components/ReportGauge.tsx";
@@ -101,7 +102,9 @@ export default function MarketTab({ report }: Readonly<Props>) {
         </TabsContent>
 
         {/* Price dynamics */}
-        <TabsContent value="price-dynamics"></TabsContent>
+        <TabsContent value="price-dynamics">
+          <PriceDynamicsSubtab priceDynamics={report.priceDynamics} />
+        </TabsContent>
 
         {/* Comparables */}
         <TabsContent value="comparables">

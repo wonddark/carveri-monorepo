@@ -10,6 +10,20 @@
     "marketAnalysis": "Análisis de Mercado",
     "pricingEvaluation": "Evaluación de precios y comparables en {{city}}"
   },
+  "priceDynamics": {
+    "searchLabel": "Buscar VIN en MarketCheck",
+    "searchPlaceholder": "Ingresa un VIN de 17 caracteres",
+    "scan": "Buscar",
+    "daysListed": "Días Listado",
+    "priceDrops": "Bajadas de Precio",
+    "currentPrice": "Precio Actual",
+    "chartTitle": "Comportamiento de Precio",
+    "chartSubtitle": "Evolución del precio de este vehículo",
+    "chartPlaceholder": "Gráfica próximamente (recharts)",
+    "priceDropped": "Bajó el precio",
+    "saleCycles": "Ciclos de Venta ({{count}})",
+    "drops": "{{count}} bajadas de precio"
+  },
   "comparables": {
     "heading": "Comparables en Tu Área",
     "similarVehicles": "Vehículos similares cerca de {{city}}",

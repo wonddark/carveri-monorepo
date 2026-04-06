@@ -10,6 +10,20 @@
     "marketAnalysis": "Market Analysis",
     "pricingEvaluation": "Pricing evaluation & comparables in {{city}}"
   },
+  "priceDynamics": {
+    "searchLabel": "Search VIN on MarketCheck",
+    "searchPlaceholder": "Enter a 17-character VIN",
+    "scan": "Scan",
+    "daysListed": "Days Listed",
+    "priceDrops": "Price Drops",
+    "currentPrice": "Current Price",
+    "chartTitle": "Price Behavior",
+    "chartSubtitle": "Price evolution of this vehicle below",
+    "chartPlaceholder": "Chart coming soon (recharts)",
+    "priceDropped": "Price Dropped",
+    "saleCycles": "Sale Cycles ({{count}})",
+    "drops": "{{count}} price drops"
+  },
   "comparables": {
     "heading": "Comparables in Your Area",
     "similarVehicles": "Similar vehicles near {{city}}",
