@@ -22,7 +22,8 @@
     "chartPlaceholder": "Gráfica próximamente (recharts)",
     "priceDropped": "Bajó el precio",
     "saleCycles": "Ciclos de Venta ({{count}})",
-    "drops": "{{count}} bajadas de precio"
+    "drops": "{{count}} bajadas de precio",
+    "totalDiscount": "Descuento Total"
   },
   "comparables": {
     "heading": "Comparables en Tu Área",

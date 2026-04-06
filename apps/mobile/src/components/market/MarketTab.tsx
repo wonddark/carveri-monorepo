@@ -12,6 +12,7 @@ import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 import { marketSubtabs } from "@carveri/shared/data/subtabs.tsx";
 import { Activity, useRef, useState } from "react";
 import TabPills from "@/components/TabPills.tsx";
+import PriceDynamicsSubtab from "@carveri/shared/components/market/PriceDynamicsSubtab.tsx";
 
 interface Props {
   report: TransformedReport;
@@ -128,7 +129,7 @@ export default function MarketTab({ report }: Readonly<Props>) {
         {/* Price dynamics */}
         <Activity mode={activeIdx === 1 ? "visible" : "hidden"}>
           <div className="flex flex-col gap-3 px-4">
-            <h3>Coming soon</h3>
+            <PriceDynamicsSubtab priceDynamics={report.priceDynamics} />
           </div>
         </Activity>
 

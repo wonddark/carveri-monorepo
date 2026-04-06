@@ -1,32 +1,44 @@
-import { IconChartLine, IconSearch, IconTrendingDown } from "@tabler/icons-react";
+import {
+  IconChartLine,
+  IconClock,
+  IconSearch,
+  IconTag,
+  IconTrendingDown,
+} from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import { Input } from "@carveri/shared/components/ui/input.tsx";
 import { Button } from "@carveri/shared/components/ui/button.tsx";
 import type { PriceDynamics } from "@carveri/shared/lib/transforms.ts";
+import type { ReactNode } from "react";
+import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 
 interface Props {
   priceDynamics: PriceDynamics;
 }
 
-function StatCard({
-  value,
-  label,
-}: {
+type StatCardProps = {
   value: string;
   label: string;
-}) {
+  icon: ReactNode;
+};
+
+function StatCard(props: Readonly<StatCardProps>) {
+  const { value, label, icon } = props;
   return (
-    <div className="flex flex-col items-center gap-0.5 rounded-lg border border-slate-100 bg-slate-50 px-4 py-3 dark:border-slate-700 dark:bg-slate-800/50">
-      <span className="text-xl font-bold text-slate-900 dark:text-slate-100">
-        {value}
-      </span>
-      <span className="text-xs text-slate-500 dark:text-slate-400">{label}</span>
-    </div>
+    <Card>
+      <CardContent className="text-muted-foreground flex flex-col items-center gap-2">
+        {icon}
+        <span className="text-foreground text-xl font-bold">{value}</span>
+        <span className="text-xs">{label}</span>
+      </CardContent>
+    </Card>
   );
 }
 
-export default function PriceDynamicsSubtab({ priceDynamics }: Readonly<Props>) {
+export default function PriceDynamicsSubtab({
+  priceDynamics,
+}: Readonly<Props>) {
   const { t } = useTranslation("market");
   const {
     daysListed,
@@ -39,7 +51,7 @@ export default function PriceDynamicsSubtab({ priceDynamics }: Readonly<Props>) 
   } = priceDynamics;
 
   const startPrice = history[0]?.price ?? currentPrice;
-  const endPrice = history[history.length - 1]?.price ?? currentPrice;
+  const endPrice = history.at(-1)?.price ?? currentPrice;
 
   return (
     <div className="flex flex-col gap-5 pt-4">
@@ -60,17 +72,25 @@ export default function PriceDynamicsSubtab({ priceDynamics }: Readonly<Props>) 
         </div>
       </div>
 
+      <SubTabHeader
+        title={t("priceDynamics.chartTitle")}
+        subtitle={t("priceDynamics.chartSubtitle")}
+      />
+
       {/* Stats row */}
       <div className="grid grid-cols-3 gap-3">
         <StatCard
+          icon={<IconClock className="size-5" />}
           value={String(daysListed)}
           label={t("priceDynamics.daysListed")}
         />
         <StatCard
+          icon={<IconTrendingDown className="size-5" />}
           value={String(priceDropsCount)}
           label={t("priceDynamics.priceDrops")}
         />
         <StatCard
+          icon={<IconTag className="size-5" />}
           value={`$${currentPrice.toLocaleString()}`}
           label={t("priceDynamics.currentPrice")}
         />
@@ -78,15 +98,6 @@ export default function PriceDynamicsSubtab({ priceDynamics }: Readonly<Props>) 
 
       {/* Chart section */}
       <div className="flex flex-col gap-3">
-        <div>
-          <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">
-            {t("priceDynamics.chartTitle")}
-          </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
-            {t("priceDynamics.chartSubtitle")}
-          </p>
-        </div>
-
         {/* Chart placeholder — replace with recharts LineChart once recharts is installed */}
         <Card>
           <CardContent className="flex flex-col items-center justify-center gap-3 py-10 text-slate-400">
@@ -104,18 +115,22 @@ export default function PriceDynamicsSubtab({ priceDynamics }: Readonly<Props>) 
 
         {/* Summary bar */}
         <div className="flex items-center justify-between rounded-lg bg-red-50 px-4 py-2.5 dark:bg-red-900/20">
-          <div className="flex items-center gap-1.5">
-            <IconTrendingDown size={14} className="text-red-500" />
-            <span className="text-xs font-medium text-red-600 dark:text-red-400">
-              {t("priceDynamics.priceDropped")}
+          <div className="flex flex-col gap-1.5">
+            <span className="text-sm font-medium text-red-600 dark:text-red-400">
+              {t("priceDynamics.totalDiscount")}
             </span>
-            <span className="text-xs font-bold text-red-700 dark:text-red-300">
+            <span className="font-bold text-red-700 dark:text-red-300">
               ${totalDrop.toLocaleString()}
             </span>
           </div>
-          <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-bold text-red-600 dark:bg-red-800/40 dark:text-red-300">
-            {totalDropPct}%
-          </span>
+          <div className="flex flex-col gap-1.5">
+            <span className="text-sm font-medium text-red-600 dark:text-red-400">
+              {t("priceDynamics.drops", { count: priceDropsCount })}
+            </span>
+            <span className="rounded-full bg-red-100 px-2 py-0.5 font-bold text-red-600 dark:bg-red-800/40 dark:text-red-300">
+              {totalDropPct}%
+            </span>
+          </div>
         </div>
       </div>
 

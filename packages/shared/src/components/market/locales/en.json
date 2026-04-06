@@ -22,7 +22,8 @@
     "chartPlaceholder": "Chart coming soon (recharts)",
     "priceDropped": "Price Dropped",
     "saleCycles": "Sale Cycles ({{count}})",
-    "drops": "{{count}} price drops"
+    "drops": "{{count}} price drops",
+    "totalDiscount": "Total Discount"
   },
   "comparables": {
     "heading": "Comparables in Your Area",
