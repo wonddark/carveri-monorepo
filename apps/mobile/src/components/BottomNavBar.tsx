@@ -10,9 +10,21 @@ export default function BottomNavBar() {
   const TABS = [
     { id: "home", label: t("bottomNav.home"), icon: <Home size={20} /> },
     { id: "history", label: t("bottomNav.history"), icon: <Clock size={20} /> },
-    { id: "market", label: t("bottomNav.market"), icon: <BarChart2 size={20} /> },
-    { id: "verdict", label: t("bottomNav.verdict"), icon: <Sparkles size={20} /> },
-    { id: "negotiate", label: t("bottomNav.negotiate"), icon: <Handshake size={20} /> },
+    {
+      id: "market",
+      label: t("bottomNav.market"),
+      icon: <BarChart2 size={20} />,
+    },
+    {
+      id: "verdict",
+      label: t("bottomNav.verdict"),
+      icon: <Sparkles size={20} />,
+    },
+    {
+      id: "negotiate",
+      label: t("bottomNav.negotiate"),
+      icon: <Handshake size={20} />,
+    },
   ];
 
   return (
