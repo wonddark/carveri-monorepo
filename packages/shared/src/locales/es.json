@@ -42,5 +42,69 @@
     "strategy": "Estrategia",
     "arguments": "Argumentos",
     "costs": "Costos"
+  },
+  "auth": {
+    "welcomeBack": "Bienvenido de vuelta",
+    "enterCredentials": "Ingresa tu correo y contraseña",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "correo@email.com",
+    "password": "Contraseña",
+    "signIn": "Iniciar sesión",
+    "noAccount": "¿No tienes cuenta?",
+    "signUp": "Regístrate",
+    "createAccount": "Crear cuenta",
+    "fillDetails": "Llena tus datos para comenzar",
+    "fullName": "Nombre completo",
+    "namePlaceholder": "Juan García",
+    "confirmPassword": "Confirmar contraseña",
+    "acceptTerms": "Acepto los",
+    "termsLink": "términos y condiciones",
+    "alreadyHaveAccount": "¿Ya tienes cuenta?",
+    "signInLink": "Inicia sesión",
+    "loginTagline": "Análisis vehicular inteligente.",
+    "loginSubtitle": "Historial, valor y riesgo en 2 minutos.",
+    "registerTagline": "Empieza gratis hoy.",
+    "registerSubtitle": "Tu primer reporte en minutos.",
+    "copyright": "© 2026 CarVeri"
+  },
+  "errors": {
+    "reportNotFound": "Reporte no encontrado",
+    "serverError": "Error del servidor",
+    "vinNotFound": "No existe un reporte para este VIN. Verifica el número e intenta de nuevo.",
+    "serverErrorMsg": "Algo salió mal al cargar el reporte. Por favor intenta de nuevo más tarde.",
+    "goBack": "← Volver",
+    "goHome": "Volver al inicio",
+    "somethingWentWrong": "Algo salió mal",
+    "unexpectedError": "La aplicación encontró un error inesperado. Por favor recarga la página.",
+    "unexpectedErrorCode": "Error inesperado",
+    "reload": "Recargar página"
+  },
+  "theme": {
+    "toggle": "Cambiar tema",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema"
+  },
+  "reportHeader": {
+    "shareAriaLabel": "Compartir vehículo",
+    "share": "Compartir",
+    "downloadAriaLabel": "Descargar PDF",
+    "pdf": "PDF"
+  },
+  "resume": {
+    "breadcrumb": "Resumen",
+    "heading": "Resumen del Reporte",
+    "subtitle": "Vista general de tu CarVeri para",
+    "priceEvaluation": "$ Evaluación de Precio",
+    "above": "por encima",
+    "below": "por debajo",
+    "ofAverage": "del promedio",
+    "priceLabels": {
+      "BARGAIN": "Ganga",
+      "LOW": "Por debajo del mercado",
+      "FAIR": "Precio justo",
+      "HIGH": "Por encima del mercado",
+      "OVERPRICED": "Caro"
+    }
   }
 }

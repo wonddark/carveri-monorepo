@@ -1,5 +1,6 @@
 import { Activity, useState } from "react";
 import { Form, Link, useActionData, useNavigation } from "react-router";
+import { useTranslation } from "react-i18next";
 import { Button } from "@carveri/shared/components/ui/button";
 import { Input } from "@carveri/shared/components/ui/input";
 import { Label } from "@carveri/shared/components/ui/label";
@@ -8,6 +9,7 @@ import LogoFullVertical from "@carveri/shared/components/logos/LogoFullVertical.
 import { Spinner } from "@carveri/shared/components/ui/spinner.tsx";
 
 function Register() {
+  const { t } = useTranslation("common");
   const actionData = useActionData() as { error?: string } | undefined;
   const [accepted, setAccepted] = useState(false);
   const navigation = useNavigation();
@@ -24,9 +26,9 @@ function Register() {
           </div>
 
           <div className="mb-6 flex flex-col gap-1">
-            <h1 className="text-xl font-extrabold">Crear cuenta</h1>
+            <h1 className="text-xl font-extrabold">{t("auth.createAccount")}</h1>
             <p className="text-muted-foreground text-sm">
-              Llena tus datos para comenzar
+              {t("auth.fillDetails")}
             </p>
           </div>
 
@@ -41,29 +43,29 @@ function Register() {
             )}
 
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="name">Nombre completo</Label>
+              <Label htmlFor="name">{t("auth.fullName")}</Label>
               <Input
                 id="name"
                 name="name"
                 type="text"
-                placeholder="Juan García"
+                placeholder={t("auth.namePlaceholder")}
                 required
               />
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="email">Correo electrónico</Label>
+              <Label htmlFor="email">{t("auth.email")}</Label>
               <Input
                 id="email"
                 name="email"
                 type="email"
-                placeholder="correo@email.com"
+                placeholder={t("auth.emailPlaceholder")}
                 required
               />
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="password">Contraseña</Label>
+              <Label htmlFor="password">{t("auth.password")}</Label>
               <Input
                 id="password"
                 name="password"
@@ -74,7 +76,7 @@ function Register() {
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="confirm">Confirmar contraseña</Label>
+              <Label htmlFor="confirm">{t("auth.confirmPassword")}</Label>
               <Input
                 id="confirm"
                 name="confirm"
@@ -91,9 +93,9 @@ function Register() {
                 onCheckedChange={(v) => setAccepted(v === true)}
               />
               <Label htmlFor="terms" className="text-sm font-normal">
-                Acepto los{" "}
+                {t("auth.acceptTerms")}{" "}
                 <span className="font-semibold text-[#042CD7]">
-                  términos y condiciones
+                  {t("auth.termsLink")}
                 </span>
               </Label>
             </div>
@@ -106,17 +108,17 @@ function Register() {
               <Activity mode={isSubmitting ? "visible" : "hidden"}>
                 <Spinner />
               </Activity>
-              Crear cuenta
+              {t("auth.createAccount")}
             </Button>
           </Form>
 
           <p className="text-muted-foreground mt-6 text-center text-sm">
-            ¿Ya tienes cuenta?{" "}
+            {t("auth.alreadyHaveAccount")}{" "}
             <Link
               to="/login"
               className="font-semibold text-[#042CD7] hover:underline"
             >
-              Inicia sesión
+              {t("auth.signInLink")}
             </Link>
           </p>
         </div>

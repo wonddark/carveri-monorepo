@@ -35,6 +35,7 @@ function PriceTooltip({
   payload,
   initialPrice,
 }: Readonly<TooltipContentProps<number, string> & { initialPrice: number }>) {
+  const { t } = useTranslation("market");
   if (!active || !payload?.length) return null;
   const { date, price } = payload[0].payload as { date: string; price: number };
   const isInitial = price === initialPrice;
@@ -55,7 +56,7 @@ function PriceTooltip({
         }
       >
         {isInitial ? (
-          "Initial price"
+          t("priceDynamics.initialPrice")
         ) : (
           <>
             <IconArrowDown className="size-3" />

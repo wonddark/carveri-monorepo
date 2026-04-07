@@ -1,11 +1,13 @@
 import { Download, Share2 } from "lucide-react";
 import { useNavigate } from "react-router";
+import { useTranslation } from "react-i18next";
 import LanguageToggle from "@carveri/shared/components/LanguageToggle";
 import ThemeToggle from "@carveri/shared/components/ThemeToggle";
 import { cn } from "@/lib/utils";
 
 export default function ReportHeader() {
   const navigate = useNavigate();
+  const { t } = useTranslation("common");
 
   return (
     <header
@@ -42,19 +44,19 @@ export default function ReportHeader() {
         <ThemeToggle />
         <button
           type="button"
-          aria-label="Compartir vehículo"
+          aria-label={t("reportHeader.shareAriaLabel")}
           className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
         >
           <Share2 size={13} />
-          <span className="hidden sm:inline">Compartir</span>
+          <span className="hidden sm:inline">{t("reportHeader.share")}</span>
         </button>
         <button
           type="button"
-          aria-label="Descargar PDF"
+          aria-label={t("reportHeader.downloadAriaLabel")}
           className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
         >
           <Download size={13} />
-          <span className="hidden sm:inline">PDF</span>
+          <span className="hidden sm:inline">{t("reportHeader.pdf")}</span>
         </button>
       </div>
     </header>

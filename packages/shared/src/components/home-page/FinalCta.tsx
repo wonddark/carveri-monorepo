@@ -1,12 +1,14 @@
 import { FadeUp } from "@carveri/shared/components/animations.tsx";
 import { Button } from "@carveri/shared/components/ui/button.tsx";
 import { IconArrowRight, IconMessageCircle } from "@tabler/icons-react";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   scrollToVinForm: () => void;
 };
 
 function FinalCta(props: Readonly<Props>) {
+  const { t } = useTranslation("homepage");
   const { scrollToVinForm } = props;
 
   return (
@@ -17,11 +19,10 @@ function FinalCta(props: Readonly<Props>) {
       <div className="relative mx-auto max-w-175 px-5 py-16 text-center lg:py-20">
         <FadeUp>
           <h2 className="text-primary-foreground font-[Outfit] text-[1.75rem] leading-tight font-black tracking-tight sm:text-[2.5rem]">
-            No compres a ciegas.
+            {t("finalCta.title")}
           </h2>
           <p className="text-primary-foreground/70 mx-auto mt-4 max-w-125 text-lg leading-relaxed">
-            Tu primer reporte es gratis. Descubre lo que el vendedor no te está
-            diciendo.
+            {t("finalCta.subtitle")}
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Button
@@ -29,7 +30,7 @@ function FinalCta(props: Readonly<Props>) {
               size="lg"
               className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-[Outfit] text-[16px] font-bold shadow-lg shadow-black/10 active:scale-[0.97]"
             >
-              Obtener primer reporte
+              {t("finalCta.getReport")}
               <IconArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button
@@ -38,7 +39,7 @@ function FinalCta(props: Readonly<Props>) {
               className="rounded-xl border-white/20 bg-white/10 px-8 py-6 font-[Outfit] text-[16px] font-semibold text-white hover:bg-white/20 hover:text-white"
             >
               <IconMessageCircle className="mr-2 h-5 w-5" />
-              Hablar por WhatsApp
+              {t("finalCta.whatsapp")}
             </Button>
           </div>
         </FadeUp>

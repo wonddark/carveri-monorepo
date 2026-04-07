@@ -1,3 +1,85 @@
 {
-  "get_first_report": "Obtén tu primer informe"
+  "get_first_report": "Obtén tu primer informe",
+  "hero": {
+    "badge": "PRIMER REPORTE GRATIS — SIN TARJETA",
+    "title": "¿Comprando un auto usado?",
+    "titleHighlight": "Verifica antes de pagar.",
+    "description": "Mira cómo CarVeri analiza un vehículo real — historial, valor de mercado, riesgos y recomendación con IA.",
+    "watchHowItWorks": "Ver cómo funciona — 2 min"
+  },
+  "features": {
+    "eyebrow": "Qué incluye tu reporte",
+    "title": "Todo lo que necesitas saber,",
+    "titleHighlight": "en un solo reporte.",
+    "description": "Consultamos las fuentes que usan los dealers profesionales — y te lo entregamos de forma clara y directa."
+  },
+  "vinForm": {
+    "title": "Obtén tu primer reporte gratis",
+    "subtitle": "Ingresa el VIN y recibe un análisis completo en 24 horas.",
+    "placeholder": "Ingresa el VIN del vehículo",
+    "submit": "Obtener el reporte",
+    "hint": "Ej. 1HGCM82633A004352 — Encuéntralo en el tablero, puerta del conductor, o título del vehículo.",
+    "noCard": "Sin tarjeta de crédito",
+    "delivery": "Entrega en 24h",
+    "carfax": "Carfax incluido",
+    "confidential": "100% confidencial"
+  },
+  "stats": {
+    "reports": "Reportes generados",
+    "sources": "Fuentes de datos",
+    "delivery": "Tiempo de entrega"
+  },
+  "ai": {
+    "badge": "Inteligencia artificial",
+    "title": "Análisis inteligente.",
+    "titleHighlight": "Decisión informada.",
+    "description": "Nuestra IA cruza el historial de Carfax, los 4 libros de valuación, datos de subasta y comparables del mercado para darte una recomendación clara.",
+    "step1": "Detecta riesgos ocultos que el vendedor no menciona",
+    "step2": "Compara el precio contra 4 fuentes de valuación",
+    "step3": "Tips de negociación basados en datos reales",
+    "step4": "Checklist de inspección personalizado para el vehículo",
+    "viewSample": "Ver reporte ejemplo"
+  },
+  "howItWorks": {
+    "eyebrow": "Cómo funciona",
+    "title": "Así de simple.",
+    "subtitle": "Tres pasos. Sin complicaciones.",
+    "step": "Paso {{num}}"
+  },
+  "reportSample": {
+    "imgAlt": "Ejemplo de Reporte CarVeri",
+    "badge": "Mira cómo funciona",
+    "title": "En 2 minutos entiendes el valor de un CarVeri.",
+    "description": "Mira un ejemplo real de cómo nuestro reporte te ayuda a tomar la decisión correcta — con datos, no con suerte.",
+    "videoComingSoon": "Video próximamente",
+    "getFirstReport": "Obtener primer reporte"
+  },
+  "pricing": {
+    "eyebrow": "Planes",
+    "title": "Elige tu plan",
+    "subtitle": "Tu primer reporte es gratis. Después, elige el paquete que necesites.",
+    "buyPlan": "Comprar {{name}} — ${{price}}{{cents}}",
+    "securePayment": "Pago seguro con Stripe. Reporte en 24 horas."
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Preguntas frecuentes"
+  },
+  "footer": {
+    "terms": "Términos",
+    "privacy": "Privacidad",
+    "contact": "Contacto",
+    "disclaimer": "CarVeri es un servicio de análisis de datos vehiculares. No reemplaza una inspección mecánica profesional. Los resultados se basan en la información disponible en las fuentes consultadas al momento de generar el reporte."
+  },
+  "finalCta": {
+    "title": "No compres a ciegas.",
+    "subtitle": "Tu primer reporte es gratis. Descubre lo que el vendedor no te está diciendo.",
+    "getReport": "Obtener primer reporte",
+    "whatsapp": "Hablar por WhatsApp"
+  },
+  "examples": {
+    "eyebrow": "Reportes recientes",
+    "title": "CarVeris de clientes reales",
+    "viewReport": "Ver reporte completo"
+  }
 }

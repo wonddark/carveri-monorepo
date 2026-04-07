@@ -6,9 +6,11 @@ import { plans } from "@carveri/shared/data/static.tsx";
 import { Badge } from "@carveri/shared/components/ui/badge.tsx";
 import { Separator } from "@carveri/shared/components/ui/separator.tsx";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { cn } from "@carveri/shared/lib/utils.ts";
 
 function PricingSection() {
+  const { t } = useTranslation("homepage");
   const [selectedPlan, setSelectedPlan] = useState(3);
 
   const currentPlan = plans.find((p) => p.id === selectedPlan)!;
@@ -19,14 +21,13 @@ function PricingSection() {
         <FadeUp>
           <div className="mx-auto mb-10 max-w-135 text-center lg:mb-14">
             <span className="text-primary mb-3 inline-block font-[Outfit] text-xs font-bold tracking-widest uppercase">
-              Planes
+              {t("pricing.eyebrow")}
             </span>
             <h2 className="font-[Outfit] text-[1.75rem] font-black tracking-tight sm:text-[2.25rem]">
-              Elige tu plan
+              {t("pricing.title")}
             </h2>
             <p className="text-muted-foreground mt-3 text-[1.05rem]">
-              Tu primer reporte es gratis. Después, elige el paquete que
-              necesites.
+              {t("pricing.subtitle")}
             </p>
           </div>
         </FadeUp>
@@ -120,12 +121,15 @@ function PricingSection() {
               size="lg"
               className="bg-primary shadow-primary/50 font-[Outfit] shadow-xl active:scale-[0.97]"
             >
-              Comprar {currentPlan.name} — ${currentPlan.price}
-              {currentPlan.cents}
+              {t("pricing.buyPlan", {
+                name: currentPlan.name,
+                price: currentPlan.price,
+                cents: currentPlan.cents,
+              })}
               <IconArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <p className="text-muted-foreground mt-3 text-sm">
-              Pago seguro con Stripe. Reporte en 24 horas.
+              {t("pricing.securePayment")}
             </p>
           </div>
         </FadeUp>

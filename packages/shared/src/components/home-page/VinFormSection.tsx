@@ -27,10 +27,10 @@ function VinFormSection(props: Readonly<Props>) {
         <FadeUp>
           <div className="mb-8 text-center">
             <h2 className="font-[Outfit] text-[1.5rem] font-black tracking-tight sm:text-[1.75rem]">
-              Obtén tu primer reporte gratis
+              {t("vinForm.title")}
             </h2>
             <p className="text-muted-foreground mt-2 text-[15px]">
-              Ingresa el VIN y recibe un análisis completo en 24 horas.
+              {t("vinForm.subtitle")}
             </p>
           </div>
         </FadeUp>
@@ -42,7 +42,7 @@ function VinFormSection(props: Readonly<Props>) {
                 <div className="relative">
                   <Input
                     type="text"
-                    placeholder="Ingresa el VIN del vehículo"
+                    placeholder={t("vinForm.placeholder")}
                     value={vinValue}
                     onChange={(e) =>
                       setVinValue(e.target.value.toUpperCase().slice(0, 17))
@@ -58,12 +58,11 @@ function VinFormSection(props: Readonly<Props>) {
                   type="submit"
                   className="h-14 w-full rounded-xl bg-linear-to-r from-green-500 to-emerald-600 font-[Outfit] text-[16px] font-bold text-white shadow-lg shadow-green-500/20 transition-all hover:from-green-600 hover:to-emerald-700 active:scale-[0.97]"
                 >
-                  {t("get_the_report")}
+                  {t("vinForm.submit")}
                 </Button>
               </form>
               <p className="text-muted-foreground mt-3 text-center text-xs">
-                Ej. 1HGCM82633A004352 — Encuéntralo en el tablero, puerta del
-                conductor, o título del vehículo.
+                {t("vinForm.hint")}
               </p>
             </CardContent>
           </Card>
@@ -72,17 +71,16 @@ function VinFormSection(props: Readonly<Props>) {
         <FadeUp delay={0.15}>
           <div className="text-muted-foreground mt-6 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm">
             <span className="flex items-center gap-1.5">
-              <IconCheck className="h-4 w-4 text-green-500" /> Sin tarjeta de
-              crédito
+              <IconCheck className="h-4 w-4 text-green-500" /> {t("vinForm.noCard")}
             </span>
             <span className="flex items-center gap-1.5">
-              <IconClock className="h-4 w-4 text-blue-500" /> Entrega en 24h
+              <IconClock className="h-4 w-4 text-blue-500" /> {t("vinForm.delivery")}
             </span>
             <span className="flex items-center gap-1.5">
-              <IconShield className="h-4 w-4 text-amber-500" /> Carfax incluido
+              <IconShield className="h-4 w-4 text-amber-500" /> {t("vinForm.carfax")}
             </span>
             <span className="flex items-center gap-1.5">
-              <IconCheck className="h-4 w-4 text-green-500" /> 100% confidencial
+              <IconCheck className="h-4 w-4 text-green-500" /> {t("vinForm.confidential")}
             </span>
           </div>
         </FadeUp>

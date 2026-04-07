@@ -1,5 +1,6 @@
 import { FadeUp } from "@carveri/shared/components/animations.tsx";
 import { features } from "@carveri/shared/data/static.tsx";
+import { useTranslation } from "react-i18next";
 import {
   Card,
   CardContent,
@@ -8,21 +9,22 @@ import {
 } from "@carveri/shared/components/ui/card.tsx";
 
 function Features() {
+  const { t } = useTranslation("homepage");
+
   return (
     <section className="py-16 lg:py-24">
       <div className="mx-auto max-w-300 px-5">
         <FadeUp>
           <div className="mx-auto mb-12 max-w-160 text-center lg:mb-16">
             <span className="text-primary mb-3 inline-block font-[Outfit] text-xs font-bold tracking-widest uppercase">
-              Qué incluye tu reporte
+              {t("features.eyebrow")}
             </span>
             <h2 className="font-[Outfit] text-[1.75rem] leading-tight font-black tracking-tight sm:text-[2.25rem] lg:text-[2.5rem]">
-              Todo lo que necesitas saber,{" "}
-              <span className="text-primary">en un solo reporte.</span>
+              {t("features.title")}{" "}
+              <span className="text-primary">{t("features.titleHighlight")}</span>
             </h2>
             <p className="text-muted-foreground mt-4 text-[1.05rem] leading-relaxed">
-              Consultamos las fuentes que usan los dealers profesionales — y te
-              lo entregamos de forma clara y directa.
+              {t("features.description")}
             </p>
           </div>
         </FadeUp>

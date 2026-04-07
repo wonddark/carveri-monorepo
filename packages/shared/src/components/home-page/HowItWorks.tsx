@@ -1,5 +1,6 @@
 import { FadeUp } from "@carveri/shared/components/animations.tsx";
 import { steps } from "@carveri/shared/data/static.tsx";
+import { useTranslation } from "react-i18next";
 import {
   Card,
   CardContent,
@@ -10,19 +11,21 @@ import { Badge } from "@carveri/shared/components/ui/badge.tsx";
 import { IconArrowRight } from "@tabler/icons-react";
 
 function HowItWorks() {
+  const { t } = useTranslation("homepage");
+
   return (
     <section className="bg-card py-16 lg:py-24">
       <div className="mx-auto max-w-300 px-5">
         <FadeUp>
           <div className="mx-auto mb-12 max-w-125 text-center lg:mb-16">
             <span className="text-primary mb-3 inline-block font-[Outfit] text-xs font-bold tracking-widest uppercase">
-              Cómo funciona
+              {t("howItWorks.eyebrow")}
             </span>
             <h2 className="font-[Outfit] text-[1.75rem] font-black tracking-tight sm:text-[2.25rem]">
-              Así de simple.
+              {t("howItWorks.title")}
             </h2>
             <p className="text-muted-foreground mt-3 text-[1.05rem]">
-              Tres pasos. Sin complicaciones.
+              {t("howItWorks.subtitle")}
             </p>
           </div>
         </FadeUp>
@@ -39,7 +42,7 @@ function HowItWorks() {
                     variant="outline"
                     className="border-border text-primary mb-2 font-[Outfit] text-xs font-black tracking-widest"
                   >
-                    Paso {step.num}
+                    {t("howItWorks.step", { num: step.num })}
                   </Badge>
                   <CardTitle className="mt-2 mb-3 font-[Outfit] text-xl font-bold">
                     {step.title}

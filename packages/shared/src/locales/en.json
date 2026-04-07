@@ -42,5 +42,69 @@
     "strategy": "Strategy",
     "arguments": "Arguments",
     "costs": "Costs"
+  },
+  "auth": {
+    "welcomeBack": "Welcome back",
+    "enterCredentials": "Enter your email and password",
+    "email": "Email",
+    "emailPlaceholder": "email@example.com",
+    "password": "Password",
+    "signIn": "Sign in",
+    "noAccount": "Don't have an account?",
+    "signUp": "Sign up",
+    "createAccount": "Create account",
+    "fillDetails": "Fill in your details to get started",
+    "fullName": "Full name",
+    "namePlaceholder": "John Smith",
+    "confirmPassword": "Confirm password",
+    "acceptTerms": "I accept the",
+    "termsLink": "terms and conditions",
+    "alreadyHaveAccount": "Already have an account?",
+    "signInLink": "Sign in",
+    "loginTagline": "Intelligent vehicle analysis.",
+    "loginSubtitle": "History, value and risk in 2 minutes.",
+    "registerTagline": "Start free today.",
+    "registerSubtitle": "Your first report in minutes.",
+    "copyright": "© 2026 CarVeri"
+  },
+  "errors": {
+    "reportNotFound": "Report not found",
+    "serverError": "Server error",
+    "vinNotFound": "No report exists for this VIN. Please verify the number and try again.",
+    "serverErrorMsg": "Something went wrong loading the report. Please try again later.",
+    "goBack": "← Back",
+    "goHome": "Go home",
+    "somethingWentWrong": "Something went wrong",
+    "unexpectedError": "The application encountered an unexpected error. Please reload the page.",
+    "unexpectedErrorCode": "Unexpected error",
+    "reload": "Reload page"
+  },
+  "theme": {
+    "toggle": "Toggle theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+  "reportHeader": {
+    "shareAriaLabel": "Share vehicle",
+    "share": "Share",
+    "downloadAriaLabel": "Download PDF",
+    "pdf": "PDF"
+  },
+  "resume": {
+    "breadcrumb": "Summary",
+    "heading": "Report Summary",
+    "subtitle": "Overview of your CarVeri for",
+    "priceEvaluation": "$ Price Evaluation",
+    "above": "above",
+    "below": "below",
+    "ofAverage": "of average",
+    "priceLabels": {
+      "BARGAIN": "Bargain",
+      "LOW": "Below market",
+      "FAIR": "Fair price",
+      "HIGH": "Above market",
+      "OVERPRICED": "Overpriced"
+    }
   }
 }

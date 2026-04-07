@@ -25,7 +25,7 @@ function ReportSample(props: Readonly<Props>) {
             <div className="relative mx-auto max-w-95 lg:mx-0">
               <img
                 src={REPORT_SAMPLE}
-                alt="Ejemplo de Reporte CarVeri"
+                alt={t("reportSample.imgAlt")}
                 className="w-full rounded-2xl shadow-2xl shadow-gray-200/80"
               />
             </div>
@@ -34,14 +34,13 @@ function ReportSample(props: Readonly<Props>) {
           <FadeUp delay={0.1}>
             <div>
               <Badge variant="secondary" className="mb-4 font-[Outfit]">
-                Mira cómo funciona
+                {t("reportSample.badge")}
               </Badge>
               <h2 className="font-[Outfit] text-[1.75rem] leading-tight font-black tracking-tight sm:text-[2rem]">
-                En 2 minutos entiendes el valor de un CarVeri.
+                {t("reportSample.title")}
               </h2>
               <p className="text-muted-foreground mt-4 text-[1.05rem] leading-relaxed">
-                Mira un ejemplo real de cómo nuestro reporte te ayuda a tomar la
-                decisión correcta — con datos, no con suerte.
+                {t("reportSample.description")}
               </p>
 
               <button
@@ -55,7 +54,7 @@ function ReportSample(props: Readonly<Props>) {
                   </div>
                 </div>
                 <div className="absolute bottom-4 left-4 text-sm font-medium text-white/50">
-                  Video próximamente
+                  {t("reportSample.videoComingSoon")}
                 </div>
               </button>
 
@@ -64,7 +63,7 @@ function ReportSample(props: Readonly<Props>) {
                 size="lg"
                 className="mt-6 rounded-xl bg-linear-to-r from-green-500 to-emerald-600 font-[Outfit] text-[15px] font-bold text-white shadow-lg shadow-green-500/25 hover:from-green-600 hover:to-emerald-700 active:scale-[0.97]"
               >
-                {t("get_first_report")}
+                {t("reportSample.getFirstReport")}
                 <IconArrowRight className="ml-2 size-4" />
               </Button>
             </div>

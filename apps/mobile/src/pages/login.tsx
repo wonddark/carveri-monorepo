@@ -1,4 +1,5 @@
 import { Form, Link, useActionData, useNavigation } from "react-router";
+import { useTranslation } from "react-i18next";
 import { Button } from "@carveri/shared/components/ui/button";
 import { Input } from "@carveri/shared/components/ui/input";
 import { Label } from "@carveri/shared/components/ui/label";
@@ -7,6 +8,7 @@ import { Activity } from "react";
 import { Spinner } from "@carveri/shared/components/ui/spinner.tsx";
 
 function Login() {
+  const { t } = useTranslation("common");
   const actionData = useActionData() as { error?: string } | undefined;
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
@@ -22,9 +24,9 @@ function Login() {
           </div>
 
           <div className="mb-6 flex flex-col gap-1">
-            <h1 className="text-xl font-extrabold">Bienvenido de vuelta</h1>
+            <h1 className="text-xl font-extrabold">{t("auth.welcomeBack")}</h1>
             <p className="text-muted-foreground text-sm">
-              Ingresa tu correo y contraseña
+              {t("auth.enterCredentials")}
             </p>
           </div>
 
@@ -39,18 +41,18 @@ function Login() {
             )}
 
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="email">Correo electrónico</Label>
+              <Label htmlFor="email">{t("auth.email")}</Label>
               <Input
                 id="email"
                 name="email"
                 type="email"
-                placeholder="correo@email.com"
+                placeholder={t("auth.emailPlaceholder")}
                 required
               />
             </div>
 
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="password">Contraseña</Label>
+              <Label htmlFor="password">{t("auth.password")}</Label>
               <Input
                 id="password"
                 name="password"
@@ -68,17 +70,17 @@ function Login() {
               <Activity mode={isSubmitting ? "visible" : "hidden"}>
                 <Spinner />
               </Activity>
-              Iniciar sesión
+              {t("auth.signIn")}
             </Button>
           </Form>
 
           <p className="text-muted-foreground mt-6 text-center text-sm">
-            ¿No tienes cuenta?{" "}
+            {t("auth.noAccount")}{" "}
             <Link
               to="/register"
               className="font-semibold text-[#042CD7] hover:underline"
             >
-              Regístrate
+              {t("auth.signUp")}
             </Link>
           </p>
         </div>

@@ -23,7 +23,8 @@
     "priceDropped": "Price Dropped",
     "saleCycles": "Sale Cycles ({{count}})",
     "drops": "{{count}} price drops",
-    "totalDiscount": "Total Discount"
+    "totalDiscount": "Total Discount",
+    "initialPrice": "Initial price"
   },
   "comparables": {
     "heading": "Comparables in Your Area",

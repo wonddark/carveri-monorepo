@@ -8,30 +8,18 @@ import {
   IconSearch,
 } from "@tabler/icons-react";
 import { Button } from "@carveri/shared/components/ui/button.tsx";
+import { useTranslation } from "react-i18next";
 
 function AiAnalysis() {
+  const { t } = useTranslation("homepage");
+
   const analysisSteps = [
-    {
-      id: "1",
-      icon: <IconAlertTriangle className="h-4 w-4" />,
-      text: "Detecta riesgos ocultos que el vendedor no menciona",
-    },
-    {
-      id: "2",
-      icon: <IconChartBar className="h-4 w-4" />,
-      text: "Compara el precio contra 4 fuentes de valuación",
-    },
-    {
-      id: "3",
-      icon: <IconMessageCircle className="h-4 w-4" />,
-      text: "Tips de negociación basados en datos reales",
-    },
-    {
-      id: "4",
-      icon: <IconSearch className="h-4 w-4" />,
-      text: "Checklist de inspección personalizado para el vehículo",
-    },
+    { id: "1", icon: <IconAlertTriangle className="h-4 w-4" />, textKey: "ai.step1" },
+    { id: "2", icon: <IconChartBar className="h-4 w-4" />, textKey: "ai.step2" },
+    { id: "3", icon: <IconMessageCircle className="h-4 w-4" />, textKey: "ai.step3" },
+    { id: "4", icon: <IconSearch className="h-4 w-4" />, textKey: "ai.step4" },
   ];
+
   const AI_ANALYSIS =
     "https://d2xsxph8kpxj0f.cloudfront.net/310519663263444526/eJKAGHfm7BbufMTYZr5k2D/carcheck-ai-analysis-v3-8apLrAQmFkomYzhsFG56Ex.webp";
 
@@ -49,18 +37,16 @@ function AiAnalysis() {
           <FadeUp delay={0.1}>
             <div>
               <Badge className="mb-4 rounded-full border-blue-500/20 bg-blue-500/15 px-3 py-1 font-[Outfit] text-xs font-bold tracking-wider text-blue-400">
-                Inteligencia artificial
+                {t("ai.badge")}
               </Badge>
               <h2 className="font-[Outfit] text-[1.75rem] leading-tight font-black tracking-tight text-white sm:text-[2.25rem]">
-                Análisis inteligente.{" "}
+                {t("ai.title")}{" "}
                 <span className="bg-linear-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                  Decisión informada.
+                  {t("ai.titleHighlight")}
                 </span>
               </h2>
               <p className="mt-5 text-[1.05rem] leading-relaxed text-gray-400">
-                Nuestra IA cruza el historial de Carfax, los 4 libros de
-                valuación, datos de subasta y comparables del mercado para darte
-                una recomendación clara.
+                {t("ai.description")}
               </p>
               <div className="mt-8 space-y-4">
                 {analysisSteps.map((item) => (
@@ -69,7 +55,7 @@ function AiAnalysis() {
                       <span className="text-blue-400">{item.icon}</span>
                     </div>
                     <span className="text-[15px] leading-relaxed text-gray-300">
-                      {item.text}
+                      {t(item.textKey)}
                     </span>
                   </div>
                 ))}
@@ -82,7 +68,7 @@ function AiAnalysis() {
                   }
                   className="rounded-xl border-white/15 bg-white/10 px-6 py-3 font-[Outfit] text-sm font-bold text-white hover:bg-white/15 hover:text-white"
                 >
-                  Ver reporte ejemplo
+                  {t("ai.viewSample")}
                   <IconArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </div>

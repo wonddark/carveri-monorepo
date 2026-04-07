@@ -1,5 +1,6 @@
 import { Monitor, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useTranslation } from "react-i18next";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,13 +11,14 @@ import {
 
 export default function ThemeToggle() {
   const { theme, resolvedTheme, setTheme } = useTheme();
+  const { t } = useTranslation("common");
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button
           type="button"
-          aria-label="Cambiar tema"
+          aria-label={t("theme.toggle")}
           className="rounded-md p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700 dark:text-slate-500 dark:hover:bg-slate-800 dark:hover:text-slate-300"
         >
           {resolvedTheme === "dark" ? <Moon size={15} /> : <Sun size={15} />}
@@ -29,15 +31,15 @@ export default function ThemeToggle() {
         >
           <DropdownMenuRadioItem value="light">
             <Sun size={14} />
-            Claro
+            {t("theme.light")}
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="dark">
             <Moon size={14} />
-            Oscuro
+            {t("theme.dark")}
           </DropdownMenuRadioItem>
           <DropdownMenuRadioItem value="system">
             <Monitor size={14} />
-            Sistema
+            {t("theme.system")}
           </DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>

@@ -1,14 +1,16 @@
 import { isRouteErrorResponse, useRouteError } from "react-router";
+import { useTranslation } from "react-i18next";
 import { IconChevronLeft } from "@tabler/icons-react";
 import { Button } from "@carveri/shared/components/ui/button";
 
+function goBack() {
+  globalThis.window.history.back();
+}
+
 function ReportError() {
+  const { t } = useTranslation("common");
   const error = useRouteError();
   const is404 = isRouteErrorResponse(error) && error.status === 404;
-
-  function goBack() {
-    globalThis.window.history.back();
-  }
 
   return (
     <div className="bg-background flex min-h-screen flex-col">
@@ -41,12 +43,10 @@ function ReportError() {
 
         <div className="flex flex-col gap-1.5">
           <h1 className="text-xl font-extrabold">
-            {is404 ? "Reporte no encontrado" : "Error del servidor"}
+            {is404 ? t("errors.reportNotFound") : t("errors.serverError")}
           </h1>
           <p className="text-muted-foreground max-w-xs text-sm leading-relaxed">
-            {is404
-              ? "No existe un reporte para este VIN. Verifica el número e intenta de nuevo."
-              : "Algo salió mal al cargar el reporte. Por favor intenta de nuevo más tarde."}
+            {is404 ? t("errors.vinNotFound") : t("errors.serverErrorMsg")}
           </p>
         </div>
 
@@ -57,7 +57,7 @@ function ReportError() {
         </p>
 
         <Button onClick={goBack} className="mt-1">
-          ← Volver
+          {t("errors.goBack")}
         </Button>
       </main>
     </div>

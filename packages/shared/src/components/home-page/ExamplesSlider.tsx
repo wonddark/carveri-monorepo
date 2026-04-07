@@ -7,11 +7,13 @@ import {
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import { FadeIn, FadeUp } from "@carveri/shared/components/animations.tsx";
 import { useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { getVehicleList } from "@carveri/shared/data/api.ts";
 import type { VehicleList } from "@carveri/shared/types/vehicle-list.ts";
 import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
 
 function ExamplesSlider() {
+  const { t } = useTranslation("homepage");
   const [examples, setExamples] = useState<VehicleList>([]);
   const sliderRef = useRef<HTMLDivElement>(null);
   const scrollSlider = (direction: "left" | "right") => {
@@ -38,10 +40,10 @@ function ExamplesSlider() {
           <div className="mb-8 flex items-end justify-between">
             <div>
               <span className="text-primary font-[Outfit] text-xs font-bold tracking-widest uppercase">
-                Reportes recientes
+                {t("examples.eyebrow")}
               </span>
               <h2 className="mt-1 font-[Outfit] text-[1.5rem] font-black tracking-tight sm:text-[1.75rem]">
-                CarVeris de clientes reales
+                {t("examples.title")}
               </h2>
             </div>
             <div className="hidden gap-2 sm:flex">
@@ -84,11 +86,6 @@ function ExamplesSlider() {
                       alt={`${car.year} ${car.make} ${car.model}`}
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
-                    {/*<Badge
-                      className={`absolute top-3 left-3 ${car.verdictColor} rounded-md border-0 px-2 py-0.5 text-[11px] font-bold text-white`}
-                    >
-                      {car.verdict}
-                    </Badge>*/}
                   </div>
                   <CardContent className="p-4">
                     <h3 className="truncate font-[Outfit] text-[15px] font-bold">
@@ -102,7 +99,6 @@ function ExamplesSlider() {
                     <div className="mt-1 flex items-baseline gap-3">
                       <span className="font-[Outfit] text-lg font-black">
                         {car.retailPrice}
-                        {/* it was car.price */}
                       </span>
                       <span className="text-muted-foreground text-xs">
                         {car.odometro}
@@ -129,10 +125,9 @@ function ExamplesSlider() {
                         />
                       </svg>
                       {car.auction}
-                      {/* It was car.location */}
                     </div>
                     <div className="text-primary mt-3 flex items-center gap-1 text-xs font-semibold transition-all group-hover:gap-2">
-                      Ver reporte completo{" "}
+                      {t("examples.viewReport")}{" "}
                       <IconArrowRight className="h-3 w-3" />
                     </div>
                   </CardContent>

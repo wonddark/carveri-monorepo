@@ -1,4 +1,5 @@
 import { FadeUp } from "@carveri/shared/components/animations.tsx";
+import { useTranslation } from "react-i18next";
 import {
   Accordion,
   AccordionContent,
@@ -8,16 +9,18 @@ import {
 import { faqs } from "@carveri/shared/data/static.tsx";
 
 function FaqSection() {
+  const { t } = useTranslation("homepage");
+
   return (
     <section className="py-16 lg:py-24">
       <div className="mx-auto max-w-180 px-5">
         <FadeUp>
           <div className="mb-10 text-center lg:mb-14">
             <span className="text-primary mb-3 inline-block font-[Outfit] text-xs font-bold tracking-widest uppercase">
-              FAQ
+              {t("faq.eyebrow")}
             </span>
             <h2 className="font-[Outfit] text-[1.75rem] font-black tracking-tight sm:text-[2.25rem]">
-              Preguntas frecuentes
+              {t("faq.title")}
             </h2>
           </div>
         </FadeUp>
