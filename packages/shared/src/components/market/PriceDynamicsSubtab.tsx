@@ -17,7 +17,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@carveri/shared/components/ui/chart.tsx";
-import { Area, AreaChart, CartesianGrid, Line, XAxis, YAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 interface Props {
   priceDynamics: PriceDynamics;
@@ -32,13 +32,11 @@ type StatCardProps = {
 function StatCard(props: Readonly<StatCardProps>) {
   const { value, label, icon } = props;
   return (
-    <Card>
-      <CardContent className="text-muted-foreground flex flex-col items-center gap-2">
-        {icon}
-        <span className="text-foreground text-xl font-bold">{value}</span>
-        <span className="text-xs">{label}</span>
-      </CardContent>
-    </Card>
+    <div className="text-muted-foreground flex flex-col items-center gap-2">
+      {icon}
+      <span className="text-foreground text-xl font-bold">{value}</span>
+      <span className="text-xs">{label}</span>
+    </div>
   );
 }
 
@@ -81,39 +79,39 @@ export default function PriceDynamicsSubtab({
         </div>
       </div>
 
-      <SubTabHeader
-        title={t("priceDynamics.chartTitle")}
-        subtitle={t("priceDynamics.chartSubtitle")}
-      />
+      <Card>
+        <CardContent>
+          <SubTabHeader
+            title={t("priceDynamics.chartTitle")}
+            subtitle={t("priceDynamics.chartSubtitle")}
+          />
 
-      {/* Stats row */}
-      <div className="grid grid-cols-3 gap-3">
-        <StatCard
-          icon={<IconClock className="size-5" />}
-          value={String(daysListed)}
-          label={t("priceDynamics.daysListed")}
-        />
-        <StatCard
-          icon={<IconTrendingDown className="size-5" />}
-          value={String(priceDropsCount)}
-          label={t("priceDynamics.priceDrops")}
-        />
-        <StatCard
-          icon={<IconTag className="size-5" />}
-          value={`$${currentPrice.toLocaleString()}`}
-          label={t("priceDynamics.currentPrice")}
-        />
-      </div>
+          {/* Stats row */}
+          <div className="grid grid-cols-3 gap-3">
+            <StatCard
+              icon={<IconClock className="size-5" />}
+              value={String(daysListed)}
+              label={t("priceDynamics.daysListed")}
+            />
+            <StatCard
+              icon={<IconTrendingDown className="size-5" />}
+              value={String(priceDropsCount)}
+              label={t("priceDynamics.priceDrops")}
+            />
+            <StatCard
+              icon={<IconTag className="size-5" />}
+              value={`$${currentPrice.toLocaleString()}`}
+              label={t("priceDynamics.currentPrice")}
+            />
+          </div>
 
-      {/* Chart section */}
-      <div className="flex flex-col gap-3">
-        <Card>
-          <CardContent className="px-2 pt-4 pb-2">
+          {/* Chart section */}
+          <div className="my-5 flex flex-col gap-3 lg:my-10">
             <ChartContainer
               config={chartConfig}
-              className="h-48 w-full lg:h-80"
+              className="h-56 px-2 lg:h-80 lg:px-12"
             >
-              <AreaChart data={history} margin={{ left: 8, right: 8, top: 4 }}>
+              <AreaChart data={history}>
                 <defs>
                   <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
                     <stop
@@ -164,11 +162,6 @@ export default function PriceDynamicsSubtab({
                   stroke="var(--color-price)"
                   fill="url(#colorPrice)"
                   isAnimationActive="auto"
-                />
-                <Line
-                  type="natural"
-                  dataKey="price"
-                  stroke="var(--color-price)"
                   strokeWidth={3}
                   dot={{
                     r: 5,
@@ -185,60 +178,60 @@ export default function PriceDynamicsSubtab({
                 />
               </AreaChart>
             </ChartContainer>
-          </CardContent>
-        </Card>
 
-        {/* Summary bar */}
-        <div className="flex items-center justify-between rounded-lg bg-red-50 px-4 py-2.5 dark:bg-red-900/20">
-          <div className="flex flex-col gap-1.5">
-            <span className="text-sm font-medium text-red-600 dark:text-red-400">
-              {t("priceDynamics.totalDiscount")}
-            </span>
-            <span className="font-bold text-red-700 dark:text-red-300">
-              ${totalDrop.toLocaleString()}
-            </span>
+            {/* Summary bar */}
+            <div className="flex items-center justify-between rounded-lg bg-red-50 px-4 py-2.5 dark:bg-red-900/20">
+              <div className="flex flex-col gap-1.5">
+                <span className="text-sm font-medium text-red-600 dark:text-red-400">
+                  {t("priceDynamics.totalDiscount")}
+                </span>
+                <span className="font-bold text-red-700 dark:text-red-300">
+                  ${totalDrop.toLocaleString()}
+                </span>
+              </div>
+              <div className="flex flex-col gap-1.5">
+                <span className="text-sm font-medium text-red-600 dark:text-red-400">
+                  {t("priceDynamics.drops", { count: priceDropsCount })}
+                </span>
+                <span className="rounded-full bg-red-100 px-2 py-0.5 font-bold text-red-600 dark:bg-red-800/40 dark:text-red-300">
+                  {totalDropPct}%
+                </span>
+              </div>
+            </div>
           </div>
-          <div className="flex flex-col gap-1.5">
-            <span className="text-sm font-medium text-red-600 dark:text-red-400">
-              {t("priceDynamics.drops", { count: priceDropsCount })}
-            </span>
-            <span className="rounded-full bg-red-100 px-2 py-0.5 font-bold text-red-600 dark:bg-red-800/40 dark:text-red-300">
-              {totalDropPct}%
-            </span>
-          </div>
-        </div>
-      </div>
 
-      {/* Sale Cycles */}
-      <div className="flex flex-col gap-2">
-        <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">
-          {t("priceDynamics.saleCycles", { count: saleCycles.length })}
-        </h3>
-        <div className="flex flex-col gap-2">
-          {saleCycles.map((cycle) => (
-            <Card key={cycle.id}>
-              <CardContent className="flex items-center justify-between py-3">
-                <div className="flex flex-col gap-0.5">
-                  <span className="text-xs font-medium text-slate-700 dark:text-slate-300">
-                    {cycle.startDate} – {cycle.endDate}
-                  </span>
-                  <span className="text-[11px] text-slate-400">
-                    {t("priceDynamics.drops", { count: cycle.drops })}
-                  </span>
-                </div>
-                <div className="flex flex-col items-end gap-0.5">
-                  <span className="text-sm font-bold text-slate-800 dark:text-slate-200">
-                    ${cycle.endPrice.toLocaleString()}
-                  </span>
-                  <span className="text-[11px] text-red-500">
-                    –${(cycle.startPrice - cycle.endPrice).toLocaleString()}
-                  </span>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
+          {/* Sale Cycles */}
+          <div className="flex flex-col gap-2">
+            <h3 className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+              {t("priceDynamics.saleCycles", { count: saleCycles.length })}
+            </h3>
+            <div className="flex flex-col gap-2">
+              {saleCycles.map((cycle) => (
+                <Card key={cycle.id}>
+                  <CardContent className="flex items-center justify-between py-3">
+                    <div className="flex flex-col gap-0.5">
+                      <span className="text-xs font-medium text-slate-700 dark:text-slate-300">
+                        {cycle.startDate} – {cycle.endDate}
+                      </span>
+                      <span className="text-[11px] text-slate-400">
+                        {t("priceDynamics.drops", { count: cycle.drops })}
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-end gap-0.5">
+                      <span className="text-sm font-bold text-slate-800 dark:text-slate-200">
+                        ${cycle.endPrice.toLocaleString()}
+                      </span>
+                      <span className="text-[11px] text-red-500">
+                        –${(cycle.startPrice - cycle.endPrice).toLocaleString()}
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
