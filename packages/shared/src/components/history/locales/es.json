@@ -14,7 +14,8 @@
   "auctionPhotos": {
     "heading": "Fotos de Subasta",
     "countSuffix": "{{count}} fotos de subasta — IAAI",
-    "openPhoto": "Abrir foto {{index}}"
+    "openPhoto": "Abrir foto {{index}}",
+    "noPhotos": "No hay fotos de subasta disponibles para este vehículo"
   },
   "accidents": {
     "heading": "Historial de Accidentes",

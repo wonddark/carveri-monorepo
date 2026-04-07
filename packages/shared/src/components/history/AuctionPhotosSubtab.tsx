@@ -55,6 +55,11 @@ export default function AuctionPhotosSubtab({ photos }: Readonly<Props>) {
         </Button>
       </div>
 
+      {photos.length === 0 ? (
+        <p className="text-muted-foreground py-8 text-center text-sm">
+          {t("auctionPhotos.noPhotos")}
+        </p>
+      ) : (
       <div className="space-y-1.5">
         <p className="text-muted-foreground text-xs">
           {t("auctionPhotos.countSuffix", { count: photos.length })}
@@ -99,6 +104,7 @@ export default function AuctionPhotosSubtab({ photos }: Readonly<Props>) {
           </motion.div>
         </AnimatePresence>
       </div>
+      )}
 
       <Lightbox
         open={open}
