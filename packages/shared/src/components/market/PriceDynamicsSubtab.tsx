@@ -1,5 +1,4 @@
 import {
-  IconChartLine,
   IconClock,
   IconSearch,
   IconTag,
@@ -12,6 +11,13 @@ import { Button } from "@carveri/shared/components/ui/button.tsx";
 import type { PriceDynamics } from "@carveri/shared/lib/transforms.ts";
 import type { ReactNode } from "react";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+} from "@carveri/shared/components/ui/chart.tsx";
+import { Area, AreaChart, CartesianGrid, Line, XAxis, YAxis } from "recharts";
 
 interface Props {
   priceDynamics: PriceDynamics;
@@ -50,8 +56,11 @@ export default function PriceDynamicsSubtab({
     saleCycles,
   } = priceDynamics;
 
-  const startPrice = history[0]?.price ?? currentPrice;
-  const endPrice = history.at(-1)?.price ?? currentPrice;
+  const chartConfig: ChartConfig = {
+    price: { label: t("priceDynamics.currentPrice"), color: "#ef4444" },
+    gradientStart: { color: "#f6a0a0" },
+    gradientEnd: { color: "#f6bebe" },
+  };
 
   return (
     <div className="flex flex-col gap-5 pt-4">
@@ -98,18 +107,84 @@ export default function PriceDynamicsSubtab({
 
       {/* Chart section */}
       <div className="flex flex-col gap-3">
-        {/* Chart placeholder — replace with recharts LineChart once recharts is installed */}
         <Card>
-          <CardContent className="flex flex-col items-center justify-center gap-3 py-10 text-slate-400">
-            <IconChartLine size={32} className="opacity-30" />
-            <div className="flex flex-col items-center gap-1">
-              <span className="text-xs font-medium">
-                {t("priceDynamics.chartPlaceholder")}
-              </span>
-              <span className="text-[11px] text-slate-400">
-                {`$${startPrice.toLocaleString()} → $${endPrice.toLocaleString()}`}
-              </span>
-            </div>
+          <CardContent className="px-2 pt-4 pb-2">
+            <ChartContainer
+              config={chartConfig}
+              className="h-48 w-full lg:h-80"
+            >
+              <AreaChart data={history} margin={{ left: 8, right: 8, top: 4 }}>
+                <defs>
+                  <linearGradient id="colorPrice" x1="0" y1="0" x2="0" y2="1">
+                    <stop
+                      offset="5%"
+                      stopColor="var(--color-gradientStart)"
+                      stopOpacity={0.85}
+                    />
+                    <stop
+                      offset="95%"
+                      stopColor="var(--color-gradientEnd)"
+                      stopOpacity={0.15}
+                    />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid vertical={false} strokeDasharray="3 3" />
+                <XAxis
+                  dataKey="date"
+                  tickLine={false}
+                  axisLine={false}
+                  tick={{
+                    fontSize: "var(--text-base)",
+                    color: "var(--color-muted-foreground)",
+                  }}
+                />
+                <YAxis
+                  tickLine={false}
+                  axisLine={false}
+                  tick={{
+                    fontSize: "var(--text-base)",
+                    color: "var(--color-muted-foreground)",
+                  }}
+                  tickFormatter={(v: number) => `$${(v / 1000).toFixed(0)}k`}
+                  domain={["auto", "auto"]}
+                  width={36}
+                />
+                <ChartTooltip
+                  content={
+                    <ChartTooltipContent
+                      formatter={(value) =>
+                        `$${Number(value).toLocaleString()}`
+                      }
+                    />
+                  }
+                />
+                <Area
+                  type="monotone"
+                  dataKey="price"
+                  stroke="var(--color-price)"
+                  fill="url(#colorPrice)"
+                  isAnimationActive="auto"
+                />
+                <Line
+                  type="natural"
+                  dataKey="price"
+                  stroke="var(--color-price)"
+                  strokeWidth={3}
+                  dot={{
+                    r: 5,
+                    stroke: "var(--color-price)",
+                    strokeWidth: 3,
+                    fill: "var(--color-background)",
+                  }}
+                  activeDot={{
+                    r: 6,
+                    stroke: "var(--color-price)",
+                    strokeWidth: 3,
+                    fill: "var(--color-background)",
+                  }}
+                />
+              </AreaChart>
+            </ChartContainer>
           </CardContent>
         </Card>
 
