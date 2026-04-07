@@ -30,6 +30,7 @@
     "similarVehicles": "Similar vehicles near {{city}}",
     "cheaper": "Cheaper",
     "similar": "Similar",
-    "pricier": "Pricier"
+    "pricier": "Pricier",
+    "noComparables": "No comparable vehicles found in your area"
   }
 }

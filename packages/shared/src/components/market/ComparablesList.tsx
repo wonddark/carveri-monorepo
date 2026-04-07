@@ -27,17 +27,23 @@ export default function ComparablesList({
           {t("comparables.similarVehicles", { city: location })}
         </p>
 
-        {comparables.map((vehicle, i) => (
-          <motion.div
-            key={vehicle.id}
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.06 }}
-            className="border-border border-b last:border-0"
-          >
-            <ComparableCard vehicle={vehicle} />
-          </motion.div>
-        ))}
+        {comparables.length === 0 ? (
+          <p className="text-muted-foreground py-6 text-center text-sm">
+            {t("comparables.noComparables")}
+          </p>
+        ) : (
+          comparables.map((vehicle, i) => (
+            <motion.div
+              key={vehicle.id}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.06 }}
+              className="border-border border-b last:border-0"
+            >
+              <ComparableCard vehicle={vehicle} />
+            </motion.div>
+          ))
+        )}
       </CardContent>
     </Card>
   );
