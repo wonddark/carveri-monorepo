@@ -1,4 +1,5 @@
 import {
+  IconArrowDown,
   IconClock,
   IconSearch,
   IconTag,
@@ -15,12 +16,55 @@ import {
   type ChartConfig,
   ChartContainer,
   ChartTooltip,
-  ChartTooltipContent,
 } from "@carveri/shared/components/ui/chart.tsx";
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import {
+  Area,
+  AreaChart,
+  CartesianGrid,
+  type TooltipContentProps,
+  XAxis,
+  YAxis,
+} from "recharts";
 
 interface Props {
   priceDynamics: PriceDynamics;
+}
+
+function PriceTooltip({
+  active,
+  payload,
+  initialPrice,
+}: Readonly<TooltipContentProps<number, string> & { initialPrice: number }>) {
+  if (!active || !payload?.length) return null;
+  const { date, price } = payload[0].payload as { date: string; price: number };
+  const isInitial = price === initialPrice;
+  const drop = initialPrice - price;
+  const dropPct = Math.round((drop / initialPrice) * 100);
+
+  return (
+    <div className="border-border/50 bg-background grid min-w-36 gap-1 rounded-lg border px-2.5 py-1.5 text-xs shadow-xl">
+      <span className="font-mono font-medium tabular-nums">
+        ${price.toLocaleString()}
+      </span>
+      <span className="text-muted-foreground font-medium">{date}</span>
+      <span
+        className={
+          isInitial
+            ? "text-muted-foreground"
+            : "inline-flex items-center gap-0.5 font-mono font-medium text-green-500 tabular-nums"
+        }
+      >
+        {isInitial ? (
+          "Initial price"
+        ) : (
+          <>
+            <IconArrowDown className="size-3" />
+            {`$${drop.toLocaleString()} (${dropPct}%)`}
+          </>
+        )}
+      </span>
+    </div>
+  );
 }
 
 type StatCardProps = {
@@ -149,11 +193,8 @@ export default function PriceDynamicsSubtab({
                 />
                 <ChartTooltip
                   content={
-                    <ChartTooltipContent
-                      formatter={(value) =>
-                        `$${Number(value).toLocaleString()}`
-                      }
-                    />
+                    // @ts-ignore
+                    <PriceTooltip initialPrice={history[0]?.price ?? 0} />
                   }
                 />
                 <Area
