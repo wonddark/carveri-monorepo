@@ -648,7 +648,7 @@ export function transformToSharedReport(raw: VehicleReport): TransformedReport {
     // Price dynamics from current cycle
     const currentCycleHistory =
       raw.marketCheckRaw?.VinHistory?.CurrentCyclePriceEvolution ?? [];
-    
+
     const priceDynamicsHistory: PriceHistoryPoint[] = currentCycleHistory
       .filter((p) => p.Price != null)
       .map((p) => ({
