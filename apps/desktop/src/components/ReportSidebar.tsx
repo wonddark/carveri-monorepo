@@ -1,17 +1,14 @@
 import { type ReactNode, useEffect, useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { NavLink, useLocation, useParams } from "react-router";
-import ImageCarousel from "@carveri/shared/components/ImageCarousel";
-import CarSummaryCard from "@carveri/shared/components/CarSummaryCard";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
-import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 import {
+  IconBrain,
   IconChartHistogram,
   IconClock,
   IconHeartHandshake,
   IconHome,
-  IconSparkles,
 } from "@tabler/icons-react";
 
 interface NavItem {
@@ -43,7 +40,8 @@ const NAV: NavEntry[] = [
       icon: <IconClock className="w-5" />,
       children: [
         { id: "timeline", label: "pages.timeline" },
-        { id: "auction-photos", label: "pages.auction_photos" },
+        { id: "auction-history", label: "pages.auction_history" },
+        { id: "past-sales", label: "pages.past_sales" },
         { id: "accidents", label: "pages.accidents" },
         { id: "owners", label: "pages.owners" },
         { id: "service", label: "pages.service" },
@@ -64,10 +62,17 @@ const NAV: NavEntry[] = [
     },
   },
   {
-    type: "item",
-    id: "verdict_ai",
-    label: "pages.verdict_ai",
-    icon: <IconSparkles className="w-5" />,
+    type: "group",
+    group: {
+      label: "pages.diagnosis_ai",
+      icon: <IconBrain className="w-5" />,
+      children: [
+        { id: "diagnosis", label: "pages.diagnosis" },
+        { id: "risks", label: "pages.risks" },
+        { id: "inspection", label: "pages.inspection" },
+        { id: "valuation", label: "pages.valuation" },
+      ],
+    },
   },
   {
     type: "group",
@@ -83,11 +88,7 @@ const NAV: NavEntry[] = [
   },
 ];
 
-interface Props {
-  report: TransformedReport;
-}
-
-export default function ReportSidebar({ report }: Readonly<Props>) {
+export default function ReportSidebar() {
   const { t } = useTranslation("common");
   const { vin } = useParams<{ vin: string }>();
   const location = useLocation();
@@ -123,40 +124,9 @@ export default function ReportSidebar({ report }: Readonly<Props>) {
     setOpenGroups((prev) => ({ ...prev, [label]: !prev[label] }));
 
   return (
-    <aside className="border-border bg-card/30 sticky top-15 flex w-75 min-w-60 flex-col gap-4 overflow-y-auto border-r">
-      {/* Image carousel */}
-      <div className="p-3">
-        <div className="aspect-16/10 overflow-hidden rounded-xl">
-          <ImageCarousel images={report.images} />
-        </div>
-      </div>
-
-      {/* Price + mileage */}
-      <div className="border-border border-b px-4 pb-3">
-        <p className="text-2xl font-semibold">
-          ${report.price.toLocaleString()}
-        </p>
-        <p className="text-muted-foreground text-xs">
-          {report.mileage.toLocaleString()} mi
-        </p>
-      </div>
-
-      {/* Verdict card */}
-      <CarSummaryCard
-        year={report.year}
-        make={report.make}
-        model={report.model}
-        trim={report.trim}
-        price={report.price}
-        mileage={report.mileage}
-        location={report.location}
-        score={report.score}
-        verdict={report.verdict}
-        aiSummary={report.aiSummary}
-      />
-
+    <aside className="border-border bg-card/30 sticky top-15 flex w-64 min-w-52 flex-col overflow-y-auto border-r">
       {/* Nav tree */}
-      <nav className="flex-1 pb-4">
+      <nav className="flex-1 py-3">
         {NAV.map((entry) => {
           if (entry.type === "item") {
             return (
@@ -233,7 +203,7 @@ export default function ReportSidebar({ report }: Readonly<Props>) {
 
       {/* VIN footer */}
       <div className="border-border border-t px-4 py-3">
-        <p className="text-muted-foreground font-mono text-xs">{report.vin}</p>
+        <p className="text-muted-foreground font-mono text-xs">{vin}</p>
       </div>
     </aside>
   );

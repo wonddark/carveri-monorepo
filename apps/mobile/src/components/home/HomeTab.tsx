@@ -64,8 +64,8 @@ export default function HomeTab(props: Readonly<Props>) {
           price={report.price}
           mileage={report.mileage}
           location={report.location}
-          score={report.score}
-          verdict={report.verdict}
+          score={report.diagnosis.score}
+          verdict={report.diagnosis.recommendation}
           aiSummary={report.aiSummary}
         />
 

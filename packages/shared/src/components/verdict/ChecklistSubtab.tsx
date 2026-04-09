@@ -1,15 +1,20 @@
 import { useState } from "react";
-import { Eye, FileText, Wrench } from "lucide-react";
+import {
+  Car,
+  ClipboardCheck,
+  Eye,
+  FileText,
+  ShieldAlert,
+  Wrench,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { type VerdictChecklistGroup } from "@carveri/shared/data/report";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import { Field, FieldLabel } from "@carveri/shared/components/ui/field.tsx";
 import { Checkbox } from "@carveri/shared/components/ui/checkbox.tsx";
 import { cn } from "@carveri/shared/lib/utils.ts";
+import type { DiagnosisChecklistGroup } from "@carveri/shared/lib/transforms.ts";
 
-// ICON_MAP resolves categoryIcon strings from mock data to lucide components.
-// Check is imported separately for the checked checkbox state (not via ICON_MAP).
 const ICON_MAP: Record<
   string,
   React.ComponentType<{ size?: number; className?: string }>
@@ -17,15 +22,22 @@ const ICON_MAP: Record<
   Eye,
   Wrench,
   FileText,
+  ShieldAlert,
+  Car,
+  ClipboardCheck,
 };
 
 interface Props {
-  checklist: VerdictChecklistGroup[];
+  checklist: DiagnosisChecklistGroup[];
 }
 
 export default function ChecklistSubtab({ checklist }: Readonly<Props>) {
   const { t } = useTranslation("verdict");
   const [checked, setChecked] = useState<Set<string>>(() => new Set());
+
+  const totalItems = checklist.reduce((acc, g) => acc + g.items.length, 0);
+  const completedItems = checked.size;
+  const progressPct = totalItems > 0 ? Math.round((completedItems / totalItems) * 100) : 0;
 
   function toggle(key: string) {
     setChecked((prev) => {
@@ -43,17 +55,42 @@ export default function ChecklistSubtab({ checklist }: Readonly<Props>) {
     <>
       <SubTabHeader title={t("checklist.heading")} subtitle="" />
 
+      {/* Progress bar */}
+      <div className="mb-4 rounded-xl border border-border bg-card p-4">
+        <div className="mb-2 flex items-center justify-between text-sm">
+          <span className="font-medium text-muted-foreground">
+            {completedItems} / {totalItems} {t("checklist.progress")}
+          </span>
+          <span className="font-bold text-primary">{progressPct}%</span>
+        </div>
+        <div className="h-2 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
+          <div
+            className="h-full rounded-full bg-primary transition-all duration-300"
+            style={{ width: `${progressPct}%` }}
+          />
+        </div>
+      </div>
+
       <div className="flex flex-col gap-3">
         {checklist.map((group) => {
-          const CategoryIcon = ICON_MAP[group.categoryIcon];
+          const CategoryIcon = ICON_MAP[group.categoryIcon] ?? FileText;
+          const groupCompleted = group.items.filter((_, i) =>
+            checked.has(`${group.id}-${i}`),
+          ).length;
+
           return (
             <Card key={group.id}>
               <CardContent>
-                <div className="flex items-center gap-2">
-                  {CategoryIcon && (
-                    <CategoryIcon size={16} className="text-primary" />
-                  )}
-                  <h3 className="font-semibold">{group.category}</h3>
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <div className="flex size-7 items-center justify-center rounded-full bg-primary/10">
+                      <CategoryIcon size={14} className="text-primary" />
+                    </div>
+                    <h3 className="text-sm font-semibold">{group.category}</h3>
+                  </div>
+                  <span className="text-xs text-muted-foreground">
+                    {groupCompleted}/{group.items.length}
+                  </span>
                 </div>
 
                 <div className="mt-3 flex flex-col gap-2">
@@ -67,14 +104,14 @@ export default function ChecklistSubtab({ checklist }: Readonly<Props>) {
                         className="items-start"
                       >
                         <Checkbox
-                          id={`${group.id}-${i}`}
-                          className="mt-0.75"
+                          id={key}
+                          className="mt-0.5"
                           checked={isChecked}
                           onCheckedChange={() => toggle(key)}
                         />
                         <FieldLabel
-                          htmlFor={`${group.id}-${i}`}
-                          className={cn("font-normal", {
+                          htmlFor={key}
+                          className={cn("text-sm font-normal leading-snug", {
                             "text-muted-foreground line-through": isChecked,
                           })}
                         >

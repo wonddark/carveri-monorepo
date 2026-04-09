@@ -3,53 +3,138 @@ import { useTranslation } from "react-i18next";
 import {
   AlertTriangle,
   Building2,
-  Factory,
+  Car,
   FileText,
-  MapPin,
-  Ship,
+  Gauge,
   User,
   Wrench,
 } from "lucide-react";
-import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import { cn } from "@carveri/shared/lib/utils.ts";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import type { TransformedReport } from "../../lib/transforms.ts";
 
-const TYPE_ICON: Record<
-  string,
-  React.ComponentType<{ size?: number; className?: string }>
+type TimelineEvent = TransformedReport["historyTab"]["timeline"][number];
+type Severity = "critical" | "alert" | "info";
+
+// Infer event category from title keywords (API has type: null)
+function inferEventType(
+  title: string,
+  _redFlag: boolean,
+): {
+  icon: React.ComponentType<{ size?: number; className?: string }>;
+  color: string;
+  bg: string;
+} {
+  const t = title.toLowerCase();
+  if (
+    t.includes("accident") ||
+    t.includes("total loss") ||
+    t.includes("collision") ||
+    t.includes("damage")
+  ) {
+    return { icon: AlertTriangle, color: "text-red-500", bg: "bg-red-100 dark:bg-red-900/30" };
+  }
+  if (
+    t.includes("salvage") ||
+    t.includes("rebuilt") ||
+    t.includes("lemon") ||
+    t.includes("title") ||
+    t.includes("registration") ||
+    t.includes("insurance")
+  ) {
+    return { icon: FileText, color: "text-amber-500", bg: "bg-amber-100 dark:bg-amber-900/30" };
+  }
+  if (t.includes("service") || t.includes("maintenance") || t.includes("repair")) {
+    return { icon: Wrench, color: "text-green-600", bg: "bg-green-100 dark:bg-green-900/30" };
+  }
+  if (
+    t.includes("sale") ||
+    t.includes("sold") ||
+    t.includes("owner") ||
+    t.includes("purchase") ||
+    t.includes("dealer")
+  ) {
+    return { icon: Building2, color: "text-blue-500", bg: "bg-blue-100 dark:bg-blue-900/30" };
+  }
+  if (t.includes("odometer") || t.includes("mileage")) {
+    return { icon: Gauge, color: "text-slate-400", bg: "bg-slate-100 dark:bg-slate-800/40" };
+  }
+  if (t.includes("window sticker") || t.includes("original")) {
+    return { icon: Car, color: "text-slate-400", bg: "bg-slate-100 dark:bg-slate-800/40" };
+  }
+  if (t.includes("new owner") || t.includes("previous owner")) {
+    return { icon: User, color: "text-blue-500", bg: "bg-blue-100 dark:bg-blue-900/30" };
+  }
+  return { icon: FileText, color: "text-slate-400", bg: "bg-slate-100 dark:bg-slate-800/40" };
+}
+
+function inferSeverity(event: TimelineEvent): Severity {
+  const t = event.title.toLowerCase();
+  const d = (event.description ?? "").toLowerCase();
+  if (
+    event.redFlag &&
+    (t.includes("total loss") ||
+      t.includes("salvage") ||
+      t.includes("rebuilt") ||
+      d.includes("salvage") ||
+      d.includes("rebuilt"))
+  ) {
+    return "critical";
+  }
+  if (event.redFlag || t.includes("accident") || t.includes("damage")) {
+    return "alert";
+  }
+  return "info";
+}
+
+const SEVERITY_BADGE: Record<
+  Severity,
+  { label: string; classes: string; dotColor: string }
 > = {
-  manufacture: Factory,
-  import: Ship,
-  owner: User,
-  title: FileText,
-  service: Wrench,
-  auction: Building2,
-  current: MapPin,
-  accident: AlertTriangle,
+  critical: {
+    label: "critical",
+    classes: "bg-slate-100 dark:bg-slate-800 text-red-500",
+    dotColor: "bg-red-500",
+  },
+  alert: {
+    label: "alert",
+    classes: "bg-slate-100 dark:bg-slate-800 text-amber-500",
+    dotColor: "bg-amber-500",
+  },
+  info: {
+    label: "info",
+    classes: "bg-slate-100 dark:bg-slate-800 text-slate-400",
+    dotColor: "bg-slate-400",
+  },
 };
 
-const TYPE_BOX: Record<string, string> = {
-  manufacture: "bg-slate-100 dark:bg-slate-100/20",
-  import: "bg-slate-100 dark:bg-slate-100/20",
-  owner: "bg-indigo-50 dark:bg-indigo-50/20",
-  title: "bg-indigo-50 dark:bg-indigo-50/20",
-  service: "bg-green-50 dark:bg-green-50/20",
-  auction: "bg-amber-50 dark:bg-amber-50/20",
-  current: "bg-indigo-600 dark:bg-indigo-600/20",
-  accident: "bg-red-50 dark:bg-red-50/20",
-};
+// Split description into individual pills
+function parsePills(description: string): string[] {
+  if (!description) return [];
+  return description
+    .split("·")
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
 
-const TYPE_ICON_COLOR: Record<string, string> = {
-  manufacture: "text-slate-500 dark:text-slate-500/80",
-  import: "text-slate-500 dark:text-slate-500/80",
-  owner: "text-indigo-500 dark:text-indigo-500/80",
-  title: "text-indigo-500 dark:text-indigo-500/80",
-  service: "text-green-600 dark:text-green-600/80",
-  auction: "text-amber-500 dark:text-amber-500/80",
-  current: "text-white dark:text-white/80",
-  accident: "text-red-500 dark:text-red-500/80",
-};
+const HIGHLIGHT_KEYWORDS = ["salvage", "rebuilt", "total loss", "fraud"];
+
+function PillChip({ text }: { text: string }) {
+  const lower = text.toLowerCase();
+  const isHighlighted = HIGHLIGHT_KEYWORDS.some((kw) => lower.includes(kw));
+  return (
+    <span
+      className={cn(
+        "inline-block rounded-full px-2 py-0.5 text-[10px] font-medium leading-tight",
+        isHighlighted
+          ? "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300"
+          : "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
+      )}
+    >
+      {text}
+    </span>
+  );
+}
 
 interface Props {
   timeline: TransformedReport["historyTab"]["timeline"];
@@ -57,6 +142,17 @@ interface Props {
 
 export default function TimelineSubtab({ timeline }: Readonly<Props>) {
   const { t } = useTranslation("history");
+
+  // Count severities for summary bar
+  const counts = timeline.reduce(
+    (acc, event) => {
+      const sev = inferSeverity(event);
+      acc[sev] = (acc[sev] ?? 0) + 1;
+      return acc;
+    },
+    {} as Record<Severity, number>,
+  );
+
   return (
     <>
       <SubTabHeader
@@ -64,44 +160,101 @@ export default function TimelineSubtab({ timeline }: Readonly<Props>) {
         subtitle={t("timeline.subtitle")}
       />
 
-      <div className="flex flex-col gap-2">
+      {/* Summary bar */}
+      <div className="mb-4 flex flex-wrap gap-3 rounded-xl bg-slate-50 px-4 py-3 dark:bg-slate-800/40">
+        {counts.critical > 0 && (
+          <div className="flex items-center gap-1.5 text-xs font-semibold text-red-600 dark:text-red-400">
+            <span className="size-2 rounded-full bg-red-500" />
+            {t("timeline.summaryBar.critical", { count: counts.critical })}
+          </div>
+        )}
+        {counts.alert > 0 && (
+          <div className="flex items-center gap-1.5 text-xs font-semibold text-amber-600 dark:text-amber-400">
+            <span className="size-2 rounded-full bg-amber-500" />
+            {t("timeline.summaryBar.alert", { count: counts.alert })}
+          </div>
+        )}
+        {counts.info > 0 && (
+          <div className="flex items-center gap-1.5 text-xs font-semibold text-green-600 dark:text-green-400">
+            <span className="size-2 rounded-full bg-green-500" />
+            {t("timeline.summaryBar.service", { count: counts.info })}
+          </div>
+        )}
+        <div className="flex items-center gap-1.5 text-xs font-medium text-slate-500">
+          {t("timeline.summaryBar.total", { count: timeline.length })}
+        </div>
+      </div>
+
+      {/* Timeline list */}
+      <div className="relative flex flex-col">
+        {/* Vertical connector line */}
+        <div className="absolute top-5 bottom-5 left-5 w-px bg-slate-200 dark:bg-slate-700" />
+
         {timeline.map((event, i) => {
-          const Icon = TYPE_ICON[event.type ?? ""];
+          const { icon: Icon, color, bg } = inferEventType(event.title, event.redFlag);
+          const severity = inferSeverity(event);
+          const badge = SEVERITY_BADGE[severity];
+          const pills = parsePills(event.description ?? "");
+
           return (
             <motion.div
               key={event.id}
-              initial={{ opacity: 0, y: 8 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.06 }}
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.04 }}
+              className="relative flex gap-4 pb-4"
             >
-              <Card className="py-2">
-                <CardContent className="flex items-center gap-3 px-2">
-                  <div
-                    className={cn(
-                      "flex shrink-0 items-center justify-center rounded-full p-2",
-                      TYPE_BOX[event.type ?? ""],
-                    )}
-                  >
-                    {Icon && (
-                      <Icon
-                        className={cn(
-                          "size-4",
-                          TYPE_ICON_COLOR[event.type ?? ""],
-                        )}
-                      />
-                    )}
-                  </div>
+              {/* Circle icon */}
+              <div
+                className={cn(
+                  "relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full ring-2 ring-background",
+                  bg,
+                )}
+              >
+                <Icon size={16} className={color} />
+              </div>
+
+              {/* Event card */}
+              <div className="flex-1 rounded-xl border border-border bg-card p-3 shadow-sm">
+                <div className="mb-1 flex flex-wrap items-start justify-between gap-2">
                   <div>
-                    <div className="text-muted-foreground text-xs font-medium">
-                      {event.date}
-                    </div>
-                    <div className="text-sm font-medium">{event.title}</div>
-                    <div className="text-muted-foreground text-xs">
-                      {event.description}
-                    </div>
+                    <p className="text-[11px] font-medium text-muted-foreground">
+                      {event.date ?? "—"}
+                      {event.odometer != null && (
+                        <span className="ml-2">· {event.odometer.toLocaleString()} mi</span>
+                      )}
+                    </p>
+                    <p className="mt-0.5 text-sm font-semibold leading-snug">
+                      {event.title}
+                    </p>
                   </div>
-                </CardContent>
-              </Card>
+                  {severity !== "info" && (
+                    <span
+                      className={cn(
+                        "flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold",
+                        badge.classes,
+                      )}
+                    >
+                      <span className={cn("size-1.5 rounded-full", badge.dotColor)} />
+                      {t(`timeline.severity.${severity}`)}
+                    </span>
+                  )}
+                </div>
+
+                {pills.length > 0 && (
+                  <div className="mt-2 flex flex-wrap gap-1">
+                    {pills.map((pill, j) => (
+                      <PillChip key={j} text={pill} />
+                    ))}
+                  </div>
+                )}
+
+                {event.source && (
+                  <p className="mt-2 text-[10px] text-muted-foreground">
+                    {event.source}
+                  </p>
+                )}
+              </div>
             </motion.div>
           );
         })}

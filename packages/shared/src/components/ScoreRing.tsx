@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
-function ScoreRing({ score }: Readonly<{ score: number }>) {
-  const SIZE = 52;
-  const STROKE = 4;
+function ScoreRing({ score, size = 52 }: Readonly<{ score: number; size?: number }>) {
+  const SIZE = size;
+  const STROKE = Math.max(3, Math.round(SIZE * 0.077));
   const r = (SIZE - STROKE) / 2;
   const circumference = 2 * Math.PI * r;
   const targetOffset = circumference * (1 - score / 10);
@@ -31,6 +31,8 @@ function ScoreRing({ score }: Readonly<{ score: number }>) {
       cancelAnimationFrame(raf2);
     };
   }, [targetOffset]);
+
+  const fontSize = Math.round(SIZE * 0.23);
 
   return (
     <svg
@@ -72,7 +74,7 @@ function ScoreRing({ score }: Readonly<{ score: number }>) {
         textAnchor="middle"
         dominantBaseline="central"
         className={getFillColor()}
-        style={{ fontSize: "12px", fontWeight: 900 }}
+        style={{ fontSize: `${fontSize}px`, fontWeight: 900 }}
       >
         {score}
       </text>

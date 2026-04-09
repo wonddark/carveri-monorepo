@@ -10,8 +10,8 @@ interface Props {
   drivetrain: string;
   color: string;
   auction: TransformedReport["auction"];
-  location: string;
-  daysOnLot: number;
+  location: string | null;
+  daysOnLot: number | null;
   previousOwners: number;
 }
 
@@ -39,7 +39,7 @@ export default function VehicleDataSection(props: Readonly<Props>) {
       label: t("vehicleDetails.auction"),
       value: `${auction.name} — $${auction.price?.toLocaleString()}`,
     },
-    { label: t("vehicleDetails.location"), value: location },
+    { label: t("vehicleDetails.location"), value: location ?? "-" },
     {
       label: t("vehicleDetails.daysOnLot"),
       value: daysOnLot ? `${daysOnLot} ${t("vehicleDetails.days")}` : "-",

@@ -137,8 +137,9 @@ export default function MarketTab({ report }: Readonly<Props>) {
         <Activity mode={activeIdx === 2 ? "visible" : "hidden"}>
           <div className="flex flex-col gap-3 px-4">
             <ComparablesList
-              comparables={report.market.comparables}
-              location={report.location}
+              comparables={report.comparables}
+              subjectPrice={report.price}
+              location={report.location ?? ""}
             />
           </div>
         </Activity>

@@ -10,6 +10,7 @@ import ReportGauge from "@carveri/shared/components/ReportGauge.tsx";
 import { getPercentile } from "@carveri/shared/lib/utils.ts";
 import type { VehicleReport } from "@carveri/shared/types/vehicle-report.ts";
 import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
+import VehicleHeroCard from "@/components/VehicleHeroCard";
 
 interface Props {
   report: TransformedReport;
@@ -39,6 +40,21 @@ export default function ResumenView({ report }: Readonly<Props>) {
 
   return (
     <div className="space-y-6">
+      {/* Vehicle hero: image carousel + vehicle name + summary card */}
+      <VehicleHeroCard
+        images={report.images}
+        year={report.year}
+        make={report.make}
+        model={report.model}
+        trim={report.trim}
+        price={report.price}
+        mileage={report.mileage}
+        location={report.location}
+        score={report.diagnosis.score}
+        verdict={report.diagnosis.recommendation}
+        aiSummary={report.aiSummary}
+      />
+
       {/* Breadcrumb */}
       <div className="text-muted-foreground flex items-center gap-1.5 text-xs">
         <Home size={11} />

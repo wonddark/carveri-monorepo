@@ -16,8 +16,8 @@ export default function BottomNavBar() {
       icon: <BarChart2 size={20} />,
     },
     {
-      id: "verdict",
-      label: t("bottomNav.verdict"),
+      id: "diagnosis",
+      label: t("bottomNav.diagnosis"),
       icon: <Sparkles size={20} />,
     },
     {

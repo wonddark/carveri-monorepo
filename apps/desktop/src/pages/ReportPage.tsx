@@ -17,7 +17,7 @@ export default function ReportPage() {
     <div className="relative mx-auto flex max-w-7xl flex-1 flex-col overflow-hidden">
       <ReportHeader />
       <div className="fixed inset-0 mx-auto flex max-w-7xl flex-1 overflow-auto pt-15">
-        <ReportSidebar report={report} />
+        <ReportSidebar />
         <main className="flex-1 overflow-y-auto p-8">
           <Outlet />
         </main>

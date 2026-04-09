@@ -1,25 +1,67 @@
 {
   "tabs": {
-    "verdict": "Veredicto",
+    "diagnosis": "Diagnóstico",
     "risks": "Riesgos",
-    "checklist": "Lista de Verificación"
+    "checklist": "Inspección",
+    "valuation": "Valuación"
   },
   "main": {
-    "heading": "Veredicto CarVeri — Análisis Completo",
-    "subtitle": "Análisis inteligente basado en 11 fuentes de datos"
+    "heading": "Diagnóstico CarVeri",
+    "subtitle": "Análisis inteligente basado en múltiples fuentes de datos"
   },
   "badge": {
-    "label": "Veredicto CarVeri"
+    "label": "Diagnóstico CarVeri"
   },
   "risks": {
-    "heading": "Análisis de Riesgos"
+    "heading": "Análisis de Riesgos",
+    "summary": "Nivel de riesgo general",
+    "levels": {
+      "none": "Ninguno",
+      "low": "Bajo",
+      "medium": "Medio",
+      "high": "Alto"
+    }
   },
   "checklist": {
-    "heading": "Lista de Inspección"
+    "heading": "Lista de Inspección",
+    "progress": "completado"
+  },
+  "valuation": {
+    "heading": "Valuación del Vehículo",
+    "fairPrice": "Precio Justo Estimado",
+    "dealerPrice": "Precio Dealer",
+    "auctionPrice": "Precio Subasta",
+    "dealerMargin": "Margen del Dealer",
+    "diffVsFair": "Diferencia vs. Justo",
+    "sourceContributions": "Contribución por Fuente",
+    "priceAdjustments": "Ajustes de Precio",
+    "zones": {
+      "GranOportunidad": "Gran Oportunidad",
+      "BuenPrecio": "Buen Precio",
+      "PrecioJusto": "Precio Justo",
+      "PrecioAlto": "Precio Alto",
+      "Sobrepago": "Sobrepago"
+    }
+  },
+  "diagnosis": {
+    "keyFindings": "Hallazgos Clave",
+    "redFlags": "Señales de Alerta",
+    "seeFullAnalysis": "Ver análisis completo",
+    "prices": {
+      "dealer": "Dealer",
+      "fairPrice": "Precio Justo",
+      "difference": "Diferencia"
+    },
+    "riskLevels": {
+      "Bajo": "Riesgo Bajo",
+      "Medio": "Riesgo Medio",
+      "Alto": "Riesgo Alto",
+      "Crítico": "Riesgo Crítico"
+    }
   },
   "recommendation": {
-    "buy": "COMPRAR",
-    "consider": "CONSIDERAR",
-    "avoid": "EVITAR"
+    "COMPRAR": "COMPRAR",
+    "NEGOCIAR": "NEGOCIAR",
+    "NO COMPRAR": "NO COMPRAR"
   }
 }

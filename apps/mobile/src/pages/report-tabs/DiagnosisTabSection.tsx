@@ -1,8 +1,8 @@
 import { useRouteLoaderData } from "react-router";
 import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
-import ChecklistSubtab from "@carveri/shared/components/verdict/ChecklistSubtab";
+import DiagnosisTab from "@/components/verdict/DiagnosisTab";
 
-export default function ChecklistSection() {
+export default function DiagnosisTabSection() {
   const report = useRouteLoaderData("report") as TransformedReport;
-  return <ChecklistSubtab checklist={report.diagnosis.checklist} />;
+  return <DiagnosisTab report={report} />;
 }

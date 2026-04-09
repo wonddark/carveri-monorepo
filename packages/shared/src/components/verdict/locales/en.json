@@ -1,25 +1,67 @@
 {
   "tabs": {
-    "verdict": "Verdict",
+    "diagnosis": "Diagnosis",
     "risks": "Risks",
-    "checklist": "Checklist"
+    "checklist": "Inspection",
+    "valuation": "Valuation"
   },
   "main": {
-    "heading": "CarVeri Verdict — Complete Analysis",
-    "subtitle": "Intelligent analysis based on 11 data sources"
+    "heading": "CarVeri Diagnosis",
+    "subtitle": "Intelligent analysis based on multiple data sources"
   },
   "badge": {
-    "label": "CarVeri Verdict"
+    "label": "CarVeri Diagnosis"
   },
   "risks": {
-    "heading": "Risk Analysis"
+    "heading": "Risk Analysis",
+    "summary": "Overall risk level",
+    "levels": {
+      "none": "None",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High"
+    }
   },
   "checklist": {
-    "heading": "Inspection Checklist"
+    "heading": "Inspection Checklist",
+    "progress": "completed"
+  },
+  "valuation": {
+    "heading": "Vehicle Valuation",
+    "fairPrice": "Estimated Fair Price",
+    "dealerPrice": "Dealer Price",
+    "auctionPrice": "Auction Price",
+    "dealerMargin": "Dealer Margin",
+    "diffVsFair": "Diff vs. Fair",
+    "sourceContributions": "Source Contributions",
+    "priceAdjustments": "Price Adjustments",
+    "zones": {
+      "GranOportunidad": "Great Deal",
+      "BuenPrecio": "Good Price",
+      "PrecioJusto": "Fair Price",
+      "PrecioAlto": "High Price",
+      "Sobrepago": "Overpriced"
+    }
+  },
+  "diagnosis": {
+    "keyFindings": "Key Findings",
+    "redFlags": "Red Flags",
+    "seeFullAnalysis": "See full analysis",
+    "prices": {
+      "dealer": "Dealer",
+      "fairPrice": "Fair Price",
+      "difference": "Difference"
+    },
+    "riskLevels": {
+      "Bajo": "Low Risk",
+      "Medio": "Medium Risk",
+      "Alto": "High Risk",
+      "Crítico": "Critical Risk"
+    }
   },
   "recommendation": {
-    "buy": "BUY",
-    "consider": "CONSIDER",
-    "avoid": "AVOID"
+    "COMPRAR": "BUY",
+    "NEGOCIAR": "NEGOTIATE",
+    "NO COMPRAR": "DON'T BUY"
   }
 }

@@ -14,7 +14,7 @@
     "home": "Home",
     "history": "History",
     "market": "Market",
-    "verdict": "Verdict",
+    "diagnosis": "Diagnosis",
     "negotiate": "Negotiate"
   },
   "actions": {
@@ -24,10 +24,11 @@
     "send": "Send"
   },
   "pages": {
-    "resume": "Resume",
+    "resume": "Summary",
     "history": "History",
     "timeline": "Timeline",
-    "auction_photos": "Auction Photos",
+    "auction_history": "Auction History",
+    "past_sales": "Previous Sales",
     "accidents": "Accidents",
     "owners": "Owners",
     "service": "Service",
@@ -36,8 +37,11 @@
     "analysis": "Analysis",
     "price_dynamics": "Price Dynamics",
     "comparables": "Comparables",
-    "verdict_ai": "Verdict AI",
-    "checklist": "Checklist",
+    "diagnosis_ai": "AI Diagnosis",
+    "diagnosis": "Diagnosis",
+    "risks": "Risks",
+    "inspection": "Inspection",
+    "valuation": "Valuation",
     "negotiation": "Negotiation",
     "strategy": "Strategy",
     "arguments": "Arguments",

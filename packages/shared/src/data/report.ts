@@ -1517,5 +1517,7 @@ export const MOCK_REPORTS: Record<string, VehicleReport> = {
     },
     negotiate: null,
     verdict: null,
+    marketCheckRaw: null,
+    evaluationRaw: null,
   },
 };

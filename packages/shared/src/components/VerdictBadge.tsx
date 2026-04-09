@@ -2,11 +2,10 @@ import { AlertCircle, CheckCircle, XCircle } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { cn } from "@carveri/shared/lib/utils";
 import ScoreRing from "@carveri/shared/components/ScoreRing.tsx";
-import type { TransformedReport } from "../lib/transforms.ts";
 
 interface Props {
   score: number;
-  verdict: TransformedReport["verdict"];
+  verdict: string | null;
   aiSummary: string;
 }
 
@@ -34,6 +33,9 @@ export default function VerdictBadge(props: Readonly<Props>) {
     },
   };
   const config = VERDICT_CONFIG[(verdict?.toUpperCase() || "BUY") as "BUY"];
+
+  if (!config) return null;
+
   const Icon = config.icon;
 
   return (

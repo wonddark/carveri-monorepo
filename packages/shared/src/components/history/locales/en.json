@@ -1,7 +1,8 @@
 {
   "tabs": {
     "timeline": "Timeline",
-    "auctionPhotos": "Auction Photos",
+    "auctionHistory": "Auction History",
+    "pastSales": "Previous Sales",
     "accidents": "Accidents",
     "owners": "Owners",
     "service": "Service",
@@ -9,13 +10,39 @@
   },
   "timeline": {
     "heading": "Vehicle Timeline",
-    "subtitle": "Everything that has happened to this vehicle"
+    "subtitle": "Everything that has happened to this vehicle",
+    "summaryBar": {
+      "critical": "{{count}} Critical",
+      "alert": "{{count}} Alerts",
+      "service": "{{count}} Services",
+      "total": "{{count}} Events"
+    },
+    "severity": {
+      "critical": "Critical",
+      "alert": "Alert",
+      "info": "Info"
+    }
   },
-  "auctionPhotos": {
-    "heading": "Auction Photos",
-    "countSuffix": "{{count}} auction photos — IAAI",
-    "openPhoto": "Open photo {{index}}",
-    "noPhotos": "No auction photos available for this vehicle"
+  "auctionHistory": {
+    "heading": "Auction History",
+    "subtitle": "Vehicle appearances at auctions",
+    "sales": "Auction sales",
+    "odometer": "Odometer at auction",
+    "sold": "Sold",
+    "notSold": "Not sold",
+    "noAuctions": "No auction history available for this vehicle",
+    "photos": "Auction photos"
+  },
+  "pastSales": {
+    "heading": "Previous Sales",
+    "subtitle": "Dealer sales history",
+    "active": "Active",
+    "daysOnLot": "{{count}} days on lot",
+    "priceDrops": "{{count}} price drop(s)",
+    "discount": "{{pct}}% discount",
+    "initialPrice": "Starting price",
+    "finalPrice": "Final price",
+    "noPastSales": "No previous sales history available"
   },
   "accidents": {
     "heading": "Accidents History",

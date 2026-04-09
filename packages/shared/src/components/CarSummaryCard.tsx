@@ -6,7 +6,6 @@ import {
   CardTitle,
 } from "@carveri/shared/components/ui/card.tsx";
 import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
-import type { TransformedReport } from "../lib/transforms.ts";
 
 interface Props {
   year: number;
@@ -15,9 +14,9 @@ interface Props {
   trim: string;
   price: number;
   mileage: number;
-  location: string;
+  location: string | null;
   score: number;
-  verdict: TransformedReport["verdict"];
+  verdict: string | null;
   aiSummary: string;
 }
 
@@ -46,8 +45,12 @@ export default function CarSummaryCard(props: Readonly<Props>) {
           <span>{trim}</span>
           <div className="space-x-1">
             <span>{mileage.toLocaleString()} mi</span>
-            <span>·</span>
-            <span>{location}</span>
+            {location && (
+              <>
+                <span>·</span>
+                <span>{location}</span>
+              </>
+            )}
           </div>
         </CardDescription>
       </CardHeader>

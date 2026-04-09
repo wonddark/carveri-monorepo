@@ -1,7 +1,8 @@
 {
   "tabs": {
     "timeline": "Cronología",
-    "auctionPhotos": "Fotos de Subasta",
+    "auctionHistory": "Historial de Subastas",
+    "pastSales": "Ventas Anteriores",
     "accidents": "Accidentes",
     "owners": "Propietarios",
     "service": "Servicio",
@@ -9,13 +10,39 @@
   },
   "timeline": {
     "heading": "Cronología del Vehículo",
-    "subtitle": "Todo lo que le ha ocurrido a este vehículo"
+    "subtitle": "Todo lo que le ha ocurrido a este vehículo",
+    "summaryBar": {
+      "critical": "{{count}} Críticos",
+      "alert": "{{count}} Alertas",
+      "service": "{{count}} Servicios",
+      "total": "{{count}} Eventos"
+    },
+    "severity": {
+      "critical": "Crítico",
+      "alert": "Alerta",
+      "info": "Info"
+    }
   },
-  "auctionPhotos": {
-    "heading": "Fotos de Subasta",
-    "countSuffix": "{{count}} fotos de subasta — IAAI",
-    "openPhoto": "Abrir foto {{index}}",
-    "noPhotos": "No hay fotos de subasta disponibles para este vehículo"
+  "auctionHistory": {
+    "heading": "Historial de Subastas",
+    "subtitle": "Apariciones del vehículo en subastas",
+    "sales": "Ventas en subasta",
+    "odometer": "Odómetro en subasta",
+    "sold": "Vendido",
+    "notSold": "No vendido",
+    "noAuctions": "No hay historial de subastas para este vehículo",
+    "photos": "Fotos de la subasta"
+  },
+  "pastSales": {
+    "heading": "Ventas Anteriores",
+    "subtitle": "Historial de ventas en concesionarios",
+    "active": "Activo",
+    "daysOnLot": "{{count}} días en el lote",
+    "priceDrops": "{{count}} bajada(s) de precio",
+    "discount": "{{pct}}% de descuento",
+    "initialPrice": "Precio inicial",
+    "finalPrice": "Precio final",
+    "noPastSales": "No hay historial de ventas anteriores"
   },
   "accidents": {
     "heading": "Historial de Accidentes",

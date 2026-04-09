@@ -32,6 +32,9 @@
     "cheaper": "Más Barato",
     "similar": "Similar",
     "pricier": "Más Caro",
-    "noComparables": "No se encontraron vehículos comparables en tu área"
+    "noComparables": "No se encontraron vehículos comparables en tu área",
+    "verified": "Verificado",
+    "secondary": "Secundario",
+    "loadingMore": "Cargando más…"
   }
 }

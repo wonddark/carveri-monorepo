@@ -109,8 +109,9 @@ export default function MarketTab({ report }: Readonly<Props>) {
         {/* Comparables */}
         <TabsContent value="comparables">
           <ComparablesList
-            comparables={report.market.comparables}
-            location={report.location}
+            comparables={report.comparables}
+            subjectPrice={report.price}
+            location={report.location ?? ""}
           />
         </TabsContent>
       </Tabs>

@@ -1,10 +1,12 @@
 import { useTranslation } from "react-i18next";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
+import AccidentEventCard from "./AccidentEventCard.tsx";
 import { IconCircleCheck } from "@tabler/icons-react";
 import { cn } from "@carveri/shared/lib/utils.ts";
+import type { AccidentsDetail } from "@carveri/shared/types/vehicle-report";
 
 interface Props {
-  accidents: { count: number; description: string };
+  accidents: AccidentsDetail;
 }
 
 function NoAccidents() {
@@ -40,7 +42,15 @@ export default function AccidentsSubtab({ accidents }: Readonly<Props>) {
         subtitle={accidents.description}
       />
 
-      {accidents.count > 0 ? <></> : <NoAccidents />}
+      {accidents.count === 0 || accidents.events.length === 0 ? (
+        <NoAccidents />
+      ) : (
+        <div className="flex flex-col gap-3">
+          {accidents.events.map((event, i) => (
+            <AccidentEventCard key={event.date + i} event={event} index={i} />
+          ))}
+        </div>
+      )}
     </>
   );
 }

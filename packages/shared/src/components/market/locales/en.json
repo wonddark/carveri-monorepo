@@ -32,6 +32,9 @@
     "cheaper": "Cheaper",
     "similar": "Similar",
     "pricier": "Pricier",
-    "noComparables": "No comparable vehicles found in your area"
+    "noComparables": "No comparable vehicles found in your area",
+    "verified": "Verified",
+    "secondary": "Secondary",
+    "loadingMore": "Loading more…"
   }
 }

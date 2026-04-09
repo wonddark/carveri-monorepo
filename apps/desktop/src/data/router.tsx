@@ -11,14 +11,17 @@ import {
 } from "@carveri/shared/data/loaders.ts";
 import ResumenSection from "@/pages/report-sections/ResumenSection.tsx";
 import TimelineSection from "@/pages/report-sections/TimelineSection.tsx";
-import AuctionPhotosSection from "@/pages/report-sections/AuctionPhotosSection.tsx";
+import AuctionHistorySection from "@/pages/report-sections/AuctionHistorySection.tsx";
+import PastSalesSection from "@/pages/report-sections/PastSalesSection.tsx";
 import AccidentsSection from "@/pages/report-sections/AccidentsSection.tsx";
 import OwnersSection from "@/pages/report-sections/OwnersSection.tsx";
 import ServiceSection from "@/pages/report-sections/ServiceSection.tsx";
 import TitleSection from "@/pages/report-sections/TitleSection.tsx";
 import MarketSection from "@/pages/report-sections/MarketSection.tsx";
-import VerdictAiSection from "@/pages/report-sections/VerdictAiSection.tsx";
-import ChecklistSection from "@/pages/report-sections/ChecklistSection.tsx";
+import DiagnosisSection from "@/pages/report-sections/DiagnosisSection.tsx";
+import RisksSection from "@/pages/report-sections/RisksSection.tsx";
+import InspectionSection from "@/pages/report-sections/InspectionSection.tsx";
+import ValuationSection from "@/pages/report-sections/ValuationSection.tsx";
 import StrategySection from "@/pages/report-sections/StrategySection.tsx";
 import ArgumentsSection from "@/pages/report-sections/ArgumentsSection.tsx";
 import CostsSection from "@/pages/report-sections/CostsSection.tsx";
@@ -56,7 +59,8 @@ const router = createBrowserRouter([
           },
           { path: "overview", element: <ResumenSection /> },
           { path: "timeline", element: <TimelineSection /> },
-          { path: "auction-photos", element: <AuctionPhotosSection /> },
+          { path: "auction-history", element: <AuctionHistorySection /> },
+          { path: "past-sales", element: <PastSalesSection /> },
           { path: "accidents", element: <AccidentsSection /> },
           { path: "owners", element: <OwnersSection /> },
           { path: "service", element: <ServiceSection /> },
@@ -64,8 +68,10 @@ const router = createBrowserRouter([
           { path: "analysis", element: <MarketSection /> },
           { path: "price-dynamics", element: <MarketSection /> },
           { path: "comparables", element: <MarketSection /> },
-          { path: "verdict_ai", element: <VerdictAiSection /> },
-          { path: "checklist", element: <ChecklistSection /> },
+          { path: "diagnosis", element: <DiagnosisSection /> },
+          { path: "risks", element: <RisksSection /> },
+          { path: "inspection", element: <InspectionSection /> },
+          { path: "valuation", element: <ValuationSection /> },
           { path: "strategy", element: <StrategySection /> },
           { path: "arguments", element: <ArgumentsSection /> },
           { path: "costs", element: <CostsSection /> },

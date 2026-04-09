@@ -1,7 +1,8 @@
 import { Activity, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import TimelineSubtab from "@carveri/shared/components/history/TimelineSubtab.tsx";
-import AuctionPhotosSubtab from "@carveri/shared/components/history/AuctionPhotosSubtab.tsx";
+import AuctionHistorySubtab from "@carveri/shared/components/history/AuctionHistorySubtab.tsx";
+import PastSalesSubtab from "@carveri/shared/components/history/PastSalesSubtab.tsx";
 import AccidentsSubtab from "@carveri/shared/components/history/AccidentsSubtab.tsx";
 import OwnersSubtab from "@carveri/shared/components/history/OwnersSubtab.tsx";
 import ServiceSubtab from "@carveri/shared/components/history/ServiceSubtab.tsx";
@@ -19,7 +20,8 @@ export default function HistoryTab({ report }: Readonly<Props>) {
   const { t } = useTranslation("history");
   const SUBTABS = [
     { id: "timeline", label: t("tabs.timeline") },
-    { id: "auctionPhotos", label: t("tabs.auctionPhotos") },
+    { id: "auctionHistory", label: t("tabs.auctionHistory") },
+    { id: "pastSales", label: t("tabs.pastSales") },
     { id: "accidents", label: t("tabs.accidents") },
     { id: "owners", label: t("tabs.owners") },
     { id: "service", label: t("tabs.service") },
@@ -65,22 +67,29 @@ export default function HistoryTab({ report }: Readonly<Props>) {
         </Activity>
 
         <Activity mode={activeIdx === 1 ? "visible" : "hidden"}>
-          <AuctionPhotosSubtab photos={report.historyTab.auctionPhotos} />
+          <AuctionHistorySubtab
+            auctionSales={report.auctionSales}
+            auctionPhotos={report.historyTab.auctionPhotos}
+          />
         </Activity>
 
         <Activity mode={activeIdx === 2 ? "visible" : "hidden"}>
-          <AccidentsSubtab accidents={report.historyTab.accidents} />
+          <PastSalesSubtab dealerSaleCycles={report.dealerSaleCycles} />
         </Activity>
 
         <Activity mode={activeIdx === 3 ? "visible" : "hidden"}>
-          <OwnersSubtab owners={report.historyTab.owners} />
+          <AccidentsSubtab accidents={report.historyTab.accidents} />
         </Activity>
 
         <Activity mode={activeIdx === 4 ? "visible" : "hidden"}>
-          <ServiceSubtab service={report.historyTab.service} />
+          <OwnersSubtab owners={report.historyTab.owners} />
         </Activity>
 
         <Activity mode={activeIdx === 5 ? "visible" : "hidden"}>
+          <ServiceSubtab service={report.historyTab.service} />
+        </Activity>
+
+        <Activity mode={activeIdx === 6 ? "visible" : "hidden"}>
           <TitleSubtab title={report.historyTab.title} />
         </Activity>
       </div>

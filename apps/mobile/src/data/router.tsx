@@ -13,7 +13,7 @@ import {
 import HomeTabSection from "@/pages/report-tabs/HomeTabSection.tsx";
 import HistoryTabSection from "@/pages/report-tabs/HistoryTabSection.tsx";
 import MarketTabSection from "@/pages/report-tabs/MarketTabSection.tsx";
-import VerdictTabSection from "@/pages/report-tabs/VerdictTabSection.tsx";
+import DiagnosisTabSection from "@/pages/report-tabs/DiagnosisTabSection.tsx";
 import NegotiateTabSection from "@/pages/report-tabs/NegotiateTabSection.tsx";
 import { loginAction, registerAction } from "@carveri/shared/data/actions.ts";
 
@@ -51,7 +51,7 @@ const router = createBrowserRouter([
           { path: "home", element: <HomeTabSection /> },
           { path: "history", element: <HistoryTabSection /> },
           { path: "market", element: <MarketTabSection /> },
-          { path: "verdict", element: <VerdictTabSection /> },
+          { path: "diagnosis", element: <DiagnosisTabSection /> },
           { path: "negotiate", element: <NegotiateTabSection /> },
         ],
       },
