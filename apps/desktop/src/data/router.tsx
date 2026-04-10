@@ -47,7 +47,7 @@ const router = createBrowserRouter([
       },
       {
         id: "report",
-        path: "reports/:vin",
+        path: "reports/:id",
         element: <ReportPage />,
         loader: reportLoader,
         shouldRevalidate: () => false,
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            loader: ({ params }) => redirect(`/reports/${params.vin}/overview`),
+            loader: ({ params }) => redirect(`/reports/${params.id}/overview`),
           },
           { path: "overview", element: <ResumenSection /> },
           { path: "timeline", element: <TimelineSection /> },

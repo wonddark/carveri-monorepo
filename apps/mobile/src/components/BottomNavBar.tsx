@@ -4,7 +4,7 @@ import { cn } from "@carveri/shared/lib/utils";
 import { useTranslation } from "react-i18next";
 
 export default function BottomNavBar() {
-  const { vin } = useParams<{ vin: string }>();
+  const { id } = useParams<{ id: string }>();
   const { t } = useTranslation("common");
 
   const TABS = [
@@ -32,7 +32,7 @@ export default function BottomNavBar() {
       {TABS.map((tab) => (
         <NavLink
           key={tab.id}
-          to={`/reports/${vin}/${tab.id}`}
+          to={`/reports/${id}/${tab.id}`}
           className={({ isActive }: { isActive: boolean }) =>
             cn(
               "flex flex-col items-center gap-0.5 rounded-xl px-3 py-1 text-[10px] font-semibold transition-colors",

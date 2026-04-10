@@ -4,6 +4,7 @@
   "scripts": {
     "dev:mobile": "pnpm --filter @carveri/mobile dev",
     "dev:desktop": "pnpm --filter @carveri/desktop dev",
+    "dev:all": "pnpm --parallel --filter @carveri/mobile --filter @carveri/desktop dev",
     "dev:desktop-v2": "pnpm --filter @carveri/desktop-v2 dev",
     "build:mobile": "pnpm --filter @carveri/mobile build",
     "build:desktop": "pnpm --filter @carveri/desktop build",

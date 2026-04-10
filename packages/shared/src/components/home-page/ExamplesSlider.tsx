@@ -28,7 +28,6 @@ function ExamplesSlider() {
   useEffect(() => {
     (async () => {
       const vList = await getVehicleList();
-      if (vList instanceof Response) return;
       setExamples(vList.data);
     })();
   }, []);
@@ -76,7 +75,7 @@ function ExamplesSlider() {
             {examples.map((car) => (
               <a
                 key={car.id}
-                href={`/reports/${car.vin}`}
+                href={`/reports/${car.id}`}
                 className="group w-65 shrink-0 snap-start sm:w-70"
               >
                 <Card className="gap-0 overflow-hidden py-0 transition-all duration-300 hover:-translate-y-1 hover:ring-2">

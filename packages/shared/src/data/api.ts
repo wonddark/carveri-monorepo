@@ -1,6 +1,6 @@
 import { auth } from "@carveri/shared/lib/auth.ts";
 import type { VehicleReportResponse } from "@carveri/shared/types/vehicle-report";
-import type { VehicleList } from "@carveri/shared/types/vehicle-list.ts";
+import type { VehicleListResponse } from "@carveri/shared/types/vehicle-list.ts";
 
 // ---------------------------------------------------------------------------
 // Auth API
@@ -102,30 +102,28 @@ export async function fetchWithAuth(
 // Data API
 // ---------------------------------------------------------------------------
 
-export async function getVehicleList(): Promise<{ data: VehicleList } | Response> {
-  const response = await fetchWithAuth(
-    `${import.meta.env.VITE_API_URL}/Vehicle/all`,
+export async function getVehicleList(): Promise<VehicleListResponse> {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/Vehicle/free-access/list?PageIndex=0&PageSize=20`,
     { headers: { Accept: "application/json" } },
   );
 
   if (!response.ok) {
-    if (response.status === 401) return response;
     if (response.status === 404) throw new Response("Not Found", { status: 404 });
     throw new Response("Server Error", { status: 500 });
   }
 
-  return response.json() as Promise<{ data: VehicleList }>;
+  return response.json() as Promise<VehicleListResponse>;
 }
 
 export async function fetchVehicleReport(
-  vin: string,
-): Promise<VehicleReportResponse | Response> {
-  const response = await fetchWithAuth(
-    `${import.meta.env.VITE_API_URL}/Vehicle/${vin}/expediente`,
+  id: string,
+): Promise<VehicleReportResponse> {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/Vehicle/${id}/expediente`,
   );
 
   if (!response.ok) {
-    if (response.status === 401) return response;
     if (response.status === 404) throw new Response("Not Found", { status: 404 });
     throw new Response("Server Error", { status: 500 });
   }

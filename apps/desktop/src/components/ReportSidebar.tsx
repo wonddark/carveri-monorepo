@@ -1,6 +1,6 @@
 import { type ReactNode, useEffect, useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
-import { NavLink, useLocation, useParams } from "react-router";
+import { NavLink, useLocation, useParams, useRouteLoaderData } from "react-router";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import {
@@ -10,6 +10,7 @@ import {
   IconHeartHandshake,
   IconHome,
 } from "@tabler/icons-react";
+import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 
 interface NavItem {
   id: string;
@@ -90,7 +91,8 @@ const NAV: NavEntry[] = [
 
 export default function ReportSidebar() {
   const { t } = useTranslation("common");
-  const { vin } = useParams<{ vin: string }>();
+  const { id } = useParams<{ id: string }>();
+  const report = useRouteLoaderData("report") as TransformedReport | undefined;
   const location = useLocation();
   const currentSection =
     location.pathname.replace(/\/$/, "").split("/").pop() ?? "";
@@ -132,7 +134,7 @@ export default function ReportSidebar() {
             return (
               <NavLink
                 key={entry.id}
-                to={`/reports/${vin}/${entry.id}`}
+                to={`/reports/${id}/${entry.id}`}
                 className={({ isActive }: { isActive: boolean }) =>
                   cn(
                     "flex w-full items-center gap-2 px-3 py-2.5 text-sm font-medium",
@@ -179,7 +181,7 @@ export default function ReportSidebar() {
                   {group.children.map((child) => (
                     <NavLink
                       key={child.id}
-                      to={`/reports/${vin}/${child.id}`}
+                      to={`/reports/${id}/${child.id}`}
                       className={({ isActive }: { isActive: boolean }) =>
                         cn(
                           "gap-2 rounded-md px-2",
@@ -203,7 +205,7 @@ export default function ReportSidebar() {
 
       {/* VIN footer */}
       <div className="border-border border-t px-4 py-3">
-        <p className="text-muted-foreground font-mono text-xs">{vin}</p>
+        <p className="text-muted-foreground font-mono text-xs">{report?.vin}</p>
       </div>
     </aside>
   );

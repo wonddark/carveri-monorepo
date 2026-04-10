@@ -16,11 +16,9 @@ export function redirectIfAuthLoader() {
 }
 
 export async function reportLoader({ params }: LoaderFunctionArgs) {
-  requireAuthLoader();
-  if (!params.vin) throw new Response("Not Found", { status: 404 });
+  if (!params.id) throw new Response("Not Found", { status: 404 });
   if (!import.meta.env.VITE_API_URL)
     throw new Response("API not configured", { status: 503 });
-  const raw = await fetchVehicleReport(params.vin);
-  if (raw instanceof Response) return raw;
+  const raw = await fetchVehicleReport(params.id);
   return transformToSharedReport(raw.data);
 }

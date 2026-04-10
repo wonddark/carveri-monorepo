@@ -25,3 +25,10 @@ dist-ssr
 
 # Superpowers brainstorm sessions
 .superpowers/
+
+# Local app env files
+apps/mobile/.env.local
+apps/desktop/.env.local
+data/
+package-lock.json
+AGENTS.md
