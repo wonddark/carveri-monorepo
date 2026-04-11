@@ -15,12 +15,12 @@ function generateReportTitle({
 }
 
 function formatCurrency(value: number): string {
-  return new Intl.NumberFormat(i18next.language, {
+  return new Intl.NumberFormat(i18next.resolvedLanguage, {
     style: "currency",
     currency: "USD",
     currencyDisplay: "narrowSymbol",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   }).format(value);
 }
 
