@@ -26,11 +26,13 @@ export default function TitleSubtab({ title }: Readonly<Props>) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.08 }}
           >
-            <Card>
+            <Card className="border-blue-200 bg-blue-50 dark:border-blue-700/25 dark:bg-blue-900/20">
               <CardContent className="flex gap-3">
-                <CircleCheckBig className="mt-0.5 size-4.5 shrink-0 text-indigo-500" />
+                <CircleCheckBig className="mt-0.5 size-4.5 shrink-0 text-indigo-500 dark:text-indigo-300" />
                 <div>
-                  <div className="text-sm font-medium">{item.title}</div>
+                  <div className="text-sm font-medium text-indigo-500 dark:text-indigo-300">
+                    {item.title}
+                  </div>
                   <div className="text-muted-foreground mt-0.5 text-xs">
                     {item.description}
                   </div>
