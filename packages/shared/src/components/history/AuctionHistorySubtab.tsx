@@ -1,12 +1,14 @@
+import { Activity, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Banknote, Gauge } from "lucide-react";
 import { motion } from "framer-motion";
+import Lightbox from "yet-another-react-lightbox";
+import { Zoom } from "yet-another-react-lightbox/plugins";
 import { cn } from "@carveri/shared/lib/utils.ts";
 import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import type { TransformedReport } from "../../lib/transforms.ts";
-import { Activity } from "react";
 import { IconCircleCheck, IconCircleX } from "@tabler/icons-react";
 
 interface Props {
@@ -23,6 +25,9 @@ export default function AuctionHistorySubtab({
   const soldCount = auctionSales.filter((s) => s.sold).length;
   const lastOdometer =
     auctionSales.find((s) => s.mileage != null)?.mileage || null;
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
+  const slides = auctionPhotos.map((src) => ({ src }));
 
   return (
     <>
@@ -161,19 +166,37 @@ export default function AuctionHistorySubtab({
               </h3>
               <div className="grid grid-cols-3 gap-1.5 sm:grid-cols-4">
                 {auctionPhotos.map((url, i) => (
-                  <img
+                  <button
                     key={i}
-                    src={url}
-                    alt={`Auction photo ${i + 1}`}
-                    className="aspect-square w-full rounded-lg object-cover"
-                    loading="lazy"
-                  />
+                    type="button"
+                    className="aspect-square w-full cursor-pointer overflow-hidden rounded-lg"
+                    onClick={() => {
+                      setLightboxIndex(i);
+                      setLightboxOpen(true);
+                    }}
+                  >
+                    <img
+                      src={url}
+                      alt={`Auction photo ${i + 1}`}
+                      className="size-full object-cover transition-transform duration-200 hover:scale-105"
+                      loading="lazy"
+                    />
+                  </button>
                 ))}
               </div>
             </div>
           )}
         </>
       )}
+
+      <Lightbox
+        open={lightboxOpen}
+        close={() => setLightboxOpen(false)}
+        index={lightboxIndex}
+        slides={slides}
+        plugins={[Zoom]}
+        zoom={{ scrollToZoom: true }}
+      />
     </>
   );
 }
