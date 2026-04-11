@@ -79,17 +79,31 @@ export default function AuctionHistorySubtab({
                 {/* Node */}
                 <div
                   className={cn(
-                    "ring-background relative z-10 mt-1 flex size-8 shrink-0 items-center justify-center rounded-full text-xs font-bold ring-2",
-                    sale.sold
-                      ? "bg-green-500 text-white"
-                      : "bg-slate-300 text-slate-600 dark:bg-slate-600 dark:text-slate-300",
+                    "ring-background text-background ring-offset-background relative z-10 mt-1 flex size-8 shrink-0 items-center justify-center rounded-full text-xs font-bold shadow-sm ring-2 ring-offset-2",
+                    {
+                      "bg-emerald-500 ring-emerald-300": sale.sold,
+                      "bg-gray-400 ring-gray-300 dark:bg-gray-700 dark:ring-gray-500":
+                        !sale.sold,
+                    },
                   )}
                 >
-                  {i + 1}
+                  <Activity mode={sale.sold ? "visible" : "hidden"}>
+                    <IconCircleCheck className="size-5" />
+                  </Activity>
+                  <Activity mode={sale.sold ? "hidden" : "visible"}>
+                    <IconCircleX className="size-5" />
+                  </Activity>
                 </div>
 
                 {/* Card */}
-                <div className="border-border bg-card flex-1 rounded-xl border p-3 shadow-sm">
+                <div
+                  className={cn(
+                    "border-border bg-card flex-1 rounded-xl border p-3 shadow-sm",
+                    {
+                      "border-l-4 border-l-emerald-500": sale.sold,
+                    },
+                  )}
+                >
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <p className="text-sm font-semibold">
@@ -100,7 +114,9 @@ export default function AuctionHistorySubtab({
                       </p>
                     </div>
                     <div className="flex flex-col items-end gap-1.5">
-                      <span>{sale.price != null ? formatCurrency(sale.price) : "—"}</span>
+                      <span>
+                        {sale.price != null ? formatCurrency(sale.price) : "—"}
+                      </span>
                       <span
                         className={cn(
                           "inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold",
