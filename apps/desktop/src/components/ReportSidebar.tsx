@@ -1,6 +1,11 @@
 import { type ReactNode, useEffect, useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
-import { NavLink, useLocation, useParams, useRouteLoaderData } from "react-router";
+import {
+  NavLink,
+  useLocation,
+  useParams,
+  useRouteLoaderData,
+} from "react-router";
 import { cn } from "@/lib/utils";
 import { useTranslation } from "react-i18next";
 import {
@@ -42,7 +47,7 @@ const NAV: NavEntry[] = [
       children: [
         { id: "timeline", label: "pages.timeline" },
         { id: "auction-history", label: "pages.auction_history" },
-        { id: "past-sales", label: "pages.past_sales" },
+        // { id: "past-sales", label: "pages.past_sales" },
         { id: "accidents", label: "pages.accidents" },
         { id: "owners", label: "pages.owners" },
         { id: "service", label: "pages.service" },
