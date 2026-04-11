@@ -38,8 +38,10 @@ export default function ServiceSubtab({ service }: Readonly<Props>) {
                   </div>
                 </div>
                 <div className="shrink-0 text-right">
-                  <div className="text-xs">{record.date}</div>
                   <div className="text-muted-foreground text-xs">
+                    {record.date}
+                  </div>
+                  <div className="text-muted-foreground text-xs font-bold">
                     {record.mileage?.toLocaleString()} mi
                   </div>
                 </div>
