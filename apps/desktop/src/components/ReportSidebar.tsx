@@ -47,11 +47,11 @@ const NAV: NavEntry[] = [
       children: [
         { id: "timeline", label: "pages.timeline" },
         { id: "auction-history", label: "pages.auction_history" },
-        // { id: "past-sales", label: "pages.past_sales" },
         { id: "accidents", label: "pages.accidents" },
         { id: "owners", label: "pages.owners" },
         { id: "service", label: "pages.service" },
         { id: "title", label: "pages.title" },
+        { id: "past-sales", label: "pages.past_sales" },
       ],
     },
   },
