@@ -93,10 +93,10 @@ export default function AuctionHistorySubtab({
                   )}
                 >
                   <Activity mode={sale.sold ? "visible" : "hidden"}>
-                    <IconCircleCheck className="size-5" />
+                    <IconCircleCheck className="size-4" />
                   </Activity>
                   <Activity mode={sale.sold ? "hidden" : "visible"}>
-                    <IconCircleX className="size-5" />
+                    <IconCircleX className="size-4" />
                   </Activity>
                 </div>
 
@@ -169,7 +169,7 @@ export default function AuctionHistorySubtab({
                   <button
                     key={i}
                     type="button"
-                    className="aspect-square w-full cursor-pointer overflow-hidden rounded-lg"
+                    className="aspect-square w-full cursor-zoom-in overflow-hidden rounded-lg"
                     onClick={() => {
                       setLightboxIndex(i);
                       setLightboxOpen(true);
