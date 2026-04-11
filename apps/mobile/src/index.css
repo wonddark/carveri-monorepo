@@ -196,7 +196,12 @@
 }
 .gauge-trend {
   font-size: 0.75rem;
+}
+.gauge-trend.down{
   color: #22c55e;
+}
+.gauge-trend.up{
+  color: #c55322;
 }
 
 .gauge-bottom-stats {

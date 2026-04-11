@@ -104,6 +104,7 @@ export default function ResumenView({ report }: Readonly<Props>) {
                 price={report.price}
                 wholesale={wholesale}
                 retail={retail}
+                averageDeltaPct={report.priceEval.marketAvgDeltaPct}
               />
 
               <BookValues bookValues={priceEval.bookValues} />

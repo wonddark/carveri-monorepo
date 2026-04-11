@@ -2,6 +2,7 @@ import { buildGaugeSvg, fmt } from "@carveri/shared/lib/gauge.ts";
 import parse from "html-react-parser";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { cn } from "@carveri/shared/lib/utils.ts";
 
 type Props = {
   percentile: number;
@@ -9,10 +10,12 @@ type Props = {
   price: number;
   wholesale: number;
   retail: number;
+  averageDeltaPct: number;
 };
 
 function ReportGauge(props: Readonly<Props>) {
-  const { percentile, label, price, wholesale, retail } = props;
+  const { percentile, label, price, wholesale, retail, averageDeltaPct } =
+    props;
   const { t, i18n } = useTranslation("vehicle-details");
   const lang = (i18n.resolvedLanguage || "en") as "es" | "en";
   const [isVisible, setIsVisible] = useState(false);
@@ -42,11 +45,21 @@ function ReportGauge(props: Readonly<Props>) {
       className={`bg-card mb-4 rounded-xl p-4 ${isVisible ? "" : "gauge-paused"}`}
     >
       <div className="mb-2 flex items-center justify-between">
-        <div className="flex items-center gap-1.5">
-          <div className="w-1"></div>
-          <span className="gauge-label">{t("gauge.priceEvaluation")}</span>
-        </div>
-        <span className="gauge-trend">↘ -2.8%</span>
+        <span className="gauge-label">{t("gauge.priceEvaluation")}</span>
+
+        <span
+          className={cn("gauge-trend", {
+            down: averageDeltaPct <= 0,
+            up: averageDeltaPct > 0,
+          })}
+        >
+          {averageDeltaPct <= 0 ? (
+            <span>&#129158;</span>
+          ) : (
+            <span>&#129157;</span>
+          )}{" "}
+          {`${averageDeltaPct}%`}
+        </span>
       </div>
       {parse(buildGaugeSvg(percentile, price, label, lang))}
       <div className="gauge-bottom-stats">

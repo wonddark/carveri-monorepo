@@ -55,6 +55,7 @@ export default function PriceEvalSection({
           retail={min}
           percentile={percentile}
           wholesale={max}
+          averageDeltaPct={marketAvgDeltaPct}
         />
         <BookValues bookValues={bookValues} />
       </CardContent>

@@ -113,6 +113,7 @@ export default function MarketTab({ report }: Readonly<Props>) {
               wholesale={min}
               retail={max}
               percentile={percentile}
+              averageDeltaPct={report.priceEval.marketAvgDeltaPct}
             />
 
             <Card>

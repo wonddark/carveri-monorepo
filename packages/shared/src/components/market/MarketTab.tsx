@@ -89,6 +89,7 @@ export default function MarketTab({ report }: Readonly<Props>) {
                   wholesale={max}
                   label={report.priceEval.label}
                   price={report.price}
+                  averageDeltaPct={report.priceEval.marketAvgDeltaPct}
                 />
                 <div>
                   <h3 className="mb-3 text-sm font-bold text-slate-900">
