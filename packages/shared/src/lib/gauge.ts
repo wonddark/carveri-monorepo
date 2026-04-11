@@ -1,6 +1,4 @@
-function fmt(n: number) {
-  return "$" + n.toLocaleString("en-US");
-}
+import { formatCurrency } from "./formatters";
 
 function buildGaugeSvg(
   percentile: number,
@@ -104,7 +102,7 @@ function buildGaugeSvg(
     <circle cx="${cx}" cy="${cy}" r="10" fill="#2A2D35" stroke="#444" stroke-width="0.5"/>
     <circle cx="${cx}" cy="${cy}" r="6" fill="${currentColor}" opacity="0.85"/>
     <circle cx="${cx}" cy="${cy}" r="3" fill="white" opacity="0.5"/>
-    <text x="${cx}" y="${cy + 38}" text-anchor="middle" fill="white" font-size="24" font-weight="800" font-family="'Outfit',sans-serif" letter-spacing="-0.5">${fmt(price)}</text>
+    <text x="${cx}" y="${cy + 38}" text-anchor="middle" fill="white" font-size="24" font-weight="800" font-family="'Outfit',sans-serif" letter-spacing="-0.5">${formatCurrency(price)}</text>
     <rect x="${cx - 40}" y="${cy + 46}" width="80" height="18" rx="9" fill="${currentColor}" opacity="0.15"/>
     <text x="${cx}" y="${cy + 58}" text-anchor="middle" fill="${currentColor}" font-size="8.5" font-weight="800" font-family="'Outfit',sans-serif" letter-spacing="1.5">${label}</text>
     <text x="${cx - 85}" y="${cy + 78}" text-anchor="middle" fill="#555" font-size="7" font-family="'Source Sans 3',sans-serif">Más Barato</text>
@@ -114,4 +112,4 @@ function buildGaugeSvg(
   </svg>`;
 }
 
-export { buildGaugeSvg, fmt };
+export { buildGaugeSvg };

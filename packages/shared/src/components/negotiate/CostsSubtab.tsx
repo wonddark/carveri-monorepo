@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import type { VehicleReport } from "@carveri/shared/types/vehicle-report.ts";
+import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 
 interface Props {
   price: number;
@@ -40,7 +41,7 @@ export default function CostsSubtab({ price }: Readonly<Props>) {
             <div className="flex items-center justify-between py-1.25">
               <span className="text-sm">{t("costs.vehiclePrice")}</span>
               <span className="text-sm font-semibold">
-                ${price.toLocaleString()}
+                {formatCurrency(price)}
               </span>
             </div>
             <div className="flex items-center justify-between py-1.25">
@@ -48,19 +49,19 @@ export default function CostsSubtab({ price }: Readonly<Props>) {
                 {t("costs.salesTax")} ({costs.taxRatePct}%)
               </span>
               <span className="text-sm font-semibold">
-                ${salesTax.toLocaleString()}
+                {formatCurrency(salesTax)}
               </span>
             </div>
             <div className="flex items-center justify-between py-1.25">
               <span className="text-sm">{t("costs.tagTitle")}</span>
               <span className="text-sm font-semibold">
-                ${costs.tagAndTitle.toLocaleString()}
+                {formatCurrency(costs.tagAndTitle)}
               </span>
             </div>
             <div className="flex items-center justify-between py-1.25">
               <span className="text-sm">{t("costs.dealerFee")}</span>
               <span className="text-sm font-semibold">
-                ${costs.dealerFee.toLocaleString()}
+                {formatCurrency(costs.dealerFee)}
               </span>
             </div>
             <div className="flex items-center justify-between pt-3">
@@ -68,7 +69,7 @@ export default function CostsSubtab({ price }: Readonly<Props>) {
                 {t("costs.totalEstimated")}
               </span>
               <span className="text-primary text-sm font-black">
-                ${total.toLocaleString()}
+                {formatCurrency(total)}
               </span>
             </div>
           </CardContent>

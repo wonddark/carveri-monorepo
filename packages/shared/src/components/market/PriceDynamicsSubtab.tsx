@@ -10,6 +10,7 @@ import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import { Input } from "@carveri/shared/components/ui/input.tsx";
 import { Button } from "@carveri/shared/components/ui/button.tsx";
 import type { PriceDynamics } from "@carveri/shared/lib/transforms.ts";
+import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import type { ReactNode } from "react";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import {
@@ -45,7 +46,7 @@ function PriceTooltip({
   return (
     <div className="border-border/50 bg-background grid min-w-36 gap-1 rounded-lg border px-2.5 py-1.5 text-xs shadow-xl">
       <span className="font-mono font-medium tabular-nums">
-        ${price.toLocaleString()}
+        {formatCurrency(price)}
       </span>
       <span className="text-muted-foreground font-medium">{date}</span>
       <span
@@ -60,7 +61,7 @@ function PriceTooltip({
         ) : (
           <>
             <IconArrowDown className="size-3" />
-            {`$${drop.toLocaleString()} (${dropPct}%)`}
+            {`${formatCurrency(drop)} (${dropPct}%)`}
           </>
         )}
       </span>
@@ -144,7 +145,7 @@ export default function PriceDynamicsSubtab({
             />
             <StatCard
               icon={<IconTag className="size-5" />}
-              value={`$${currentPrice.toLocaleString()}`}
+              value={formatCurrency(currentPrice)}
               label={t("priceDynamics.currentPrice")}
             />
           </div>
@@ -227,7 +228,7 @@ export default function PriceDynamicsSubtab({
                   {t("priceDynamics.totalDiscount")}
                 </span>
                 <span className="font-bold text-red-700 dark:text-red-300">
-                  ${totalDrop.toLocaleString()}
+                  {formatCurrency(totalDrop)}
                 </span>
               </div>
               <div className="flex flex-col gap-1.5">

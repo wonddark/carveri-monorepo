@@ -2,7 +2,7 @@ import React, { type ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@carveri/shared/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@carveri/shared/components/ui/card";
-import { fmt } from "@carveri/shared/lib/gauge";
+import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import {
   IconAlertTriangle,
   IconCircleCheck,
@@ -178,7 +178,7 @@ export const IATab: React.FC = () => {
         <div className="offer-card mb-3 rounded-2xl bg-linear-to-r from-sky-100 to-blue-100 p-5 text-center">
           <div className="text-xs">{t('ia.offerPrice')}</div>
           <div className="font-display my-1 text-[32px] leading-tight font-extrabold text-blue-600">
-            {fmt(48500)}
+            {formatCurrency(48500)}
           </div>
           <div className="text-xs opacity-70">{t('ia.range')} $47,000 – $50,000</div>
         </div>

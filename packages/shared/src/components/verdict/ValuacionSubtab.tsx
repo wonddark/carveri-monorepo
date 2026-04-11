@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { TrendingDown, TrendingUp } from "lucide-react";
 import { cn } from "@carveri/shared/lib/utils.ts";
+import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import type { TransformedEvaluation } from "@carveri/shared/lib/transforms.ts";
@@ -86,7 +87,7 @@ export default function ValuacionSubtab({ evaluation }: Readonly<Props>) {
             {t("valuation.fairPrice")}
           </p>
           <p className="mt-1 text-3xl font-bold">
-            {hasFairPrice ? `$${Math.round(fairPrice).toLocaleString()}` : "—"}
+            {hasFairPrice ? formatCurrency(Math.round(fairPrice)) : "—"}
           </p>
           {hasFairPrice && (
             <p
@@ -95,7 +96,7 @@ export default function ValuacionSubtab({ evaluation }: Readonly<Props>) {
                 "text-red-600 dark:text-red-400": diffVsFair > 0,
               })}
             >
-              {diffVsFair >= 0 ? "+" : ""}${Math.abs(Math.round(diffVsFair)).toLocaleString()}{" "}
+              {diffVsFair >= 0 ? "+" : ""}{formatCurrency(Math.abs(Math.round(diffVsFair)))}{" "}
               {t(`valuation.zones.${gauge.currentZone}`, {
                 defaultValue: gauge.currentZone,
               })}
@@ -139,16 +140,16 @@ export default function ValuacionSubtab({ evaluation }: Readonly<Props>) {
       {/* 4-column stats row */}
       <div className="mb-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
         {[
-          { label: t("valuation.dealerPrice"), value: dealerPrice > 0 ? `$${dealerPrice.toLocaleString()}` : "—" },
-          { label: t("valuation.auctionPrice"), value: auctionPrice > 0 ? `$${auctionPrice.toLocaleString()}` : "—" },
+          { label: t("valuation.dealerPrice"), value: dealerPrice > 0 ? formatCurrency(dealerPrice) : "—" },
+          { label: t("valuation.auctionPrice"), value: auctionPrice > 0 ? formatCurrency(auctionPrice) : "—" },
           {
             label: t("valuation.dealerMargin"),
-            value: dealerMargin !== 0 ? `$${Math.abs(dealerMargin).toLocaleString()}` : "—",
+            value: dealerMargin !== 0 ? formatCurrency(Math.abs(dealerMargin)) : "—",
           },
           {
             label: t("valuation.diffVsFair"),
             value: hasFairPrice
-              ? `${diffVsFair >= 0 ? "+" : ""}$${Math.abs(Math.round(diffVsFair)).toLocaleString()}`
+              ? `${diffVsFair >= 0 ? "+" : ""}${formatCurrency(Math.abs(Math.round(diffVsFair)))}`
               : "—",
             color:
               hasFairPrice
@@ -256,7 +257,7 @@ export default function ValuacionSubtab({ evaluation }: Readonly<Props>) {
                         "text-red-600 dark:text-red-400": !isPositive,
                       })}
                     >
-                      {isPositive ? "+" : ""}${Math.round(adj.appliedAmount).toLocaleString()}
+                      {isPositive ? "+" : ""}{formatCurrency(Math.abs(Math.round(adj.appliedAmount)))}
                     </span>
                   </div>
                 );

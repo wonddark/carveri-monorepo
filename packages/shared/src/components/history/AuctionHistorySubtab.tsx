@@ -2,9 +2,12 @@ import { useTranslation } from "react-i18next";
 import { Banknote, Gauge } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@carveri/shared/lib/utils.ts";
+import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import type { TransformedReport } from "../../lib/transforms.ts";
+import { Activity } from "react";
+import { IconCircleCheck, IconCircleX } from "@tabler/icons-react";
 
 interface Props {
   auctionSales: TransformedReport["auctionSales"];
@@ -18,7 +21,8 @@ export default function AuctionHistorySubtab({
   const { t } = useTranslation("history");
 
   const soldCount = auctionSales.filter((s) => s.sold).length;
-  const lastOdometer = auctionSales.find((s) => s.mileage != null)?.mileage;
+  const lastOdometer =
+    auctionSales.find((s) => s.mileage != null)?.mileage || null;
 
   return (
     <>
@@ -29,8 +33,10 @@ export default function AuctionHistorySubtab({
 
       {auctionSales.length === 0 ? (
         <div className="flex flex-col items-center gap-3 py-12 text-center">
-          <Banknote className="size-10 text-muted-foreground/40" />
-          <p className="text-sm text-muted-foreground">{t("auctionHistory.noAuctions")}</p>
+          <Banknote className="text-muted-foreground/40 size-10" />
+          <p className="text-muted-foreground text-sm">
+            {t("auctionHistory.noAuctions")}
+          </p>
         </div>
       ) : (
         <>
@@ -38,7 +44,7 @@ export default function AuctionHistorySubtab({
           <div className="mb-5 grid grid-cols-2 gap-3">
             <Card>
               <CardContent className="flex flex-col gap-1 py-3">
-                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <div className="text-muted-foreground flex items-center gap-1.5 text-xs">
                   <Banknote size={13} />
                   {t("auctionHistory.sales")}
                 </div>
@@ -47,14 +53,12 @@ export default function AuctionHistorySubtab({
             </Card>
             <Card>
               <CardContent className="flex flex-col gap-1 py-3">
-                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <div className="text-muted-foreground flex items-center gap-1.5 text-xs">
                   <Gauge size={13} />
                   {t("auctionHistory.odometer")}
                 </div>
                 <span className="text-2xl font-bold">
-                  {lastOdometer != null
-                    ? `${lastOdometer.toLocaleString()} mi`
-                    : "—"}
+                  {lastOdometer ? `${lastOdometer.toLocaleString()} mi` : "—"}
                 </span>
               </CardContent>
             </Card>
@@ -75,7 +79,7 @@ export default function AuctionHistorySubtab({
                 {/* Node */}
                 <div
                   className={cn(
-                    "relative z-10 mt-1 size-8 shrink-0 rounded-full ring-2 ring-background flex items-center justify-center text-xs font-bold",
+                    "ring-background relative z-10 mt-1 flex size-8 shrink-0 items-center justify-center rounded-full text-xs font-bold ring-2",
                     sale.sold
                       ? "bg-green-500 text-white"
                       : "bg-slate-300 text-slate-600 dark:bg-slate-600 dark:text-slate-300",
@@ -85,30 +89,43 @@ export default function AuctionHistorySubtab({
                 </div>
 
                 {/* Card */}
-                <div className="flex-1 rounded-xl border border-border bg-card p-3 shadow-sm">
+                <div className="border-border bg-card flex-1 rounded-xl border p-3 shadow-sm">
                   <div className="flex items-start justify-between gap-2">
                     <div>
-                      <p className="text-sm font-semibold">{sale.auctionName}</p>
-                      <p className="text-[11px] text-muted-foreground">
+                      <p className="text-sm font-semibold">
+                        {sale.auctionName}
+                      </p>
+                      <p className="text-muted-foreground text-[11px]">
                         {sale.city}, {sale.state} · {sale.date}
                       </p>
                     </div>
-                    <span
-                      className={cn(
-                        "shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold",
-                        sale.sold
-                          ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                          : "bg-slate-100 text-slate-500 dark:bg-slate-800",
-                      )}
-                    >
-                      {sale.sold ? t("auctionHistory.sold") : t("auctionHistory.notSold")}
-                    </span>
+                    <div className="flex flex-col items-end gap-1.5">
+                      <span>{sale.price != null ? formatCurrency(sale.price) : "—"}</span>
+                      <span
+                        className={cn(
+                          "inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold",
+                          sale.sold
+                            ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                            : "bg-muted text-muted-foreground",
+                        )}
+                      >
+                        <Activity mode={sale.sold ? "visible" : "hidden"}>
+                          <IconCircleCheck className="size-3" />
+                        </Activity>
+                        <Activity mode={sale.sold ? "hidden" : "visible"}>
+                          <IconCircleX className="size-3" />
+                        </Activity>
+                        {sale.sold
+                          ? t("auctionHistory.sold")
+                          : t("auctionHistory.notSold")}
+                      </span>
+                    </div>
                   </div>
 
-                  <div className="mt-2 flex flex-wrap gap-3 text-xs text-muted-foreground">
+                  <div className="text-muted-foreground mt-2 flex flex-wrap gap-3 text-xs">
                     {sale.price != null && (
-                      <span className="font-semibold text-foreground">
-                        ${sale.price.toLocaleString()}
+                      <span className="text-foreground font-semibold">
+                        {formatCurrency(sale.price)}
                       </span>
                     )}
                     {sale.mileage != null && (

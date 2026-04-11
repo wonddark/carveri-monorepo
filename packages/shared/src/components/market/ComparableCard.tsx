@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { ExternalLink, ShieldCheck, ShieldHalf } from "lucide-react";
 import { cn } from "@carveri/shared/lib/utils.ts";
+import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import type { TransformedComparable } from "@carveri/shared/lib/transforms.ts";
 
 interface Props {
@@ -73,11 +74,11 @@ export default function ComparableCard({ vehicle, subjectPrice: _ }: Readonly<Pr
         {/* Price row */}
         <div className="flex items-baseline gap-1.5">
           <span className="text-base font-bold">
-            ${vehicle.price.toLocaleString()}
+            {formatCurrency(vehicle.price)}
           </span>
           {vehicle.priceDiff !== 0 && (
             <span className={cn("text-xs font-semibold tabular-nums", diffColor)}>
-              {diffSign}${Math.abs(vehicle.priceDiff).toLocaleString()}
+              {diffSign}{formatCurrency(Math.abs(vehicle.priceDiff))}
             </span>
           )}
         </div>

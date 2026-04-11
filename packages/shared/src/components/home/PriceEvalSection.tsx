@@ -4,6 +4,7 @@ import BookValues from "./BookValues";
 import ReportGauge from "@carveri/shared/components/ReportGauge.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import type { TransformedReport } from "../../lib/transforms.ts";
+import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 
 interface Props {
   price: number;
@@ -40,7 +41,7 @@ export default function PriceEvalSection({
         </div>
 
         <div className="mb-1 text-center">
-          <div className="text-3xl font-medium">${price.toLocaleString()}</div>
+          <div className="text-3xl font-medium">{formatCurrency(price)}</div>
           <div className="text-primary mt-0.5 text-xs font-medium">
             {LABEL_TEXT[label]} — {isAbove ? "▲" : "▼"}
             {Math.abs(marketAvgDeltaPct)}%{" "}

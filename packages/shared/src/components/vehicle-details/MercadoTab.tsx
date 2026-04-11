@@ -11,7 +11,7 @@ import {
 } from "@tabler/icons-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@carveri/shared/components/ui/card";
 import { comparablesData } from "@carveri/shared/data/mockData";
-import { fmt } from "@carveri/shared/lib/gauge";
+import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import { ScrollArea, ScrollBar } from "@carveri/shared/components/ui/scroll-area.tsx";
 
 interface Props {
@@ -97,13 +97,13 @@ export const MercadoTab: React.FC<Props> = ({ vehiclePrice }) => {
                       </div>
                       <div className="shrink-0 text-right">
                         <div className="font-display text-[14px] font-bold">
-                          {fmt(comp.price)}
+                          {formatCurrency(comp.price)}
                         </div>
                         <div
                           className={`text-[11px] font-semibold ${diff > 0 ? "text-[#22C55E]" : "text-[#FF0400]"}`}
                         >
                           {diff > 0 ? "▼ " : "▲ "}
-                          {fmt(Math.abs(diff))}
+                          {formatCurrency(Math.abs(diff))}
                           {diff > 0 ? " menos" : " más"}
                         </div>
                         <div className="text-[10px] text-[#aaa]">

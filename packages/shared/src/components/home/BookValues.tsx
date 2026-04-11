@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import { IconTrendingDown, IconTrendingUp } from "@tabler/icons-react";
 import { cn } from "@carveri/shared/lib/utils.ts";
+import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import type { TransformedReport } from "../../lib/transforms.ts";
 
 const SOURCE_COLORS: Record<
@@ -33,7 +34,7 @@ export default function BookValues({ bookValues }: Readonly<Props>) {
                 {bv.source}
               </span>
               <div className="text-sm font-bold">
-                ${bv.value.toLocaleString()}
+                {formatCurrency(bv.value)}
               </div>
               <div
                 className={cn("flex items-center gap-1 text-xs", {
@@ -46,7 +47,7 @@ export default function BookValues({ bookValues }: Readonly<Props>) {
                 ) : (
                   <IconTrendingDown className="size-3" />
                 )}
-                <span>${Math.abs(bv.delta).toLocaleString()}</span>
+                <span>{formatCurrency(Math.abs(bv.delta))}</span>
                 <span>
                   {trendingUp ? t("priceEval.above") : t("priceEval.below")}
                 </span>

@@ -1,3 +1,5 @@
+import i18next from "./i18n";
+
 function generateReportTitle({
   year,
   make,
@@ -12,4 +14,14 @@ function generateReportTitle({
   return `${year} ${make} ${model}` + (trim ? ` ${trim}` : "");
 }
 
-export { generateReportTitle };
+function formatCurrency(value: number): string {
+  return new Intl.NumberFormat(i18next.language, {
+    style: "currency",
+    currency: "USD",
+    currencyDisplay: "narrowSymbol",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(value);
+}
+
+export { generateReportTitle, formatCurrency };

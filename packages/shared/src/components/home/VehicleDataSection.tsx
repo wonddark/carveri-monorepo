@@ -2,6 +2,7 @@ import { Car } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import type { TransformedReport } from "../../lib/transforms.ts";
+import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 
 interface Props {
   vin: string;
@@ -37,7 +38,7 @@ export default function VehicleDataSection(props: Readonly<Props>) {
     { label: t("vehicleDetails.color"), value: color },
     {
       label: t("vehicleDetails.auction"),
-      value: `${auction.name} — $${auction.price?.toLocaleString()}`,
+      value: `${auction.name} — ${auction.price != null ? formatCurrency(auction.price) : ""}`,
     },
     { label: t("vehicleDetails.location"), value: location ?? "-" },
     {

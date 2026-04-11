@@ -19,6 +19,7 @@ import {
 import { Badge } from "@carveri/shared/components/ui/badge.tsx";
 import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
+import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 
 interface Props {
   vehicle: Vehicle;
@@ -26,8 +27,6 @@ interface Props {
 
 export const VehicleInfoCard: React.FC<Props> = ({ vehicle }) => {
   const { t } = useTranslation("vehicle-details");
-  const fmt = (n: number) => "$" + n.toLocaleString("en-US");
-
   return (
     <Card className="z-10 max-sm:-mt-6">
       <CardHeader>
@@ -36,7 +35,7 @@ export const VehicleInfoCard: React.FC<Props> = ({ vehicle }) => {
         </CardTitle>
         <CardDescription>{vehicle.package}</CardDescription>
         <CardAction className="text-2xl font-extrabold whitespace-nowrap">
-          {fmt(vehicle.price)}
+          {formatCurrency(vehicle.price)}
         </CardAction>
       </CardHeader>
       <CardContent className="space-y-2.5">

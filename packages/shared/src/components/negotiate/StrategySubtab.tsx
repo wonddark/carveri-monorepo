@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import type { TransformedReport } from "../../lib/transforms.ts";
+import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 
 interface Props {
   strategy: TransformedReport["negotiate"]["strategy"];
@@ -25,7 +26,7 @@ export default function StrategySubtab({ strategy }: Readonly<Props>) {
                 {t("strategy.firstOffer")}
               </p>
               <p className="text-base font-semibold">
-                ${firstOffer.toLocaleString()}
+                {formatCurrency(firstOffer)}
               </p>
             </CardContent>
           </Card>
@@ -35,7 +36,7 @@ export default function StrategySubtab({ strategy }: Readonly<Props>) {
                 {t("strategy.midpoint")}
               </p>
               <p className="text-base font-semibold">
-                ${midpoint.toLocaleString()}
+                {formatCurrency(midpoint)}
               </p>
             </CardContent>
           </Card>
@@ -45,7 +46,7 @@ export default function StrategySubtab({ strategy }: Readonly<Props>) {
                 {t("strategy.maxRecommended")}
               </p>
               <p className="text-base font-semibold">
-                ${maxRecommended.toLocaleString()}
+                {formatCurrency(maxRecommended)}
               </p>
             </CardContent>
           </Card>

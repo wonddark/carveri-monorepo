@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@carveri/shared/components/ui/card.tsx";
-import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
+import { generateReportTitle, formatCurrency } from "@carveri/shared/lib/formatters.ts";
 
 interface Props {
   year: number;
@@ -39,7 +39,7 @@ export default function CarSummaryCard(props: Readonly<Props>) {
       <CardHeader>
         <CardTitle className="flex justify-between">
           <span>{generateReportTitle({ year, make, model, trim })}</span>
-          <span>${price.toLocaleString()}</span>
+          <span>{formatCurrency(price)}</span>
         </CardTitle>
         <CardDescription>
           <span>{trim}</span>

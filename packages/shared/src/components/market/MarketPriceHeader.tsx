@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import type { TransformedReport } from "../../lib/transforms.ts";
+import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 
 const DELTA_COLOR: Record<TransformedReport["priceEval"]["label"], string> = {
   BARGAIN: "text-indigo-500",
@@ -35,7 +36,7 @@ export default function MarketPriceHeader({
     <Card>
       <CardContent className="flex flex-col items-center">
         <div className="mb-1 text-4xl font-semibold">
-          ${price.toLocaleString()}
+          {formatCurrency(price)}
         </div>
         <div className={`text-xs font-medium ${DELTA_COLOR[label]}`}>
           {isAbove ? "▲" : "▼"}

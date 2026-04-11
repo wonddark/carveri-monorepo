@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Store } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@carveri/shared/lib/utils.ts";
+import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import type { TransformedReport } from "../../lib/transforms.ts";
 
@@ -81,7 +82,7 @@ export default function PastSalesSubtab({ dealerSaleCycles }: Readonly<Props>) {
                 <div className="flex items-center justify-between text-xs">
                   <span className="text-muted-foreground">{t("pastSales.initialPrice")}</span>
                   <span className="font-semibold">
-                    ${cycle.startPrice.toLocaleString()}
+                    {formatCurrency(cycle.startPrice)}
                   </span>
                 </div>
 
@@ -91,7 +92,7 @@ export default function PastSalesSubtab({ dealerSaleCycles }: Readonly<Props>) {
                       {t("pastSales.priceDrops", { count: cycle.priceReductions })}
                     </span>
                     <span className="font-semibold text-red-500">
-                      -${cycle.priceDrop.toLocaleString()}
+                      -{formatCurrency(cycle.priceDrop)}
                     </span>
                   </div>
                 )}
@@ -106,7 +107,7 @@ export default function PastSalesSubtab({ dealerSaleCycles }: Readonly<Props>) {
                 >
                   <span className="font-semibold">{t("pastSales.finalPrice")}</span>
                   <span className="text-base font-bold">
-                    ${cycle.endPrice.toLocaleString()}
+                    {formatCurrency(cycle.endPrice)}
                   </span>
                 </div>
               </div>

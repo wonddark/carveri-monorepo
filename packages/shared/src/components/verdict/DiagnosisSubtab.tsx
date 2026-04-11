@@ -12,6 +12,7 @@ import {
   X,
 } from "lucide-react";
 import { cn } from "@carveri/shared/lib/utils.ts";
+import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import ScoreRing from "@carveri/shared/components/ScoreRing.tsx";
 import type { DiagnosisData } from "@carveri/shared/lib/transforms.ts";
@@ -145,7 +146,7 @@ export default function DiagnosisSubtab({ diagnosis }: Readonly<Props>) {
               </span>
               <span className="text-sm font-bold">
                 {diagnosis.fairPrice > 0
-                  ? `$${diagnosis.fairPrice.toLocaleString()}`
+                  ? formatCurrency(diagnosis.fairPrice)
                   : "—"}
               </span>
             </div>
@@ -161,7 +162,7 @@ export default function DiagnosisSubtab({ diagnosis }: Readonly<Props>) {
                 })}
               >
                 {diagnosis.fairPrice > 0
-                  ? `${diagnosis.priceDiff >= 0 ? "+" : ""}$${Math.abs(diagnosis.priceDiff).toLocaleString()}`
+                  ? `${diagnosis.priceDiff >= 0 ? "+" : ""}${formatCurrency(Math.abs(diagnosis.priceDiff))}`
                   : "—"}
               </span>
             </div>
@@ -292,14 +293,14 @@ export default function DiagnosisSubtab({ diagnosis }: Readonly<Props>) {
                 <p className="text-[10px] text-muted-foreground">{t("diagnosis.prices.dealer")}</p>
                 <p className="font-bold">
                   {diagnosis.fairPrice > 0
-                    ? `$${(diagnosis.fairPrice + diagnosis.priceDiff).toLocaleString()}`
+                    ? formatCurrency(diagnosis.fairPrice + diagnosis.priceDiff)
                     : "—"}
                 </p>
               </div>
               <div className="px-3 py-2">
                 <p className="text-[10px] text-muted-foreground">{t("diagnosis.prices.fairPrice")}</p>
                 <p className="font-bold">
-                  {diagnosis.fairPrice > 0 ? `$${diagnosis.fairPrice.toLocaleString()}` : "—"}
+                  {diagnosis.fairPrice > 0 ? formatCurrency(diagnosis.fairPrice) : "—"}
                 </p>
               </div>
               <div className="px-3 py-2">
@@ -311,7 +312,7 @@ export default function DiagnosisSubtab({ diagnosis }: Readonly<Props>) {
                   })}
                 >
                   {diagnosis.fairPrice > 0
-                    ? `${diagnosis.priceDiff >= 0 ? "+" : ""}$${Math.abs(diagnosis.priceDiff).toLocaleString()}`
+                    ? `${diagnosis.priceDiff >= 0 ? "+" : ""}${formatCurrency(Math.abs(diagnosis.priceDiff))}`
                     : "—"}
                 </p>
               </div>
