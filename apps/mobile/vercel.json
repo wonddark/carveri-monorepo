@@ -11,7 +11,7 @@
         }
       ],
       "permanent": false,
-      "destination": "https://carveri-portal-desktop-dev.vercel.app/"
+      "destination": "https://dev.carveri.com/"
     }
   ]
 }
