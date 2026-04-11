@@ -44,7 +44,8 @@
     "finalPrice": "Precio final",
     "noPastSales": "No hay historial de ventas anteriores",
     "price": "Precio",
-    "miles": "Millas"
+    "miles": "Millas",
+    "daysOnSlot": "{{ count }} días en lote"
   },
   "accidents": {
     "heading": "Historial de Accidentes",
