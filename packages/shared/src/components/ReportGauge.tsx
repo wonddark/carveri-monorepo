@@ -1,5 +1,4 @@
 import { buildGaugeSvg } from "@carveri/shared/lib/gauge.ts";
-import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import parse from "html-react-parser";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -15,8 +14,7 @@ type Props = {
 };
 
 function ReportGauge(props: Readonly<Props>) {
-  const { percentile, label, price, wholesale, retail, averageDeltaPct } =
-    props;
+  const { percentile, label, price, averageDeltaPct } = props;
   const { t, i18n } = useTranslation("vehicle-details");
   const lang = (i18n.resolvedLanguage || "en") as "es" | "en";
   const [isVisible, setIsVisible] = useState(false);
@@ -63,22 +61,6 @@ function ReportGauge(props: Readonly<Props>) {
         </span>
       </div>
       {parse(buildGaugeSvg(percentile, price, label, lang))}
-      <div className="gauge-bottom-stats">
-        <div className="gauge-stat">
-          <div className="gauge-stat-label">{t("gauge.wholesale")}</div>
-          <div className="gauge-stat-value">{formatCurrency(wholesale)}</div>
-        </div>
-        <div className="gauge-stat">
-          <div className="gauge-stat-label">{t("gauge.retail")}</div>
-          <div className="gauge-stat-value">{formatCurrency(retail)}</div>
-        </div>
-        <div className="gauge-stat">
-          <div className="gauge-stat-label">{t("gauge.percentile")}</div>
-          <div className="gauge-stat-value">
-            {t("gauge.top")} {percentile.toFixed(0)}%
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
