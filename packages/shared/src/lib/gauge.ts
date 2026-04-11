@@ -1,4 +1,4 @@
-import { formatCurrency } from "./formatters";
+import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 
 function buildGaugeSvg(
   percentile: number,
@@ -105,8 +105,6 @@ function buildGaugeSvg(
     <text x="${cx}" y="${cy + 38}" text-anchor="middle" fill="white" font-size="24" font-weight="800" font-family="'Outfit',sans-serif" letter-spacing="-0.5">${formatCurrency(price)}</text>
     <rect x="${cx - 40}" y="${cy + 46}" width="80" height="18" rx="9" fill="${currentColor}" opacity="0.15"/>
     <text x="${cx}" y="${cy + 58}" text-anchor="middle" fill="${currentColor}" font-size="8.5" font-weight="800" font-family="'Outfit',sans-serif" letter-spacing="1.5">${label}</text>
-    <text x="${cx - 85}" y="${cy + 78}" text-anchor="middle" fill="#555" font-size="7" font-family="'Source Sans 3',sans-serif">Más Barato</text>
-    <text x="${cx + 85}" y="${cy + 78}" text-anchor="middle" fill="#555" font-size="7" font-family="'Source Sans 3',sans-serif">Más Caro</text>
     <circle cx="${startDot.x}" cy="${startDot.y}" r="3" fill="#22C55E" opacity="0.6"/>
     <circle cx="${endDot.x}" cy="${endDot.y}" r="3" fill="#EF4444" opacity="0.6"/>
   </svg>`;
