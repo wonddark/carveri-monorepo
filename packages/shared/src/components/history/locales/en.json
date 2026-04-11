@@ -42,7 +42,9 @@
     "discount": "{{pct}}% discount",
     "initialPrice": "Starting price",
     "finalPrice": "Final price",
-    "noPastSales": "No previous sales history available"
+    "noPastSales": "No previous sales history available",
+    "price": "Price",
+    "miles": "Miles"
   },
   "accidents": {
     "heading": "Accidents History",
