@@ -1,71 +1,193 @@
-import { FadeUp } from "@carveri/shared/components/animations.tsx";
-import { Badge } from "@carveri/shared/components/ui/badge.tsx";
-import { IconPlayerPlay } from "@tabler/icons-react";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import VideoModal from "@carveri/shared/components/home-page/VideoModal.tsx";
+import { FadeUp } from "@carveri/shared/components/animations.tsx";
+import { cn } from "@carveri/shared/lib/utils.ts";
 
-function HeroSection() {
+interface Props {
+  scrollToExamples: () => void;
+  scrollToPricing: () => void;
+}
+
+// Static report mockup — matches carCheckExamples[0] from data/static.tsx
+const REPORT_TAGS = [
+  { label: "✓ Clean Title", green: true },
+  { label: "✓ No Accidents", green: true },
+  { label: "✓ Verified Odometer", green: true },
+  { label: "⚠ Auction Origin", green: false },
+] as const;
+
+const REPORT_BOOKS = [
+  { source: "MMR", value: "$21,600" },
+  { source: "KBB", value: "$22,310" },
+  { source: "BB", value: "$20,925" },
+  { source: "JDP", value: "$20,075" },
+] as const;
+
+const REPORT_AI_SUMMARY =
+  "Price is 2.8% below market fair value. Clean Carfax history. Recommend a mechanical inspection before closing.";
+
+export default function HeroSection({
+  scrollToExamples,
+  scrollToPricing,
+}: Readonly<Props>) {
   const { t } = useTranslation("homepage");
-  const [showModal, setShowModal] = useState(false);
-  const HERO_DASHBOARD =
-    "https://d2xsxph8kpxj0f.cloudfront.net/310519663263444526/eJKAGHfm7BbufMTYZr5k2D/carcheck-hero-v3-Zxxcvz93JpWTMoLbQmJRBm.webp";
+
   return (
     <section className="relative overflow-hidden bg-[#0A1628]">
-      <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 h-72 w-72 rounded-full bg-blue-600/10 blur-3xl" />
+      {/* Ambient glows */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute top-20 left-10 h-72 w-72 rounded-full bg-green-600/10 blur-3xl" />
         <div className="absolute right-10 bottom-10 h-96 w-96 rounded-full bg-cyan-500/8 blur-3xl" />
       </div>
 
-      <div className="relative mx-auto max-w-300 px-5 pt-12 pb-16 lg:pt-20 lg:pb-24">
-        <FadeUp>
-          <div className="mx-auto max-w-200 text-center">
-            <Badge className="mb-6 rounded-full border-green-500/20 bg-green-500/15 px-4 py-1.5 font-[Outfit] text-xs font-bold tracking-wider text-green-400">
-              <span className="mr-2 h-2 w-2 animate-pulse rounded-full bg-green-400" />
-              <span>{t("hero.badge")}</span>
-            </Badge>
+      <div className="relative mx-auto max-w-300 px-5 pt-16 pb-20 lg:pt-24 lg:pb-28">
+        <div className="flex flex-col gap-12 lg:grid lg:grid-cols-2 lg:items-center lg:gap-16">
 
-            <h1 className="mt-4 font-[Outfit] text-[2rem] leading-[1.1] font-black tracking-tight text-white sm:text-[2.75rem] lg:text-[3.5rem]">
-              {t("hero.title")}{" "}
-              <span className="bg-linear-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
-                {t("hero.titleHighlight")}
-              </span>
-            </h1>
+          {/* ── Copy column ── */}
+          <FadeUp>
+            <div className="flex flex-col gap-5">
+              {/* Badge */}
+              <div className="flex w-fit items-center gap-2 rounded-full border border-green-500/20 bg-green-500/10 px-4 py-1.5">
+                <span className="h-2 w-2 animate-pulse rounded-full bg-green-400" />
+                <span className="font-[Outfit] text-xs font-bold tracking-widest text-green-400 uppercase">
+                  {t("hero.badge")}
+                </span>
+              </div>
 
-            <p className="mx-auto mt-5 max-w-150 text-[1.05rem] leading-relaxed text-gray-400 sm:text-lg">
-              {t("hero.description")}
-            </p>
-          </div>
-        </FadeUp>
+              {/* H1 */}
+              <h1 className="font-[Outfit] text-4xl font-black leading-[1.05] tracking-tight text-white lg:text-5xl xl:text-[3.5rem]">
+                {t("hero.title")}{" "}
+                <span className="text-green-400">{t("hero.titleHighlight")}</span>
+              </h1>
 
-        {/* Video embed area */}
-        <FadeUp delay={0.15}>
-          <button
-            className="group relative mx-auto mt-10 block aspect-video w-full max-w-180 cursor-pointer overflow-hidden rounded-2xl border border-white/10 bg-gray-900/80"
-            onClick={() => setShowModal(true)}
-          >
-            <img
-              src={HERO_DASHBOARD}
-              alt="CarVeri Dashboard Preview"
-              className="absolute inset-0 h-full w-full object-cover opacity-60 transition-opacity group-hover:opacity-70"
-            />
-            <div className="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/95 shadow-2xl transition-transform duration-300 group-hover:scale-110 sm:h-20 sm:w-20">
-                <IconPlayerPlay className="ml-1 h-7 w-7 text-[#042CD7] sm:h-8 sm:w-8" />
+              {/* Subtitle — shorter on mobile, longer on desktop */}
+              <p className="text-base leading-relaxed text-gray-400 lg:hidden">
+                {t("hero.descriptionMobile")}
+              </p>
+              <p className="hidden max-w-md text-lg leading-relaxed text-gray-400 lg:block">
+                {t("hero.description")}
+              </p>
+
+              {/* CTAs */}
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <button
+                  onClick={scrollToExamples}
+                  className="flex items-center justify-center gap-2 rounded-xl bg-green-400 px-6 py-3.5 font-[Outfit] text-sm font-bold text-[#0a1628] transition-colors hover:bg-green-300 active:scale-95"
+                >
+                  {t("hero.cta_primary")} →
+                </button>
+                <button
+                  onClick={scrollToPricing}
+                  className="flex items-center justify-center gap-2 rounded-xl border border-slate-700 px-6 py-3.5 font-[Outfit] text-sm font-semibold text-slate-400 transition-colors hover:border-slate-600 hover:text-slate-300"
+                >
+                  {t("hero.cta_secondary")}
+                </button>
+              </div>
+
+              {/* Trust row — desktop only */}
+              <div className="hidden items-center gap-6 lg:flex">
+                {(
+                  [
+                    t("hero.trust_delivery"),
+                    t("hero.trust_carfax"),
+                    t("hero.trust_books"),
+                  ] as string[]
+                ).map((label) => (
+                  <div key={label} className="flex items-center gap-1.5 text-xs text-slate-500">
+                    <span className="font-bold text-green-400">✓</span>
+                    {label}
+                  </div>
+                ))}
               </div>
             </div>
-            <div className="absolute bottom-4 left-4 text-sm font-medium text-white/60">
-              {t("hero.watchHowItWorks")}
-            </div>
-          </button>
-        </FadeUp>
-      </div>
+          </FadeUp>
 
-      {/* Modal video */}
-      <VideoModal open={showModal} onOpenChange={setShowModal} />
+          {/* ── Report mockup column ── */}
+          <FadeUp delay={0.12}>
+            <div className="rounded-2xl border border-[#1e3a5f] bg-[#1e293b] p-6 shadow-[0_40px_80px_rgba(0,0,0,0.4)]">
+              {/* Card header */}
+              <div className="mb-4 flex items-start justify-between gap-4">
+                <div>
+                  <p className="text-sm font-bold text-white">
+                    2024 Mitsubishi Outlander SE
+                  </p>
+                  <p className="mt-0.5 text-xs text-slate-500">
+                    Tampa, FL · 33,500 mi · $25,000
+                  </p>
+                </div>
+                <div className="shrink-0 rounded-xl border border-green-500/25 bg-green-500/10 px-4 py-2 text-center">
+                  <p className="text-[9px] uppercase tracking-widest text-slate-500">
+                    {t("hero.report_verdict_label")}
+                  </p>
+                  <p className="text-xl font-black leading-none text-green-400">BUY</p>
+                  <p className="text-[9px] text-green-400/60">8.2 / 10</p>
+                </div>
+              </div>
+
+              {/* Tags */}
+              <div className="mb-4 flex flex-wrap gap-2">
+                {REPORT_TAGS.map(({ label, green }) => (
+                  <span
+                    key={label}
+                    className={cn(
+                      "rounded-full px-2.5 py-0.5 text-[10px] font-semibold",
+                      green
+                        ? "bg-green-500/10 text-green-400"
+                        : "bg-amber-500/10 text-amber-400",
+                    )}
+                  >
+                    {label}
+                  </span>
+                ))}
+              </div>
+
+              <div className="my-3 h-px bg-[#1e3a5f]" />
+
+              {/* Stats row */}
+              <div className="mb-3 grid grid-cols-3 gap-2">
+                <div className="rounded-lg bg-[#0f172a] p-2.5 text-center">
+                  <p className="text-sm font-bold text-white">$25,000</p>
+                  <p className="mt-0.5 text-[9px] uppercase tracking-wide text-slate-600">
+                    {t("hero.report_asking")}
+                  </p>
+                </div>
+                <div className="rounded-lg bg-[#0f172a] p-2.5 text-center">
+                  <p className="text-sm font-bold text-green-400">$25,706</p>
+                  <p className="mt-0.5 text-[9px] uppercase tracking-wide text-slate-600">
+                    {t("hero.report_market")}
+                  </p>
+                </div>
+                <div className="rounded-lg bg-[#0f172a] p-2.5 text-center">
+                  <p className="text-sm font-bold text-green-400">↓ 2.8%</p>
+                  <p className="mt-0.5 text-[9px] uppercase tracking-wide text-slate-600">
+                    {t("hero.report_delta")}
+                  </p>
+                </div>
+              </div>
+
+              {/* Valuation books — desktop only */}
+              <div className="mb-3 hidden grid-cols-4 gap-2 lg:grid">
+                {REPORT_BOOKS.map(({ source, value }) => (
+                  <div key={source} className="rounded-lg bg-[#0f172a] p-2 text-center">
+                    <p className="text-[9px] font-bold text-slate-600">{source}</p>
+                    <p className="mt-0.5 text-[11px] font-bold text-green-400">{value}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* AI analysis box — desktop only */}
+              <div className="hidden rounded-lg border border-blue-500/15 bg-blue-500/8 p-3 lg:block">
+                <p className="mb-1.5 text-[9px] font-bold uppercase tracking-widest text-blue-400">
+                  {t("hero.report_ai_label")}
+                </p>
+                <p className="text-[11px] leading-relaxed text-slate-400">
+                  {REPORT_AI_SUMMARY}
+                </p>
+              </div>
+            </div>
+          </FadeUp>
+
+        </div>
+      </div>
     </section>
   );
 }
-
-export default HeroSection;
