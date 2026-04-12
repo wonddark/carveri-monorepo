@@ -1,10 +1,10 @@
 import { useTranslation } from "react-i18next";
-import { Gavel, Store } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@carveri/shared/lib/utils.ts";
 import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import type { SalesCycle, TransformedReport } from "../../lib/transforms.ts";
+import { IconBuildingStore, IconGavel } from "@tabler/icons-react";
 
 // ── Node style helper ──────────────────────────────────────────────────────────
 
@@ -34,7 +34,7 @@ function getNodeStyle(cycle: SalesCycle): NodeStyle {
 
 // ── Subcomponents ──────────────────────────────────────────────────────────────
 
-function DealerCard({ cycle }: { cycle: SalesCycle }) {
+function DealerCard({ cycle }: Readonly<{ cycle: SalesCycle }>) {
   const { t } = useTranslation("history");
   return (
     <>
@@ -47,7 +47,7 @@ function DealerCard({ cycle }: { cycle: SalesCycle }) {
                 {t("pastSales.active")}
               </span>
             )}
-            <span className="text-muted-foreground rounded-full bg-muted px-2 py-0.5 text-[10px]">
+            <span className="text-muted-foreground bg-muted rounded-full px-2 py-0.5 text-[10px]">
               {t("pastSales.typeDealer")}
             </span>
           </div>
@@ -66,7 +66,7 @@ function DealerCard({ cycle }: { cycle: SalesCycle }) {
         <div className="flex flex-wrap gap-4">
           {/* Price history */}
           <div className="flex flex-col gap-0.5">
-            <span className="text-muted-foreground text-[10px] uppercase tracking-wide">
+            <span className="text-muted-foreground text-[10px] tracking-wide uppercase">
               {t("pastSales.price")}
             </span>
             <div className="text-foreground/80 flex items-center gap-1.5 text-sm font-bold">
@@ -86,7 +86,7 @@ function DealerCard({ cycle }: { cycle: SalesCycle }) {
           {/* Mileage */}
           {cycle.mileage != null && (
             <div className="flex flex-col gap-0.5">
-              <span className="text-muted-foreground text-[10px] uppercase tracking-wide">
+              <span className="text-muted-foreground text-[10px] tracking-wide uppercase">
                 {t("pastSales.miles")}
               </span>
               <span className="text-foreground/80 text-sm font-bold">
@@ -116,7 +116,7 @@ function DealerCard({ cycle }: { cycle: SalesCycle }) {
   );
 }
 
-function AuctionCard({ cycle }: { cycle: SalesCycle }) {
+function AuctionCard({ cycle }: Readonly<{ cycle: SalesCycle }>) {
   const { t } = useTranslation("history");
   const salePrice = cycle.records[0]?.Price ?? cycle.endPrice;
 
@@ -131,7 +131,7 @@ function AuctionCard({ cycle }: { cycle: SalesCycle }) {
                 {t("pastSales.sold")}
               </span>
             )}
-            <span className="text-muted-foreground rounded-full bg-muted px-2 py-0.5 text-[10px]">
+            <span className="text-muted-foreground bg-muted rounded-full px-2 py-0.5 text-[10px]">
               {t("pastSales.typeAuction")}
             </span>
           </div>
@@ -143,7 +143,7 @@ function AuctionCard({ cycle }: { cycle: SalesCycle }) {
 
       <div className="border-border mt-3 flex gap-4 border-t pt-3">
         <div className="flex flex-col gap-0.5">
-          <span className="text-muted-foreground text-[10px] uppercase tracking-wide">
+          <span className="text-muted-foreground text-[10px] tracking-wide uppercase">
             {t("pastSales.price")}
           </span>
           <span className="text-foreground/80 text-sm font-bold">
@@ -153,7 +153,7 @@ function AuctionCard({ cycle }: { cycle: SalesCycle }) {
 
         {cycle.mileage != null && (
           <div className="flex flex-col gap-0.5">
-            <span className="text-muted-foreground text-[10px] uppercase tracking-wide">
+            <span className="text-muted-foreground text-[10px] tracking-wide uppercase">
               {t("pastSales.miles")}
             </span>
             <span className="text-foreground/80 text-sm font-bold">
@@ -183,7 +183,7 @@ export default function PastSalesSubtab({ salesCycles }: Readonly<Props>) {
           subtitle={t("pastSales.subtitle")}
         />
         <div className="flex flex-col items-center gap-3 py-12 text-center">
-          <Store className="text-muted-foreground/40 size-10" />
+          <IconBuildingStore className="text-muted-foreground/40 size-10" />
           <p className="text-muted-foreground text-sm">
             {t("pastSales.noPastSales")}
           </p>
@@ -205,7 +205,7 @@ export default function PastSalesSubtab({ salesCycles }: Readonly<Props>) {
 
         {salesCycles.map((cycle, i) => {
           const { bg, ring, iconColor } = getNodeStyle(cycle);
-          const Icon = cycle.type === "dealer" ? Store : Gavel;
+          const Icon = cycle.type === "dealer" ? IconBuildingStore : IconGavel;
 
           return (
             <motion.div
