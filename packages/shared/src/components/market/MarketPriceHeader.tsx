@@ -1,48 +1,59 @@
 import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
-import type { TransformedReport } from "../../lib/transforms.ts";
 import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
-
-const DELTA_COLOR: Record<TransformedReport["priceEval"]["label"], string> = {
-  BARGAIN: "text-indigo-500",
-  LOW: "text-indigo-500",
-  FAIR: "text-indigo-500",
-  HIGH: "text-amber-500",
-  OVERPRICED: "text-red-500",
-};
+import { cn } from "@carveri/shared/lib/utils.ts";
 
 interface Props {
   price: number;
-  priceEval: TransformedReport["priceEval"];
+  avgBookValue: number;
+  deltaAvgValue: number;
+  deltaAvgPercent: number;
 }
 
-export default function MarketPriceHeader({
-  price,
-  priceEval,
-}: Readonly<Props>) {
+export default function MarketPriceHeader(props: Readonly<Props>) {
   const { t } = useTranslation(["market", "home"]);
-  const { label, marketAvgDeltaPct } = priceEval;
-  const isAbove = marketAvgDeltaPct > 0;
+  const { price, avgBookValue, deltaAvgValue, deltaAvgPercent } = props;
 
-  const LABEL_TEXT: Record<TransformedReport["priceEval"]["label"], string> = {
-    BARGAIN: t("home:priceEval.greatDeal"),
-    LOW: t("home:priceEval.belowMarket"),
-    FAIR: t("home:priceEval.fairPrice"),
-    HIGH: t("home:priceEval.aboveMarket"),
-    OVERPRICED: t("home:priceEval.overpriced"),
-  };
+  function getSymbol() {
+    return deltaAvgValue > 0 ? "+" : "-";
+  }
+
+  function getAverageStyles() {
+    if (deltaAvgPercent > 0) {
+      return "text-orange-600 dark:text-orange-300";
+    }
+    return "text-green-600 dark:text-green-300";
+  }
 
   return (
     <Card>
-      <CardContent className="flex flex-col items-center">
-        <div className="mb-1 text-4xl font-semibold">
-          {formatCurrency(price)}
+      <CardContent className="grid grid-cols-3 gap-2">
+        <div className="flex flex-col items-center gap-0.5">
+          <small className="text-muted-foreground text-xs">
+            {t("market.askingPrice")}
+          </small>
+          <strong className="text-xl font-semibold">
+            {formatCurrency(price)}
+          </strong>
         </div>
-        <div className={`text-xs font-medium ${DELTA_COLOR[label]}`}>
-          {isAbove ? "▲" : "▼"}
-          {Math.abs(marketAvgDeltaPct).toFixed(1)}%{" "}
-          {isAbove ? t("home:priceEval.above") : t("home:priceEval.below")}{" "}
-          {t("home:priceEval.average")} · {LABEL_TEXT[label]}
+        <div className="flex flex-col items-center gap-0.5">
+          <small className="text-muted-foreground text-xs">
+            {t("market.avgBookValue")}
+          </small>
+          <strong className="text-xl font-semibold">
+            {formatCurrency(avgBookValue)}
+          </strong>
+        </div>
+        <div className="flex flex-col items-center gap-0.5">
+          <small className="text-muted-foreground text-xs">
+            {t("market.overAvg")}
+          </small>
+          <strong className={cn("text-xl font-semibold", getAverageStyles())}>
+            {`${getSymbol()}${formatCurrency(deltaAvgValue)}`}
+          </strong>
+          <small className={cn("text-xs", getAverageStyles())}>
+            {`${getSymbol()}${deltaAvgPercent}%`}
+          </small>
         </div>
       </CardContent>
     </Card>
