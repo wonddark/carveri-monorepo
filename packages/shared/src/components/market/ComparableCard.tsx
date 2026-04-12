@@ -9,17 +9,22 @@ interface Props {
   subjectPrice: number;
 }
 
-export default function ComparableCard({ vehicle, subjectPrice: _ }: Readonly<Props>) {
+export default function ComparableCard({
+  vehicle,
+  subjectPrice: _,
+}: Readonly<Props>) {
   const { t } = useTranslation("market");
 
   const PRICE_TAG_CONFIG = {
     CHEAPER: {
       label: t("comparables.cheaper"),
-      classes: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
+      classes:
+        "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400",
     },
     SIMILAR: {
       label: t("comparables.similar"),
-      classes: "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
+      classes:
+        "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
     },
     PRICIER: {
       label: t("comparables.pricier"),
@@ -42,7 +47,7 @@ export default function ComparableCard({ vehicle, subjectPrice: _ }: Readonly<Pr
       href={vehicle.vdpUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex gap-3 rounded-xl border border-border bg-card p-3 shadow-sm transition-colors hover:border-primary/30 hover:bg-primary/5"
+      className="border-border bg-card hover:border-primary/30 hover:bg-primary/5 flex gap-3 rounded-xl border p-3 shadow-sm transition-colors"
     >
       {/* Photo */}
       <div className="shrink-0">
@@ -61,14 +66,17 @@ export default function ComparableCard({ vehicle, subjectPrice: _ }: Readonly<Pr
       {/* Info */}
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         <div className="flex items-start justify-between gap-1">
-          <p className="truncate text-sm font-semibold leading-snug">
+          <p className="truncate text-sm leading-snug font-semibold">
             {vehicle.year} {vehicle.make} {vehicle.model}
           </p>
-          <ExternalLink size={12} className="mt-0.5 shrink-0 text-muted-foreground/50" />
+          <ExternalLink
+            size={12}
+            className="text-muted-foreground/50 mt-0.5 shrink-0"
+          />
         </div>
 
         {vehicle.trim && (
-          <p className="text-[10px] text-muted-foreground">{vehicle.trim}</p>
+          <p className="text-muted-foreground text-[10px]">{vehicle.trim}</p>
         )}
 
         {/* Price row */}
@@ -77,8 +85,11 @@ export default function ComparableCard({ vehicle, subjectPrice: _ }: Readonly<Pr
             {formatCurrency(vehicle.price)}
           </span>
           {vehicle.priceDiff !== 0 && (
-            <span className={cn("text-xs font-semibold tabular-nums", diffColor)}>
-              {diffSign}{formatCurrency(Math.abs(vehicle.priceDiff))}
+            <span
+              className={cn("text-xs font-semibold tabular-nums", diffColor)}
+            >
+              {diffSign}
+              {formatCurrency(Math.abs(vehicle.priceDiff))}
             </span>
           )}
         </div>
@@ -87,7 +98,7 @@ export default function ComparableCard({ vehicle, subjectPrice: _ }: Readonly<Pr
         <div className="flex flex-wrap items-center gap-1.5">
           <span
             className={cn(
-              "rounded-full px-2 py-0.5 text-[10px] font-semibold leading-tight",
+              "rounded-full px-2 py-0.5 text-[10px] leading-tight font-semibold",
               badge.classes,
             )}
           >
@@ -97,32 +108,23 @@ export default function ComparableCard({ vehicle, subjectPrice: _ }: Readonly<Pr
           {/* Trust badge */}
           <span
             className={cn(
-              "flex items-center gap-0.5 rounded-full px-2 py-0.5 text-[10px] font-semibold leading-tight",
+              "flex items-center gap-0.5 rounded-full px-2 py-0.5 text-[10px] leading-tight font-semibold",
               isVerified
                 ? "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400"
                 : "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
             )}
           >
-            {isVerified ? (
-              <ShieldCheck size={10} />
-            ) : (
-              <ShieldHalf size={10} />
-            )}
-            {t(
-              isVerified
-                ? "comparables.verified"
-                : "comparables.secondary",
-              {
-                defaultValue: isVerified ? "Verificado" : "Secundario",
-              },
-            )}
+            {isVerified ? <ShieldCheck size={10} /> : <ShieldHalf size={10} />}
+            {t(isVerified ? "comparables.verified" : "comparables.secondary", {
+              defaultValue: isVerified ? "Verificado" : "Secundario",
+            })}
           </span>
         </div>
 
         {/* Mileage + distance + dealer */}
-        <p className="truncate text-[10px] text-muted-foreground">
-          {vehicle.mileage.toLocaleString()} mi · {vehicle.distanceMi.toFixed(1)} mi ·{" "}
-          {vehicle.dealerName}
+        <p className="text-muted-foreground truncate text-[10px]">
+          {vehicle.mileage?.toLocaleString()} mi ·{" "}
+          {vehicle.distanceMi?.toFixed(1)} mi · {vehicle.dealerName}
         </p>
       </div>
     </a>
