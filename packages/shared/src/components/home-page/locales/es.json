@@ -121,9 +121,29 @@
   "pricing": {
     "eyebrow": "Planes",
     "title": "Elige tu plan",
-    "subtitle": "Tu primer reporte es gratis. Después, elige el paquete que necesites.",
-    "buyPlan": "Comprar {{name}} — ${{price}}{{cents}}",
-    "securePayment": "Pago seguro con Stripe. Reporte en 24 horas."
+    "subtitle": "Cada plan incluye el reporte CarVeri completo.",
+    "mostPopular": "Más popular",
+    "bestValue": "Mejor valor",
+    "cta": "Comenzar — ${{price}}",
+    "securePayment": "Pago seguro · Stripe · Reporte en 24h",
+    "plan1": {
+      "name": "1 Reporte",
+      "desc": "Para el carro que ya tienes casi decidido.",
+      "perReport": "$29 / reporte",
+      "features": ["Carfax completo", "4 libros de valuación", "Historial de subasta", "Veredicto IA", "Comparables del mercado"]
+    },
+    "plan3": {
+      "name": "3 Reportes",
+      "desc": "La mayoría mira 3 carros antes de decidir.",
+      "perReport": "~$20 / reporte",
+      "features": ["Todo lo del plan básico", "Ahorra $28 vs comprar por separado", "Ideal para comparar opciones"]
+    },
+    "plan7": {
+      "name": "7 Reportes",
+      "desc": "Para quien está comparando varias opciones.",
+      "perReport": "~$14 / reporte",
+      "features": ["Todo lo del plan básico", "Mejor costo por reporte", "Comparte con familia o amigos"]
+    }
   },
   "faq": {
     "eyebrow": "FAQ",
