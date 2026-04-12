@@ -1,19 +1,24 @@
 import { useTranslation } from "react-i18next";
 import { Store } from "lucide-react";
 import { motion } from "framer-motion";
-import { cn } from "@carveri/shared/lib/utils.ts";
 import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import type { TransformedReport } from "../../lib/transforms.ts";
+import {
+  IconArrowNarrowRight,
+  IconBuilding,
+  IconCalendar,
+} from "@tabler/icons-react";
+import { Activity } from "react";
 
 interface Props {
-  dealerSaleCycles: TransformedReport["dealerSaleCycles"];
+  salesCycles: TransformedReport["saleCycles"];
 }
 
-export default function PastSalesSubtab({ dealerSaleCycles }: Readonly<Props>) {
+export default function PastSalesSubtab({ salesCycles }: Readonly<Props>) {
   const { t } = useTranslation("history");
 
-  if (dealerSaleCycles.length === 0) {
+  if (salesCycles.length === 0) {
     return (
       <>
         <SubTabHeader
@@ -21,8 +26,10 @@ export default function PastSalesSubtab({ dealerSaleCycles }: Readonly<Props>) {
           subtitle={t("pastSales.subtitle")}
         />
         <div className="flex flex-col items-center gap-3 py-12 text-center">
-          <Store className="size-10 text-muted-foreground/40" />
-          <p className="text-sm text-muted-foreground">{t("pastSales.noPastSales")}</p>
+          <Store className="text-muted-foreground/40 size-10" />
+          <p className="text-muted-foreground text-sm">
+            {t("pastSales.noPastSales")}
+          </p>
         </div>
       </>
     );
@@ -36,28 +43,42 @@ export default function PastSalesSubtab({ dealerSaleCycles }: Readonly<Props>) {
       />
 
       <div className="flex flex-col gap-3">
-        {dealerSaleCycles.map((cycle, i) => (
+        {salesCycles.map((cycle, i) => (
           <motion.div
             key={cycle.id}
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.06 }}
           >
-            <div className="rounded-xl border border-border bg-card p-4 shadow-sm">
+            <div className="border-border bg-card rounded-xl border p-4 shadow-sm">
               {/* Header */}
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <div className="flex items-center gap-2">
-                    <p className="text-sm font-semibold">{cycle.dealerName}</p>
+                    <p className="font-semibold">{cycle.dealerName}</p>
                     {cycle.isActive && (
                       <span className="rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-semibold text-green-700 dark:bg-green-900/30 dark:text-green-400">
                         {t("pastSales.active")}
                       </span>
                     )}
                   </div>
-                  <p className="mt-0.5 text-[11px] text-muted-foreground">
-                    {cycle.city}, {cycle.state}
-                  </p>
+                  <div className="text-muted-foreground mt-0.5 flex items-center gap-2 text-xs">
+                    {/* Location */}
+                    <div className="flex items-center gap-1">
+                      <IconBuilding className="size-3" />
+                      <span>
+                        {cycle.city}, {cycle.state}
+                      </span>
+                    </div>
+
+                    {/* Date range + stats */}
+                    <div className="flex items-center gap-1">
+                      <IconCalendar className="size-3" />
+                      <span>
+                        {cycle.startDate} – {cycle.endDate}
+                      </span>
+                    </div>
+                  </div>
                 </div>
                 {cycle.discountPct > 0 && (
                   <span className="shrink-0 rounded-full bg-red-100 px-2 py-0.5 text-[10px] font-bold text-red-600 dark:bg-red-900/30 dark:text-red-400">
@@ -66,49 +87,53 @@ export default function PastSalesSubtab({ dealerSaleCycles }: Readonly<Props>) {
                 )}
               </div>
 
-              {/* Date range + stats */}
-              <div className="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
-                <span>
-                  {cycle.startDate} – {cycle.endDate}
-                </span>
-                <span>{t("pastSales.daysOnLot", { count: cycle.daysOnLot })}</span>
-                {cycle.mileage != null && (
-                  <span>{cycle.mileage.toLocaleString()} mi</span>
-                )}
-              </div>
-
-              {/* Price history */}
-              <div className="mt-3 flex flex-col gap-1.5">
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-muted-foreground">{t("pastSales.initialPrice")}</span>
-                  <span className="font-semibold">
-                    {formatCurrency(cycle.startPrice)}
-                  </span>
-                </div>
-
-                {cycle.priceReductions > 0 && (
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-muted-foreground">
-                      {t("pastSales.priceDrops", { count: cycle.priceReductions })}
+              <div className="flex items-center justify-between">
+                <div className="border-border mt-3 flex gap-4 border-t pt-3">
+                  {/* Price history */}
+                  <div className="flex flex-col">
+                    <span className="text-muted-foreground text-xs">
+                      {t("pastSales.price")}
                     </span>
-                    <span className="font-semibold text-red-500">
-                      -{formatCurrency(cycle.priceDrop)}
-                    </span>
+                    <div className="text-foreground/80 flex items-center gap-2 text-sm font-bold">
+                      <span title={t("pastSales.initialPrice")}>
+                        {formatCurrency(cycle.startPrice)}
+                      </span>
+                      <IconArrowNarrowRight className="size-3" />
+                      <span title={t("pastSales.finalPrice")}>
+                        {formatCurrency(cycle.endPrice)}
+                      </span>
+                    </div>
                   </div>
-                )}
 
-                <div
-                  className={cn(
-                    "flex items-center justify-between rounded-lg px-3 py-2 text-xs",
-                    cycle.isActive
-                      ? "bg-primary/5"
-                      : "bg-slate-50 dark:bg-slate-800/40",
-                  )}
-                >
-                  <span className="font-semibold">{t("pastSales.finalPrice")}</span>
-                  <span className="text-base font-bold">
-                    {formatCurrency(cycle.endPrice)}
-                  </span>
+                  <Activity
+                    mode={cycle.priceReductions > 0 ? "visible" : "hidden"}
+                  >
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-muted-foreground">
+                        {t("pastSales.priceDrops", {
+                          count: cycle.priceReductions,
+                        })}
+                      </span>
+                      <span className="font-semibold text-red-500">
+                        -{formatCurrency(cycle.priceDrop)}
+                      </span>
+                    </div>
+                  </Activity>
+
+                  {/* Mileage */}
+                  <div className="flex flex-col">
+                    <span className="text-muted-foreground text-xs">
+                      {t("pastSales.miles")}
+                    </span>
+                    <div className="text-foreground/80 flex items-center gap-2 text-sm font-bold">
+                      <span title={t("pastSales.miles")}>
+                        {`${cycle.mileage} mi`}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="text-muted-foreground flex items-center gap-3 text-sm">
+                  {t("pastSales.daysOnSlot", { count: cycle.daysOnLot })}
                 </div>
               </div>
             </div>
