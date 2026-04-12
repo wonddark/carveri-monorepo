@@ -5,7 +5,6 @@ import StatsBar from "@carveri/shared/components/home-page/StatsBar.tsx";
 import Features from "@carveri/shared/components/home-page/Features.tsx";
 import AIAnalysis from "@carveri/shared/components/home-page/AIAnalysis.tsx";
 import HowItWorks from "@carveri/shared/components/home-page/HowItWorks.tsx";
-import ReportSample from "@carveri/shared/components/home-page/ReportSample.tsx";
 import PricingSection from "@carveri/shared/components/home-page/PricingSection.tsx";
 import FaqSection from "@carveri/shared/components/home-page/FaqSection.tsx";
 import FinalCta from "@carveri/shared/components/home-page/FinalCta.tsx";
@@ -49,9 +48,6 @@ export default function CarVeriLanding() {
 
       {/* ═══ HOW IT WORKS ═══ */}
       <HowItWorks />
-
-      {/* ═══ REPORT SAMPLE ═══ */}
-      <ReportSample scrollToPricing={scrollToPricing} />
 
       {/* ═══ PRICING ═══ */}
       <div ref={pricingRef}>
