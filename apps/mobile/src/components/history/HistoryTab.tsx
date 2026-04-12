@@ -1,4 +1,4 @@
-import { Activity, useRef, useState } from "react";
+import { Activity, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import TimelineSubtab from "@carveri/shared/components/history/TimelineSubtab.tsx";
 import AuctionHistorySubtab from "@carveri/shared/components/history/AuctionHistorySubtab.tsx";
@@ -39,6 +39,10 @@ export default function HistoryTab({ report }: Readonly<Props>) {
     const pillCenter = pill.offsetLeft + pill.clientWidth / 2;
     track.scrollTo({ left: pillCenter - trackCenter, behavior: "smooth" });
   }
+
+  useEffect(() => {
+    globalThis.window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   return (
     <div className="relative">

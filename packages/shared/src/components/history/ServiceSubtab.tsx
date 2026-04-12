@@ -4,6 +4,7 @@ import { Wrench } from "lucide-react";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
+import { useEffect } from "react";
 
 interface Props {
   service: TransformedReport["historyTab"]["service"];
@@ -11,6 +12,9 @@ interface Props {
 
 export default function ServiceSubtab({ service }: Readonly<Props>) {
   const { t } = useTranslation("history");
+  useEffect(() => {
+    globalThis.window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   return (
     <>
       <SubTabHeader

@@ -4,6 +4,7 @@ import AccidentEventCard from "./AccidentEventCard.tsx";
 import { IconCircleCheck } from "@tabler/icons-react";
 import { cn } from "@carveri/shared/lib/utils.ts";
 import type { AccidentsDetail } from "@carveri/shared/types/vehicle-report";
+import { useEffect } from "react";
 
 interface Props {
   accidents: AccidentsDetail;
@@ -35,6 +36,11 @@ function NoAccidents() {
 
 export default function AccidentsSubtab({ accidents }: Readonly<Props>) {
   const { t } = useTranslation("history");
+
+  useEffect(() => {
+    globalThis.window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   return (
     <>
       <SubTabHeader

@@ -12,6 +12,7 @@ import {
 import { cn } from "@carveri/shared/lib/utils.ts";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import type { TransformedReport } from "../../lib/transforms.ts";
+import { useEffect } from "react";
 
 type TimelineEvent = TransformedReport["historyTab"]["timeline"][number];
 type Severity = "critical" | "alert" | "info";
@@ -32,7 +33,11 @@ function inferEventType(
     t.includes("collision") ||
     t.includes("damage")
   ) {
-    return { icon: AlertTriangle, color: "text-red-500", bg: "bg-red-100 dark:bg-red-900/30" };
+    return {
+      icon: AlertTriangle,
+      color: "text-red-500",
+      bg: "bg-red-100 dark:bg-red-900/30",
+    };
   }
   if (
     t.includes("salvage") ||
@@ -42,10 +47,22 @@ function inferEventType(
     t.includes("registration") ||
     t.includes("insurance")
   ) {
-    return { icon: FileText, color: "text-amber-500", bg: "bg-amber-100 dark:bg-amber-900/30" };
+    return {
+      icon: FileText,
+      color: "text-amber-500",
+      bg: "bg-amber-100 dark:bg-amber-900/30",
+    };
   }
-  if (t.includes("service") || t.includes("maintenance") || t.includes("repair")) {
-    return { icon: Wrench, color: "text-green-600", bg: "bg-green-100 dark:bg-green-900/30" };
+  if (
+    t.includes("service") ||
+    t.includes("maintenance") ||
+    t.includes("repair")
+  ) {
+    return {
+      icon: Wrench,
+      color: "text-green-600",
+      bg: "bg-green-100 dark:bg-green-900/30",
+    };
   }
   if (
     t.includes("sale") ||
@@ -54,18 +71,38 @@ function inferEventType(
     t.includes("purchase") ||
     t.includes("dealer")
   ) {
-    return { icon: Building2, color: "text-blue-500", bg: "bg-blue-100 dark:bg-blue-900/30" };
+    return {
+      icon: Building2,
+      color: "text-blue-500",
+      bg: "bg-blue-100 dark:bg-blue-900/30",
+    };
   }
   if (t.includes("odometer") || t.includes("mileage")) {
-    return { icon: Gauge, color: "text-slate-400", bg: "bg-slate-100 dark:bg-slate-800/40" };
+    return {
+      icon: Gauge,
+      color: "text-slate-400",
+      bg: "bg-slate-100 dark:bg-slate-800/40",
+    };
   }
   if (t.includes("window sticker") || t.includes("original")) {
-    return { icon: Car, color: "text-slate-400", bg: "bg-slate-100 dark:bg-slate-800/40" };
+    return {
+      icon: Car,
+      color: "text-slate-400",
+      bg: "bg-slate-100 dark:bg-slate-800/40",
+    };
   }
   if (t.includes("new owner") || t.includes("previous owner")) {
-    return { icon: User, color: "text-blue-500", bg: "bg-blue-100 dark:bg-blue-900/30" };
+    return {
+      icon: User,
+      color: "text-blue-500",
+      bg: "bg-blue-100 dark:bg-blue-900/30",
+    };
   }
-  return { icon: FileText, color: "text-slate-400", bg: "bg-slate-100 dark:bg-slate-800/40" };
+  return {
+    icon: FileText,
+    color: "text-slate-400",
+    bg: "bg-slate-100 dark:bg-slate-800/40",
+  };
 }
 
 function inferSeverity(event: TimelineEvent): Severity {
@@ -119,13 +156,13 @@ function parsePills(description: string): string[] {
 
 const HIGHLIGHT_KEYWORDS = ["salvage", "rebuilt", "total loss", "fraud"];
 
-function PillChip({ text }: { text: string }) {
+function PillChip({ text }: Readonly<{ text: string }>) {
   const lower = text.toLowerCase();
   const isHighlighted = HIGHLIGHT_KEYWORDS.some((kw) => lower.includes(kw));
   return (
     <span
       className={cn(
-        "inline-block rounded-full px-2 py-0.5 text-[10px] font-medium leading-tight",
+        "inline-block rounded-full px-2 py-0.5 text-[10px] leading-tight font-medium",
         isHighlighted
           ? "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300"
           : "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
@@ -152,6 +189,10 @@ export default function TimelineSubtab({ timeline }: Readonly<Props>) {
     },
     {} as Record<Severity, number>,
   );
+
+  useEffect(() => {
+    globalThis.window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   return (
     <>
@@ -191,7 +232,11 @@ export default function TimelineSubtab({ timeline }: Readonly<Props>) {
         <div className="absolute top-5 bottom-5 left-5 w-px bg-slate-200 dark:bg-slate-700" />
 
         {timeline.map((event, i) => {
-          const { icon: Icon, color, bg } = inferEventType(event.title, event.redFlag);
+          const {
+            icon: Icon,
+            color,
+            bg,
+          } = inferEventType(event.title, event.redFlag);
           const severity = inferSeverity(event);
           const badge = SEVERITY_BADGE[severity];
           const pills = parsePills(event.description ?? "");
@@ -207,7 +252,7 @@ export default function TimelineSubtab({ timeline }: Readonly<Props>) {
               {/* Circle icon */}
               <div
                 className={cn(
-                  "relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full ring-2 ring-background",
+                  "ring-background relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full ring-2",
                   bg,
                 )}
               >
@@ -215,16 +260,18 @@ export default function TimelineSubtab({ timeline }: Readonly<Props>) {
               </div>
 
               {/* Event card */}
-              <div className="flex-1 rounded-xl border border-border bg-card p-3 shadow-sm">
+              <div className="border-border bg-card flex-1 rounded-xl border p-3 shadow-sm">
                 <div className="mb-1 flex flex-wrap items-start justify-between gap-2">
                   <div>
-                    <p className="text-[11px] font-medium text-muted-foreground">
+                    <p className="text-muted-foreground text-[11px] font-medium">
                       {event.date ?? "—"}
                       {event.odometer != null && (
-                        <span className="ml-2">· {event.odometer.toLocaleString()} mi</span>
+                        <span className="ml-2">
+                          · {event.odometer.toLocaleString()} mi
+                        </span>
                       )}
                     </p>
-                    <p className="mt-0.5 text-sm font-semibold leading-snug">
+                    <p className="mt-0.5 text-sm leading-snug font-semibold">
                       {event.title}
                     </p>
                   </div>
@@ -235,7 +282,9 @@ export default function TimelineSubtab({ timeline }: Readonly<Props>) {
                         badge.classes,
                       )}
                     >
-                      <span className={cn("size-1.5 rounded-full", badge.dotColor)} />
+                      <span
+                        className={cn("size-1.5 rounded-full", badge.dotColor)}
+                      />
                       {t(`timeline.severity.${severity}`)}
                     </span>
                   )}
@@ -243,14 +292,17 @@ export default function TimelineSubtab({ timeline }: Readonly<Props>) {
 
                 {pills.length > 0 && (
                   <div className="mt-2 flex flex-wrap gap-1">
-                    {pills.map((pill, j) => (
-                      <PillChip key={j} text={pill} />
+                    {pills.map((pill) => (
+                      <PillChip
+                        key={pill.toLowerCase().replaceAll(" ", "")}
+                        text={pill}
+                      />
                     ))}
                   </div>
                 )}
 
                 {event.source && (
-                  <p className="mt-2 text-[10px] text-muted-foreground">
+                  <p className="text-muted-foreground mt-2 text-[10px]">
                     {event.source}
                   </p>
                 )}

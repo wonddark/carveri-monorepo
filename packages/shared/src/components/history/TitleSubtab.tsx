@@ -4,6 +4,7 @@ import { type HistoryTitleItem } from "@carveri/shared/data/report";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import { CircleCheckBig } from "lucide-react";
+import { useEffect } from "react";
 
 interface Props {
   title: HistoryTitleItem[];
@@ -11,6 +12,9 @@ interface Props {
 
 export default function TitleSubtab({ title }: Readonly<Props>) {
   const { t } = useTranslation("history");
+  useEffect(() => {
+    globalThis.window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
   return (
     <>
       <SubTabHeader

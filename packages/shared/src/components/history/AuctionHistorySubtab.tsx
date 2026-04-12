@@ -1,4 +1,4 @@
-import { Activity, useState } from "react";
+import { Activity, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Banknote, Gauge } from "lucide-react";
 import { motion } from "framer-motion";
@@ -28,6 +28,10 @@ export default function AuctionHistorySubtab({
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const slides = auctionPhotos.map((src) => ({ src }));
+
+  useEffect(() => {
+    globalThis.window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   return (
     <>

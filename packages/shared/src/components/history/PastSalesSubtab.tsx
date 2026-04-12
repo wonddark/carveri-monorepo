@@ -5,6 +5,7 @@ import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import type { SalesCycle, TransformedReport } from "../../lib/transforms.ts";
 import { IconBuildingStore, IconGavel } from "@tabler/icons-react";
+import { useEffect } from "react";
 
 // ── Node style helper ──────────────────────────────────────────────────────────
 
@@ -174,6 +175,10 @@ interface Props {
 
 export default function PastSalesSubtab({ salesCycles }: Readonly<Props>) {
   const { t } = useTranslation("history");
+
+  useEffect(() => {
+    globalThis.window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
 
   if (salesCycles.length === 0) {
     return (

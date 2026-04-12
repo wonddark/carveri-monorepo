@@ -9,6 +9,7 @@ import {
 } from "@carveri/shared/components/ui/card.tsx";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
+import { useEffect } from "react";
 
 interface Props {
   owners: TransformedReport["historyTab"]["owners"];
@@ -16,6 +17,11 @@ interface Props {
 
 export default function OwnersSubtab({ owners }: Readonly<Props>) {
   const { t } = useTranslation("history");
+
+  useEffect(() => {
+    globalThis.window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
   return (
     <>
       <SubTabHeader
