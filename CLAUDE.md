@@ -63,7 +63,7 @@ Three type layers exist — know the difference:
 | File | Purpose |
 |---|---|
 | `packages/shared/src/types/vehicle-report.ts` | Raw API response shape (`VehicleReportResponse`) |
-| `packages/shared/src/lib/transforms.ts` | Intermediate/normalized types (`SharedReport`, `DealerSaleCycle`, etc.) |
+| `packages/shared/src/lib/transforms.ts` | Intermediate/normalized types (`SharedReport`, `SalesCycle`, etc.) |
 | `packages/shared/src/data/report.ts` | UI-facing interfaces used by shared components |
 | `packages/shared/src/data/apiContract.ts` | **Negotiation doc only — not used in production code.** Future ideal API shape being agreed with backend. |
 
