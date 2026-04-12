@@ -92,9 +92,23 @@
   },
   "howItWorks": {
     "eyebrow": "Cómo funciona",
-    "title": "Así de simple.",
-    "subtitle": "Tres pasos. Sin complicaciones.",
-    "step": "Paso {{num}}"
+    "title": "Tres pasos.",
+    "titleHighlight": "Así de simple.",
+    "step1": {
+      "num": "01",
+      "title": "Envía el VIN",
+      "description": "Solo el VIN, el precio que piden y tu ZIP code."
+    },
+    "step2": {
+      "num": "02",
+      "title": "Analizamos todo",
+      "description": "Carfax, 4 libros de valuación, historial de subasta, comparables y más."
+    },
+    "step3": {
+      "num": "03",
+      "title": "Recibe tu CarVeri",
+      "description": "Reporte visual con veredicto claro y los datos que lo respaldan."
+    }
   },
   "reportSample": {
     "imgAlt": "Ejemplo de Reporte CarVeri",

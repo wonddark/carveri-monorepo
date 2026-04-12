@@ -92,9 +92,23 @@
   },
   "howItWorks": {
     "eyebrow": "How it works",
-    "title": "That simple.",
-    "subtitle": "Three steps. No complications.",
-    "step": "Step {{num}}"
+    "title": "Three steps.",
+    "titleHighlight": "That simple.",
+    "step1": {
+      "num": "01",
+      "title": "Send the VIN",
+      "description": "Just the VIN, the asking price, and your ZIP code."
+    },
+    "step2": {
+      "num": "02",
+      "title": "We analyze everything",
+      "description": "Carfax, 4 valuation books, auction history, market comparables and more."
+    },
+    "step3": {
+      "num": "03",
+      "title": "Receive your CarVeri",
+      "description": "A visual report with a clear verdict and the data to back it up."
+    }
   },
   "reportSample": {
     "imgAlt": "CarVeri Report Example",
