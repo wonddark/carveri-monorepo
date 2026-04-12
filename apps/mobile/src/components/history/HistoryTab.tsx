@@ -21,11 +21,11 @@ export default function HistoryTab({ report }: Readonly<Props>) {
   const SUBTABS = [
     { id: "timeline", label: t("tabs.timeline") },
     { id: "auctionHistory", label: t("tabs.auctionHistory") },
-    { id: "pastSales", label: t("tabs.pastSales") },
     { id: "accidents", label: t("tabs.accidents") },
     { id: "owners", label: t("tabs.owners") },
     { id: "service", label: t("tabs.service") },
     { id: "title", label: t("tabs.title") },
+    { id: "pastSales", label: t("tabs.pastSales") },
   ];
   const [activeIdx, setActiveIdx] = useState(0);
   const trackRef = useRef<HTMLDivElement>(null);
