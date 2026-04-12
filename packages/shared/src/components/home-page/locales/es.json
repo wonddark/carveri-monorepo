@@ -1,11 +1,21 @@
 {
   "get_first_report": "Obtén tu primer informe",
   "hero": {
-    "badge": "PRIMER REPORTE GRATIS — SIN TARJETA",
+    "badge": "Inteligencia Vehicular",
     "title": "¿Comprando un auto usado?",
-    "titleHighlight": "Verifica antes de pagar.",
-    "description": "Mira cómo CarVeri analiza un vehículo real — historial, valor de mercado, riesgos y recomendación con IA.",
-    "watchHowItWorks": "Ver cómo funciona — 2 min"
+    "titleHighlight": "Sabe antes de pagar.",
+    "description": "Reporte con IA: Carfax, 4 libros de valuación, historial de subasta y comparables de mercado — entregado en 24 horas.",
+    "descriptionMobile": "Carfax · 4 libros · Historial de subasta · Veredicto con IA. En 24h.",
+    "cta_primary": "Ver reportes reales",
+    "cta_secondary": "Ver planes",
+    "trust_delivery": "Entrega en 24h",
+    "trust_carfax": "Carfax incluido",
+    "trust_books": "4 libros de valuación",
+    "report_verdict_label": "Veredicto",
+    "report_asking": "Precio pedido",
+    "report_market": "Promedio mercado",
+    "report_delta": "Por debajo",
+    "report_ai_label": "Análisis IA"
   },
   "features": {
     "eyebrow": "Qué incluye tu reporte",
