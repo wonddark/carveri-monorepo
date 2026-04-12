@@ -63,9 +63,10 @@
     "confidential": "100% confidential"
   },
   "stats": {
-    "reports": "Reports generated",
-    "sources": "Data sources",
-    "delivery": "Delivery time"
+    "sources": "Data sources cross-referenced",
+    "books": "Valuation books compared",
+    "dataPoints": "Data points per report",
+    "delivery": "Guaranteed delivery"
   },
   "ai": {
     "badge": "Artificial intelligence",
