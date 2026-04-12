@@ -45,7 +45,10 @@
     "noPastSales": "No hay historial de ventas anteriores",
     "price": "Precio",
     "miles": "Millas",
-    "daysOnSlot": "{{ count }} días en lote"
+    "daysOnSlot": "{{ count }} días en lote",
+    "sold": "Vendido",
+    "typeDealer": "Concesionario",
+    "typeAuction": "Subasta"
   },
   "accidents": {
     "heading": "Historial de Accidentes",

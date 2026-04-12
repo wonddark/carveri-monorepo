@@ -45,7 +45,10 @@
     "noPastSales": "No previous sales history available",
     "price": "Price",
     "miles": "Miles",
-    "daysOnSlot": "{{count}} days on slot"
+    "daysOnSlot": "{{count}} days on slot",
+    "sold": "Sold",
+    "typeDealer": "Dealer",
+    "typeAuction": "Auction"
   },
   "accidents": {
     "heading": "Accidents History",
