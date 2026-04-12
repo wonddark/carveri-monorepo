@@ -62,7 +62,7 @@
     "title": "In 2 minutes you understand the value of a CarVeri.",
     "description": "See a real example of how our report helps you make the right decision — with data, not luck.",
     "videoComingSoon": "Video coming soon",
-    "getFirstReport": "Get first report"
+    "getFirstReport": "View plans"
   },
   "pricing": {
     "eyebrow": "Plans",
@@ -84,12 +84,14 @@
   "finalCta": {
     "title": "Don't buy blindly.",
     "subtitle": "Your first report is free. Discover what the seller isn't telling you.",
-    "getReport": "Get first report",
+    "getReport": "View plans",
     "whatsapp": "Chat on WhatsApp"
   },
   "examples": {
-    "eyebrow": "Recent reports",
-    "title": "CarVeris from real customers",
+    "eyebrow": "Real reports",
+    "title": "Browse real CarVeri reports",
+    "subtitle": "Every card links to a real, full report — open and readable.",
+    "dataHint": "Carfax · 4 valuation books · AI verdict",
     "viewReport": "View full report"
   }
 }
