@@ -16,22 +16,37 @@ import WsFab from "@carveri/shared/components/home-page/WsFab.tsx";
 
 export default function CarVeriLanding() {
   const vinFormRef = useRef<HTMLElement>(null);
+  const examplesRef = useRef<HTMLDivElement>(null);
+  const pricingRef = useRef<HTMLDivElement>(null);
 
   const scrollToVinForm = () => {
     vinFormRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
     setTimeout(() => vinFormRef.current?.focus(), 600);
   };
 
+  const scrollToExamples = () => {
+    examplesRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const scrollToPricing = () => {
+    pricingRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
   return (
     <div className="min-h-screen overflow-x-hidden bg-white">
       {/* ═══ HERO ═══ */}
-      <HeroSection />
+      <HeroSection
+        scrollToExamples={scrollToExamples}
+        scrollToPricing={scrollToPricing}
+      />
 
       {/* ═══ VIN FORM SECTION ═══ */}
       <VinFormSection formRef={vinFormRef} />
 
       {/* ═══ CARCHECK EXAMPLES SLIDER ═══ */}
-      <ExamplesSlider />
+      <div ref={examplesRef}>
+        <ExamplesSlider />
+      </div>
 
       {/* ═══ STATS BAR ═══ */}
       <StatsBar />
@@ -49,7 +64,9 @@ export default function CarVeriLanding() {
       <ReportSample scrollToVinForm={scrollToVinForm} />
 
       {/* ═══ PRICING ═══ */}
-      <PricingSection />
+      <div ref={pricingRef}>
+        <PricingSection />
+      </div>
 
       {/* ═══ FAQ ═══ */}
       <FaqSection />
