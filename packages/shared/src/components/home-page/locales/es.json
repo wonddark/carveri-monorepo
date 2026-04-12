@@ -68,16 +68,27 @@
     "dataPoints": "Puntos de datos por reporte",
     "delivery": "Entrega garantizada"
   },
-  "ai": {
-    "badge": "Inteligencia artificial",
-    "title": "Análisis inteligente.",
-    "titleHighlight": "Decisión informada.",
-    "description": "Nuestra IA cruza el historial de Carfax, los 4 libros de valuación, datos de subasta y comparables del mercado para darte una recomendación clara.",
-    "step1": "Detecta riesgos ocultos que el vendedor no menciona",
-    "step2": "Compara el precio contra 4 fuentes de valuación",
-    "step3": "Tips de negociación basados en datos reales",
-    "step4": "Checklist de inspección personalizado para el vehículo",
-    "viewSample": "Ver reporte ejemplo"
+  "reportPreview": {
+    "eyebrow": "Dentro de tu reporte",
+    "title": "Entregado en 24 horas.",
+    "titleHighlight": "Listo para actuar.",
+    "imgAlt": "Reporte CarVeri — sección de análisis IA",
+    "verdict": {
+      "title": "Veredicto + razones",
+      "description": "Comprar, Negociar o Evitar — con 3–5 razones específicas para este carro exacto."
+    },
+    "price": {
+      "title": "Inteligencia de precio",
+      "description": "Precio pedido vs. MMR, KBB, Black Book y J.D. Power — de un vistazo."
+    },
+    "risk": {
+      "title": "Línea de tiempo de riesgos",
+      "description": "Cada accidente, marca en el título e historial de subasta en orden cronológico."
+    },
+    "negotiation": {
+      "title": "Munición de negociación",
+      "description": "Argumentos específicos: \"Este carro se vendió en subasta por $X, el dealer pide $Y.\""
+    }
   },
   "howItWorks": {
     "eyebrow": "Cómo funciona",

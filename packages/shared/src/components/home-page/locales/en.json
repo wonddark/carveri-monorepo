@@ -68,16 +68,27 @@
     "dataPoints": "Data points per report",
     "delivery": "Guaranteed delivery"
   },
-  "ai": {
-    "badge": "Artificial intelligence",
-    "title": "Smart analysis.",
-    "titleHighlight": "Informed decision.",
-    "description": "Our AI cross-references Carfax history, the 4 valuation books, auction data and market comparables to give you a clear recommendation.",
-    "step1": "Detects hidden risks the seller doesn't mention",
-    "step2": "Compares price against 4 valuation sources",
-    "step3": "Negotiation tips based on real data",
-    "step4": "Personalized inspection checklist for the vehicle",
-    "viewSample": "View example report"
+  "reportPreview": {
+    "eyebrow": "Inside your report",
+    "title": "Delivered in 24 hours.",
+    "titleHighlight": "Ready to act on.",
+    "imgAlt": "CarVeri report — AI analysis section",
+    "verdict": {
+      "title": "Verdict + reasons",
+      "description": "Buy, Negotiate, or Avoid — with 3–5 specific reasons for this exact car."
+    },
+    "price": {
+      "title": "Price intelligence",
+      "description": "Asking price vs. MMR, KBB, Black Book and J.D. Power — at a glance."
+    },
+    "risk": {
+      "title": "Risk timeline",
+      "description": "Every accident, title flag, and auction appearance in chronological order."
+    },
+    "negotiation": {
+      "title": "Negotiation ammo",
+      "description": "Specific talking points: \"This car sold at auction for $X, dealer is asking $Y.\""
+    }
   },
   "howItWorks": {
     "eyebrow": "How it works",
