@@ -1,6 +1,5 @@
 import { useRef } from "react";
 import HeroSection from "@carveri/shared/components/home-page/HeroSection.tsx";
-import VinFormSection from "@carveri/shared/components/home-page/VinFormSection.tsx";
 import ExamplesSlider from "@carveri/shared/components/home-page/ExamplesSlider.tsx";
 import StatsBar from "@carveri/shared/components/home-page/StatsBar.tsx";
 import Features from "@carveri/shared/components/home-page/Features.tsx";
@@ -15,14 +14,8 @@ import StickyMobileBar from "@carveri/shared/components/home-page/StickyMobileBa
 import WsFab from "@carveri/shared/components/home-page/WsFab.tsx";
 
 export default function CarVeriLanding() {
-  const vinFormRef = useRef<HTMLElement>(null);
   const examplesRef = useRef<HTMLDivElement>(null);
   const pricingRef = useRef<HTMLDivElement>(null);
-
-  const scrollToVinForm = () => {
-    vinFormRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
-    setTimeout(() => vinFormRef.current?.focus(), 600);
-  };
 
   const scrollToExamples = () => {
     examplesRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -39,9 +32,6 @@ export default function CarVeriLanding() {
         scrollToExamples={scrollToExamples}
         scrollToPricing={scrollToPricing}
       />
-
-      {/* ═══ VIN FORM SECTION ═══ */}
-      <VinFormSection formRef={vinFormRef} />
 
       {/* ═══ CARCHECK EXAMPLES SLIDER ═══ */}
       <div ref={examplesRef}>
@@ -61,7 +51,7 @@ export default function CarVeriLanding() {
       <HowItWorks />
 
       {/* ═══ REPORT SAMPLE ═══ */}
-      <ReportSample scrollToVinForm={scrollToVinForm} />
+      <ReportSample scrollToPricing={scrollToPricing} />
 
       {/* ═══ PRICING ═══ */}
       <div ref={pricingRef}>
@@ -72,13 +62,13 @@ export default function CarVeriLanding() {
       <FaqSection />
 
       {/* ═══ FINAL CTA ═══ */}
-      <FinalCta scrollToVinForm={scrollToVinForm} />
+      <FinalCta scrollToPricing={scrollToPricing} />
 
       {/* ═══ FOOTER ═══ */}
       <Footer />
 
       {/* ═══ STICKY MOBILE BAR ═══ */}
-      <StickyMobileBar scrollToVinForm={scrollToVinForm} />
+      <StickyMobileBar scrollToPricing={scrollToPricing} />
 
       {/* ═══ WhatsApp FAB ═══ */}
       <WsFab />

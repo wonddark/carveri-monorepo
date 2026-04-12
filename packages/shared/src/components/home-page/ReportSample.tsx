@@ -7,12 +7,12 @@ import VideoModal from "@carveri/shared/components/home-page/VideoModal.tsx";
 import { useTranslation } from "react-i18next";
 
 type Props = {
-  scrollToVinForm: () => void;
+  scrollToPricing: () => void;
 };
 
 function ReportSample(props: Readonly<Props>) {
   const { t } = useTranslation("homepage");
-  const { scrollToVinForm } = props;
+  const { scrollToPricing } = props;
   const [showModal, setShowModal] = useState(false);
   const REPORT_SAMPLE =
     "https://d2xsxph8kpxj0f.cloudfront.net/310519663263444526/eJKAGHfm7BbufMTYZr5k2D/carcheck-report-sample-v3-bT8qCeeLfrcNjEi8eVGdpc.webp";
@@ -59,7 +59,7 @@ function ReportSample(props: Readonly<Props>) {
               </button>
 
               <Button
-                onClick={scrollToVinForm}
+                onClick={scrollToPricing}
                 size="lg"
                 className="mt-6 rounded-xl bg-linear-to-r from-green-500 to-emerald-600 font-[Outfit] text-[15px] font-bold text-white shadow-lg shadow-green-500/25 hover:from-green-600 hover:to-emerald-700 active:scale-[0.97]"
               >

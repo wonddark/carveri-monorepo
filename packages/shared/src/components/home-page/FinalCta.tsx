@@ -4,12 +4,12 @@ import { IconArrowRight, IconMessageCircle } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 
 type Props = {
-  scrollToVinForm: () => void;
+  scrollToPricing: () => void;
 };
 
 function FinalCta(props: Readonly<Props>) {
   const { t } = useTranslation("homepage");
-  const { scrollToVinForm } = props;
+  const { scrollToPricing } = props;
 
   return (
     <section className="bg-primary relative overflow-hidden">
@@ -26,7 +26,7 @@ function FinalCta(props: Readonly<Props>) {
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             <Button
-              onClick={scrollToVinForm}
+              onClick={scrollToPricing}
               size="lg"
               className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-[Outfit] text-[16px] font-bold shadow-lg shadow-black/10 active:scale-[0.97]"
             >
