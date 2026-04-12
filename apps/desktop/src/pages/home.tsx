@@ -38,11 +38,11 @@ export default function CarVeriLanding() {
         <ExamplesSlider />
       </div>
 
-      {/* ═══ STATS BAR ═══ */}
-      <StatsBar />
-
       {/* ═══ FEATURES ═══ */}
       <Features />
+
+      {/* ═══ STATS BAR ═══ */}
+      <StatsBar />
 
       {/* ═══ AI ANALYSIS SECTION ═══ */}
       <AIAnalysis />
