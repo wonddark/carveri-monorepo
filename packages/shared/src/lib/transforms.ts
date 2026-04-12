@@ -3,6 +3,7 @@ import type {
   EvaluationRaw,
   PriceAdjustment,
   SaleCycle,
+  SaleCycleRecord,
   SourceContribution,
   VehicleHistory,
   VehicleReport,
@@ -25,10 +26,11 @@ export type PriceDynamics = {
   totalDropPct: number;
 };
 
-// ── Dealer sale cycle (for "Ventas Anteriores" tab) ───────────────────────────
+// ── Sales cycle (for "Ventas Anteriores" tab) ───────────────────────────
 
-export type DealerSaleCycle = {
+export type SalesCycle = {
   id: string;
+  type: string;
   dealerName: string;
   city: string;
   state: string;
@@ -43,20 +45,8 @@ export type DealerSaleCycle = {
   mileage: number | null;
   vdpUrl: string;
   isActive: boolean;
-};
-
-// ── Auction sale (for "Historial de Subastas" tab) ────────────────────────────
-
-export type AuctionSale = {
-  id: string;
-  auctionName: string;
-  city: string;
-  state: string;
-  date: string;
-  price: number | null;
-  mileage: number | null;
+  records: SaleCycleRecord[];
   sold: boolean;
-  vdpUrl: string;
 };
 
 // ── Comparable vehicle (transformed) ─────────────────────────────────────────
@@ -168,8 +158,7 @@ export type TransformedReport = {
   stats: VehicleReport["stats"] | null;
   priceEval: VehicleReport["priceEval"];
   priceDynamics: PriceDynamics;
-  dealerSaleCycles: DealerSaleCycle[];
-  auctionSales: AuctionSale[];
+  saleCycles: SalesCycle[];
   comparables: TransformedComparable[];
   evaluation: TransformedEvaluation;
   diagnosis: DiagnosisData;
@@ -201,88 +190,58 @@ export type TransformedReport = {
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
 
-function formatDate(iso: string): string {
+function formatDate(iso: string, short = false): string {
   try {
     const d = new Date(iso);
-    return d.toLocaleDateString("en-US", {
+    const options: Intl.DateTimeFormatOptions = {
       month: "short",
       day: "numeric",
-      year: "numeric",
-    });
+    };
+    if (!short) options.year = "numeric";
+    return d.toLocaleDateString("en-US", options);
   } catch {
     return iso;
   }
 }
 
-function formatShortDate(iso: string): string {
-  try {
-    const d = new Date(iso);
-    return d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-  } catch {
-    return iso;
-  }
-}
+function transformSaleCycles(cycles: SaleCycle[]): SalesCycle[] {
+  return cycles.map((cycle, idx): SalesCycle => {
+    const startPrice = cycle.StartPrice ?? 0;
+    const endPrice = cycle.EndPrice ?? startPrice;
+    const discountPct =
+      startPrice > 0
+        ? Math.round(((startPrice - endPrice) / startPrice) * 100)
+        : 0;
+    const lastRecord = cycle.Records.at(-1);
+    const mileage = lastRecord?.Miles ?? null;
 
-function transformSaleCycles(cycles: SaleCycle[]): {
-  dealer: DealerSaleCycle[];
-  auction: AuctionSale[];
-} {
-  const dealer: DealerSaleCycle[] = [];
-  const auction: AuctionSale[] = [];
-
-  cycles.forEach((cycle, idx) => {
-    if (cycle.SellerType === "dealer") {
-      const startPrice = cycle.StartPrice ?? 0;
-      const endPrice = cycle.EndPrice ?? startPrice;
-      const discountPct =
-        startPrice > 0
-          ? Math.round(((startPrice - endPrice) / startPrice) * 100)
-          : 0;
-      const lastRecord = cycle.Records[cycle.Records.length - 1];
-      const mileage = lastRecord?.Miles ?? null;
-
-      // The current active cycle is the first dealer cycle (index 0, most recent)
-      const isActive = idx === 0;
-
-      dealer.push({
-        id: `dealer-${idx}`,
-        dealerName: cycle.DealerName,
-        city: cycle.City,
-        state: cycle.State,
-        startDate: formatDate(cycle.StartDate),
-        endDate: formatDate(cycle.EndDate),
-        daysOnLot: cycle.DaysOnLot,
-        startPrice,
-        endPrice,
-        priceReductions: cycle.PriceReductions,
-        priceDrop: Math.abs(cycle.PriceDrop),
-        discountPct,
-        mileage,
-        vdpUrl: lastRecord?.VdpUrl ?? "#",
-        isActive,
-      });
-    } else {
-      // auction
-      const record = cycle.Records[0];
-      const sold =
-        record?.Price != null ||
-        (cycle.StartPrice == null && cycle.EndPrice == null && idx > 2);
-
-      auction.push({
-        id: `auction-${idx}`,
-        auctionName: cycle.DealerName,
-        city: cycle.City,
-        state: cycle.State,
-        date: formatDate(cycle.StartDate),
-        price: record?.Price ?? cycle.StartPrice ?? null,
-        mileage: record?.Miles ?? null,
-        sold,
-        vdpUrl: record?.VdpUrl ?? "#",
-      });
-    }
+    return {
+      id: `${cycle.SellerType}-${idx}`,
+      type: cycle.SellerType,
+      dealerName: cycle.DealerName,
+      city: cycle.City,
+      state: cycle.State,
+      startDate: formatDate(cycle.StartDate),
+      endDate: formatDate(cycle.EndDate),
+      daysOnLot: cycle.DaysOnLot,
+      startPrice,
+      endPrice,
+      priceReductions: cycle.PriceReductions,
+      priceDrop: Math.abs(cycle.PriceDrop),
+      discountPct,
+      mileage,
+      vdpUrl: lastRecord?.VdpUrl ?? "#",
+      isActive: false,
+      sold: false,
+      records: cycle.Records,
+    };
   });
+}
 
-  return { dealer, auction };
+function getPriceTag(priceDiff: number, threshold: number) {
+  if (priceDiff < -threshold) return "CHEAPER";
+  if (priceDiff > threshold) return "PRICIER";
+  return "SIMILAR";
 }
 
 function transformComparables(
@@ -298,12 +257,10 @@ function transformComparables(
       const priceDiffPct =
         subjectPrice > 0 ? Math.round((priceDiff / subjectPrice) * 100) : 0;
       const threshold = subjectPrice * 0.05;
-      const priceTag: TransformedComparable["priceTag"] =
-        priceDiff < -threshold
-          ? "CHEAPER"
-          : priceDiff > threshold
-            ? "PRICIER"
-            : "SIMILAR";
+      const priceTag: TransformedComparable["priceTag"] = getPriceTag(
+        priceDiff,
+        threshold,
+      );
 
       return {
         id: item.Id,
@@ -331,6 +288,24 @@ function transformComparables(
     });
 }
 
+const ZONE_HIGH = 0.15;
+const ZONE_MID = 0.05;
+const GAUGE_FLOOR_FACTOR = 0.6;
+const GAUGE_GRAN_OPORTUNIDAD_FACTOR = 0.88;
+const GAUGE_UPPER_FACTOR = 1.1;
+
+function getCurrentZone(overPct: number) {
+  if (overPct > ZONE_HIGH) return "Sobrepago";
+  if (overPct > ZONE_MID) {
+    return "PrecioAlto";
+  } else if (overPct > -ZONE_MID) {
+    return "PrecioJusto";
+  } else if (overPct > -ZONE_HIGH) {
+    return "BuenPrecio";
+  }
+  return "GranOportunidad";
+}
+
 function transformEvaluation(
   evalRaw: EvaluationRaw | null,
   priceEval: VehicleReport["priceEval"],
@@ -351,11 +326,9 @@ function transformEvaluation(
     };
   }
 
-  // Fallback: estimate fair price from book values when evaluationRaw is unavailable
   const auctionPrice = priceEval?.auction?.price ?? 0;
   const bookValues = priceEval?.bookValues ?? [];
 
-  // Average of all available book values as fair price estimate
   const fairPrice =
     bookValues.length > 0
       ? Math.round(
@@ -366,25 +339,17 @@ function transformEvaluation(
   const diffVsFair = fairPrice > 0 ? askingPrice - fairPrice : 0;
   const dealerMargin = auctionPrice > 0 ? askingPrice - auctionPrice : 0;
 
-  // Derive a rough zone from how asking price compares to fair price estimate
   const overPct = fairPrice > 0 ? (askingPrice - fairPrice) / fairPrice : 0;
-  const currentZone =
-    overPct > 0.15
-      ? "Sobrepago"
-      : overPct > 0.05
-        ? "PrecioAlto"
-        : overPct > -0.05
-          ? "PrecioJusto"
-          : overPct > -0.15
-            ? "BuenPrecio"
-            : "GranOportunidad";
+  const currentZone = getCurrentZone(overPct);
 
-  // Build mock gauge range around the fair price
   const gaugeMin =
-    auctionPrice > 0 ? auctionPrice : Math.round(fairPrice * 0.6);
-  const gaugeMax = Math.round(Math.max(askingPrice, fairPrice) * 1.1);
+    auctionPrice > 0
+      ? auctionPrice
+      : Math.round(fairPrice * GAUGE_FLOOR_FACTOR);
+  const gaugeMax = Math.round(
+    Math.max(askingPrice, fairPrice) * GAUGE_UPPER_FACTOR,
+  );
 
-  // Mock source contributions from available book values
   const sourceKeyMap: Record<string, string> = {
     KBB: "kbb",
     JDP: "jdpower",
@@ -413,9 +378,9 @@ function transformEvaluation(
     diffVsFair,
     gauge: {
       min: gaugeMin,
-      granOportunidad: Math.round(fairPrice * 0.88),
+      granOportunidad: Math.round(fairPrice * GAUGE_GRAN_OPORTUNIDAD_FACTOR),
       precioJusto: fairPrice,
-      precioAlto: Math.round(fairPrice * 1.1),
+      precioAlto: Math.round(fairPrice * GAUGE_UPPER_FACTOR),
       max: gaugeMax,
       currentZone,
     },
@@ -424,29 +389,68 @@ function transformEvaluation(
   };
 }
 
+function getRiskLevel(isRebuilt: boolean, accidents: number) {
+  if (isRebuilt) return "Alto";
+  if (accidents >= 2) return "Medio";
+  return "Bajo";
+}
+
+function getExplanation(accidents: number) {
+  if (accidents >= 2)
+    return "Se reportaron múltiples accidentes con daño estructural potencial.";
+  if (accidents === 1)
+    return "Se reportó un accidente. Se recomienda inspección independiente.";
+  return "No se reportaron daños estructurales.";
+}
+
+function getScores(isRebuilt: boolean, accidents: number) {
+  if (isRebuilt) return 6.5;
+  if (accidents === 0) return 8.2;
+  return 7;
+}
+
+function getAccidentsLevel(accidents: number) {
+  if (accidents >= 2) return "high";
+  if (accidents === 1) return "medium";
+  return "none";
+}
+
+function getRecommendation(isRebuilt: boolean, accidents: number) {
+  if (!isRebuilt && accidents === 0) return "COMPRAR";
+  return "NEGOCIAR";
+}
+
+function getRedFlags(isRebuilt: boolean, accidents: number) {
+  const result: string[] = [];
+  if (isRebuilt) result.push("Historial de título reconstruido");
+  if (accidents >= 2) result.push("Múltiples accidentes reportados");
+  return result;
+}
+
 function buildMockDiagnosis(
   raw: VehicleReport,
   askingPrice: number,
   fairPrice: number,
 ): DiagnosisData {
+  const SOURCE_CARFAX = "Carfax";
+  const SOURCE_MVD = "Motor Vehicle Dept.";
+
   const titleStatus = raw.stats?.titleStatus ?? "";
   const accidents = raw.stats?.accidents ?? 0;
+  const ownerCount = raw.history?.owners?.length ?? 0;
   const isRebuilt =
     titleStatus.toLowerCase().includes("rebuilt") ||
     titleStatus.toLowerCase().includes("salvage");
 
-  const recommendation: DiagnosisData["recommendation"] =
-    isRebuilt || accidents >= 2
-      ? "NEGOCIAR"
-      : accidents === 0
-        ? "COMPRAR"
-        : "NEGOCIAR";
+  const recommendation: DiagnosisData["recommendation"] = getRecommendation(
+    isRebuilt,
+    accidents,
+  );
 
-  const riskLevel: DiagnosisData["riskLevel"] = isRebuilt
-    ? "Alto"
-    : accidents >= 2
-      ? "Medio"
-      : "Bajo";
+  const riskLevel: DiagnosisData["riskLevel"] = getRiskLevel(
+    isRebuilt,
+    accidents,
+  );
 
   const findings: DiagnosisFinding[] = [
     {
@@ -495,9 +499,7 @@ function buildMockDiagnosis(
     },
   ];
 
-  const redFlags: string[] = [];
-  if (isRebuilt) redFlags.push("Historial de título reconstruido");
-  if (accidents >= 2) redFlags.push("Múltiples accidentes reportados");
+  const redFlags: string[] = getRedFlags(isRebuilt, accidents);
 
   const risks: DiagnosisRiskDimension[] = [
     {
@@ -507,19 +509,14 @@ function buildMockDiagnosis(
       explanation: isRebuilt
         ? "El vehículo tiene título reconstruido, lo que indica daño estructural previo."
         : "Título limpio verificado en el estado.",
-      source: "Motor Vehicle Dept.",
+      source: SOURCE_MVD,
     },
     {
       id: "structural",
       label: "Daño Estructural",
-      level: accidents >= 2 ? "high" : accidents === 1 ? "medium" : "none",
-      explanation:
-        accidents >= 2
-          ? "Se reportaron múltiples accidentes con daño estructural potencial."
-          : accidents === 1
-            ? "Se reportó un accidente. Se recomienda inspección independiente."
-            : "No se reportaron daños estructurales.",
-      source: "Carfax",
+      level: getAccidentsLevel(accidents),
+      explanation: getExplanation(accidents),
+      source: SOURCE_CARFAX,
     },
     {
       id: "odometer",
@@ -528,21 +525,21 @@ function buildMockDiagnosis(
       explanation: raw.stats?.odometerVerified
         ? "Las lecturas del odómetro son consistentes a lo largo del historial."
         : "No se pudo verificar la consistencia del odómetro.",
-      source: "Carfax",
+      source: SOURCE_CARFAX,
     },
     {
       id: "ownership",
       label: "Historial de Propiedad",
-      level: (raw.history?.owners?.length ?? 0) >= 3 ? "medium" : "low",
-      explanation: `${raw.history?.owners?.length ?? 0} dueño(s) previo(s) registrado(s).`,
-      source: "Motor Vehicle Dept.",
+      level: ownerCount >= 3 ? "medium" : "low",
+      explanation: `${ownerCount} dueño(s) previo(s) registrado(s).`,
+      source: SOURCE_MVD,
     },
     {
       id: "fraud",
       label: "Indicadores de Fraude",
       level: "none",
       explanation: "No se detectaron indicadores de fraude en el historial.",
-      source: "Carfax",
+      source: SOURCE_CARFAX,
     },
     {
       id: "price-market",
@@ -559,7 +556,7 @@ function buildMockDiagnosis(
       label: "Historial Geográfico",
       level: "low",
       explanation: "El vehículo ha sido registrado en múltiples estados.",
-      source: "Motor Vehicle Dept.",
+      source: SOURCE_MVD,
     },
   ];
 
@@ -623,7 +620,7 @@ function buildMockDiagnosis(
   ];
 
   return {
-    score: isRebuilt ? 6.5 : accidents === 0 ? 8.2 : 7.0,
+    score: getScores(isRebuilt, accidents),
     recommendation,
     riskLevel,
     summary:
@@ -641,123 +638,111 @@ function buildMockDiagnosis(
 // ── Main transform ────────────────────────────────────────────────────────────
 
 export function transformToSharedReport(raw: VehicleReport): TransformedReport {
-  try {
-    const v = raw.vehicle;
-    const askingPrice = v.price;
+  const v = raw.vehicle;
+  const askingPrice = v.price;
 
-    // Price dynamics from current cycle
-    const currentCycleHistory =
-      raw.marketCheckRaw?.VinHistory?.CurrentCyclePriceEvolution ?? [];
+  // Price dynamics from current cycle
+  const currentCycleHistory =
+    raw.marketCheckRaw?.VinHistory?.CurrentCyclePriceEvolution ?? [];
 
-    const priceDynamicsHistory: PriceHistoryPoint[] = currentCycleHistory
-      .filter((p) => p.Price != null)
-      .map((p) => ({
-        date: formatShortDate(p.Date),
-        price: p.Price,
-      }));
+  const priceDynamicsHistory: PriceHistoryPoint[] = currentCycleHistory
+    .filter((p) => p.Price != null)
+    .map((p) => ({
+      date: formatDate(p.Date, true),
+      price: p.Price,
+    }));
 
-    const currentCycle = raw.marketCheckRaw?.VinHistory?.SaleCycles?.[0];
-    const daysListed =
-      raw.marketCheckRaw?.VinHistory?.CurrentListing?.DaysOnLot ??
-      currentCycle?.DaysOnLot ??
-      0;
-    const priceDropsCount = currentCycle?.PriceReductions ?? 0;
-    const currentPrice = currentCycle?.EndPrice ?? askingPrice;
-    const startPrice = currentCycle?.StartPrice ?? currentPrice;
-    const totalDrop = startPrice - currentPrice;
-    const totalDropPct =
-      startPrice > 0 ? Math.round((totalDrop / startPrice) * 100) : 0;
+  const currentCycle = raw.marketCheckRaw?.VinHistory?.SaleCycles?.[0];
+  const daysListed =
+    raw.marketCheckRaw?.VinHistory?.CurrentListing?.DaysOnLot ??
+    currentCycle?.DaysOnLot ??
+    0;
+  const priceDropsCount = currentCycle?.PriceReductions ?? 0;
+  const currentPrice = currentCycle?.EndPrice ?? askingPrice;
+  const startPrice = currentCycle?.StartPrice ?? currentPrice;
+  const totalDrop = startPrice - currentPrice;
+  const totalDropPct =
+    startPrice > 0 ? Math.round((totalDrop / startPrice) * 100) : 0;
 
-    const priceDynamics: PriceDynamics = {
-      daysListed,
-      priceDropsCount,
-      currentPrice,
-      history:
-        priceDynamicsHistory.length > 0
-          ? priceDynamicsHistory
-          : [{ date: "Now", price: currentPrice }],
-      totalDrop,
-      totalDropPct,
-    };
+  const priceDynamics: PriceDynamics = {
+    daysListed,
+    priceDropsCount,
+    currentPrice,
+    history:
+      priceDynamicsHistory.length > 0
+        ? priceDynamicsHistory
+        : [{ date: "Now", price: currentPrice }],
+    totalDrop,
+    totalDropPct,
+  };
 
-    // Sale cycles split by type
-    const allCycles = raw.marketCheckRaw?.VinHistory?.SaleCycles ?? [];
-    const { dealer: dealerSaleCycles, auction: auctionSales } =
-      transformSaleCycles(allCycles);
+  // Sale cycles split by type
+  const allCycles = raw.marketCheckRaw?.VinHistory?.SaleCycles ?? [];
 
-    // Comparables
-    const comparableItems = raw.marketCheckRaw?.Comparables?.Items ?? [];
-    const comparables = transformComparables(comparableItems, askingPrice);
+  // Comparables
+  const comparableItems = raw.marketCheckRaw?.Comparables?.Items ?? [];
+  const comparables = transformComparables(comparableItems, askingPrice);
 
-    // Evaluation
-    const evaluation = transformEvaluation(
-      raw.evaluationRaw,
-      raw.priceEval,
-      askingPrice,
-    );
+  // Evaluation
+  const evaluation = transformEvaluation(
+    raw.evaluationRaw,
+    raw.priceEval,
+    askingPrice,
+  );
 
-    // Diagnosis (AI analysis — mocked since verdict is null in API)
-    const diagnosis = buildMockDiagnosis(
-      raw,
-      askingPrice,
-      evaluation.fairPrice,
-    );
+  // Diagnosis (AI analysis — mocked since verdict is null in API)
+  const diagnosis = buildMockDiagnosis(raw, askingPrice, evaluation.fairPrice);
 
-    return {
-      vin: v.vin,
-      year: v.year,
-      make: v.make,
-      model: v.model,
-      trim: v.trim,
-      price: askingPrice,
-      mileage: v.mileage,
-      location: v.location,
-      color: v.color,
-      engine: v.engine,
-      transmission: v.transmission,
-      drivetrain: v.drivetrain,
-      daysOnLot: v.daysOnLot,
-      previousOwners: raw.history?.owners?.length ?? v.previousOwners ?? 0,
-      auction: {
-        name: raw.priceEval?.auction?.name ?? "",
-        price: raw.priceEval?.auction?.price ?? 0,
+  return {
+    vin: v.vin,
+    year: v.year,
+    make: v.make,
+    model: v.model,
+    trim: v.trim,
+    price: askingPrice,
+    mileage: v.mileage,
+    location: v.location,
+    color: v.color,
+    engine: v.engine,
+    transmission: v.transmission,
+    drivetrain: v.drivetrain,
+    daysOnLot: v.daysOnLot,
+    previousOwners: raw.history?.owners?.length ?? v.previousOwners ?? 0,
+    auction: {
+      name: raw.priceEval?.auction?.name ?? "",
+      price: raw.priceEval?.auction?.price ?? 0,
+    },
+    images: v.images,
+    aiSummary: diagnosis.summary,
+    stats: raw.stats,
+    priceEval: raw.priceEval,
+    priceDynamics,
+    saleCycles: transformSaleCycles(allCycles),
+    comparables,
+    evaluation,
+    diagnosis,
+    negotiate: {
+      strategy: { firstOffer: 0, midpoint: 0, maxRecommended: 0, tips: [] },
+      arguments: [],
+      costs: {
+        state: "",
+        taxRatePct: 0,
+        tagAndTitle: 0,
+        dealerFee: 0,
+        monthlyEstimates: [],
       },
-      images: v.images,
-      aiSummary: diagnosis.summary,
-      stats: raw.stats,
-      priceEval: raw.priceEval,
-      priceDynamics,
-      dealerSaleCycles,
-      auctionSales,
-      comparables,
-      evaluation,
-      diagnosis,
-      negotiate: {
-        strategy: { firstOffer: 0, midpoint: 0, maxRecommended: 0, tips: [] },
-        arguments: [],
-        costs: {
-          state: "",
-          taxRatePct: 0,
-          tagAndTitle: 0,
-          dealerFee: 0,
-          monthlyEstimates: [],
-        },
+    },
+    historyTab: {
+      timeline: raw.history?.timeline ?? [],
+      auctionPhotos: raw.history?.auctionPhotos ?? [],
+      accidents: raw.history?.accidents ?? {
+        count: 0,
+        description: "",
+        events: [],
       },
-      historyTab: {
-        timeline: raw.history?.timeline ?? [],
-        auctionPhotos: raw.history?.auctionPhotos ?? [],
-        accidents: raw.history?.accidents ?? {
-          count: 0,
-          description: "",
-          events: [],
-        },
-        owners: raw.history?.owners ?? [],
-        service: raw.history?.service ?? [],
-        title: raw.history?.title ?? [],
-      },
-    };
-  } catch (e) {
-    console.error("Error transforming report:", e);
-    throw e;
-  }
+      owners: raw.history?.owners ?? [],
+      service: raw.history?.service ?? [],
+      title: raw.history?.title ?? [],
+    },
+  };
 }
