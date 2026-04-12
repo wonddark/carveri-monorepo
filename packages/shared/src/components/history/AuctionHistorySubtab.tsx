@@ -12,7 +12,7 @@ import type { TransformedReport } from "../../lib/transforms.ts";
 import { IconCircleCheck, IconCircleX } from "@tabler/icons-react";
 
 interface Props {
-  auctionSales: TransformedReport["auctionSales"];
+  auctionSales: TransformedReport["saleCycles"];
   auctionPhotos: TransformedReport["historyTab"]["auctionPhotos"];
 }
 
@@ -73,89 +73,90 @@ export default function AuctionHistorySubtab({
           <div className="relative flex flex-col">
             <div className="absolute top-5 bottom-5 left-4 w-px bg-slate-200 dark:bg-slate-700" />
 
-            {auctionSales.map((sale, i) => (
-              <motion.div
-                key={sale.id}
-                initial={{ opacity: 0, x: -8 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.05 }}
-                className="relative flex gap-4 pb-4"
-              >
-                {/* Node */}
-                <div
-                  className={cn(
-                    "ring-background text-background ring-offset-background relative z-10 mt-1 flex size-8 shrink-0 items-center justify-center rounded-full text-xs font-bold shadow-sm ring-2 ring-offset-2",
-                    {
-                      "bg-emerald-500 ring-emerald-300": sale.sold,
-                      "bg-gray-400 ring-gray-300 dark:bg-gray-700 dark:ring-gray-500":
-                        !sale.sold,
-                    },
-                  )}
+            {auctionSales.map((sale, i) => {
+              const price = sale.records[0].Price || 0;
+              return (
+                <motion.div
+                  key={sale.id}
+                  initial={{ opacity: 0, x: -8 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                  className="relative flex gap-4 pb-4"
                 >
-                  <Activity mode={sale.sold ? "visible" : "hidden"}>
-                    <IconCircleCheck className="size-4" />
-                  </Activity>
-                  <Activity mode={sale.sold ? "hidden" : "visible"}>
-                    <IconCircleX className="size-4" />
-                  </Activity>
-                </div>
-
-                {/* Card */}
-                <div
-                  className={cn(
-                    "border-border bg-card flex-1 rounded-xl border p-3 shadow-sm",
-                    {
-                      "border-l-4 border-l-emerald-500": sale.sold,
-                    },
-                  )}
-                >
-                  <div className="flex items-start justify-between gap-2">
-                    <div>
-                      <p className="text-sm font-semibold">
-                        {sale.auctionName}
-                      </p>
-                      <p className="text-muted-foreground text-[11px]">
-                        {sale.city}, {sale.state} · {sale.date}
-                      </p>
-                    </div>
-                    <div className="flex flex-col items-end gap-1.5">
-                      <span>
-                        {sale.price != null ? formatCurrency(sale.price) : "—"}
-                      </span>
-                      <span
-                        className={cn(
-                          "inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold",
-                          sale.sold
-                            ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
-                            : "bg-muted text-muted-foreground",
-                        )}
-                      >
-                        <Activity mode={sale.sold ? "visible" : "hidden"}>
-                          <IconCircleCheck className="size-3" />
-                        </Activity>
-                        <Activity mode={sale.sold ? "hidden" : "visible"}>
-                          <IconCircleX className="size-3" />
-                        </Activity>
-                        {sale.sold
-                          ? t("auctionHistory.sold")
-                          : t("auctionHistory.notSold")}
-                      </span>
-                    </div>
+                  {/* Node */}
+                  <div
+                    className={cn(
+                      "ring-background text-background ring-offset-background relative z-10 mt-1 flex size-8 shrink-0 items-center justify-center rounded-full text-xs font-bold shadow-sm ring-2 ring-offset-2",
+                      {
+                        "bg-emerald-500 ring-emerald-300": sale.sold,
+                        "bg-gray-400 ring-gray-300 dark:bg-gray-700 dark:ring-gray-500":
+                          !sale.sold,
+                      },
+                    )}
+                  >
+                    <Activity mode={sale.sold ? "visible" : "hidden"}>
+                      <IconCircleCheck className="size-4" />
+                    </Activity>
+                    <Activity mode={sale.sold ? "hidden" : "visible"}>
+                      <IconCircleX className="size-4" />
+                    </Activity>
                   </div>
 
-                  <div className="text-muted-foreground mt-2 flex flex-wrap gap-3 text-xs">
-                    {sale.price != null && (
-                      <span className="text-foreground font-semibold">
-                        {formatCurrency(sale.price)}
-                      </span>
+                  {/* Card */}
+                  <div
+                    className={cn(
+                      "border-border bg-card flex-1 rounded-xl border p-3 shadow-sm",
+                      {
+                        "border-l-4 border-l-emerald-500": sale.sold,
+                      },
                     )}
-                    {sale.mileage != null && (
-                      <span>{sale.mileage.toLocaleString()} mi</span>
-                    )}
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <p className="text-sm font-semibold">
+                          {sale.dealerName}
+                        </p>
+                        <p className="text-muted-foreground text-[11px]">
+                          {sale.city}, {sale.state} · {sale.startDate}
+                        </p>
+                      </div>
+                      <div className="flex flex-col items-end gap-1.5">
+                        <span>{price ? formatCurrency(price) : "—"}</span>
+                        <span
+                          className={cn(
+                            "inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold",
+                            sale.sold
+                              ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                              : "bg-muted text-muted-foreground",
+                          )}
+                        >
+                          <Activity mode={sale.sold ? "visible" : "hidden"}>
+                            <IconCircleCheck className="size-3" />
+                          </Activity>
+                          <Activity mode={sale.sold ? "hidden" : "visible"}>
+                            <IconCircleX className="size-3" />
+                          </Activity>
+                          {sale.sold
+                            ? t("auctionHistory.sold")
+                            : t("auctionHistory.notSold")}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="text-muted-foreground mt-2 flex flex-wrap gap-3 text-xs">
+                      {price ? (
+                        <span className="text-foreground font-semibold">
+                          {formatCurrency(price)}
+                        </span>
+                      ) : null}
+                      {sale.mileage != null && (
+                        <span>{sale.mileage.toLocaleString()} mi</span>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
 
           {/* Auction photos gallery */}
@@ -167,7 +168,7 @@ export default function AuctionHistorySubtab({
               <div className="grid grid-cols-3 gap-1.5 sm:grid-cols-4">
                 {auctionPhotos.map((url, i) => (
                   <button
-                    key={i}
+                    key={url}
                     type="button"
                     className="aspect-square w-full cursor-zoom-in overflow-hidden rounded-lg"
                     onClick={() => {
@@ -177,7 +178,7 @@ export default function AuctionHistorySubtab({
                   >
                     <img
                       src={url}
-                      alt={`Auction photo ${i + 1}`}
+                      alt={`Auction imagery ${i + 1}`}
                       className="size-full object-cover transition-transform duration-200 hover:scale-105"
                       loading="lazy"
                     />
