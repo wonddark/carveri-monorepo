@@ -18,10 +18,38 @@
     "report_ai_label": "AI Analysis"
   },
   "features": {
-    "eyebrow": "What your report includes",
-    "title": "Everything you need to know,",
-    "titleHighlight": "in one report.",
-    "description": "We consult the sources used by professional dealers — and deliver it to you clearly and directly."
+    "eyebrow": "What's in every report",
+    "title": "6 layers of intelligence,",
+    "titleHighlight": "one clear answer.",
+    "verdict": {
+      "badge": "AI Verdict",
+      "title": "AI Verdict",
+      "description": "Our AI cross-references all data sources and delivers one of three verdicts — with concrete reasons behind every call.",
+      "buy": "Buy",
+      "negotiate": "Negotiate",
+      "avoid": "Avoid",
+      "powered": "Powered by 11 data sources"
+    },
+    "carfax": {
+      "title": "Full Carfax",
+      "description": "Accidents, title, odometer, owners, and documented maintenance history."
+    },
+    "books": {
+      "title": "4 Valuation Books",
+      "description": "MMR, KBB, Black Book and J.D. Power — know if the price is fair."
+    },
+    "auction": {
+      "title": "Auction History",
+      "description": "Photos and data from Copart, IAAI, Manheim or ADESA — only if the car went through auction."
+    },
+    "market": {
+      "title": "Market Comparables",
+      "description": "Similar cars for sale near you to compare price and condition."
+    },
+    "delivery": {
+      "title": "24h Delivery",
+      "description": "Report ready in 24 hours. In complex cases, 48h max."
+    }
   },
   "vinForm": {
     "title": "Get your first report free",

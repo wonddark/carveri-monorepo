@@ -18,10 +18,38 @@
     "report_ai_label": "Análisis IA"
   },
   "features": {
-    "eyebrow": "Qué incluye tu reporte",
-    "title": "Todo lo que necesitas saber,",
-    "titleHighlight": "en un solo reporte.",
-    "description": "Consultamos las fuentes que usan los dealers profesionales — y te lo entregamos de forma clara y directa."
+    "eyebrow": "Qué incluye cada reporte",
+    "title": "6 capas de inteligencia,",
+    "titleHighlight": "una respuesta clara.",
+    "verdict": {
+      "badge": "Veredicto IA",
+      "title": "Veredicto IA",
+      "description": "Nuestra IA cruza todas las fuentes de datos y entrega uno de tres veredictos — con razones concretas detrás de cada decisión.",
+      "buy": "Comprar",
+      "negotiate": "Negociar",
+      "avoid": "Evitar",
+      "powered": "Potenciado por 11 fuentes de datos"
+    },
+    "carfax": {
+      "title": "Carfax completo",
+      "description": "Accidentes, título, odómetro, dueños anteriores e historial de mantenimiento documentado."
+    },
+    "books": {
+      "title": "4 Libros de Valuación",
+      "description": "MMR, KBB, Black Book y J.D. Power — sabrás si el precio es justo."
+    },
+    "auction": {
+      "title": "Historial de Subasta",
+      "description": "Fotos y datos de Copart, IAAI, Manheim o ADESA — solo si el carro pasó por subasta."
+    },
+    "market": {
+      "title": "Comparables del Mercado",
+      "description": "Carros similares en venta cerca de ti para comparar precio y condición."
+    },
+    "delivery": {
+      "title": "Entrega en 24 Horas",
+      "description": "Reporte listo en 24 horas. En casos complejos, 48h máximo."
+    }
   },
   "vinForm": {
     "title": "Obtén tu primer reporte gratis",
