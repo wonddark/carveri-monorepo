@@ -50,6 +50,7 @@ i18next
       "market",
       "negotiate",
       "verdict",
+      "homepage",
     ],
     resources: {
       en: {

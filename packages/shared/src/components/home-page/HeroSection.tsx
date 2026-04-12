@@ -87,14 +87,14 @@ export default function HeroSection({
               <div className="hidden items-center gap-6 lg:flex">
                 {(
                   [
-                    t("hero.trust_delivery"),
-                    t("hero.trust_carfax"),
-                    t("hero.trust_books"),
-                  ] as string[]
-                ).map((label) => (
-                  <div key={label} className="flex items-center gap-1.5 text-xs text-slate-500">
+                    "hero.trust_delivery",
+                    "hero.trust_carfax",
+                    "hero.trust_books",
+                  ] as const
+                ).map((key) => (
+                  <div key={key} className="flex items-center gap-1.5 text-xs text-slate-500">
                     <span className="font-bold text-green-400">✓</span>
-                    {label}
+                    {t(key)}
                   </div>
                 ))}
               </div>
