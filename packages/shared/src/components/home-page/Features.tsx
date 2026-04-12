@@ -11,17 +11,29 @@ import { useTranslation } from "react-i18next";
 import { cn } from "@carveri/shared/lib/utils.ts";
 
 const SUPPORTING_FEATURES = [
-  { key: "carfax",   Icon: IconShieldFilled, color: "bg-blue-500"    },
-  { key: "books",    Icon: IconChartBar,     color: "bg-emerald-500" },
-  { key: "auction",  Icon: IconSearch,       color: "bg-amber-500"   },
-  { key: "market",   Icon: IconTrendingUp,   color: "bg-rose-500"    },
-  { key: "delivery", Icon: IconClock,        color: "bg-cyan-500"    },
+  { key: "carfax", Icon: IconShieldFilled, color: "bg-blue-500" },
+  { key: "books", Icon: IconChartBar, color: "bg-emerald-500" },
+  { key: "auction", Icon: IconSearch, color: "bg-amber-500" },
+  { key: "market", Icon: IconTrendingUp, color: "bg-rose-500" },
+  { key: "delivery", Icon: IconClock, color: "bg-cyan-500" },
 ] as const;
 
 const VERDICT_PILLS = [
-  { key: "buy",       prefix: "✓",  classes: "border-green-500/20 bg-green-500/15 text-green-400"  },
-  { key: "negotiate", prefix: "⚡", classes: "border-amber-500/20 bg-amber-500/15 text-amber-400"  },
-  { key: "avoid",     prefix: "✗",  classes: "border-rose-500/20 bg-rose-500/15 text-rose-400"     },
+  {
+    key: "buy",
+    prefix: "✓",
+    classes: "border-green-500/20 bg-green-500/15 text-green-400",
+  },
+  {
+    key: "negotiate",
+    prefix: "⚡",
+    classes: "border-amber-500/20 bg-amber-500/15 text-amber-400",
+  },
+  {
+    key: "avoid",
+    prefix: "✗",
+    classes: "border-rose-500/20 bg-rose-500/15 text-rose-400",
+  },
 ] as const;
 
 function Features() {
@@ -33,12 +45,14 @@ function Features() {
         {/* Section header */}
         <FadeUp>
           <div className="mx-auto mb-12 max-w-160 text-center lg:mb-16">
-            <span className="text-primary mb-3 inline-block font-[Outfit] text-xs font-bold uppercase tracking-widest">
+            <span className="text-primary mb-3 inline-block font-[Outfit] text-xs font-bold tracking-widest uppercase">
               {t("features.eyebrow")}
             </span>
             <h2 className="font-[Outfit] text-[1.75rem] leading-tight font-black tracking-tight sm:text-[2.25rem] lg:text-[2.5rem]">
               {t("features.title")}{" "}
-              <span className="text-primary">{t("features.titleHighlight")}</span>
+              <span className="text-primary">
+                {t("features.titleHighlight")}
+              </span>
             </h2>
           </div>
         </FadeUp>
@@ -46,7 +60,6 @@ function Features() {
         {/* Bento grid */}
         <FadeIn>
           <div className="grid gap-5 lg:grid-cols-5">
-
             {/* AI Verdict — hero card */}
             <div className="flex flex-col justify-between rounded-2xl bg-[#0A1628] p-7 lg:col-span-2">
               <div>
@@ -61,6 +74,14 @@ function Features() {
                   {t("features.verdict.description")}
                 </p>
               </div>
+
+              <FadeUp>
+                <img
+                  src="/images/ai-analysis.webp"
+                  alt="CarVeri AI Analysis"
+                  className="w-full rounded-2xl shadow-2xl shadow-black/30"
+                />
+              </FadeUp>
 
               <div>
                 <div className="mt-8 flex flex-wrap gap-2.5">
@@ -87,32 +108,31 @@ function Features() {
               {SUPPORTING_FEATURES.map((f) => {
                 const FeatureIcon = f.Icon;
                 return (
-                <div
-                  key={f.key}
-                  className={cn(
-                    "rounded-2xl border border-border bg-card p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md",
-                    f.key === "delivery" && "col-span-2",
-                  )}
-                >
                   <div
+                    key={f.key}
                     className={cn(
-                      "mb-4 flex h-10 w-10 items-center justify-center rounded-xl text-white",
-                      f.color,
+                      "border-border bg-card rounded-2xl border p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md",
+                      f.key === "delivery" && "col-span-2",
                     )}
                   >
-                    <FeatureIcon className="h-5 w-5" aria-hidden="true" />
+                    <div
+                      className={cn(
+                        "mb-4 flex h-10 w-10 items-center justify-center rounded-xl text-white",
+                        f.color,
+                      )}
+                    >
+                      <FeatureIcon className="h-5 w-5" aria-hidden="true" />
+                    </div>
+                    <p className="font-[Outfit] text-[15px] font-bold">
+                      {t(`features.${f.key}.title`)}
+                    </p>
+                    <p className="text-muted-foreground mt-1 text-sm leading-relaxed">
+                      {t(`features.${f.key}.description`)}
+                    </p>
                   </div>
-                  <p className="font-[Outfit] text-[15px] font-bold">
-                    {t(`features.${f.key}.title`)}
-                  </p>
-                  <p className="text-muted-foreground mt-1 text-sm leading-relaxed">
-                    {t(`features.${f.key}.description`)}
-                  </p>
-                </div>
                 );
               })}
             </div>
-
           </div>
         </FadeIn>
       </div>
