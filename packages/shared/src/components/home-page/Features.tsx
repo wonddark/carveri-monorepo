@@ -11,11 +11,11 @@ import { useTranslation } from "react-i18next";
 import { cn } from "@carveri/shared/lib/utils.ts";
 
 const SUPPORTING_FEATURES = [
-  { key: "carfax",   icon: <IconShieldFilled className="h-5 w-5" />, color: "bg-blue-500"    },
-  { key: "books",    icon: <IconChartBar className="h-5 w-5" />,     color: "bg-emerald-500" },
-  { key: "auction",  icon: <IconSearch className="h-5 w-5" />,       color: "bg-amber-500"   },
-  { key: "market",   icon: <IconTrendingUp className="h-5 w-5" />,   color: "bg-rose-500"    },
-  { key: "delivery", icon: <IconClock className="h-5 w-5" />,        color: "bg-cyan-500"    },
+  { key: "carfax",   Icon: IconShieldFilled, color: "bg-blue-500"    },
+  { key: "books",    Icon: IconChartBar,     color: "bg-emerald-500" },
+  { key: "auction",  Icon: IconSearch,       color: "bg-amber-500"   },
+  { key: "market",   Icon: IconTrendingUp,   color: "bg-rose-500"    },
+  { key: "delivery", Icon: IconClock,        color: "bg-cyan-500"    },
 ] as const;
 
 const VERDICT_PILLS = [
@@ -51,7 +51,7 @@ function Features() {
             <div className="flex flex-col justify-between rounded-2xl bg-[#0A1628] p-7 lg:col-span-2">
               <div>
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-500/20 bg-blue-500/15 px-3 py-1 font-[Outfit] text-xs font-bold tracking-wider text-blue-400">
-                  <IconSparkles className="h-3.5 w-3.5" />
+                  <IconSparkles className="h-3.5 w-3.5" aria-hidden="true" />
                   {t("features.verdict.badge")}
                 </span>
                 <h3 className="mt-5 font-[Outfit] text-[1.75rem] font-black text-white">
@@ -84,7 +84,9 @@ function Features() {
 
             {/* Supporting features — 2×2 grid + delivery full-width */}
             <div className="grid grid-cols-2 gap-5 lg:col-span-3">
-              {SUPPORTING_FEATURES.map((f) => (
+              {SUPPORTING_FEATURES.map((f) => {
+                const FeatureIcon = f.Icon;
+                return (
                 <div
                   key={f.key}
                   className={cn(
@@ -98,7 +100,7 @@ function Features() {
                       f.color,
                     )}
                   >
-                    {f.icon}
+                    <FeatureIcon className="h-5 w-5" aria-hidden="true" />
                   </div>
                   <p className="font-[Outfit] text-[15px] font-bold">
                     {t(`features.${f.key}.title`)}
@@ -107,7 +109,8 @@ function Features() {
                     {t(`features.${f.key}.description`)}
                   </p>
                 </div>
-              ))}
+                );
+              })}
             </div>
 
           </div>
