@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Camera, ChevronLeft, ChevronRight } from "lucide-react";
+import Lightbox from "yet-another-react-lightbox";
+import { Counter, Thumbnails, Zoom } from "yet-another-react-lightbox/plugins";
 
 interface Props {
   images: string[];
@@ -8,6 +10,9 @@ interface Props {
 
 export default function ImageCarousel({ images }: Readonly<Props>) {
   const [index, setIndex] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+
+  const slides = images.map((src) => ({ src }));
 
   const goTo = (next: number) => {
     setIndex(Math.max(0, Math.min(next, images.length - 1)));
@@ -27,11 +32,12 @@ export default function ImageCarousel({ images }: Readonly<Props>) {
         key={index}
         src={images[index]}
         alt={`Vehicle photo ${index + 1}`}
-        className="h-full w-full object-cover select-none"
+        className="h-full w-full cursor-zoom-in object-cover select-none"
         drag="x"
         dragConstraints={{ left: 0, right: 0 }}
         dragElastic={0.2}
         onDragEnd={handleDragEnd}
+        onClick={() => setLightboxOpen(true)}
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.2 }}
@@ -71,6 +77,16 @@ export default function ImageCarousel({ images }: Readonly<Props>) {
           />
         ))}
       </div>
+
+      <Lightbox
+        open={lightboxOpen}
+        close={() => setLightboxOpen(false)}
+        index={index}
+        slides={slides}
+        plugins={[Zoom, Counter, Thumbnails]}
+        zoom={{ scrollToZoom: true }}
+        on={{ view: ({ index: i }) => setIndex(i) }}
+      />
     </div>
   );
 }
