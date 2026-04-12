@@ -68,13 +68,15 @@ export default function HistoryTab({ report }: Readonly<Props>) {
 
         <Activity mode={activeIdx === 1 ? "visible" : "hidden"}>
           <AuctionHistorySubtab
-            auctionSales={report.auctionSales}
+            auctionSales={report.saleCycles.filter(
+              ({ type }) => type === "auction",
+            )}
             auctionPhotos={report.historyTab.auctionPhotos}
           />
         </Activity>
 
         <Activity mode={activeIdx === 2 ? "visible" : "hidden"}>
-          <PastSalesSubtab dealerSaleCycles={report.dealerSaleCycles} />
+          <PastSalesSubtab salesCycles={report.saleCycles} />
         </Activity>
 
         <Activity mode={activeIdx === 3 ? "visible" : "hidden"}>
