@@ -151,7 +151,6 @@ function ExamplesSlider() {
           <div
             ref={sliderRef}
             className="scrollbar-hide flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
             {examples.map((car) => (
               <ExampleCard
