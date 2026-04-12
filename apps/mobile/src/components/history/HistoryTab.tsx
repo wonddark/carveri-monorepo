@@ -76,23 +76,23 @@ export default function HistoryTab({ report }: Readonly<Props>) {
         </Activity>
 
         <Activity mode={activeIdx === 2 ? "visible" : "hidden"}>
-          <PastSalesSubtab salesCycles={report.saleCycles} />
-        </Activity>
-
-        <Activity mode={activeIdx === 3 ? "visible" : "hidden"}>
           <AccidentsSubtab accidents={report.historyTab.accidents} />
         </Activity>
 
-        <Activity mode={activeIdx === 4 ? "visible" : "hidden"}>
+        <Activity mode={activeIdx === 3 ? "visible" : "hidden"}>
           <OwnersSubtab owners={report.historyTab.owners} />
         </Activity>
 
-        <Activity mode={activeIdx === 5 ? "visible" : "hidden"}>
+        <Activity mode={activeIdx === 4 ? "visible" : "hidden"}>
           <ServiceSubtab service={report.historyTab.service} />
         </Activity>
 
-        <Activity mode={activeIdx === 6 ? "visible" : "hidden"}>
+        <Activity mode={activeIdx === 5 ? "visible" : "hidden"}>
           <TitleSubtab title={report.historyTab.title} />
+        </Activity>
+
+        <Activity mode={activeIdx === 6 ? "visible" : "hidden"}>
+          <PastSalesSubtab salesCycles={report.saleCycles} />
         </Activity>
       </div>
     </div>
