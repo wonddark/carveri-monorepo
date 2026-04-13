@@ -61,11 +61,11 @@ function buildGaugeSvg(
 
   // Labels
   const labels = [
-    { pct: 0, text: { es: "GANGA", en: "GANGA" } },
+    { pct: 0, text: { es: "GANGA", en: "BARGAIN" } },
     { pct: 0.25, text: { es: "BAJO", en: "LOW" } },
     { pct: 0.5, text: { es: "JUSTO", en: "FAIR" } },
     { pct: 0.75, text: { es: "ALTO", en: "HIGH" } },
-    { pct: 1, text: { es: "CARO", en: "EXPENSIVE" } },
+    { pct: 1, text: { es: "CARO", en: "OVERPRICED" } },
   ];
   const lbls = labels
     .map((l) => {
