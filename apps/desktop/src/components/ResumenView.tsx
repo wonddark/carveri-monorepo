@@ -85,7 +85,7 @@ export default function ResumenView({ report }: Readonly<Props>) {
               </span>
             </div>
 
-            <div className="grid grid-cols-2 items-center gap-5">
+            <div className="grid grid-cols-1 items-center gap-5 lg:grid-cols-[1fr_40%]">
               <div className="col-start-1 -col-end-1 text-center text-3xl font-semibold">
                 ${report.price.toLocaleString()}
               </div>
