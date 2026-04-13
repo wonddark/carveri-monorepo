@@ -3,6 +3,7 @@ import parse from "html-react-parser";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { cn } from "@carveri/shared/lib/utils.ts";
+import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 
 type Props = {
   percentile: number;
@@ -11,10 +12,12 @@ type Props = {
   wholesale: number;
   retail: number;
   averageDeltaPct: number;
+  minimum: number;
+  maximum: number;
 };
 
 function ReportGauge(props: Readonly<Props>) {
-  const { percentile, label, price, averageDeltaPct } = props;
+  const { percentile, label, price, averageDeltaPct, minimum, maximum } = props;
   const { t, i18n } = useTranslation("vehicle-details");
   const lang = (i18n.resolvedLanguage || "en") as "es" | "en";
   const [isVisible, setIsVisible] = useState(false);
@@ -60,7 +63,15 @@ function ReportGauge(props: Readonly<Props>) {
           {`${averageDeltaPct}%`}
         </span>
       </div>
-      {parse(buildGaugeSvg(percentile, price, label, lang))}
+      {parse(buildGaugeSvg(percentile, price, label, lang, minimum, maximum))}
+      <div className="flex items-center justify-between px-16 py-2.5">
+        <div className="text-muted-foreground text-sm">
+          {formatCurrency(minimum)}
+        </div>
+        <div className="text-muted-foreground text-sm">
+          {formatCurrency(maximum)}
+        </div>
+      </div>
     </div>
   );
 }

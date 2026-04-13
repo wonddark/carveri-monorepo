@@ -37,6 +37,11 @@ export default function MarketTab({ report }: Readonly<Props>) {
   const max = 33000;
   const percentile = getPercentile({ min, max, value: report.price });
 
+  const booksMeanValue =
+    report.priceEval.bookValues.reduce((acc, curr) => acc + curr.value, 0) / 4;
+  const minimum = booksMeanValue - (booksMeanValue * 15) / 100;
+  const maximum = booksMeanValue + (booksMeanValue * 15) / 100;
+
   useEffect(() => {
     globalThis.window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -90,6 +95,8 @@ export default function MarketTab({ report }: Readonly<Props>) {
               retail={max}
               percentile={percentile}
               averageDeltaPct={report.priceEval.marketAvgDeltaPct}
+              minimum={minimum}
+              maximum={maximum}
             />
 
             <Card>

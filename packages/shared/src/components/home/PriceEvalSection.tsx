@@ -32,6 +32,11 @@ export default function PriceEvalSection({
   const max = 33000;
   const percentile = ((price - min) / (max - min)) * 100;
 
+  const booksMeanValue =
+    priceEval.bookValues.reduce((acc, curr) => acc + curr.value, 0) / 4;
+  const minimum = booksMeanValue - (booksMeanValue * 15) / 100;
+  const maximum = booksMeanValue + (booksMeanValue * 15) / 100;
+
   return (
     <Card>
       <CardContent>
@@ -57,6 +62,8 @@ export default function PriceEvalSection({
           percentile={percentile}
           wholesale={max}
           averageDeltaPct={marketAvgDeltaPct}
+          minimum={minimum}
+          maximum={maximum}
         />
         <BookValues bookValues={bookValues} />
       </CardContent>
