@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import LanguageToggle from "@carveri/shared/components/LanguageToggle";
 import ThemeToggle from "@carveri/shared/components/ThemeToggle";
 import { cn } from "@/lib/utils";
+import LogoFullHorizontal from "@carveri/shared/components/logos/LogoFullHorizontal.tsx";
 
 export default function ReportHeader() {
   const navigate = useNavigate();
@@ -16,27 +17,13 @@ export default function ReportHeader() {
         "border-border bg-background border-b px-4 shadow-sm",
       )}
     >
-      {/* Left: back + logo */}
-      <div className="flex items-center gap-3">
-        <button
-          type="button"
-          onClick={() => navigate("/")}
-          className="cursor-pointer"
-        >
-          <img
-            src="/logo.svg"
-            alt="CarVeri"
-            className="h-6"
-            onError={(e) => {
-              // Fallback if logo asset missing
-              (e.currentTarget as HTMLImageElement).style.display = "none";
-            }}
-          />
-          <span className="hidden text-base font-black tracking-tight text-slate-900 sm:block dark:text-slate-100">
-            CarVeri
-          </span>
-        </button>
-      </div>
+      <button
+        type="button"
+        onClick={() => navigate("/")}
+        className="h-8 w-fit cursor-pointer"
+      >
+        <LogoFullHorizontal className="h-full w-auto" />
+      </button>
 
       {/* Right: language + actions */}
       <div className="flex items-center gap-2">
