@@ -19,7 +19,7 @@ export default function ThemeToggle() {
         <button
           type="button"
           aria-label={t("theme.toggle")}
-          className="rounded-md p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700 dark:text-slate-500 dark:hover:bg-slate-800 dark:hover:text-slate-300"
+          className="cursor-pointer rounded-md p-1.5 text-slate-400 hover:bg-slate-100 hover:text-slate-700 dark:text-slate-500 dark:hover:bg-slate-800 dark:hover:text-slate-300"
         >
           {resolvedTheme === "dark" ? <Moon size={15} /> : <Sun size={15} />}
         </button>

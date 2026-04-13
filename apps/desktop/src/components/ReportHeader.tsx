@@ -32,7 +32,7 @@ export default function ReportHeader() {
         <button
           type="button"
           aria-label={t("reportHeader.shareAriaLabel")}
-          className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
+          className="flex cursor-pointer items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
         >
           <Share2 size={13} />
           <span className="hidden sm:inline">{t("reportHeader.share")}</span>
@@ -40,7 +40,7 @@ export default function ReportHeader() {
         <button
           type="button"
           aria-label={t("reportHeader.downloadAriaLabel")}
-          className="flex items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
+          className="flex cursor-pointer items-center gap-1.5 rounded-md px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
         >
           <Download size={13} />
           <span className="hidden sm:inline">{t("reportHeader.pdf")}</span>
