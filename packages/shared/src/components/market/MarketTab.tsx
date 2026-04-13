@@ -6,7 +6,6 @@ import PriceDynamicsSubtab from "./PriceDynamicsSubtab";
 import BookValues from "@carveri/shared/components/home/BookValues";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import ReportGauge from "@carveri/shared/components/ReportGauge.tsx";
-import { getPercentile } from "@carveri/shared/lib/utils.ts";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 import {
@@ -37,10 +36,6 @@ export default function MarketTab({ report }: Readonly<Props>) {
     if (isComparables) return "comparables";
     return "analysis";
   };
-
-  const min = 12000;
-  const max = 33000;
-  const percentile = getPercentile({ min, max, value: report.price });
 
   useEffect(() => {
     setCurrentTab(getCurrentTab());
@@ -91,9 +86,6 @@ export default function MarketTab({ report }: Readonly<Props>) {
             <Card>
               <CardContent className="grid grid-cols-2 items-center gap-5">
                 <ReportGauge
-                  retail={max}
-                  percentile={percentile}
-                  wholesale={max}
                   label={report.priceEval.label}
                   price={report.price}
                   averageDeltaPct={report.priceEval.marketAvgDeltaPct}

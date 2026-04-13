@@ -7,7 +7,6 @@ import AISummarySection from "@carveri/shared/components/home/AISummarySection";
 import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import ReportGauge from "@carveri/shared/components/ReportGauge.tsx";
-import { getPercentile } from "@carveri/shared/lib/utils.ts";
 import type { VehicleReport } from "@carveri/shared/types/vehicle-report.ts";
 import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 import VehicleHeroCard from "@/components/VehicleHeroCard";
@@ -21,14 +20,6 @@ export default function ResumenView({ report }: Readonly<Props>) {
   const { priceEval, stats } = report;
   const isAbove = priceEval.marketAvgDeltaPct > 0;
   const absPct = Math.abs(priceEval.marketAvgDeltaPct).toFixed(1);
-
-  const wholesale = 12000;
-  const retail = 33000;
-  const percentile = getPercentile({
-    min: wholesale,
-    max: retail,
-    value: report.price,
-  });
 
   const priceLabelMap: Record<VehicleReport["priceEval"]["label"], string> = {
     BARGAIN: t("resume.priceLabels.BARGAIN"),
@@ -104,11 +95,8 @@ export default function ResumenView({ report }: Readonly<Props>) {
                 {t("resume.ofAverage")}
               </p>
               <ReportGauge
-                percentile={percentile}
                 label={priceEval.label}
                 price={report.price}
-                wholesale={wholesale}
-                retail={retail}
                 averageDeltaPct={report.priceEval.marketAvgDeltaPct}
                 minimum={minimum}
                 maximum={maximum}

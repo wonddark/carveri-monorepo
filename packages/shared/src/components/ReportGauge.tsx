@@ -2,26 +2,29 @@ import { buildGaugeSvg } from "@carveri/shared/lib/gauge.ts";
 import parse from "html-react-parser";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { cn } from "@carveri/shared/lib/utils.ts";
+import { cn, getPercentile } from "@carveri/shared/lib/utils.ts";
 import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 
 type Props = {
-  percentile: number;
   label: string;
   price: number;
-  wholesale: number;
-  retail: number;
   averageDeltaPct: number;
   minimum: number;
   maximum: number;
 };
 
 function ReportGauge(props: Readonly<Props>) {
-  const { percentile, label, price, averageDeltaPct, minimum, maximum } = props;
+  const { label, price, averageDeltaPct, minimum, maximum } = props;
   const { t, i18n } = useTranslation("vehicle-details");
   const lang = (i18n.resolvedLanguage || "en") as "es" | "en";
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const percentile = getPercentile({
+    min: minimum,
+    max: maximum,
+    value: price,
+  });
 
   useEffect(() => {
     const el = containerRef.current;

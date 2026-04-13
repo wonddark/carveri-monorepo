@@ -28,10 +28,6 @@ export default function PriceEvalSection({
   const { label, marketAvgDeltaPct, bookValues } = priceEval;
   const isAbove = marketAvgDeltaPct > 0;
 
-  const min = 12000;
-  const max = 33000;
-  const percentile = ((price - min) / (max - min)) * 100;
-
   const booksMeanValue =
     priceEval.bookValues.reduce((acc, curr) => acc + curr.value, 0) / 4;
   const minimum = booksMeanValue - (booksMeanValue * 15) / 100;
@@ -58,9 +54,6 @@ export default function PriceEvalSection({
         <ReportGauge
           price={price}
           label={label}
-          retail={min}
-          percentile={percentile}
-          wholesale={max}
           averageDeltaPct={marketAvgDeltaPct}
           minimum={minimum}
           maximum={maximum}

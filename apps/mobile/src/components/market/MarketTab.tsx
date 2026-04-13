@@ -6,7 +6,6 @@ import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import ReportGauge from "@carveri/shared/components/ReportGauge.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
-import { getPercentile } from "@carveri/shared/lib/utils.ts";
 import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 import { marketSubtabs } from "@carveri/shared/data/subtabs.tsx";
 import { Activity, useEffect, useRef, useState } from "react";
@@ -32,10 +31,6 @@ export default function MarketTab({ report }: Readonly<Props>) {
     const pillCenter = pill.offsetLeft + pill.clientWidth / 2;
     track.scrollTo({ left: pillCenter - trackCenter, behavior: "smooth" });
   }
-
-  const min = 12000;
-  const max = 33000;
-  const percentile = getPercentile({ min, max, value: report.price });
 
   const booksMeanValue =
     report.priceEval.bookValues.reduce((acc, curr) => acc + curr.value, 0) / 4;
@@ -91,9 +86,6 @@ export default function MarketTab({ report }: Readonly<Props>) {
             <ReportGauge
               price={report.price}
               label={report.priceEval.label}
-              wholesale={min}
-              retail={max}
-              percentile={percentile}
               averageDeltaPct={report.priceEval.marketAvgDeltaPct}
               minimum={minimum}
               maximum={maximum}
