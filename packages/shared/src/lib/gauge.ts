@@ -5,8 +5,6 @@ function buildGaugeSvg(
   price: number,
   label: string,
   lang: "es" | "en",
-  minimum: number = 0,
-  maximum: number = 100000,
 ) {
   const needleTarget = 150 + (percentile / 100) * 240;
   const cx = 160,
@@ -85,7 +83,7 @@ function buildGaugeSvg(
   const startDot = polar(outerR - 1, arcStart);
   const endDot = polar(outerR - 1, arcStart + arcSpan);
 
-  return `<svg viewBox="0 0 320 225" style="width:100%" preserveAspectRatio="xMidYMid meet">
+  return `<svg viewBox="0 0 330 225" style="width:100%" preserveAspectRatio="xMidYMid meet">
     <defs>
       <radialGradient id="gf" cx="50%" cy="48%" r="52%"><stop offset="0%" stop-color="#2E3138"/><stop offset="70%" stop-color="#1E2028"/><stop offset="100%" stop-color="#16181E"/></radialGradient>
       <filter id="ng" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
@@ -112,8 +110,6 @@ function buildGaugeSvg(
     <text x="${cx}" y="${cy + 38}" text-anchor="middle" fill="white" font-size="24" font-weight="800" font-family="'Outfit',sans-serif" letter-spacing="-0.5">${formatCurrency(price)}</text>
     <rect x="${cx - 40}" y="${cy + 46}" width="80" height="18" rx="9" fill="${currentColor}" opacity="0.15"/>
     <text x="${cx}" y="${cy + 58}" text-anchor="middle" fill="${currentColor}" font-size="8.5" font-weight="800" font-family="'Outfit',sans-serif" letter-spacing="1.5">${label}</text>
-    <text x="${cx - 85}" y="${cy + 78}" text-anchor="middle" fill="#555" font-size="7" font-family="'Source Sans 3',sans-serif">${formatCurrency(minimum)}</text>
-    <text x="${cx + 85}" y="${cy + 78}" text-anchor="middle" fill="#555" font-size="7" font-family="'Source Sans 3',sans-serif">${formatCurrency(maximum)}</text>
     <circle cx="${startDot.x}" cy="${startDot.y}" r="3" fill="#22C55E" opacity="0.6"/>
     <circle cx="${endDot.x}" cy="${endDot.y}" r="3" fill="#EF4444" opacity="0.6"/>
   </svg>`;

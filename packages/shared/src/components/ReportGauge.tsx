@@ -63,8 +63,8 @@ function ReportGauge(props: Readonly<Props>) {
           {`${averageDeltaPct}%`}
         </span>
       </div>
-      {parse(buildGaugeSvg(percentile, price, label, lang, minimum, maximum))}
-      <div className="flex items-center justify-between px-16 py-2.5">
+      {parse(buildGaugeSvg(percentile, price, label, lang))}
+      <div className="flex items-center justify-between px-6 py-2.5 lg:px-16">
         <div className="text-muted-foreground text-sm">
           {formatCurrency(minimum)}
         </div>
