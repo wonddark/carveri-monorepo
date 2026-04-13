@@ -6,10 +6,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@carveri/shared/components/ui/accordion.tsx";
-import { faqs } from "@carveri/shared/data/static.tsx";
 
 function FaqSection() {
   const { t } = useTranslation("homepage");
+  const items = t("faq.items", { returnObjects: true }) as { q: string; a: string }[];
 
   return (
     <section className="py-16 lg:py-24">
@@ -27,17 +27,17 @@ function FaqSection() {
 
         <FadeUp delay={0.05}>
           <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, i) => (
+            {items.map((item, i) => (
               <AccordionItem
-                key={faq.q}
+                key={item.q}
                 value={`faq-${i}`}
                 className="border-border"
               >
                 <AccordionTrigger className="hover:text-primary font-[Outfit] font-semibold hover:no-underline">
-                  {faq.q}
+                  {item.q}
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground text-[15px] leading-relaxed">
-                  {faq.a}
+                  {item.a}
                 </AccordionContent>
               </AccordionItem>
             ))}

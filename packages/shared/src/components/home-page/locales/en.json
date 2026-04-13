@@ -147,7 +147,16 @@
   },
   "faq": {
     "eyebrow": "FAQ",
-    "title": "Frequently asked questions"
+    "title": "Frequently asked questions",
+    "items": [
+      { "q": "How long does the report take?", "a": "Within 24 hours. In complex cases (slow sources or extra validations), up to 48 hours max." },
+      { "q": "Is Carfax included?", "a": "Yes. Every plan includes the full Carfax report with accident history, owners, maintenance records, and more." },
+      { "q": "Are auction photos always included?", "a": "Only if the vehicle went through an auction (Copart, IAAI, Manheim, ADESA). If there's no auction history, we say so explicitly in the report." },
+      { "q": "What data do I need to send?", "a": "VIN + asking price + ZIP code. Current mileage and photos are optional but help improve the AI analysis." },
+      { "q": "Does this replace a mechanic?", "a": "No. CarVeri is data, risk, and market-value analysis. We always recommend a professional mechanical inspection before buying." },
+      { "q": "Can I see a real report before buying?", "a": "Yes. Browse real CarVeri reports in the Examples section above — full reports, open and readable, before you spend a dime." },
+      { "q": "What if the car has no history?", "a": "If Carfax has no data on the vehicle, we'll let you know and it won't count as a used report. You only pay for reports with real information." }
+    ]
   },
   "footer": {
     "terms": "Terms",

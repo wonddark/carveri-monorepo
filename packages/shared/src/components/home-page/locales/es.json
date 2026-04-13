@@ -147,7 +147,16 @@
   },
   "faq": {
     "eyebrow": "FAQ",
-    "title": "Preguntas frecuentes"
+    "title": "Preguntas frecuentes",
+    "items": [
+      { "q": "¿Cuánto tarda el reporte?", "a": "Dentro de 24 horas. En casos complejos (fuentes lentas o validaciones extra), hasta 48 horas máximo." },
+      { "q": "¿Carfax está incluido?", "a": "Sí. Todos los planes incluyen el reporte completo de Carfax con historial de accidentes, dueños, mantenimiento y más." },
+      { "q": "¿Siempre hay fotos de subasta?", "a": "Solo si el vehículo pasó por subasta (Copart, IAAI, Manheim, ADESA). Si no existe historial de subasta, se indica explícitamente en el reporte." },
+      { "q": "¿Qué datos necesito enviar?", "a": "VIN + precio que piden + ZIP code. Las millas y fotos actuales del carro son opcionales, pero ayudan a mejorar el análisis de IA." },
+      { "q": "¿Esto reemplaza un mecánico?", "a": "No. CarVeri es análisis de data, riesgo y valor de mercado. Siempre recomendamos una inspección mecánica profesional antes de comprar." },
+      { "q": "¿Puedo ver un reporte real antes de pagar?", "a": "Sí. Explora reportes CarVeri reales en la sección de Ejemplos arriba — reportes completos, abiertos para leer, antes de gastar un centavo." },
+      { "q": "¿Qué pasa si el carro no tiene historial?", "a": "Si Carfax no tiene datos del vehículo, te lo informamos y no se cuenta como un reporte usado. Solo pagas por reportes con información real." }
+    ]
   },
   "footer": {
     "terms": "Términos",
