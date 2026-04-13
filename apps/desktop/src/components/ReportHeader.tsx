@@ -27,7 +27,7 @@ export default function ReportHeader() {
 
       {/* Right: language + actions */}
       <div className="flex items-center gap-2">
-        <LanguageToggle />
+        <LanguageToggle variant="default" />
         <ThemeToggle />
         <button
           type="button"

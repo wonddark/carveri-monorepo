@@ -21,7 +21,7 @@ export default function LanguageToggle({
       className={`flex items-center gap-1 rounded-full border px-2 py-2 text-xs font-semibold transition-colors duration-300 ${
         variant === "light"
           ? "bg-background/20 text-foreground/80 border-transparent"
-          : "text-foreground border-border bg-transparent"
+          : "text-muted-foreground border-border"
       }`}
       aria-label="Toggle language"
     >
