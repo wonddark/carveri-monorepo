@@ -83,7 +83,7 @@ function buildGaugeSvg(
   const startDot = polar(outerR - 1, arcStart);
   const endDot = polar(outerR - 1, arcStart + arcSpan);
 
-  return `<svg viewBox="0 0 360 250" style="width:100%" preserveAspectRatio="xMidYMid meet">
+  return `<svg viewBox="0 0 360 225" style="width:100%" preserveAspectRatio="xMidYMid meet">
     <defs>
       <radialGradient id="gf" cx="50%" cy="48%" r="52%"><stop offset="0%" stop-color="#2E3138"/><stop offset="70%" stop-color="#1E2028"/><stop offset="100%" stop-color="#16181E"/></radialGradient>
       <filter id="ng" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>

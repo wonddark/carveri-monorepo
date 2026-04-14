@@ -67,13 +67,19 @@ function ReportGauge(props: Readonly<Props>) {
         </span>
       </div>
       {parse(buildGaugeSvg(percentile, price, label, lang))}
-      <div className="flex items-center justify-between px-6 py-2.5 lg:px-16">
-        <div className="text-muted-foreground text-sm">
+      <div className="grid grid-cols-8 py-2">
+        <div></div>
+        <div className="text-sm font-black text-[#22C55E]">
           {formatCurrency(minimum)}
         </div>
-        <div className="text-muted-foreground text-sm">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div className="text-sm font-black text-[#EF4444]">
           {formatCurrency(maximum)}
         </div>
+        <div></div>
+        <div></div>
       </div>
     </div>
   );
