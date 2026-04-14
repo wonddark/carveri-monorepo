@@ -1,14 +1,17 @@
 import { Download, Share2 } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import { useTranslation } from "react-i18next";
 import LanguageToggle from "@carveri/shared/components/LanguageToggle";
 import ThemeToggle from "@carveri/shared/components/ThemeToggle";
 import { cn } from "@/lib/utils";
 import LogoFullHorizontal from "@carveri/shared/components/logos/LogoFullHorizontal.tsx";
 import { IconChevronLeft } from "@tabler/icons-react";
+import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
+import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 
 export default function ReportHeader() {
   const { t } = useTranslation("common");
+  const report = useLoaderData<TransformedReport>();
 
   return (
     <header
@@ -25,6 +28,15 @@ export default function ReportHeader() {
         </Link>
         <LogoFullHorizontal className="h-8 w-auto" />
       </div>
+
+      <span className="font-medium">
+        {generateReportTitle({
+          year: report.year,
+          make: report.make,
+          model: report.model,
+          trim: report.trim,
+        })}
+      </span>
 
       {/* Right: language + actions */}
       <div className="flex items-center gap-2">
