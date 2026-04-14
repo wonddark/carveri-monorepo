@@ -17,9 +17,9 @@ export default function StrategySubtab({ strategy }: Readonly<Props>) {
     <>
       <SubTabHeader title={t("negotiation.strategy")} subtitle={""} />
 
-      <div className="flex flex-col gap-3 lg:flex-row lg:gap-6">
+      <div className="flex flex-col gap-3 lg:gap-6">
         {/* 3-column price row */}
-        <div className="grid grid-cols-3 gap-2 lg:grid-cols-1">
+        <div className="grid grid-cols-3 gap-2 lg:gap-3">
           <Card className="py-3">
             <CardContent className="flex flex-col items-center gap-1.5 px-3">
               <p className="text-muted-foreground text-center text-xs font-medium">

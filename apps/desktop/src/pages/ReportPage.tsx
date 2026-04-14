@@ -14,14 +14,18 @@ export default function ReportPage() {
   }, [make, model, trim, year]);
 
   return (
-    <div className="relative mx-auto flex max-w-7xl flex-1 flex-col overflow-hidden">
+    <>
       <ReportHeader />
-      <div className="fixed inset-0 mx-auto flex max-w-7xl flex-1 overflow-auto pt-15">
-        <ReportSidebar />
-        <main className="flex-1 overflow-y-auto p-8">
-          <Outlet />
-        </main>
+      <div className="fixed inset-0 top-16 grid grid-cols-[1fr_min(80rem,100%)_1fr] gap-4 overflow-auto">
+        <div></div>
+        <div className="relative flex">
+          <ReportSidebar />
+          <main className="w-full px-4">
+            <Outlet />
+          </main>
+        </div>
+        <div></div>
       </div>
-    </div>
+    </>
   );
 }

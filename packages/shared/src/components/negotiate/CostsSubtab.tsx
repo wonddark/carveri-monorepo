@@ -34,7 +34,7 @@ export default function CostsSubtab({ price }: Readonly<Props>) {
         subtitle={t("costs.breakdown", { state: costs.state })}
       />
 
-      <div className="flex grid-cols-2 flex-col gap-3 lg:grid lg:gap-6">
+      <div className="flex flex-col gap-3 lg:gap-6">
         {/* Purchase breakdown card */}
         <Card>
           <CardContent>

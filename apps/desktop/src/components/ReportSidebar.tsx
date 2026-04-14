@@ -131,9 +131,9 @@ export default function ReportSidebar() {
     setOpenGroups((prev) => ({ ...prev, [label]: !prev[label] }));
 
   return (
-    <aside className="border-border bg-card/30 sticky top-15 flex w-64 min-w-52 flex-col overflow-y-auto border-r">
+    <aside className="border-border bg-card/30 sticky top-0 flex w-64 shrink-0 grow-0 flex-col self-start overflow-y-auto border-r">
       {/* Nav tree */}
-      <nav className="flex-1 py-3">
+      <nav className="mb-3 flex-1">
         {NAV.map((entry) => {
           if (entry.type === "item") {
             return (
