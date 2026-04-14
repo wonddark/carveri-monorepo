@@ -1,13 +1,13 @@
 import { Download, Share2 } from "lucide-react";
-import { useNavigate } from "react-router";
+import { Link } from "react-router";
 import { useTranslation } from "react-i18next";
 import LanguageToggle from "@carveri/shared/components/LanguageToggle";
 import ThemeToggle from "@carveri/shared/components/ThemeToggle";
 import { cn } from "@/lib/utils";
 import LogoFullHorizontal from "@carveri/shared/components/logos/LogoFullHorizontal.tsx";
+import { IconChevronLeft } from "@tabler/icons-react";
 
 export default function ReportHeader() {
-  const navigate = useNavigate();
   const { t } = useTranslation("common");
 
   return (
@@ -17,13 +17,14 @@ export default function ReportHeader() {
         "border-border bg-background border-b px-4 shadow-sm",
       )}
     >
-      <button
-        type="button"
-        onClick={() => navigate("/")}
-        className="h-8 w-fit cursor-pointer"
-      >
-        <LogoFullHorizontal className="h-full w-auto" />
-      </button>
+      <div className="flex items-center gap-3">
+        <Link to="/">
+          <button className="cursor-pointer rounded-full p-1.5">
+            <IconChevronLeft className="size-5" />
+          </button>
+        </Link>
+        <LogoFullHorizontal className="h-8 w-auto" />
+      </div>
 
       {/* Right: language + actions */}
       <div className="flex items-center gap-2">

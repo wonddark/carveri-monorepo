@@ -37,13 +37,13 @@ const NAV: NavEntry[] = [
     type: "item",
     id: "overview",
     label: "pages.resume",
-    icon: <IconHome className="w-5" />,
+    icon: <IconHome className="w-4" />,
   },
   {
     type: "group",
     group: {
       label: "pages.history",
-      icon: <IconClock className="w-5" />,
+      icon: <IconClock className="w-4" />,
       children: [
         { id: "timeline", label: "pages.timeline" },
         { id: "auction-history", label: "pages.auction_history" },
@@ -59,7 +59,7 @@ const NAV: NavEntry[] = [
     type: "group",
     group: {
       label: "pages.market",
-      icon: <IconChartHistogram className="w-5" />,
+      icon: <IconChartHistogram className="w-4" />,
       children: [
         { id: "analysis", label: "pages.analysis" },
         { id: "price-dynamics", label: "pages.price_dynamics" },
@@ -71,7 +71,7 @@ const NAV: NavEntry[] = [
     type: "group",
     group: {
       label: "pages.diagnosis_ai",
-      icon: <IconBrain className="w-5" />,
+      icon: <IconBrain className="w-4" />,
       children: [
         { id: "diagnosis", label: "pages.diagnosis" },
         { id: "risks", label: "pages.risks" },
@@ -84,7 +84,7 @@ const NAV: NavEntry[] = [
     type: "group",
     group: {
       label: "pages.negotiation",
-      icon: <IconHeartHandshake className="w-5" />,
+      icon: <IconHeartHandshake className="w-4" />,
       children: [
         { id: "strategy", label: "pages.strategy" },
         { id: "arguments", label: "pages.arguments" },
@@ -131,7 +131,7 @@ export default function ReportSidebar() {
     setOpenGroups((prev) => ({ ...prev, [label]: !prev[label] }));
 
   return (
-    <aside className="border-border bg-card/30 sticky top-0 flex w-64 shrink-0 grow-0 flex-col self-start overflow-y-auto border-r">
+    <aside className="border-border bg-card/30 sticky top-0 flex w-64 shrink-0 grow-0 flex-col self-start overflow-y-auto border-r px-3">
       {/* Nav tree */}
       <nav className="mb-3 flex-1">
         {NAV.map((entry) => {
