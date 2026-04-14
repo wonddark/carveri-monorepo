@@ -1,5 +1,3 @@
-import i18next from "./i18n";
-
 function generateReportTitle({
   year,
   make,
@@ -15,7 +13,7 @@ function generateReportTitle({
 }
 
 function formatCurrency(value: number): string {
-  return new Intl.NumberFormat(i18next.resolvedLanguage, {
+  return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
     currencyDisplay: "narrowSymbol",
