@@ -64,39 +64,38 @@ function buildGaugeSvg(
     ticks += `<line x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" stroke="${sc}" stroke-width="${sw}" stroke-linecap="round"/>`;
   }
 
-  const lbls = labels
+  // One arc path per label section — used by <textPath> for true circular text
+  const labelArcDefs = labels
     .map((l, idx, lbs) => {
-      const startAt = l.startAt / 100;
-      const nextPos = (lbs.at(idx + 1)?.startAt || -1) / 100;
-      const pos = polar(
-        outerR + 20,
-        idx < lbs.length - 1
-          ? arcStart +
-              startAt * arcSpan +
-              (arcStart + nextPos * arcSpan - (arcStart + startAt * arcSpan)) /
-                2
-          : arcStart + startAt * arcSpan,
-      );
-      const getTextAnchor = () => {
-        if (startAt === 0.5) return "middle";
-        if (startAt < 0.5) return "end";
-        return "start";
-      };
-      return `<text x="${pos.x}" y="${pos.y}" text-anchor="${getTextAnchor()}" dominant-baseline="middle" fill="#888" font-size="7.5" font-weight="700" font-family="'Outfit',sans-serif" letter-spacing="0.8">${l.text}</text>`;
+      const sAngle = arcStart + (l.startAt / 100) * arcSpan;
+      const eAngle =
+        arcStart + ((lbs.at(idx + 1)?.startAt ?? 100) / 100) * arcSpan;
+      const p1 = polar(outerR + 20, sAngle);
+      const p2 = polar(outerR + 20, eAngle);
+      const large = eAngle - sAngle > 180 ? 1 : 0;
+      return `<path id="gla${idx}" d="M ${p1.x} ${p1.y} A ${outerR + 20} ${outerR + 20} 0 ${large} 1 ${p2.x} ${p2.y}"/>`;
     })
+    .join("");
+
+  const lbls = labels
+    .map(
+      (l, idx) =>
+        `<text text-anchor="middle" fill=${l.color} font-size="7.5" font-weight="700" font-family="'Outfit',sans-serif" letter-spacing="0.8"><textPath href="#gla${idx}" startOffset="50%">${l.text}</textPath></text>`,
+    )
     .join("");
 
   const needleLen = innerR - 6;
   const startDot = polar(outerR - 1, arcStart);
   const endDot = polar(outerR - 1, arcStart + arcSpan);
 
-  return `<svg viewBox="0 0 360 225" style="width:100%" preserveAspectRatio="xMidYMid meet">
+  return `<svg viewBox="0 0 310 225" style="width:100%" preserveAspectRatio="xMidYMid meet">
     <defs>
       <radialGradient id="gf" cx="50%" cy="48%" r="52%"><stop offset="0%" stop-color="#2E3138"/><stop offset="70%" stop-color="#1E2028"/><stop offset="100%" stop-color="#16181E"/></radialGradient>
       <filter id="ng" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
       <filter id="gs" x="-15%" y="-15%" width="130%" height="130%"><feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#000" flood-opacity="0.4"/></filter>
       <radialGradient id="ig" cx="50%" cy="48%" r="45%"><stop offset="0%" stop-color="${currentColor}" stop-opacity="0.06"/><stop offset="100%" stop-color="${currentColor}" stop-opacity="0"/></radialGradient>
       <linearGradient id="ndg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#888"/><stop offset="40%" stop-color="${currentColor}"/><stop offset="100%" stop-color="${currentColor}"/></linearGradient>
+      ${labelArcDefs}
     </defs>
     <circle cx="${cx}" cy="${cy}" r="${outerR + 12}" fill="url(#gf)" filter="url(#gs)"/>
     <circle cx="${cx}" cy="${cy}" r="${outerR + 12}" fill="none" stroke="#444" stroke-width="1"/>
