@@ -3,7 +3,12 @@ import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 export type SectionLabels = { startAt: number; text: string; color: string }[];
 
 function getColor(pct: number, labels: SectionLabels) {
-  return labels.find(({ startAt }) => pct <= startAt)?.color ?? "#00000000";
+  return (
+    labels.find(
+      ({ startAt }, idx, ar) =>
+        pct >= startAt && pct < (ar.at(idx + 1)?.startAt || -1),
+    )?.color ?? "#00000000"
+  );
 }
 
 function buildGaugeSvg(
@@ -60,9 +65,18 @@ function buildGaugeSvg(
   }
 
   const lbls = labels
-    .map((l) => {
+    .map((l, idx, lbs) => {
       const startAt = l.startAt / 100;
-      const pos = polar(outerR + 20, arcStart + startAt * arcSpan);
+      const nextPos = (lbs.at(idx + 1)?.startAt || -1) / 100;
+      const pos = polar(
+        outerR + 20,
+        idx < lbs.length - 1
+          ? arcStart +
+              startAt * arcSpan +
+              (arcStart + nextPos * arcSpan - (arcStart + startAt * arcSpan)) /
+                2
+          : arcStart + startAt * arcSpan,
+      );
       const getTextAnchor = () => {
         if (startAt === 0.5) return "middle";
         if (startAt < 0.5) return "end";
