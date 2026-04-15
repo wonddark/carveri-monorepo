@@ -61,10 +61,11 @@ function buildGaugeSvg(
 
   const lbls = labels
     .map((l) => {
-      const pos = polar(outerR + 20, arcStart + l.startAt * arcSpan);
+      const startAt = l.startAt / 100;
+      const pos = polar(outerR + 20, arcStart + startAt * arcSpan);
       const getTextAnchor = () => {
-        if (l.startAt === 0.5) return "middle";
-        if (l.startAt < 0.5) return "end";
+        if (startAt === 0.5) return "middle";
+        if (startAt < 0.5) return "end";
         return "start";
       };
       return `<text x="${pos.x}" y="${pos.y}" text-anchor="${getTextAnchor()}" dominant-baseline="middle" fill="#888" font-size="7.5" font-weight="700" font-family="'Outfit',sans-serif" letter-spacing="0.8">${l.text}</text>`;
