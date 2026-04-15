@@ -2,6 +2,25 @@ import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 
 export type SectionLabels = { startAt: number; text: string; color: string }[];
 
+const CX = 160,
+  CY = 145,
+  OUTER_R = 115,
+  INNER_R = 85;
+const ARC_START = 150,
+  ARC_SPAN = 240;
+
+function polar(r: number, deg: number) {
+  const rad = (deg * Math.PI) / 180;
+  return { x: CX + r * Math.cos(rad), y: CY + r * Math.sin(rad) };
+}
+
+function svgArc(r: number, s: number, e: number) {
+  const p1 = polar(r, s),
+    p2 = polar(r, e);
+  const large = e - s > 180 ? 1 : 0;
+  return `M ${p1.x} ${p1.y} A ${r} ${r} 0 ${large} 1 ${p2.x} ${p2.y}`;
+}
+
 function getColor(pct: number, labels: SectionLabels) {
   return (
     labels.find(
@@ -11,82 +30,75 @@ function getColor(pct: number, labels: SectionLabels) {
   );
 }
 
+function tickStyle(i: number): { inner: number; sw: number; sc: string } {
+  if (i % 6 === 0) return { inner: OUTER_R - 12, sw: 2, sc: "#999" };
+  if (i % 3 === 0) return { inner: OUTER_R - 7, sw: 1, sc: "#666" };
+  return { inner: OUTER_R - 4, sw: 0.6, sc: "#444" };
+}
+
+function buildArcSegments(percentile: number, labels: SectionLabels): string {
+  let segs = "";
+  for (let i = 0; i < 72; i++) {
+    const pct = i / 72;
+    const segStart = ARC_START + pct * ARC_SPAN;
+    const segEnd = ARC_START + ((i + 1) / 72) * ARC_SPAN;
+    const color = getColor(pct * 100, labels);
+    const opacity = pct * 100 <= percentile ? 0.85 : 0.12;
+    segs += `<path d="${svgArc(OUTER_R - 1, segStart, segEnd + 0.5)}" fill="none" stroke="${color}" stroke-width="8" stroke-linecap="butt" opacity="${opacity}"/>`;
+  }
+  return segs;
+}
+
+function buildTicks(): string {
+  let ticks = "";
+  for (let i = 0; i <= 30; i++) {
+    const angle = ARC_START + (i / 30) * ARC_SPAN;
+    const { inner, sw, sc } = tickStyle(i);
+    const p1 = polar(OUTER_R + 2, angle),
+      p2 = polar(inner, angle);
+    ticks += `<line x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" stroke="${sc}" stroke-width="${sw}" stroke-linecap="round"/>`;
+  }
+  return ticks;
+}
+
+function buildLabelArcDefs(labels: SectionLabels): string {
+  return labels
+    .map((l, idx, lbs) => {
+      const sAngle = ARC_START + (l.startAt / 100) * ARC_SPAN;
+      const eAngle =
+        ARC_START + ((lbs.at(idx + 1)?.startAt ?? 100) / 100) * ARC_SPAN;
+      const p1 = polar(OUTER_R + 20, sAngle);
+      const p2 = polar(OUTER_R + 20, eAngle);
+      const large = eAngle - sAngle > 180 ? 1 : 0;
+      return `<path id="gla${idx}" d="M ${p1.x} ${p1.y} A ${OUTER_R + 20} ${OUTER_R + 20} 0 ${large} 1 ${p2.x} ${p2.y}"/>`;
+    })
+    .join("");
+}
+
+function buildLabels(labels: SectionLabels): string {
+  return labels
+    .map(
+      (l, idx) =>
+        `<text text-anchor="middle" fill="${l.color}" font-size="7.5" font-weight="700" font-family="'Outfit',sans-serif" letter-spacing="0.8"><textPath href="#gla${idx}" startOffset="50%">${l.text}</textPath></text>`,
+    )
+    .join("");
+}
+
 function buildGaugeSvg(
   percentile: number,
   price: number,
   label: string,
   labels: SectionLabels,
 ) {
-  const needleTarget = 150 + (percentile / 100) * 240;
-  const cx = 160,
-    cy = 145,
-    outerR = 115,
-    innerR = 85;
-  const arcStart = 150,
-    arcSpan = 240;
-  function polar(r: number, deg: number) {
-    const rad = (deg * Math.PI) / 180;
-    return { x: cx + r * Math.cos(rad), y: cy + r * Math.sin(rad) };
-  }
-  function arc(r: number, s: number, e: number) {
-    const p1 = polar(r, s),
-      p2 = polar(r, e);
-    const large = e - s > 180 ? 1 : 0;
-    return `M ${p1.x} ${p1.y} A ${r} ${r} 0 ${large} 1 ${p2.x} ${p2.y}`;
-  }
-
+  const needleTarget = ARC_START + (percentile / 100) * ARC_SPAN;
   const currentColor = getColor(percentile, labels);
-
-  // Arc segments
-  let arcSegs = "";
-  for (let i = 0; i < 72; i++) {
-    const pct = i / 72;
-    const segStart = arcStart + pct * arcSpan;
-    const segEnd = arcStart + ((i + 1) / 72) * arcSpan;
-    const color = getColor(pct * 100, labels);
-    const active = pct * 100 <= percentile;
-    arcSegs += `<path d="${arc(outerR - 1, segStart, segEnd + 0.5)}" fill="none" stroke="${color}" stroke-width="8" stroke-linecap="butt" opacity="${active ? 0.85 : 0.12}"/>`;
-  }
-
-  // Ticks
-  let ticks = "";
-  for (let i = 0; i <= 30; i++) {
-    const pct = i / 30;
-    const angle = arcStart + pct * arcSpan;
-    const isMajor = i % 6 === 0;
-    const isMid = i % 3 === 0 && !isMajor;
-    const tickOuter = outerR + 2;
-    const tickInner = isMajor ? outerR - 12 : isMid ? outerR - 7 : outerR - 4;
-    const p1 = polar(tickOuter, angle),
-      p2 = polar(tickInner, angle);
-    const sw = isMajor ? 2 : isMid ? 1 : 0.6;
-    const sc = isMajor ? "#999" : isMid ? "#666" : "#444";
-    ticks += `<line x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" stroke="${sc}" stroke-width="${sw}" stroke-linecap="round"/>`;
-  }
-
-  // One arc path per label section — used by <textPath> for true circular text
-  const labelArcDefs = labels
-    .map((l, idx, lbs) => {
-      const sAngle = arcStart + (l.startAt / 100) * arcSpan;
-      const eAngle =
-        arcStart + ((lbs.at(idx + 1)?.startAt ?? 100) / 100) * arcSpan;
-      const p1 = polar(outerR + 20, sAngle);
-      const p2 = polar(outerR + 20, eAngle);
-      const large = eAngle - sAngle > 180 ? 1 : 0;
-      return `<path id="gla${idx}" d="M ${p1.x} ${p1.y} A ${outerR + 20} ${outerR + 20} 0 ${large} 1 ${p2.x} ${p2.y}"/>`;
-    })
-    .join("");
-
-  const lbls = labels
-    .map(
-      (l, idx) =>
-        `<text text-anchor="middle" fill=${l.color} font-size="7.5" font-weight="700" font-family="'Outfit',sans-serif" letter-spacing="0.8"><textPath href="#gla${idx}" startOffset="50%">${l.text}</textPath></text>`,
-    )
-    .join("");
-
-  const needleLen = innerR - 6;
-  const startDot = polar(outerR - 1, arcStart);
-  const endDot = polar(outerR - 1, arcStart + arcSpan);
+  const arcSegs = buildArcSegments(percentile, labels);
+  const ticks = buildTicks();
+  const labelArcDefs = buildLabelArcDefs(labels);
+  const lbls = buildLabels(labels);
+  const needleLen = INNER_R - 6;
+  const startDot = polar(OUTER_R - 1, ARC_START);
+  const endDot = polar(OUTER_R - 1, ARC_START + ARC_SPAN);
 
   return `<svg viewBox="0 0 310 225" style="width:100%" preserveAspectRatio="xMidYMid meet">
     <defs>
@@ -97,25 +109,25 @@ function buildGaugeSvg(
       <linearGradient id="ndg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#888"/><stop offset="40%" stop-color="${currentColor}"/><stop offset="100%" stop-color="${currentColor}"/></linearGradient>
       ${labelArcDefs}
     </defs>
-    <circle cx="${cx}" cy="${cy}" r="${outerR + 12}" fill="url(#gf)" filter="url(#gs)"/>
-    <circle cx="${cx}" cy="${cy}" r="${outerR + 12}" fill="none" stroke="#444" stroke-width="1"/>
-    <circle cx="${cx}" cy="${cy}" r="${outerR + 10}" fill="none" stroke="#333" stroke-width="0.5"/>
-    <circle cx="${cx}" cy="${cy}" r="${innerR + 5}" fill="url(#ig)"/>
+    <circle cx="${CX}" cy="${CY}" r="${OUTER_R + 12}" fill="url(#gf)" filter="url(#gs)"/>
+    <circle cx="${CX}" cy="${CY}" r="${OUTER_R + 12}" fill="none" stroke="#444" stroke-width="1"/>
+    <circle cx="${CX}" cy="${CY}" r="${OUTER_R + 10}" fill="none" stroke="#333" stroke-width="0.5"/>
+    <circle cx="${CX}" cy="${CY}" r="${INNER_R + 5}" fill="url(#ig)"/>
     ${arcSegs}
-    <path d="${arc(innerR, arcStart, arcStart + arcSpan)}" fill="none" stroke="#333" stroke-width="0.5"/>
+    <path d="${svgArc(INNER_R, ARC_START, ARC_START + ARC_SPAN)}" fill="none" stroke="#333" stroke-width="0.5"/>
     ${ticks}
     ${lbls}
     <g class="gauge-needle" style="--needle-target:${needleTarget}deg">
-      <polygon points="${cx + needleLen},${cy} ${cx + 12},${cy - 4.5} ${cx - 14},${cy} ${cx + 12},${cy + 4.5}" fill="url(#ndg)" filter="url(#ng)"/>
-      <line x1="${cx + 14}" y1="${cy}" x2="${cx + needleLen - 2}" y2="${cy}" stroke="white" stroke-width="0.8" opacity="0.3"/>
+      <polygon points="${CX + needleLen},${CY} ${CX + 12},${CY - 4.5} ${CX - 14},${CY} ${CX + 12},${CY + 4.5}" fill="url(#ndg)" filter="url(#ng)"/>
+      <line x1="${CX + 14}" y1="${CY}" x2="${CX + needleLen - 2}" y2="${CY}" stroke="white" stroke-width="0.8" opacity="0.3"/>
     </g>
-    <circle cx="${cx}" cy="${cy}" r="14" fill="#1A1C22" stroke="#555" stroke-width="1"/>
-    <circle cx="${cx}" cy="${cy}" r="10" fill="#2A2D35" stroke="#444" stroke-width="0.5"/>
-    <circle cx="${cx}" cy="${cy}" r="6" fill="${currentColor}" opacity="0.85"/>
-    <circle cx="${cx}" cy="${cy}" r="3" fill="white" opacity="0.5"/>
-    <text x="${cx}" y="${cy + 38}" text-anchor="middle" fill="white" font-size="24" font-weight="800" font-family="'Outfit',sans-serif" letter-spacing="-0.5">${formatCurrency(price)}</text>
-    <rect x="${cx - 40}" y="${cy + 46}" width="80" height="18" rx="9" fill="${currentColor}" opacity="0.15"/>
-    <text x="${cx}" y="${cy + 58}" text-anchor="middle" fill="${currentColor}" font-size="8.5" font-weight="800" font-family="'Outfit',sans-serif" letter-spacing="1.5">${label}</text>
+    <circle cx="${CX}" cy="${CY}" r="14" fill="#1A1C22" stroke="#555" stroke-width="1"/>
+    <circle cx="${CX}" cy="${CY}" r="10" fill="#2A2D35" stroke="#444" stroke-width="0.5"/>
+    <circle cx="${CX}" cy="${CY}" r="6" fill="${currentColor}" opacity="0.85"/>
+    <circle cx="${CX}" cy="${CY}" r="3" fill="white" opacity="0.5"/>
+    <text x="${CX}" y="${CY + 38}" text-anchor="middle" fill="white" font-size="24" font-weight="800" font-family="'Outfit',sans-serif" letter-spacing="-0.5">${formatCurrency(price)}</text>
+    <rect x="${CX - 40}" y="${CY + 46}" width="80" height="18" rx="9" fill="${currentColor}" opacity="0.15"/>
+    <text x="${CX}" y="${CY + 58}" text-anchor="middle" fill="${currentColor}" font-size="8.5" font-weight="800" font-family="'Outfit',sans-serif" letter-spacing="1.5">${label}</text>
     <circle cx="${startDot.x}" cy="${startDot.y}" r="3" fill="#22C55E" opacity="0.6"/>
     <circle cx="${endDot.x}" cy="${endDot.y}" r="3" fill="#EF4444" opacity="0.6"/>
   </svg>`;
