@@ -41,11 +41,6 @@ export default function MarketTab({ report }: Readonly<Props>) {
     setCurrentTab(getCurrentTab());
   }, [pathname]);
 
-  const booksMeanValue =
-    report.priceEval.bookValues.reduce((acc, curr) => acc + curr.value, 0) / 4;
-  const minimum = booksMeanValue - (booksMeanValue * 15) / 100;
-  const maximum = booksMeanValue + (booksMeanValue * 15) / 100;
-
   return (
     <div className="relative">
       {/* Heading */}
@@ -86,11 +81,9 @@ export default function MarketTab({ report }: Readonly<Props>) {
             <Card>
               <CardContent className="grid grid-cols-2 items-center gap-5">
                 <ReportGauge
-                  label={report.priceEval.label}
                   price={report.price}
                   averageDeltaPct={report.priceEval.marketAvgDeltaPct}
-                  minimum={minimum}
-                  maximum={maximum}
+                  gauge={report.evaluation.gauge}
                 />
                 <div>
                   <h3 className="mb-3 text-sm font-bold text-slate-900">

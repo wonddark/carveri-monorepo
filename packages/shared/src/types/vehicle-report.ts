@@ -313,25 +313,37 @@ export type EvaluationRaw = {
   titleType: string;
   finalPrice: number;
   vehicleRetailPrice: number;
-  gauge: EvaluationGauge;
+  gauge: RawGauge;
   weightsWereRenormalized: boolean;
   computedAt: string;
   sourceContributions: SourceContribution[];
   adjustments: PriceAdjustment[];
 };
 
+export type RawGauge = {
+  currentZone: string;
+  currentZoneEs: string;
+  items: {
+    key: string;
+    value: number;
+    porcent: number;
+    labelText: string;
+    labelTextES: string;
+    color: string;
+    colorPorcent: number;
+    colorPorcentStart: number;
+  }[];
+};
+
 export type EvaluationGauge = {
-  min: number;
-  granOportunidad: number;
-  precioJusto: number;
-  precioAlto: number;
-  max: number;
-  currentZone:
-    | "GranOportunidad"
-    | "BuenPrecio"
-    | "PrecioJusto"
-    | "PrecioAlto"
-    | "Sobrepago";
+  currentZone: { es: string; en: string };
+  minimum: number;
+  maximum: number;
+  labels: {
+    startAt: number;
+    text: { en: string; es: string };
+    color: string;
+  }[];
 };
 
 export type SourceContribution = {

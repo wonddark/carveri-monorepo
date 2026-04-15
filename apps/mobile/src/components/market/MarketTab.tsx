@@ -32,11 +32,6 @@ export default function MarketTab({ report }: Readonly<Props>) {
     track.scrollTo({ left: pillCenter - trackCenter, behavior: "smooth" });
   }
 
-  const booksMeanValue =
-    report.priceEval.bookValues.reduce((acc, curr) => acc + curr.value, 0) / 4;
-  const minimum = booksMeanValue - (booksMeanValue * 15) / 100;
-  const maximum = booksMeanValue + (booksMeanValue * 15) / 100;
-
   useEffect(() => {
     globalThis.window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
@@ -85,10 +80,8 @@ export default function MarketTab({ report }: Readonly<Props>) {
 
             <ReportGauge
               price={report.price}
-              label={report.priceEval.label}
               averageDeltaPct={report.priceEval.marketAvgDeltaPct}
-              minimum={minimum}
-              maximum={maximum}
+              gauge={report.evaluation.gauge}
             />
 
             <Card>

@@ -45,7 +45,7 @@ interface Props {
 }
 
 export default function ValuacionSubtab({ evaluation }: Readonly<Props>) {
-  const { t } = useTranslation("verdict");
+  const { t, i18n } = useTranslation("verdict");
   const {
     fairPrice,
     dealerPrice,
@@ -56,6 +56,7 @@ export default function ValuacionSubtab({ evaluation }: Readonly<Props>) {
     sourceContributions,
     adjustments,
   } = evaluation;
+  const lang = (i18n.resolvedLanguage || "en") as "es" | "en";
 
   const hasFairPrice = fairPrice > 0;
 
@@ -63,7 +64,7 @@ export default function ValuacionSubtab({ evaluation }: Readonly<Props>) {
   const markerPct = (() => {
     if (!hasFairPrice) return 50;
     const zoneIdx = ZONE_ORDER.indexOf(
-      gauge.currentZone as (typeof ZONE_ORDER)[number],
+      gauge.currentZone[lang] as (typeof ZONE_ORDER)[number],
     );
     if (zoneIdx === -1) return 50;
     // center of zone
@@ -83,7 +84,7 @@ export default function ValuacionSubtab({ evaluation }: Readonly<Props>) {
       {/* Fair price hero */}
       <Card className="mb-4">
         <CardContent className="py-4 text-center">
-          <p className="text-xs font-medium text-muted-foreground">
+          <p className="text-muted-foreground text-xs font-medium">
             {t("valuation.fairPrice")}
           </p>
           <p className="mt-1 text-3xl font-bold">
@@ -96,7 +97,8 @@ export default function ValuacionSubtab({ evaluation }: Readonly<Props>) {
                 "text-red-600 dark:text-red-400": diffVsFair > 0,
               })}
             >
-              {diffVsFair >= 0 ? "+" : ""}{formatCurrency(Math.abs(Math.round(diffVsFair)))}{" "}
+              {diffVsFair >= 0 ? "+" : ""}
+              {formatCurrency(Math.abs(Math.round(diffVsFair)))}{" "}
               {t(`valuation.zones.${gauge.currentZone}`, {
                 defaultValue: gauge.currentZone,
               })}
@@ -107,7 +109,7 @@ export default function ValuacionSubtab({ evaluation }: Readonly<Props>) {
 
       {/* Horizontal gauge */}
       {hasFairPrice && (
-        <div className="mb-4 rounded-xl border border-border bg-card p-4">
+        <div className="border-border bg-card mb-4 rounded-xl border p-4">
           <div className="relative">
             {/* Zone segments */}
             <div className="flex h-4 overflow-hidden rounded-full">
@@ -117,9 +119,13 @@ export default function ValuacionSubtab({ evaluation }: Readonly<Props>) {
             </div>
 
             {/* Zone labels */}
-            <div className="mt-1.5 flex justify-between text-[9px] text-muted-foreground">
+            <div className="text-muted-foreground mt-1.5 flex justify-between text-[9px]">
               {ZONE_ORDER.map((zone) => (
-                <span key={zone} className="text-center" style={{ width: "20%" }}>
+                <span
+                  key={zone}
+                  className="text-center"
+                  style={{ width: "20%" }}
+                >
                   {t(`valuation.zones.${zone}`, { defaultValue: zone })}
                 </span>
               ))}
@@ -130,8 +136,8 @@ export default function ValuacionSubtab({ evaluation }: Readonly<Props>) {
               className="absolute -top-1 -translate-x-1/2"
               style={{ left: `${markerPct}%` }}
             >
-              <div className="h-6 w-0.5 bg-foreground rounded" />
-              <div className="-ml-1.5 size-3 rounded-full border-2 border-foreground bg-background" />
+              <div className="bg-foreground h-6 w-0.5 rounded" />
+              <div className="border-foreground bg-background -ml-1.5 size-3 rounded-full border-2" />
             </div>
           </div>
         </div>
@@ -140,30 +146,38 @@ export default function ValuacionSubtab({ evaluation }: Readonly<Props>) {
       {/* 4-column stats row */}
       <div className="mb-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
         {[
-          { label: t("valuation.dealerPrice"), value: dealerPrice > 0 ? formatCurrency(dealerPrice) : "—" },
-          { label: t("valuation.auctionPrice"), value: auctionPrice > 0 ? formatCurrency(auctionPrice) : "—" },
+          {
+            label: t("valuation.dealerPrice"),
+            value: dealerPrice > 0 ? formatCurrency(dealerPrice) : "—",
+          },
+          {
+            label: t("valuation.auctionPrice"),
+            value: auctionPrice > 0 ? formatCurrency(auctionPrice) : "—",
+          },
           {
             label: t("valuation.dealerMargin"),
-            value: dealerMargin !== 0 ? formatCurrency(Math.abs(dealerMargin)) : "—",
+            value:
+              dealerMargin !== 0 ? formatCurrency(Math.abs(dealerMargin)) : "—",
           },
           {
             label: t("valuation.diffVsFair"),
             value: hasFairPrice
               ? `${diffVsFair >= 0 ? "+" : ""}${formatCurrency(Math.abs(Math.round(diffVsFair)))}`
               : "—",
-            color:
-              hasFairPrice
-                ? diffVsFair < 0
-                  ? "text-green-600 dark:text-green-400"
-                  : diffVsFair > 0
-                    ? "text-red-600 dark:text-red-400"
-                    : ""
-                : "",
+            color: hasFairPrice
+              ? diffVsFair < 0
+                ? "text-green-600 dark:text-green-400"
+                : diffVsFair > 0
+                  ? "text-red-600 dark:text-red-400"
+                  : ""
+              : "",
           },
         ].map((item) => (
           <Card key={item.label}>
             <CardContent className="flex flex-col items-center gap-1 py-3 text-center">
-              <span className="text-[10px] text-muted-foreground">{item.label}</span>
+              <span className="text-muted-foreground text-[10px]">
+                {item.label}
+              </span>
               <span className={cn("text-base font-bold", item.color)}>
                 {item.value}
               </span>
@@ -187,8 +201,7 @@ export default function ValuacionSubtab({ evaluation }: Readonly<Props>) {
                   totalContribution > 0
                     ? (src.contribution / totalContribution) * 100
                     : 0;
-                const color =
-                  SOURCE_COLORS[src.sourceKey] ?? "bg-slate-400";
+                const color = SOURCE_COLORS[src.sourceKey] ?? "bg-slate-400";
                 return (
                   <div
                     key={src.sourceKey}
@@ -206,12 +219,14 @@ export default function ValuacionSubtab({ evaluation }: Readonly<Props>) {
                   totalContribution > 0
                     ? Math.round((src.contribution / totalContribution) * 100)
                     : 0;
-                const color =
-                  SOURCE_COLORS[src.sourceKey] ?? "bg-slate-400";
+                const color = SOURCE_COLORS[src.sourceKey] ?? "bg-slate-400";
                 return (
-                  <div key={src.sourceKey} className="flex items-center gap-1.5">
+                  <div
+                    key={src.sourceKey}
+                    className="flex items-center gap-1.5"
+                  >
                     <span className={cn("size-2.5 rounded-full", color)} />
-                    <span className="text-xs text-muted-foreground">
+                    <span className="text-muted-foreground text-xs">
                       {SOURCE_LABELS[src.sourceKey] ?? src.sourceKey}
                     </span>
                     <span className="text-xs font-semibold">{pct}%</span>
@@ -230,7 +245,7 @@ export default function ValuacionSubtab({ evaluation }: Readonly<Props>) {
             <h3 className="mb-3 text-sm font-semibold">
               {t("valuation.priceAdjustments")}
             </h3>
-            <div className="flex flex-col divide-y divide-border">
+            <div className="divide-border flex flex-col divide-y">
               {adjustments.map((adj) => {
                 const isPositive = adj.appliedAmount > 0;
                 return (
@@ -238,15 +253,21 @@ export default function ValuacionSubtab({ evaluation }: Readonly<Props>) {
                     key={adj.factorKey}
                     className="flex items-center justify-between py-2"
                   >
-                    <div className="flex items-center gap-2 min-w-0">
+                    <div className="flex min-w-0 items-center gap-2">
                       {isPositive ? (
-                        <TrendingUp size={13} className="shrink-0 text-green-500" />
+                        <TrendingUp
+                          size={13}
+                          className="shrink-0 text-green-500"
+                        />
                       ) : (
-                        <TrendingDown size={13} className="shrink-0 text-red-500" />
+                        <TrendingDown
+                          size={13}
+                          className="shrink-0 text-red-500"
+                        />
                       )}
                       <div>
                         <p className="text-xs font-medium">{adj.label}</p>
-                        <p className="text-[10px] text-muted-foreground">
+                        <p className="text-muted-foreground text-[10px]">
                           {adj.source}
                         </p>
                       </div>
@@ -257,7 +278,8 @@ export default function ValuacionSubtab({ evaluation }: Readonly<Props>) {
                         "text-red-600 dark:text-red-400": !isPositive,
                       })}
                     >
-                      {isPositive ? "+" : ""}{formatCurrency(Math.abs(Math.round(adj.appliedAmount)))}
+                      {isPositive ? "+" : ""}
+                      {formatCurrency(Math.abs(Math.round(adj.appliedAmount)))}
                     </span>
                   </div>
                 );

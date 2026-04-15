@@ -1,10 +1,16 @@
 import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 
+export type SectionLabels = { startAt: number; text: string; color: string }[];
+
+function getColor(pct: number, labels: SectionLabels) {
+  return labels.find(({ startAt }) => pct <= startAt)?.color ?? "#00000000";
+}
+
 function buildGaugeSvg(
   percentile: number,
   price: number,
   label: string,
-  lang: "es" | "en",
+  labels: SectionLabels,
 ) {
   const needleTarget = 150 + (percentile / 100) * 240;
   const cx = 160,
@@ -23,14 +29,8 @@ function buildGaugeSvg(
     const large = e - s > 180 ? 1 : 0;
     return `M ${p1.x} ${p1.y} A ${r} ${r} 0 ${large} 1 ${p2.x} ${p2.y}`;
   }
-  function getColor(pct: number) {
-    if (pct <= 30) return "#22C55E";
-    if (pct <= 50) return "#84CC16";
-    if (pct <= 65) return "#EAB308";
-    if (pct <= 80) return "#F97316";
-    return "#EF4444";
-  }
-  const currentColor = getColor(percentile);
+
+  const currentColor = getColor(percentile, labels);
 
   // Arc segments
   let arcSegs = "";
@@ -38,7 +38,7 @@ function buildGaugeSvg(
     const pct = i / 72;
     const segStart = arcStart + pct * arcSpan;
     const segEnd = arcStart + ((i + 1) / 72) * arcSpan;
-    const color = getColor(pct * 100);
+    const color = getColor(pct * 100, labels);
     const active = pct * 100 <= percentile;
     arcSegs += `<path d="${arc(outerR - 1, segStart, segEnd + 0.5)}" fill="none" stroke="${color}" stroke-width="8" stroke-linecap="butt" opacity="${active ? 0.85 : 0.12}"/>`;
   }
@@ -59,23 +59,15 @@ function buildGaugeSvg(
     ticks += `<line x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" stroke="${sc}" stroke-width="${sw}" stroke-linecap="round"/>`;
   }
 
-  // Labels
-  const labels = [
-    { pct: 0, text: { es: "GANGA", en: "BARGAIN" } },
-    { pct: 0.25, text: { es: "BAJO", en: "LOW" } },
-    { pct: 0.5, text: { es: "JUSTO", en: "FAIR" } },
-    { pct: 0.75, text: { es: "ALTO", en: "HIGH" } },
-    { pct: 1, text: { es: "CARO", en: "OVERPRICED" } },
-  ];
   const lbls = labels
     .map((l) => {
-      const pos = polar(outerR + 20, arcStart + l.pct * arcSpan);
+      const pos = polar(outerR + 20, arcStart + l.startAt * arcSpan);
       const getTextAnchor = () => {
-        if (l.pct === 0.5) return "middle";
-        if (l.pct < 0.5) return "end";
+        if (l.startAt === 0.5) return "middle";
+        if (l.startAt < 0.5) return "end";
         return "start";
       };
-      return `<text x="${pos.x}" y="${pos.y}" text-anchor="${getTextAnchor()}" dominant-baseline="middle" fill="#888" font-size="7.5" font-weight="700" font-family="'Outfit',sans-serif" letter-spacing="0.8">${l.text[lang]}</text>`;
+      return `<text x="${pos.x}" y="${pos.y}" text-anchor="${getTextAnchor()}" dominant-baseline="middle" fill="#888" font-size="7.5" font-weight="700" font-family="'Outfit',sans-serif" letter-spacing="0.8">${l.text}</text>`;
     })
     .join("");
 

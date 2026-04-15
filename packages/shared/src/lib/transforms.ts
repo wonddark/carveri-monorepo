@@ -1,7 +1,9 @@
 import type {
   ComparableItem,
+  EvaluationGauge,
   EvaluationRaw,
   PriceAdjustment,
+  RawGauge,
   SaleCycle,
   SaleCycleRecord,
   SourceContribution,
@@ -83,14 +85,7 @@ export type TransformedEvaluation = {
   auctionPrice: number;
   dealerMargin: number;
   diffVsFair: number;
-  gauge: {
-    min: number;
-    granOportunidad: number;
-    precioJusto: number;
-    precioAlto: number;
-    max: number;
-    currentZone: string;
-  };
+  gauge: EvaluationGauge;
   sourceContributions: SourceContribution[];
   adjustments: PriceAdjustment[];
 };
@@ -288,22 +283,17 @@ function transformComparables(
     });
 }
 
-const ZONE_HIGH = 0.15;
-const ZONE_MID = 0.05;
-const GAUGE_FLOOR_FACTOR = 0.6;
-const GAUGE_GRAN_OPORTUNIDAD_FACTOR = 0.88;
-const GAUGE_UPPER_FACTOR = 1.1;
-
-function getCurrentZone(overPct: number) {
-  if (overPct > ZONE_HIGH) return "Sobrepago";
-  if (overPct > ZONE_MID) {
-    return "PrecioAlto";
-  } else if (overPct > -ZONE_MID) {
-    return "PrecioJusto";
-  } else if (overPct > -ZONE_HIGH) {
-    return "BuenPrecio";
-  }
-  return "GranOportunidad";
+function transformGauge(rawGauge: RawGauge): EvaluationGauge {
+  return {
+    currentZone: { en: rawGauge.currentZone, es: rawGauge.currentZoneEs },
+    minimum: rawGauge.items.at(0)?.value || 0,
+    maximum: rawGauge.items.at(-1)?.value || 0,
+    labels: rawGauge.items.map((item) => ({
+      startAt: item.colorPorcentStart,
+      color: item.color,
+      text: { en: item.labelText, es: item.labelTextES },
+    })),
+  };
 }
 
 function transformEvaluation(
@@ -320,7 +310,7 @@ function transformEvaluation(
       auctionPrice,
       dealerMargin: askingPrice - auctionPrice,
       diffVsFair: askingPrice - fairPrice,
-      gauge: evalRaw.gauge,
+      gauge: transformGauge(evalRaw.gauge),
       sourceContributions: evalRaw.sourceContributions,
       adjustments: evalRaw.adjustments,
     };
@@ -338,17 +328,6 @@ function transformEvaluation(
 
   const diffVsFair = fairPrice > 0 ? askingPrice - fairPrice : 0;
   const dealerMargin = auctionPrice > 0 ? askingPrice - auctionPrice : 0;
-
-  const overPct = fairPrice > 0 ? (askingPrice - fairPrice) / fairPrice : 0;
-  const currentZone = getCurrentZone(overPct);
-
-  const gaugeMin =
-    auctionPrice > 0
-      ? auctionPrice
-      : Math.round(fairPrice * GAUGE_FLOOR_FACTOR);
-  const gaugeMax = Math.round(
-    Math.max(askingPrice, fairPrice) * GAUGE_UPPER_FACTOR,
-  );
 
   const sourceKeyMap: Record<string, string> = {
     KBB: "kbb",
@@ -377,12 +356,59 @@ function transformEvaluation(
     dealerMargin,
     diffVsFair,
     gauge: {
-      min: gaugeMin,
-      granOportunidad: Math.round(fairPrice * GAUGE_GRAN_OPORTUNIDAD_FACTOR),
-      precioJusto: fairPrice,
-      precioAlto: Math.round(fairPrice * GAUGE_UPPER_FACTOR),
-      max: gaugeMax,
-      currentZone,
+      currentZone: { es: "PrecioJusto", en: "FairPrice" },
+      minimum: 19511.74,
+      maximum: 29267.6,
+      labels: [
+        {
+          text: {
+            en: "OPPORTUNITY",
+            es: "OPORTUNIDAD",
+          },
+          color: "#22C55E",
+          startAt: 0,
+        },
+        {
+          text: {
+            en: "LOW",
+            es: "BAJO",
+          },
+          color: "#84CC16",
+          startAt: 25,
+        },
+        {
+          text: {
+            en: "FAIR",
+            es: "JUSTO",
+          },
+          color: "#EAB308",
+          startAt: 42.5,
+        },
+        {
+          text: {
+            en: "HIGH",
+            es: "ALTO",
+          },
+          color: "#F97316",
+          startAt: 57.5,
+        },
+        {
+          text: {
+            en: "EXPENSIVE",
+            es: "CARO",
+          },
+          color: "#EF4444",
+          startAt: 75.0,
+        },
+        {
+          text: {
+            en: "UNFAIR",
+            es: "INJUSTO",
+          },
+          color: "#000000",
+          startAt: 100.0,
+        },
+      ],
     },
     sourceContributions,
     adjustments: [],

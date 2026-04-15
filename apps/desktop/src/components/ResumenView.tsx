@@ -29,11 +29,6 @@ export default function ResumenView({ report }: Readonly<Props>) {
     OVERPRICED: t("resume.priceLabels.OVERPRICED"),
   };
 
-  const booksMeanValue =
-    report.priceEval.bookValues.reduce((acc, curr) => acc + curr.value, 0) / 4;
-  const minimum = booksMeanValue - (booksMeanValue * 15) / 100;
-  const maximum = booksMeanValue + (booksMeanValue * 15) / 100;
-
   return (
     <div className="space-y-6">
       {/* Vehicle hero: image carousel + vehicle name + summary card */}
@@ -95,11 +90,9 @@ export default function ResumenView({ report }: Readonly<Props>) {
                 {t("resume.ofAverage")}
               </p>
               <ReportGauge
-                label={priceEval.label}
                 price={report.price}
                 averageDeltaPct={report.priceEval.marketAvgDeltaPct}
-                minimum={minimum}
-                maximum={maximum}
+                gauge={report.evaluation.gauge}
               />
 
               <BookValues bookValues={priceEval.bookValues} />

@@ -9,13 +9,12 @@ import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 interface Props {
   price: number;
   priceEval: TransformedReport["priceEval"];
+  gauge: TransformedReport["evaluation"]["gauge"];
 }
 
-export default function PriceEvalSection({
-  price,
-  priceEval,
-}: Readonly<Props>) {
+export default function PriceEvalSection(props: Readonly<Props>) {
   const { t } = useTranslation("home");
+  const { price, priceEval, gauge } = props;
 
   const LABEL_TEXT: Record<string, string> = {
     BARGAIN: t("priceEval.greatDeal"),
@@ -27,11 +26,6 @@ export default function PriceEvalSection({
 
   const { label, marketAvgDeltaPct, bookValues } = priceEval;
   const isAbove = marketAvgDeltaPct > 0;
-
-  const booksMeanValue =
-    priceEval.bookValues.reduce((acc, curr) => acc + curr.value, 0) / 4;
-  const minimum = booksMeanValue - (booksMeanValue * 15) / 100;
-  const maximum = booksMeanValue + (booksMeanValue * 15) / 100;
 
   return (
     <Card>
@@ -53,10 +47,8 @@ export default function PriceEvalSection({
 
         <ReportGauge
           price={price}
-          label={label}
           averageDeltaPct={marketAvgDeltaPct}
-          minimum={minimum}
-          maximum={maximum}
+          gauge={gauge}
         />
         <BookValues bookValues={bookValues} />
       </CardContent>

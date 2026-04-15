@@ -70,7 +70,11 @@ export default function HomeTab(props: Readonly<Props>) {
         />
 
         {report.stats && <StatsGrid stats={report.stats} />}
-        <PriceEvalSection price={report.price} priceEval={report.priceEval} />
+        <PriceEvalSection
+          price={report.price}
+          priceEval={report.priceEval}
+          gauge={report.evaluation.gauge}
+        />
         <VehicleDataSection
           vin={report.vin}
           engine={report.engine}
