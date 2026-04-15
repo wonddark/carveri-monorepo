@@ -14,7 +14,8 @@ function getPercentile({
   max: number;
   value: number;
 }) {
-  return ((value - min) / (max - min)) * 100;
+  const percent = ((value - min) / (max - min)) * 100;
+  return Math.min(Math.max(percent, 0), 100);
 }
 
 export { cn, getPercentile };
