@@ -1,4 +1,9 @@
-import { Home } from "lucide-react";
+import {
+  ChartColumnIcon,
+  HandshakeIcon,
+  Home,
+  SparklesIcon,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 import StatsGrid from "@carveri/shared/components/home/StatsGrid";
 import BookValues from "@carveri/shared/components/home/BookValues";
@@ -10,16 +15,46 @@ import ReportGauge from "@carveri/shared/components/ReportGauge.tsx";
 import type { VehicleReport } from "@carveri/shared/types/vehicle-report.ts";
 import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 import VehicleHeroCard from "@/components/VehicleHeroCard";
+import { Link, useParams } from "react-router";
+import { IconClock } from "@tabler/icons-react";
 
 interface Props {
   report: TransformedReport;
 }
 
 export default function ResumenView({ report }: Readonly<Props>) {
+  const { id } = useParams();
   const { t } = useTranslation("common");
   const { priceEval, stats } = report;
   const isAbove = priceEval.marketAvgDeltaPct > 0;
   const absPct = Math.abs(priceEval.marketAvgDeltaPct).toFixed(1);
+
+  const QUICK_LINKS = [
+    {
+      id: `/reports/${id}/timeline`,
+      icon: <IconClock className="size-5" />,
+      title: "common.timeline",
+      description: "common.timelineDescription",
+    },
+    {
+      id: `/reports/${id}/market`,
+      icon: <ChartColumnIcon className="size-5" />,
+      title: "common.market",
+      description: "common.marketDescription",
+    },
+    {
+      id: `/reports/${id}/diagnosis`,
+      icon: <SparklesIcon className="size-5" />,
+      title: "common.ai_diagnosis",
+      description: "common.ai_diagnosisDescription",
+    },
+    {
+      id: `/reports/${id}/strategy`,
+      icon: <HandshakeIcon className="size-5" />,
+      title: "common.negotiation",
+      description: "common.negotiationDescription",
+    },
+  ];
 
   const priceLabelMap: Record<VehicleReport["priceEval"]["label"], string> = {
     BARGAIN: t("resume.priceLabels.BARGAIN"),
@@ -116,6 +151,36 @@ export default function ResumenView({ report }: Readonly<Props>) {
 
       {/* AI summary */}
       <AISummarySection aiSummary={report.aiSummary} />
+
+      {/* Quick navigation */}
+      <div className="grid grid-cols-2 gap-3">
+        {QUICK_LINKS.map((item) => (
+          <Link
+            key={item.id}
+            to={item.id}
+            className="group border-border bg-card rounded-xl border p-4 text-left transition-all hover:border-blue-300 hover:shadow-sm dark:hover:border-blue-600"
+          >
+            <div
+              data-loc="client/src/pages/VDP.tsx:563"
+              className="text-muted-foreground mb-2 group-hover:text-blue-500 dark:group-hover:text-blue-400"
+            >
+              {item.icon}
+            </div>
+            <div
+              data-loc="client/src/pages/VDP.tsx:564"
+              className="text-sm font-semibold text-gray-900"
+            >
+              {t(item.title)}
+            </div>
+            <div
+              data-loc="client/src/pages/VDP.tsx:565"
+              className="text-xs text-gray-400"
+            >
+              {t(item.description)}
+            </div>
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }
