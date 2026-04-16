@@ -13,7 +13,7 @@ export default function ReportHeader() {
   const report = useLoaderData<TransformedReport>();
 
   return (
-    <header className="border-border bg-background fixed inset-0 z-20 h-16 border-b">
+    <header className="border-border bg-card fixed inset-0 z-20 h-16 border-b">
       <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4">
         <div className="flex items-center gap-3">
           <Link to="/">

@@ -20,7 +20,7 @@ export default function ReportPage() {
         <div></div>
         <div className="relative flex">
           <ReportSidebar />
-          <main className="w-full px-4">
+          <main className="w-full px-6 pt-6 pb-24 md:pb-8 lg:px-8">
             <Outlet />
           </main>
         </div>
