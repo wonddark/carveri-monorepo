@@ -9,10 +9,10 @@ const SOURCE_COLORS: Record<
   TransformedReport["priceEval"]["bookValues"][0]["source"],
   string
 > = {
-  MMR: "bg-indigo-600",
-  KBB: "bg-blue-600",
-  JDP: "bg-violet-600",
-  BB: "bg-cyan-600",
+  MMR: "bg-indigo-50 text-indigo-700 ring-1 ring-indigo-100",
+  KBB: "bg-blue-50 text-blue-700 ring-1 ring-blue-100",
+  JDP: "bg-violet-50 text-violet-700 ring-1 ring-violet-100",
+  BB: "bg-cyan-50 text-cyan-700 ring-1 ring-cyan-100",
 };
 
 interface Props {
@@ -22,25 +22,31 @@ interface Props {
 export default function BookValues({ bookValues }: Readonly<Props>) {
   const { t } = useTranslation("home");
   return (
-    <div className="mt-3 grid grid-cols-2 gap-2">
+    <div className="mt-3 grid grid-cols-2 gap-3">
       {bookValues.map((bv) => {
         const trendingUp = bv.delta > 0;
         return (
-          <Card key={bv.source} className="py-3">
-            <CardContent className="flex flex-col items-center px-3">
+          <Card
+            key={bv.source}
+            className="rounded-2xl border border-slate-200/80 bg-white/90 py-4 shadow-[0_16px_32px_-28px_rgba(15,23,42,0.24)]"
+          >
+            <CardContent className="flex flex-col items-center px-4">
               <span
-                className={`mb-1.5 inline-block rounded px-1.5 py-0.5 text-[9px] font-black text-white ${SOURCE_COLORS[bv.source]}`}
+                className={`mb-2 inline-block rounded-full px-2 py-1 text-[10px] font-bold ${SOURCE_COLORS[bv.source]}`}
               >
                 {bv.source}
               </span>
-              <div className="text-sm font-bold">
+              <div className="text-base font-semibold tracking-tight text-slate-900">
                 {formatCurrency(bv.value)}
               </div>
               <div
-                className={cn("flex items-center gap-1 text-xs", {
-                  "text-red-600 dark:text-red-400": trendingUp,
-                  "text-green-600 dark:text-green-400": !trendingUp,
-                })}
+                className={cn(
+                  "mt-1.5 flex items-center gap-1 text-[12px] font-medium",
+                  {
+                    "text-red-600 dark:text-red-400": trendingUp,
+                    "text-green-600 dark:text-green-400": !trendingUp,
+                  },
+                )}
               >
                 {trendingUp ? (
                   <IconTrendingUp className="size-3" />

@@ -13,18 +13,18 @@ export default function ReportHeader() {
   const report = useLoaderData<TransformedReport>();
 
   return (
-    <header className="border-border bg-card fixed inset-0 z-20 h-16 border-b">
-      <div className="mx-auto flex h-full max-w-7xl items-center justify-between px-4">
-        <div className="flex items-center gap-3">
+    <header className="border-border/60 bg-card/95 fixed inset-x-0 top-0 z-20 h-14 border-b backdrop-blur-sm">
+      <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4 lg:px-5">
+        <div className="flex items-center gap-2.5">
           <Link to="/">
-            <button className="cursor-pointer rounded-full p-1.5">
-              <IconChevronLeft className="size-5" />
+            <button className="hover:bg-muted/70 cursor-pointer rounded-full p-1.5 text-slate-600 transition-colors">
+              <IconChevronLeft className="size-4" />
             </button>
           </Link>
-          <LogoFullHorizontal className="h-8 w-auto" />
+          <LogoFullHorizontal className="h-7 w-auto" />
         </div>
 
-        <span className="text-sm font-medium">
+        <span className="text-[13px] font-semibold tracking-tight text-slate-700">
           {generateReportTitle({
             year: report.year,
             make: report.make,
@@ -34,23 +34,23 @@ export default function ReportHeader() {
         </span>
 
         {/* Right: language + actions */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           <LanguageToggle variant="default" />
           <ThemeToggle />
           <button
             type="button"
             aria-label={t("reportHeader.shareAriaLabel")}
-            className="text-muted-foreground hover:bg-muted flex cursor-pointer items-center gap-1.5 rounded-md px-3 py-1.5 text-sm"
+            className="text-muted-foreground hover:bg-muted/70 flex cursor-pointer items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[13px] transition-colors"
           >
-            <Share2 size={13} />
+            <Share2 size={12} />
             <span className="hidden sm:inline">{t("reportHeader.share")}</span>
           </button>
           <button
             type="button"
             aria-label={t("reportHeader.downloadAriaLabel")}
-            className="text-muted-foreground hover:bg-muted flex cursor-pointer items-center gap-1.5 rounded-md px-3 py-1.5 text-sm"
+            className="text-muted-foreground hover:bg-muted/70 flex cursor-pointer items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-[13px] transition-colors"
           >
-            <Download size={13} />
+            <Download size={12} />
             <span className="hidden sm:inline">{t("reportHeader.pdf")}</span>
           </button>
         </div>

@@ -16,11 +16,11 @@ export default function ReportPage() {
   return (
     <>
       <ReportHeader />
-      <div className="fixed inset-0 top-16 grid grid-cols-[1fr_min(80rem,100%)_1fr] gap-4 overflow-auto">
+      <div className="fixed inset-0 top-14 grid grid-cols-[1fr_min(76rem,100%)_1fr] gap-3 overflow-auto bg-slate-50/70">
         <div></div>
         <div className="relative flex">
           <ReportSidebar />
-          <main className="w-full px-6 pt-6 pb-24 md:pb-8 lg:px-8">
+          <main className="w-full px-5 pt-5 pb-24 md:pb-8 lg:px-6">
             <Outlet />
           </main>
         </div>

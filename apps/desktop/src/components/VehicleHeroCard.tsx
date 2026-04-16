@@ -64,7 +64,7 @@ export default function VehicleHeroCard({
 
   return (
     <>
-      <Card className="overflow-hidden p-0">
+      <Card className="overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white p-0 shadow-[0_20px_45px_-28px_rgba(15,23,42,0.28)] ring-0">
         {/* ── Image carousel ── */}
         <div
           className="relative cursor-zoom-in overflow-hidden select-none"
@@ -75,7 +75,7 @@ export default function VehicleHeroCard({
           onKeyDown={(e) => e.key === "Enter" && openLightbox()}
         >
           {/* Images */}
-          <div className="relative h-85 w-full bg-slate-100 lg:h-100 dark:bg-slate-900">
+          <div className="relative h-84 w-full bg-slate-100 lg:h-96 dark:bg-slate-900">
             {images.map((src, i) => (
               <img
                 key={src}
@@ -92,7 +92,7 @@ export default function VehicleHeroCard({
 
           {/* Counter badge */}
           {total > 0 && (
-            <div className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-black/50 px-2 py-1 text-[11px] font-semibold text-white backdrop-blur-sm">
+            <div className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-white/88 px-2.5 py-1 text-[10px] font-semibold text-slate-700 shadow-sm ring-1 ring-black/5 backdrop-blur-sm">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -116,7 +116,7 @@ export default function VehicleHeroCard({
                 type="button"
                 onClick={prev}
                 aria-label="Previous image"
-                className="absolute top-1/2 left-3 -translate-y-1/2 rounded-full bg-black/40 p-1.5 text-white backdrop-blur-sm transition hover:bg-black/60"
+                className="absolute top-1/2 left-3 -translate-y-1/2 rounded-full bg-white/92 p-2 text-slate-700 shadow-sm ring-1 ring-black/5 backdrop-blur-sm transition hover:bg-white"
               >
                 <ChevronLeft size={18} />
               </button>
@@ -124,7 +124,7 @@ export default function VehicleHeroCard({
                 type="button"
                 onClick={next}
                 aria-label="Next image"
-                className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full bg-black/40 p-1.5 text-white backdrop-blur-sm transition hover:bg-black/60"
+                className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full bg-white/92 p-2 text-slate-700 shadow-sm ring-1 ring-black/5 backdrop-blur-sm transition hover:bg-white"
               >
                 <ChevronRight size={18} />
               </button>
@@ -133,7 +133,7 @@ export default function VehicleHeroCard({
 
           {/* Dot indicators */}
           {total > 1 && (
-            <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5">
+            <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1 rounded-full bg-black/12 px-2 py-1 backdrop-blur-sm">
               {images.map((_, i) => (
                 <button
                   key={i}
@@ -144,10 +144,10 @@ export default function VehicleHeroCard({
                   }}
                   aria-label={`Go to image ${i + 1}`}
                   className={cn(
-                    "size-1.5 rounded-full transition-all",
+                    "h-1.5 w-1.5 rounded-full transition-all",
                     i === current
                       ? "w-4 bg-white"
-                      : "bg-white/50 hover:bg-white/80",
+                      : "bg-white/55 hover:bg-white/85",
                   )}
                 />
               ))}
@@ -156,23 +156,23 @@ export default function VehicleHeroCard({
         </div>
 
         {/* ── Info bar ── */}
-        <div className="flex items-start gap-6 px-5 py-4">
+        <div className="flex items-start gap-5 border-t border-slate-100 px-5 py-5 lg:px-6">
           {/* Left: vehicle name + trim */}
           <div className="min-w-0 flex-1">
-            <h2 className="text-lg leading-tight font-bold tracking-tight">
+            <h2 className="text-[1.15rem] leading-tight font-semibold tracking-tight text-slate-900">
               {year} <span className="uppercase">{make}</span> {model}
             </h2>
             {trim && (
-              <p className="text-muted-foreground mt-0.5 text-sm">{trim}</p>
+              <p className="text-muted-foreground mt-1 text-sm">{trim}</p>
             )}
           </div>
 
           {/* Right: price + mileage/location + verdict badge */}
-          <div className="shrink-0">
-            <div className="mb-0.5 text-right text-xl font-bold">
+          <div className="shrink-0 space-y-3 self-stretch lg:w-[260px]">
+            <div className="text-right text-[1.55rem] font-semibold tracking-tight text-slate-900">
               ${price.toLocaleString()}
             </div>
-            <div className="text-muted-foreground mb-3 text-right text-xs">
+            <div className="text-muted-foreground text-right text-[12px]">
               {mileage.toLocaleString()} mi
               {location && <> · {location}</>}
             </div>

@@ -65,7 +65,7 @@ export default function ResumenView({ report }: Readonly<Props>) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Vehicle hero: image carousel + vehicle name + summary card */}
       <VehicleHeroCard
         images={report.images}
@@ -82,15 +82,17 @@ export default function ResumenView({ report }: Readonly<Props>) {
       />
 
       {/* Breadcrumb */}
-      <div className="text-muted-foreground flex items-center gap-1.5 text-xs">
+      <div className="text-muted-foreground flex items-center gap-1.5 text-[11px] tracking-wide">
         <Home size={11} />
         <span>{t("resume.breadcrumb")}</span>
       </div>
 
       {/* Heading */}
       <div>
-        <h2 className="text-xl font-semibold">{t("resume.heading")}</h2>
-        <p className="text-muted-foreground mt-0.5 text-sm">
+        <h2 className="text-[1.15rem] font-semibold tracking-tight text-slate-900">
+          {t("resume.heading")}
+        </h2>
+        <p className="text-muted-foreground mt-1 text-sm leading-6">
           {t("resume.subtitle")}{" "}
           <span className="font-semibold">
             {generateReportTitle({
@@ -105,21 +107,21 @@ export default function ResumenView({ report }: Readonly<Props>) {
       {/* Quick stats 2×2 */}
       {stats && <StatsGrid stats={stats} />}
 
-      <div className="flex flex-col gap-4 lg:gap-6">
+      <div className="flex flex-col gap-4 lg:gap-5">
         {/* Price Evaluation */}
-        <Card>
-          <CardContent>
+        <Card className="rounded-[1.5rem] border border-slate-200/80 bg-gradient-to-br from-white to-slate-50/80 shadow-[0_18px_40px_-30px_rgba(15,23,42,0.22)]">
+          <CardContent className="px-5 py-5 lg:px-6">
             <div className="mb-4 flex items-center gap-2">
-              <span className="text-sm font-medium">
+              <span className="text-[13px] font-semibold tracking-tight text-slate-700">
                 {t("resume.priceEvaluation")}
               </span>
             </div>
 
             <div className="grid grid-cols-1 items-center gap-5 lg:grid-cols-[1fr_40%]">
-              <div className="col-start-1 -col-end-1 text-center text-3xl font-semibold">
+              <div className="col-start-1 -col-end-1 text-center text-[2rem] font-semibold tracking-tight text-slate-900">
                 ${report.price.toLocaleString()}
               </div>
-              <p className="col-start-1 -col-end-1 mb-4 text-center text-xs font-semibold tracking-wide text-blue-600 uppercase">
+              <p className="col-start-1 -col-end-1 mb-4 text-center text-[11px] font-semibold tracking-[0.14em] text-blue-600 uppercase">
                 {priceLabelMap[priceEval.label]} — {absPct}%{" "}
                 {isAbove ? t("resume.above") : t("resume.below")}{" "}
                 {t("resume.ofAverage")}
@@ -153,28 +155,28 @@ export default function ResumenView({ report }: Readonly<Props>) {
       <AISummarySection aiSummary={report.aiSummary} />
 
       {/* Quick navigation */}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-3.5">
         {QUICK_LINKS.map((item) => (
           <Link
             key={item.id}
             to={item.id}
-            className="group border-border bg-card rounded-xl border p-4 text-left transition-all hover:border-blue-300 hover:shadow-sm dark:hover:border-blue-600"
+            className="group border-border/70 bg-card rounded-2xl border p-4 text-left transition-all hover:border-blue-200 hover:shadow-[0_18px_40px_-30px_rgba(37,99,235,0.35)] dark:hover:border-blue-700"
           >
             <div
               data-loc="client/src/pages/VDP.tsx:563"
-              className="text-muted-foreground mb-2 group-hover:text-blue-500 dark:group-hover:text-blue-400"
+              className="text-muted-foreground mb-2.5 group-hover:text-blue-500 dark:group-hover:text-blue-400"
             >
               {item.icon}
             </div>
             <div
               data-loc="client/src/pages/VDP.tsx:564"
-              className="text-sm font-semibold text-gray-900"
+              className="text-sm font-semibold tracking-tight text-slate-900"
             >
               {t(item.title)}
             </div>
             <div
               data-loc="client/src/pages/VDP.tsx:565"
-              className="text-xs text-gray-400"
+              className="text-[12px] leading-5 text-slate-400"
             >
               {t(item.description)}
             </div>
