@@ -79,7 +79,7 @@ function buildLabels(labels: SectionLabels): string {
   return labels
     .map(
       (l, idx) =>
-        `<text text-anchor="middle" fill="${l.color}" font-size="7.5" font-weight="700" font-family="'Outfit',sans-serif" letter-spacing="0.8"><textPath href="#gla${idx}" startOffset="50%">${l.text}</textPath></text>`,
+        `<text text-anchor="middle" fill="${l.color}" font-size="11" font-weight="700" font-family="'Outfit',sans-serif" letter-spacing="0.8"><textPath href="#gla${idx}" startOffset="50%">${l.text}</textPath></text>`,
     )
     .join("");
 }
