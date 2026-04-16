@@ -161,7 +161,7 @@ export default function ReportSidebar() {
                 >
                   <span className="flex items-center gap-2.5">
                     {group.icon}
-                    {group.label}
+                    {t(group.label)}
                   </span>
                   {isOpen ? (
                     <ChevronDown className="size-4" />
