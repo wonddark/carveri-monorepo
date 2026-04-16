@@ -1,4 +1,4 @@
-import { type ReactNode, useEffect, useState } from "react";
+import { Fragment, type ReactNode, useEffect, useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import {
   NavLink,
@@ -131,9 +131,8 @@ export default function ReportSidebar() {
     setOpenGroups((prev) => ({ ...prev, [label]: !prev[label] }));
 
   return (
-    <aside className="border-border bg-card sticky top-0 flex h-[calc(100vh-64px)] w-55 shrink-0 grow-0 flex-col self-start overflow-y-auto border-r">
-      {/* Nav tree */}
-      <div className="flex-auto p-3">
+    <aside className="sticky top-0 hidden h-[calc(100vh-64px)] w-55 shrink-0 overflow-y-auto border-r border-gray-200 bg-white md:block">
+      <div className="p-3">
         <nav className="space-y-1">
           {NAV.map((entry) => {
             if (entry.type === "item") {
@@ -141,79 +140,78 @@ export default function ReportSidebar() {
                 <NavLink
                   key={entry.id}
                   to={`/reports/${id}/${entry.id}`}
-                  className={({ isActive }: { isActive: boolean }) =>
-                    cn(
-                      "flex w-full items-center gap-2.5 px-3 py-2.5 text-sm font-medium",
-                      "text-foreground/70 hover:bg-card rounded-lg transition-colors",
-                      isActive &&
-                        "pointer-events-none bg-blue-50 text-blue-700 dark:bg-blue-900 dark:text-blue-200",
-                    )
-                  }
+                  className="flex w-full items-center justify-between rounded-lg bg-blue-50 px-3 py-2.5 text-sm font-medium text-blue-700 transition-colors"
                 >
-                  {entry.icon}
-                  {t(entry.label)}
+                  <span className="flex items-center gap-2.5">
+                    {entry.icon}
+                    {t(entry.label)}
+                  </span>
                 </NavLink>
               );
             }
 
             const { group } = entry;
             const isOpen = openGroups[group.label] ?? false;
-            const isChildActive = group.children.some(
-              (c) => currentSection === c.id,
-            );
 
             return (
-              <div key={group.label}>
+              <Fragment key={group.label}>
                 <button
-                  type="button"
                   onClick={() => toggleGroup(group.label)}
-                  className={cn(
-                    "flex w-full items-center justify-between px-3 py-2.5 text-sm font-medium",
-                    "text-foreground/70 hover:bg-card rounded-lg transition-colors",
-                    isChildActive && !isOpen && "text-primary",
-                  )}
+                  className="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50"
                 >
-                  <div className="flex items-center gap-2">
-                    {group.icon} {t(group.label)}
-                  </div>
+                  <span className="flex items-center gap-2.5">
+                    {group.icon}
+                    {group.label}
+                  </span>
                   {isOpen ? (
-                    <ChevronDown size={14} />
+                    <ChevronDown className="size-4" />
                   ) : (
-                    <ChevronRight size={14} />
+                    <ChevronRight className="size-4" />
                   )}
                 </button>
-
                 {isOpen && (
-                  <div className="border-border mt-0.5 ml-4 space-y-0.5 border-l pl-3">
+                  <div className="mt-0.5 ml-4 space-y-0.5 border-l border-gray-200 pl-3">
                     {group.children.map((child) => (
                       <NavLink
                         key={child.id}
                         to={`/reports/${id}/${child.id}`}
                         className={({ isActive }: { isActive: boolean }) =>
                           cn(
-                            "gap-2 rounded-md px-2",
-                            "text-muted-foreground flex w-full cursor-pointer items-center py-1.5 pr-4 text-xs transition-colors duration-200 ease-in-out",
-                            isActive
-                              ? "text-primary font-semibold"
-                              : "hover:text-foreground/80 font-medium",
+                            "flex w-full items-center gap-2 rounded-md px-2",
+                            "py-1.5 text-[13px] text-gray-500 transition-colors hover:text-gray-700",
+                            { "font-semibold text-blue-700": isActive },
                           )
                         }
                       >
-                        <div className="size-1.5 rounded-full bg-current/40" />
-                        {t(child.label)}
+                        {({ isActive }: { isActive: boolean }) => (
+                          <Fragment>
+                            <div
+                              className={cn(
+                                "h-1.5 w-1.5 shrink-0 rounded-full bg-gray-300",
+                                {
+                                  "bg-blue-600": isActive,
+                                },
+                              )}
+                            />
+                            <span>{t(child.label)}</span>
+                          </Fragment>
+                        )}
                       </NavLink>
                     ))}
                   </div>
                 )}
-              </div>
+              </Fragment>
             );
           })}
         </nav>
       </div>
 
       {/* VIN footer */}
-      <div className="border-border border-t px-3 py-3 font-mono text-[10px] text-gray-300 dark:text-gray-600">
-        {report?.vin}
+      <div className="border-t border-gray-100 px-3 py-3 font-mono text-[10px] text-gray-300">
+        {report?.vin}{" "}
+        <span className="ml-1 inline-flex h-4 w-4 items-center justify-center rounded-full bg-blue-600 text-[8px] font-bold text-white">
+          CV
+        </span>
       </div>
     </aside>
   );
