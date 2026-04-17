@@ -12,11 +12,11 @@ import AISummarySection from "@carveri/shared/components/home/AISummarySection";
 import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import ReportGauge from "@carveri/shared/components/ReportGauge.tsx";
-import type { VehicleReport } from "@carveri/shared/types/vehicle-report.ts";
 import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 import VehicleHeroCard from "@/components/VehicleHeroCard";
 import { Link, useParams } from "react-router";
 import { IconClock } from "@tabler/icons-react";
+import MarketPriceHeader from "@carveri/shared/components/market/MarketPriceHeader.tsx";
 
 interface Props {
   report: TransformedReport;
@@ -26,8 +26,6 @@ export default function ResumenView({ report }: Readonly<Props>) {
   const { id } = useParams();
   const { t } = useTranslation("common");
   const { priceEval, stats } = report;
-  const isAbove = priceEval.marketAvgDeltaPct > 0;
-  const absPct = Math.abs(priceEval.marketAvgDeltaPct).toFixed(1);
 
   const QUICK_LINKS = [
     {
@@ -55,14 +53,6 @@ export default function ResumenView({ report }: Readonly<Props>) {
       description: "common.negotiationDescription",
     },
   ];
-
-  const priceLabelMap: Record<VehicleReport["priceEval"]["label"], string> = {
-    BARGAIN: t("resume.priceLabels.BARGAIN"),
-    LOW: t("resume.priceLabels.LOW"),
-    FAIR: t("resume.priceLabels.FAIR"),
-    HIGH: t("resume.priceLabels.HIGH"),
-    OVERPRICED: t("resume.priceLabels.OVERPRICED"),
-  };
 
   return (
     <div className="space-y-5">
@@ -109,7 +99,7 @@ export default function ResumenView({ report }: Readonly<Props>) {
 
       <div className="flex flex-col gap-4 lg:gap-5">
         {/* Price Evaluation */}
-        <Card className="rounded-[1.5rem] border border-slate-200/80 bg-gradient-to-br from-white to-slate-50/80 shadow-[0_18px_40px_-30px_rgba(15,23,42,0.22)]">
+        <Card className="rounded-[1.5rem] border border-slate-200/80 bg-linear-to-br from-white to-slate-50/80 shadow-[0_18px_40px_-30px_rgba(15,23,42,0.22)]">
           <CardContent className="px-5 py-5 lg:px-6">
             <div className="mb-4 flex items-center gap-2">
               <span className="text-[13px] font-semibold tracking-tight text-slate-700">
@@ -118,14 +108,13 @@ export default function ResumenView({ report }: Readonly<Props>) {
             </div>
 
             <div className="grid grid-cols-1 items-center gap-5 lg:grid-cols-[1fr_40%]">
-              <div className="col-start-1 -col-end-1 text-center text-[2rem] font-semibold tracking-tight text-slate-900">
-                ${report.price.toLocaleString()}
+              <div className="col-start-1 -col-end-1">
+                <MarketPriceHeader
+                  price={report.price}
+                  carveriPrice={report.evaluation.fairPrice}
+                />
               </div>
-              <p className="col-start-1 -col-end-1 mb-4 text-center text-[11px] font-semibold tracking-[0.14em] text-blue-600 uppercase">
-                {priceLabelMap[priceEval.label]} — {absPct}%{" "}
-                {isAbove ? t("resume.above") : t("resume.below")}{" "}
-                {t("resume.ofAverage")}
-              </p>
+
               <ReportGauge
                 price={report.price}
                 averageDeltaPct={report.priceEval.marketAvgDeltaPct}

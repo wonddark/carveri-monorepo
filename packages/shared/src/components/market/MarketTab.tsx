@@ -73,9 +73,7 @@ export default function MarketTab({ report }: Readonly<Props>) {
             {/* Price + gauge + book values */}
             <MarketPriceHeader
               price={report.price}
-              deltaAvgPercent={2}
-              avgBookValue={20000}
-              deltaAvgValue={200}
+              carveriPrice={report.evaluation.fairPrice}
             />
 
             <Card>
