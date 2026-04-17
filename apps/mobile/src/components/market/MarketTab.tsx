@@ -76,11 +76,7 @@ export default function MarketTab({ report }: Readonly<Props>) {
               carveriPrice={report.evaluation.fairPrice}
             />
 
-            <ReportGauge
-              price={report.price}
-              averageDeltaPct={report.priceEval.marketAvgDeltaPct}
-              gauge={report.evaluation.gauge}
-            />
+            <ReportGauge price={report.price} gauge={report.evaluation.gauge} />
 
             <Card>
               <CardContent>

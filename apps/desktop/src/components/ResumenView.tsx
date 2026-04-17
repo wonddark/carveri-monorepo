@@ -117,7 +117,6 @@ export default function ResumenView({ report }: Readonly<Props>) {
 
               <ReportGauge
                 price={report.price}
-                averageDeltaPct={report.priceEval.marketAvgDeltaPct}
                 gauge={report.evaluation.gauge}
               />
 

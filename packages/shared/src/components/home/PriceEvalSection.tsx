@@ -45,11 +45,7 @@ export default function PriceEvalSection(props: Readonly<Props>) {
           </div>
         </div>
 
-        <ReportGauge
-          price={price}
-          averageDeltaPct={marketAvgDeltaPct}
-          gauge={gauge}
-        />
+        <ReportGauge price={price} gauge={gauge} />
         <BookValues bookValues={bookValues} />
       </CardContent>
     </Card>

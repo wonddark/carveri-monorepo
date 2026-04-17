@@ -80,7 +80,6 @@ export default function MarketTab({ report }: Readonly<Props>) {
               <CardContent className="grid grid-cols-2 items-center gap-5">
                 <ReportGauge
                   price={report.price}
-                  averageDeltaPct={report.priceEval.marketAvgDeltaPct}
                   gauge={report.evaluation.gauge}
                 />
                 <div>

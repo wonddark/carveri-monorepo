@@ -5,19 +5,18 @@ import {
 import parse from "html-react-parser";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { cn, getPercentile } from "@carveri/shared/lib/utils.ts";
+import { getPercentile } from "@carveri/shared/lib/utils.ts";
 import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import type { EvaluationGauge } from "@carveri/shared/types/vehicle-report.ts";
 
 type Props = {
   price: number;
-  averageDeltaPct: number;
   gauge: EvaluationGauge;
 };
 
 function ReportGauge(props: Readonly<Props>) {
-  const { price, averageDeltaPct, gauge } = props;
-  const { t, i18n } = useTranslation("vehicle-details");
+  const { price, gauge } = props;
+  const { i18n } = useTranslation("vehicle-details");
   const lang = (i18n.resolvedLanguage || "en") as "es" | "en";
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -59,23 +58,6 @@ function ReportGauge(props: Readonly<Props>) {
       ref={containerRef}
       className={`bg-card mb-4 rounded-xl p-4 ${isVisible ? "" : "gauge-paused"}`}
     >
-      <div className="mb-2 flex items-center justify-between">
-        <span className="gauge-label">{t("gauge.priceEvaluation")}</span>
-
-        <span
-          className={cn("gauge-trend", {
-            down: averageDeltaPct <= 0,
-            up: averageDeltaPct > 0,
-          })}
-        >
-          {averageDeltaPct <= 0 ? (
-            <span>&#129158;</span>
-          ) : (
-            <span>&#129157;</span>
-          )}{" "}
-          {`${averageDeltaPct}%`}
-        </span>
-      </div>
       {parse(buildGaugeSvg(percentile, price, gauge.currentZone[lang], labels))}
       <div className="grid grid-cols-8 py-2">
         <div></div>
