@@ -1,14 +1,11 @@
 import {
   IconArrowDown,
   IconClock,
-  IconSearch,
   IconTag,
   IconTrendingDown,
 } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
-import { Input } from "@carveri/shared/components/ui/input.tsx";
-import { Button } from "@carveri/shared/components/ui/button.tsx";
 import type { PriceDynamics } from "@carveri/shared/lib/transforms.ts";
 import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import type { ReactNode } from "react";
@@ -107,23 +104,6 @@ export default function PriceDynamicsSubtab({
 
   return (
     <div className="flex flex-col gap-5 pt-4">
-      {/* Search VIN */}
-      <div className="flex flex-col gap-2">
-        <label className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400">
-          <IconSearch size={13} />
-          {t("priceDynamics.searchLabel")}
-        </label>
-        <div className="flex gap-2">
-          <Input
-            placeholder={t("priceDynamics.searchPlaceholder")}
-            className="font-mono text-sm"
-          />
-          <Button variant="outline" size="sm" className="shrink-0">
-            {t("priceDynamics.scan")}
-          </Button>
-        </div>
-      </div>
-
       <Card>
         <CardContent>
           <SubTabHeader
@@ -241,7 +221,6 @@ export default function PriceDynamicsSubtab({
               </div>
             </div>
           </div>
-
         </CardContent>
       </Card>
     </div>
