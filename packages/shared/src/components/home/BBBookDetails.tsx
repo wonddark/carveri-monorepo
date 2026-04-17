@@ -19,7 +19,7 @@ type Props = {
 
 function BbBookDetails(props: Readonly<Props>) {
   const { book } = props;
-  const { t } = useTranslation("home");
+  const { t } = useTranslation(["home", "market"]);
   const trendingUp = book.delta > 0;
   return (
     <Dialog>
@@ -92,70 +92,39 @@ function BbBookDetails(props: Readonly<Props>) {
         <div className="space-y-5 px-5 py-4">
           <div>
             <div className="mb-2 text-xs font-semibold text-gray-700">
-              Applied Adjustments
+              {t("book.values")}
             </div>
             <div className="space-y-2">
               <div className="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2">
-                <span className="text-sm text-gray-700">Mileage Adj.</span>
-                <span className="text-sm font-semibold text-red-500">
-                  $550
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    className="lucide lucide-trending-down ml-1 inline h-3 w-3"
-                  >
-                    <polyline points="22 17 13.5 8.5 8.5 13.5 2 7"></polyline>
-                    <polyline points="16 17 22 17 22 11"></polyline>
-                  </svg>
+                <span className="text-sm text-gray-700">
+                  {t("book.wholesaleAvg")}
+                </span>
+                <span className="text-sm font-semibold">
+                  {formatCurrency(book.rawData.wholesale.avg.total)}
                 </span>
               </div>
               <div className="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2">
-                <span className="text-sm text-gray-700">Condition Adj.</span>
-                <span className="text-sm font-semibold text-red-500">
-                  $125
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    className="lucide lucide-trending-down ml-1 inline h-3 w-3"
-                  >
-                    <polyline points="22 17 13.5 8.5 8.5 13.5 2 7"></polyline>
-                    <polyline points="16 17 22 17 22 11"></polyline>
-                  </svg>
+                <span className="text-sm text-gray-700">
+                  {t("book.tradeAvg")}
+                </span>
+                <span className="text-sm font-semibold">
+                  {formatCurrency(book.rawData.trade.avg.total)}
                 </span>
               </div>
               <div className="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2">
-                <span className="text-sm text-gray-700">Region Adj.</span>
-                <span className="text-sm font-semibold text-emerald-600">
-                  +$280
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    className="lucide lucide-trending-up ml-1 inline h-3 w-3"
-                  >
-                    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
-                    <polyline points="16 7 22 7 22 13"></polyline>
-                  </svg>
+                <span className="text-sm text-gray-700">
+                  {t("book.retailAvg")}
+                </span>
+                <span className="text-sm font-semibold">
+                  {formatCurrency(book.rawData.retail.avg.total)}
+                </span>
+              </div>
+              <div className="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2">
+                <span className="text-sm text-gray-700">
+                  {t("book.financeAvg")}
+                </span>
+                <span className="text-sm font-semibold">
+                  {formatCurrency(book.rawData.finance.avg.total)}
                 </span>
               </div>
             </div>
