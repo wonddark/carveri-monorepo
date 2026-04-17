@@ -110,5 +110,6 @@
       "HIGH": "Above market",
       "OVERPRICED": "Overpriced"
     }
-  }
+  },
+  "close": "Close"
 }

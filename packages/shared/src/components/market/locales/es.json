@@ -39,5 +39,13 @@
   },
   "askingPrice": "Precio de Venta",
   "carveriPrice": "Carveri Recomienda",
-  "priceDiff": "Diferencia"
+  "priceDiff": "Diferencia",
+  "book": {
+    "values": "Valores",
+    "fairPurchasePrice": "Precio de Compra Justo",
+    "wholesaleAvg": "Precio Mayorista",
+    "tradeAvg": "Precio de Venta",
+    "retailAvg": "Precio de Tienda",
+    "financeAvg": "Precio de Financiamiento"
+  }
 }

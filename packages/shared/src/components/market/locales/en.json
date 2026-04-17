@@ -39,5 +39,13 @@
   },
   "askingPrice": "Asking Price",
   "carveriPrice": "Carveri Recommends",
-  "priceDiff": "Difference"
+  "priceDiff": "Difference",
+  "book": {
+    "values": "Values",
+    "fairPurchasePrice": "Fair Purchase Price",
+    "wholesaleAvg": "Wholesale Price",
+    "tradeAvg": "Trade Price",
+    "retailAvg": "Retail Price",
+    "financeAvg": "Finance Price"
+  }
 }

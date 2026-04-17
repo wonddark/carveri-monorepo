@@ -141,7 +141,7 @@ function BbBookDetails(props: Readonly<Props>) {
           <div className="gap-3 pt-2 pb-2">
             <DialogClose asChild>
               <button className="w-full cursor-pointer rounded-xl bg-gray-100 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:bg-gray-200">
-                Close
+                {t("close")}
               </button>
             </DialogClose>
           </div>

@@ -92,13 +92,15 @@ function KbbBookDetails(props: Readonly<Props>) {
         <div className="space-y-5 px-5 py-4">
           <div data-loc="client/src/components/BookDetailModal.tsx:156">
             <div className="mb-2 text-xs font-semibold text-gray-700">
-              Applied Adjustments
+              {t("book.values")}
             </div>
             <div className="space-y-2">
               <div className="flex items-center justify-between rounded-lg bg-gray-50 px-3 py-2">
-                <span className="text-sm text-gray-700">Mileage Adj.</span>
+                <span className="text-sm text-gray-700">
+                  {t("book.fairPurchasePrice")}
+                </span>
                 <span className="text-sm font-semibold text-red-500">
-                  $680
+                  {formatCurrency(book.rawData.fairPurchasePrice)}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -106,9 +108,9 @@ function KbbBookDetails(props: Readonly<Props>) {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     className="lucide lucide-trending-down ml-1 inline h-3 w-3"
                   >
                     <polyline points="22 17 13.5 8.5 8.5 13.5 2 7"></polyline>
@@ -127,9 +129,9 @@ function KbbBookDetails(props: Readonly<Props>) {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     className="lucide lucide-trending-up ml-1 inline h-3 w-3"
                   >
                     <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
@@ -148,9 +150,9 @@ function KbbBookDetails(props: Readonly<Props>) {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     className="lucide lucide-trending-up ml-1 inline h-3 w-3"
                   >
                     <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
