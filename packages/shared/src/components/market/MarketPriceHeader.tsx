@@ -30,7 +30,7 @@ export default function MarketPriceHeader(props: Readonly<Props>) {
       <CardContent className="grid grid-cols-3 gap-2">
         <div className="flex flex-col items-center gap-0.5">
           <small className="text-muted-foreground text-xs">
-            {t("market.askingPrice")}
+            {t("askingPrice")}
           </small>
           <strong className="text-xl font-semibold">
             {formatCurrency(price)}
@@ -38,7 +38,7 @@ export default function MarketPriceHeader(props: Readonly<Props>) {
         </div>
         <div className="flex flex-col items-center gap-0.5">
           <small className="text-muted-foreground text-xs">
-            {t("market.carveriPrice")}
+            {t("carveriPrice")}
           </small>
           <strong className="text-xl font-semibold">
             {formatCurrency(carveriPrice)}
@@ -46,7 +46,7 @@ export default function MarketPriceHeader(props: Readonly<Props>) {
         </div>
         <div className="flex flex-col items-center gap-0.5">
           <small className="text-muted-foreground text-xs">
-            {t("market.overAvg")}
+            {t("priceDiff")}
           </small>
           <strong className={cn("text-xl font-semibold", getAverageStyles())}>
             {`${getSymbol()}${formatCurrency(deltaValue)}`}

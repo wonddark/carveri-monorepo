@@ -36,5 +36,8 @@
     "verified": "Verificado",
     "secondary": "Secundario",
     "loadingMore": "Cargando más…"
-  }
+  },
+  "askingPrice": "Precio de Venta",
+  "carveriPrice": "Carveri Recomienda",
+  "priceDiff": "Diferencia"
 }
