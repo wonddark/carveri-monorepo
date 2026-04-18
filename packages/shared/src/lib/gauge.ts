@@ -25,7 +25,7 @@ function getColor(pct: number, labels: SectionLabels) {
   return (
     labels.find(
       ({ startAt }, idx, ar) =>
-        pct >= startAt && pct < (ar.at(idx + 1)?.startAt || -1),
+        pct >= startAt && pct <= (ar.at(idx + 1)?.startAt || 100),
     )?.color ?? "#00000000"
   );
 }
