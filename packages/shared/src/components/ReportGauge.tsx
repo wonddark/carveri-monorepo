@@ -6,7 +6,6 @@ import parse from "html-react-parser";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { getPercentile } from "@carveri/shared/lib/utils.ts";
-import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import type { EvaluationGauge } from "@carveri/shared/types/vehicle-report.ts";
 
 type Props = {
@@ -58,21 +57,16 @@ function ReportGauge(props: Readonly<Props>) {
       ref={containerRef}
       className={`bg-card mb-4 rounded-xl p-4 ${isVisible ? "" : "gauge-paused"}`}
     >
-      {parse(buildGaugeSvg(percentile, price, gauge.currentZone[lang], labels))}
-      <div className="grid grid-cols-8 py-2">
-        <div></div>
-        <div className="text-sm font-black text-[#22C55E]">
-          {formatCurrency(gauge.minimum)}
-        </div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div className="text-sm font-black text-[#EF4444]">
-          {formatCurrency(gauge.maximum)}
-        </div>
-        <div></div>
-        <div></div>
-      </div>
+      {parse(
+        buildGaugeSvg(
+          percentile,
+          price,
+          gauge.currentZone[lang],
+          labels,
+          gauge.minimum,
+          gauge.maximum,
+        ),
+      )}
     </div>
   );
 }

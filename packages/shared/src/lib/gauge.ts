@@ -89,6 +89,8 @@ function buildGaugeSvg(
   price: number,
   label: string,
   labels: SectionLabels,
+  minimum: number,
+  maximum: number,
 ) {
   const needleTarget = ARC_START + (percentile / 100) * ARC_SPAN;
   const currentColor = getColor(percentile, labels);
@@ -100,7 +102,7 @@ function buildGaugeSvg(
   const startDot = polar(OUTER_R - 1, ARC_START);
   const endDot = polar(OUTER_R - 1, ARC_START + ARC_SPAN);
 
-  return `<svg viewBox="0 0 310 400" style="width:100%" preserveAspectRatio="xMidYMid meet">
+  return `<svg viewBox="0 0 310 245" style="width:100%" preserveAspectRatio="xMidYMid meet">
     <defs>
       <radialGradient id="gf" cx="50%" cy="48%" r="52%"><stop offset="0%" stop-color="#2E3138"/><stop offset="70%" stop-color="#1E2028"/><stop offset="100%" stop-color="#16181E"/></radialGradient>
       <filter id="ng" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
@@ -108,11 +110,14 @@ function buildGaugeSvg(
       <radialGradient id="ig" cx="50%" cy="48%" r="45%"><stop offset="0%" stop-color="${currentColor}" stop-opacity="0.06"/><stop offset="100%" stop-color="${currentColor}" stop-opacity="0"/></radialGradient>
       <linearGradient id="ndg" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#888"/><stop offset="40%" stop-color="${currentColor}"/><stop offset="100%" stop-color="${currentColor}"/></linearGradient>
       ${labelArcDefs}
+      <clipPath id="gauge-clip"><rect x="0" y="0" width="320" height="225"/></clipPath>
     </defs>
-    <circle cx="${CX}" cy="${CY}" r="${OUTER_R + 12}" fill="url(#gf)" filter="url(#gs)"/>
-    <circle cx="${CX}" cy="${CY}" r="${OUTER_R + 12}" fill="none" stroke="#444" stroke-width="1"/>
-    <circle cx="${CX}" cy="${CY}" r="${OUTER_R + 10}" fill="none" stroke="#333" stroke-width="0.5"/>
-    <circle cx="${CX}" cy="${CY}" r="${INNER_R + 5}" fill="url(#ig)"/>
+    <g clip-path="url(#gauge-clip)">
+      <circle cx="${CX}" cy="${CY}" r="${OUTER_R + 12}" fill="url(#gf)" filter="url(#gs)"/>
+      <circle cx="${CX}" cy="${CY}" r="${OUTER_R + 12}" fill="none" stroke="#444" stroke-width="1"/>
+      <circle cx="${CX}" cy="${CY}" r="${OUTER_R + 10}" fill="none" stroke="#333" stroke-width="0.5"/>
+      <circle cx="${CX}" cy="${CY}" r="${INNER_R + 5}" fill="url(#ig)"/>
+    </g>
     ${arcSegs}
     <path d="${svgArc(INNER_R, ARC_START, ARC_START + ARC_SPAN)}" fill="none" stroke="#333" stroke-width="0.5"/>
     ${ticks}
@@ -130,6 +135,8 @@ function buildGaugeSvg(
     <text x="${CX}" y="${CY + 58}" text-anchor="middle" fill="${currentColor}" font-size="8.5" font-weight="800" font-family="'Outfit',sans-serif" letter-spacing="1.5">${label}</text>
     <circle cx="${startDot.x}" cy="${startDot.y}" r="3" fill="#22C55E" opacity="0.6"/>
     <circle cx="${endDot.x}" cy="${endDot.y}" r="3" fill="#EF4444" opacity="0.6"/>
+    <text x="61" y="238" text-anchor="middle" font-size="10" font-weight="700" font-family="'Outfit',sans-serif" fill="${labels[0].color}">${formatCurrency(minimum)}</text>
+    <text x="259" y="238" text-anchor="middle" font-size="10" font-weight="700" font-family="'Outfit',sans-serif" fill="${labels.at(-1)?.color || "#000"}">${formatCurrency(maximum)}</text>
   </svg>`;
 }
 
