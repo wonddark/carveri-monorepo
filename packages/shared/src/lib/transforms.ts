@@ -51,6 +51,40 @@ export type SalesCycle = {
   sold: boolean;
 };
 
+// ── Dealer sale cycle (for "Ventas Anteriores" tab) ───────────────────────────
+
+export type DealerSaleCycle = {
+  id: string;
+  dealerName: string;
+  city: string;
+  state: string;
+  startDate: string;
+  endDate: string;
+  daysOnLot: number;
+  startPrice: number;
+  endPrice: number;
+  priceReductions: number;
+  priceDrop: number;
+  discountPct: number;
+  mileage: number | null;
+  vdpUrl: string;
+  isActive: boolean;
+};
+
+// ── Auction sale (for "Historial de Subastas" tab) ────────────────────────────
+
+export type AuctionSale = {
+  id: string;
+  auctionName: string;
+  city: string;
+  state: string;
+  date: string;
+  price: number | null;
+  mileage: number | null;
+  sold: boolean;
+  vdpUrl: string;
+};
+
 // ── Comparable vehicle (transformed) ─────────────────────────────────────────
 
 export type TransformedComparable = {
@@ -153,7 +187,8 @@ export type TransformedReport = {
   stats: VehicleReport["stats"] | null;
   priceEval: VehicleReport["priceEval"];
   priceDynamics: PriceDynamics;
-  saleCycles: SalesCycle[];
+  dealerSaleCycles: DealerSaleCycle[];
+  auctionSales: AuctionSale[];
   comparables: TransformedComparable[];
   evaluation: TransformedEvaluation;
   diagnosis: DiagnosisData;
@@ -199,38 +234,66 @@ function formatDate(iso: string, short = false): string {
   }
 }
 
-function transformSaleCycles(cycles: SaleCycle[]): SalesCycle[] {
-  return cycles.map((cycle, idx): SalesCycle => {
-    const startPrice = cycle.StartPrice ?? 0;
-    const endPrice = cycle.EndPrice ?? startPrice;
-    const discountPct =
-      startPrice > 0
-        ? Math.round(((startPrice - endPrice) / startPrice) * 100)
-        : 0;
-    const lastRecord = cycle.Records.at(-1);
-    const mileage = lastRecord?.Miles ?? null;
+function transformSaleCycles(cycles: SaleCycle[]): {
+  dealer: DealerSaleCycle[];
+  auction: AuctionSale[];
+} {
+  const dealer: DealerSaleCycle[] = [];
+  const auction: AuctionSale[] = [];
 
-    return {
-      id: `${cycle.SellerType}-${idx}`,
-      type: cycle.SellerType,
-      dealerName: cycle.DealerName,
-      city: cycle.City,
-      state: cycle.State,
-      startDate: formatDate(cycle.StartDate),
-      endDate: formatDate(cycle.EndDate),
-      daysOnLot: cycle.DaysOnLot,
-      startPrice,
-      endPrice,
-      priceReductions: cycle.PriceReductions,
-      priceDrop: Math.abs(cycle.PriceDrop),
-      discountPct,
-      mileage,
-      vdpUrl: lastRecord?.VdpUrl ?? "#",
-      isActive: false,
-      sold: false,
-      records: cycle.Records,
-    };
+  cycles.forEach((cycle, idx) => {
+    if (cycle.SellerType === "dealer") {
+      const startPrice = cycle.StartPrice ?? 0;
+      const endPrice = cycle.EndPrice ?? startPrice;
+      const discountPct =
+        startPrice > 0
+          ? Math.round(((startPrice - endPrice) / startPrice) * 100)
+          : 0;
+      const lastRecord = cycle.Records.at(-1);
+      const mileage = lastRecord?.Miles ?? null;
+
+      // The current active cycle is the first dealer cycle (index 0, most recent)
+      const isActive = idx === 0;
+
+      dealer.push({
+        id: `dealer-${idx}`,
+        dealerName: cycle.DealerName,
+        city: cycle.City,
+        state: cycle.State,
+        startDate: formatDate(cycle.StartDate),
+        endDate: formatDate(cycle.EndDate),
+        daysOnLot: cycle.DaysOnLot,
+        startPrice,
+        endPrice,
+        priceReductions: cycle.PriceReductions,
+        priceDrop: Math.abs(cycle.PriceDrop),
+        discountPct,
+        mileage,
+        vdpUrl: lastRecord?.VdpUrl ?? "#",
+        isActive,
+      });
+    } else {
+      // auction
+      const record = cycle.Records[0];
+      const sold =
+        record?.Price != null ||
+        (cycle.StartPrice == null && cycle.EndPrice == null && idx > 2);
+
+      auction.push({
+        id: `auction-${idx}`,
+        auctionName: cycle.DealerName,
+        city: cycle.City,
+        state: cycle.State,
+        date: formatDate(cycle.StartDate),
+        price: record?.Price ?? cycle.StartPrice ?? null,
+        mileage: record?.Miles ?? null,
+        sold,
+        vdpUrl: record?.VdpUrl ?? "#",
+      });
+    }
   });
+
+  return { dealer, auction };
 }
 
 function getPriceTag(priceDiff: number, threshold: number) {
@@ -398,7 +461,7 @@ function transformEvaluation(
             es: "CARO",
           },
           color: "#EF4444",
-          startAt: 75.0,
+          startAt: 75,
         },
         {
           text: {
@@ -406,7 +469,7 @@ function transformEvaluation(
             es: "INJUSTO",
           },
           color: "#000000",
-          startAt: 100.0,
+          startAt: 100,
         },
       ],
     },
@@ -704,6 +767,8 @@ export function transformToSharedReport(raw: VehicleReport): TransformedReport {
 
   // Sale cycles split by type
   const allCycles = raw.marketCheckRaw?.VinHistory?.SaleCycles ?? [];
+  const { dealer: dealerSaleCycles, auction: auctionSales } =
+    transformSaleCycles(allCycles);
 
   // Comparables
   const comparableItems = raw.marketCheckRaw?.Comparables?.Items ?? [];
@@ -743,7 +808,8 @@ export function transformToSharedReport(raw: VehicleReport): TransformedReport {
     stats: raw.stats,
     priceEval: raw.priceEval,
     priceDynamics,
-    saleCycles: transformSaleCycles(allCycles),
+    dealerSaleCycles,
+    auctionSales,
     comparables,
     evaluation,
     diagnosis,

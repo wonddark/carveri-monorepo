@@ -12,7 +12,7 @@ import type { TransformedReport } from "../../lib/transforms.ts";
 import { IconCircleCheck, IconCircleX } from "@tabler/icons-react";
 
 interface Props {
-  auctionSales: TransformedReport["saleCycles"];
+  auctionSales: TransformedReport["auctionSales"];
   auctionPhotos: TransformedReport["historyTab"]["auctionPhotos"];
 }
 
@@ -78,7 +78,7 @@ export default function AuctionHistorySubtab({
             <div className="absolute top-5 bottom-5 left-4 w-px bg-slate-200 dark:bg-slate-700" />
 
             {auctionSales.map((sale, i) => {
-              const price = sale.records[0].Price || 0;
+              const price = sale.price || 0;
               return (
                 <motion.div
                   key={sale.id}
@@ -118,10 +118,10 @@ export default function AuctionHistorySubtab({
                     <div className="flex items-start justify-between gap-2">
                       <div>
                         <p className="text-sm font-semibold">
-                          {sale.dealerName}
+                          {sale.auctionName}
                         </p>
                         <p className="text-muted-foreground text-[11px]">
-                          {sale.city}, {sale.state} · {sale.startDate}
+                          {sale.city}, {sale.state} · {sale.date}
                         </p>
                       </div>
                       <div className="flex flex-col items-end gap-1.5">

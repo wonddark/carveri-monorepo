@@ -1,9 +1,4 @@
-import {
-  ChartColumnIcon,
-  HandshakeIcon,
-  Home,
-  SparklesIcon,
-} from "lucide-react";
+import { ChartColumnIcon, HandshakeIcon, SparklesIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import StatsGrid from "@carveri/shared/components/home/StatsGrid";
 import BookValues from "@carveri/shared/components/home/BookValues";
@@ -71,15 +66,9 @@ export default function ResumenView({ report }: Readonly<Props>) {
         aiSummary={report.aiSummary}
       />
 
-      {/* Breadcrumb */}
-      <div className="text-muted-foreground flex items-center gap-1.5 text-[11px] tracking-wide">
-        <Home size={11} />
-        <span>{t("resume.breadcrumb")}</span>
-      </div>
-
       {/* Heading */}
       <div>
-        <h2 className="text-[1.15rem] font-semibold tracking-tight text-slate-900">
+        <h2 className="dark:text-foreground text-[1.15rem] font-semibold tracking-tight text-slate-900">
           {t("resume.heading")}
         </h2>
         <p className="text-muted-foreground mt-1 text-sm leading-6">
@@ -99,7 +88,7 @@ export default function ResumenView({ report }: Readonly<Props>) {
 
       <div className="flex flex-col gap-4 lg:gap-5">
         {/* Price Evaluation */}
-        <Card className="rounded-[1.5rem] border border-slate-200/80 bg-linear-to-br from-white to-slate-50/80 shadow-[0_18px_40px_-30px_rgba(15,23,42,0.22)]">
+        <Card className="dark:bg-background rounded-[1.5rem] border border-slate-200/80 bg-linear-to-br from-white to-slate-50/80 shadow-[0_18px_40px_-30px_rgba(15,23,42,0.22)]">
           <CardContent className="px-5 py-5 lg:px-6">
             <div className="mb-4 flex items-center gap-2">
               <span className="text-[13px] font-semibold tracking-tight text-slate-700">

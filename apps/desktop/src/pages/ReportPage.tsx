@@ -16,7 +16,7 @@ export default function ReportPage() {
   return (
     <>
       <ReportHeader />
-      <div className="fixed inset-0 top-14 grid grid-cols-[1fr_min(76rem,100%)_1fr] gap-3 overflow-auto bg-slate-50/70">
+      <div className="dark:bg-background fixed inset-0 top-14 grid grid-cols-[1fr_min(76rem,100%)_1fr] gap-3 overflow-auto bg-slate-50/70">
         <div></div>
         <div className="relative flex">
           <ReportSidebar />

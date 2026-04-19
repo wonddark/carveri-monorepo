@@ -6,7 +6,7 @@ export default function AuctionHistorySection() {
   const report = useRouteLoaderData("report") as TransformedReport;
   return (
     <AuctionHistorySubtab
-      auctionSales={report.saleCycles.filter(({ type }) => type === "auction")}
+      auctionSales={report.auctionSales}
       auctionPhotos={report.historyTab.auctionPhotos}
     />
   );

@@ -64,23 +64,22 @@ export default function VehicleHeroCard({
 
   return (
     <>
-      <Card className="overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white p-0 shadow-[0_20px_45px_-28px_rgba(15,23,42,0.28)] ring-0">
+      <Card className="dark:border-border dark:bg-background overflow-hidden rounded-[1.5rem] border border-slate-200/80 bg-white p-0 shadow-[0_20px_45px_-28px_rgba(15,23,42,0.28)] ring-0 dark:shadow-md">
         {/* ── Image carousel ── */}
-        <div
+        <button
           className="relative cursor-zoom-in overflow-hidden select-none"
           onClick={openLightbox}
-          role="button"
           tabIndex={0}
           aria-label="Open image gallery"
           onKeyDown={(e) => e.key === "Enter" && openLightbox()}
         >
           {/* Images */}
-          <div className="relative h-84 w-full bg-slate-100 lg:h-96 dark:bg-slate-900">
+          <div className="dark:bg-background relative h-84 w-full bg-slate-100 lg:h-96">
             {images.map((src, i) => (
               <img
                 key={src}
                 src={src}
-                alt={`${year} ${make} ${model} — photo ${i + 1}`}
+                alt={`${year} ${make} ${model} — ${i + 1}`}
                 className={cn(
                   "absolute inset-0 size-full object-cover transition-opacity duration-300",
                   i === current ? "opacity-100" : "opacity-0",
@@ -92,7 +91,7 @@ export default function VehicleHeroCard({
 
           {/* Counter badge */}
           {total > 0 && (
-            <div className="absolute top-3 right-3 flex items-center gap-1 rounded-full bg-white/88 px-2.5 py-1 text-[10px] font-semibold text-slate-700 shadow-sm ring-1 ring-black/5 backdrop-blur-sm">
+            <div className="dark:bg-background dark:text-foreground dark:ring-ring absolute top-3 right-3 flex items-center gap-1 rounded-full bg-white/88 px-2.5 py-1 text-[10px] font-semibold text-slate-700 shadow-sm ring-1 ring-black/5 backdrop-blur-sm">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
@@ -116,7 +115,7 @@ export default function VehicleHeroCard({
                 type="button"
                 onClick={prev}
                 aria-label="Previous image"
-                className="absolute top-1/2 left-3 -translate-y-1/2 rounded-full bg-white/92 p-2 text-slate-700 shadow-sm ring-1 ring-black/5 backdrop-blur-sm transition hover:bg-white"
+                className="dark:bg-background/85 dark:text-foreground dark:ring-ring dark:hover:bg-background absolute top-1/2 left-3 -translate-y-1/2 rounded-full bg-white/92 p-2 text-slate-700 shadow-sm ring-1 ring-black/5 backdrop-blur-sm transition hover:bg-white"
               >
                 <ChevronLeft size={18} />
               </button>
@@ -124,7 +123,7 @@ export default function VehicleHeroCard({
                 type="button"
                 onClick={next}
                 aria-label="Next image"
-                className="absolute top-1/2 right-3 -translate-y-1/2 rounded-full bg-white/92 p-2 text-slate-700 shadow-sm ring-1 ring-black/5 backdrop-blur-sm transition hover:bg-white"
+                className="dark:bg-background/85 dark:text-foreground dark:ring-ring dark:hover:bg-background absolute top-1/2 right-3 -translate-y-1/2 rounded-full bg-white/92 p-2 text-slate-700 shadow-sm ring-1 ring-black/5 backdrop-blur-sm transition hover:bg-white"
               >
                 <ChevronRight size={18} />
               </button>
@@ -134,9 +133,9 @@ export default function VehicleHeroCard({
           {/* Dot indicators */}
           {total > 1 && (
             <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1 rounded-full bg-black/12 px-2 py-1 backdrop-blur-sm">
-              {images.map((_, i) => (
+              {images.map((item, i) => (
                 <button
-                  key={i}
+                  key={item}
                   type="button"
                   onClick={(e) => {
                     e.stopPropagation();
@@ -153,7 +152,7 @@ export default function VehicleHeroCard({
               ))}
             </div>
           )}
-        </div>
+        </button>
 
         {/* ── Info bar ── */}
         <div className="flex items-start gap-5 border-t border-slate-100 px-5 py-5 lg:px-6">
@@ -168,7 +167,7 @@ export default function VehicleHeroCard({
           </div>
 
           {/* Right: price + mileage/location + verdict badge */}
-          <div className="shrink-0 space-y-3 self-stretch lg:w-[260px]">
+          <div className="shrink-0 space-y-3 self-stretch lg:w-65">
             <div className="text-right text-[1.55rem] font-semibold tracking-tight text-slate-900">
               ${price.toLocaleString()}
             </div>

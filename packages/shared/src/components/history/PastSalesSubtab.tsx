@@ -3,27 +3,23 @@ import { motion } from "framer-motion";
 import { cn } from "@carveri/shared/lib/utils.ts";
 import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
-import type { SalesCycle, TransformedReport } from "../../lib/transforms.ts";
-import { IconBuildingStore, IconGavel } from "@tabler/icons-react";
+import type {
+  DealerSaleCycle,
+  TransformedReport,
+} from "../../lib/transforms.ts";
+import { IconBuildingStore } from "@tabler/icons-react";
 import { useEffect } from "react";
 
 // ── Node style helper ──────────────────────────────────────────────────────────
 
 type NodeStyle = { bg: string; ring: string; iconColor: string };
 
-function getNodeStyle(cycle: SalesCycle): NodeStyle {
+function getNodeStyle(cycle: DealerSaleCycle): NodeStyle {
   if (cycle.isActive) {
     return {
       bg: "bg-blue-900/30",
       ring: "ring-blue-500",
       iconColor: "text-blue-400",
-    };
-  }
-  if (cycle.sold) {
-    return {
-      bg: "bg-green-900/30",
-      ring: "ring-green-500",
-      iconColor: "text-green-400",
     };
   }
   return {
@@ -35,7 +31,7 @@ function getNodeStyle(cycle: SalesCycle): NodeStyle {
 
 // ── Subcomponents ──────────────────────────────────────────────────────────────
 
-function DealerCard({ cycle }: Readonly<{ cycle: SalesCycle }>) {
+function DealerCard({ cycle }: Readonly<{ cycle: DealerSaleCycle }>) {
   const { t } = useTranslation("history");
   return (
     <>
@@ -117,60 +113,10 @@ function DealerCard({ cycle }: Readonly<{ cycle: SalesCycle }>) {
   );
 }
 
-function AuctionCard({ cycle }: Readonly<{ cycle: SalesCycle }>) {
-  const { t } = useTranslation("history");
-  const salePrice = cycle.records[0]?.Price ?? cycle.endPrice;
-
-  return (
-    <>
-      <div className="flex items-start justify-between gap-2">
-        <div>
-          <div className="flex flex-wrap items-center gap-2">
-            <p className="font-semibold">{cycle.dealerName}</p>
-            {cycle.sold && (
-              <span className="rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-semibold text-green-700 dark:bg-green-900/30 dark:text-green-400">
-                {t("pastSales.sold")}
-              </span>
-            )}
-            <span className="text-muted-foreground bg-muted rounded-full px-2 py-0.5 text-[10px]">
-              {t("pastSales.typeAuction")}
-            </span>
-          </div>
-          <p className="text-muted-foreground mt-0.5 text-xs">
-            {cycle.city}, {cycle.state} · {cycle.startDate}
-          </p>
-        </div>
-      </div>
-
-      <div className="border-border mt-3 flex gap-4 border-t pt-3">
-        <div className="flex flex-col gap-0.5">
-          <span className="text-muted-foreground text-[10px] tracking-wide uppercase">
-            {t("pastSales.price")}
-          </span>
-          <span className="text-foreground/80 text-sm font-bold">
-            {salePrice ? formatCurrency(salePrice) : "—"}
-          </span>
-        </div>
-
-        {cycle.mileage != null && (
-          <div className="flex flex-col gap-0.5">
-            <span className="text-muted-foreground text-[10px] tracking-wide uppercase">
-              {t("pastSales.miles")}
-            </span>
-            <span className="text-foreground/80 text-sm font-bold">
-              {cycle.mileage.toLocaleString()} mi
-            </span>
-          </div>
-        )}
-      </div>
-    </>
-  );
-}
-
 // ── Main component ─────────────────────────────────────────────────────────────
 
 interface Props {
-  salesCycles: TransformedReport["saleCycles"];
+  salesCycles: TransformedReport["dealerSaleCycles"];
 }
 
 export default function PastSalesSubtab({ salesCycles }: Readonly<Props>) {
@@ -210,7 +156,6 @@ export default function PastSalesSubtab({ salesCycles }: Readonly<Props>) {
 
         {salesCycles.map((cycle, i) => {
           const { bg, ring, iconColor } = getNodeStyle(cycle);
-          const Icon = cycle.type === "dealer" ? IconBuildingStore : IconGavel;
 
           return (
             <motion.div
@@ -228,7 +173,7 @@ export default function PastSalesSubtab({ salesCycles }: Readonly<Props>) {
                   ring,
                 )}
               >
-                <Icon size={18} className={iconColor} />
+                <IconBuildingStore size={18} className={iconColor} />
               </div>
 
               {/* Card */}
@@ -236,14 +181,9 @@ export default function PastSalesSubtab({ salesCycles }: Readonly<Props>) {
                 className={cn(
                   "border-border bg-card flex-1 rounded-xl border p-3 shadow-sm",
                   cycle.isActive && "border-l-4 border-l-blue-500",
-                  cycle.sold && "border-l-4 border-l-green-500",
                 )}
               >
-                {cycle.type === "dealer" ? (
-                  <DealerCard cycle={cycle} />
-                ) : (
-                  <AuctionCard cycle={cycle} />
-                )}
+                <DealerCard cycle={cycle} />
               </div>
             </motion.div>
           );
