@@ -8,7 +8,6 @@ import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import { cn } from "@carveri/shared/lib/utils.ts";
 import { IconTrendingDown, IconTrendingUp } from "@tabler/icons-react";
 import { useTranslation } from "react-i18next";
-import { SOURCE_COLORS } from "@carveri/shared/components/home/book-colors.ts";
 import type { KBBDetails } from "@carveri/shared/types/vehicle-report.ts";
 import { XIcon } from "lucide-react";
 
@@ -26,10 +25,8 @@ function KbbBookDetails(props: Readonly<Props>) {
         <button className="cursor-pointer">
           <Card className="rounded-2xl border border-slate-200/80 bg-white/90 py-4 shadow-[0_16px_32px_-28px_rgba(15,23,42,0.24)]">
             <CardContent className="flex flex-col items-center px-4">
-              <span
-                className={`mb-2 inline-block rounded-full px-2 py-1 text-[10px] font-bold ${SOURCE_COLORS[book.source]}`}
-              >
-                {book.source}
+              <span className="mb-2 inline-block rounded-lg bg-blue-600 px-2.5 py-0.5 text-[11px] font-bold text-white">
+                KBB
               </span>
               <div className="text-base font-semibold tracking-tight text-slate-900">
                 {formatCurrency(book.value)}
@@ -50,7 +47,9 @@ function KbbBookDetails(props: Readonly<Props>) {
                 )}
                 <span>{formatCurrency(Math.abs(book.delta))}</span>
                 <span>
-                  {trendingUp ? t("priceEval.above") : t("priceEval.below")}
+                  {t(
+                    trendingUp ? "common:resume.above" : "common:resume.below",
+                  )}
                 </span>
               </div>
             </CardContent>
@@ -103,7 +102,7 @@ function KbbBookDetails(props: Readonly<Props>) {
                   <table className="w-full min-w-120 text-xs">
                     <thead>
                       <tr className="border-b border-gray-200 bg-gray-50">
-                        <th className="w-20 px-2 py-2.5 text-left text-[10px] font-semibold tracking-wider text-gray-400 uppercase sm:w-[100px] sm:px-3"></th>
+                        <th className="w-20 px-2 py-2.5 text-left text-[10px] font-semibold tracking-wider text-gray-400 uppercase sm:w-25 sm:px-3"></th>
                         <th className="px-2 py-2.5 text-right text-[10px] font-bold tracking-wider whitespace-nowrap text-gray-500 uppercase sm:px-3">
                           {t("kbb.lending")}
                         </th>
@@ -124,7 +123,7 @@ function KbbBookDetails(props: Readonly<Props>) {
                     <tbody>
                       <tr className="border-b border-gray-100">
                         <td className="px-2 py-2.5 font-medium whitespace-nowrap text-gray-700 sm:px-3">
-                          {`${t("kbb.base")} / ${t("kbb.pay")}`}
+                          {`${t("base")} / ${t("kbb.pay")}`}
                         </td>
                         <td className="px-2 py-2.5 text-right whitespace-nowrap text-gray-600 tabular-nums sm:px-3">
                           {formatCurrency(book.rawData.lending.base)}
@@ -163,7 +162,7 @@ function KbbBookDetails(props: Readonly<Props>) {
                         </td>
                       </tr>
                       <tr className="bg-gray-50/50">
-                        <td className="px-2 py-2.5 font-bold font-medium whitespace-nowrap text-gray-900 sm:px-3">
+                        <td className="px-2 py-2.5 font-bold whitespace-nowrap text-gray-900 sm:px-3">
                           {t("kbb.total")}
                         </td>
                         <td className="px-2 py-2.5 text-right font-bold whitespace-nowrap text-gray-900 tabular-nums sm:px-3">
@@ -211,7 +210,7 @@ function KbbBookDetails(props: Readonly<Props>) {
                 <div className="grid grid-cols-2 gap-3">
                   <div>
                     <div className="text-[10px] font-medium text-gray-400">
-                      {t("kbb.condition")}
+                      {t("condition")}
                     </div>
                     <div className="mt-0.5 text-sm font-semibold text-gray-900">
                       DESCONOCIDO
@@ -219,7 +218,7 @@ function KbbBookDetails(props: Readonly<Props>) {
                   </div>
                   <div>
                     <div className="text-[10px] font-medium text-gray-400">
-                      {t("kbb.valuation_date")}
+                      {t("valuation_date")}
                     </div>
                     <div className="mt-0.5 text-sm font-semibold text-gray-900">
                       DESCONOCIDO
@@ -228,7 +227,7 @@ function KbbBookDetails(props: Readonly<Props>) {
                 </div>
                 <div>
                   <div className="mb-3 text-xs font-semibold text-gray-700">
-                    {t("kbb.price_range")}
+                    {t("price_range")}
                   </div>
                   <div className="relative">
                     <div className="relative h-2.5 overflow-visible rounded-full bg-gray-100">
@@ -248,14 +247,14 @@ function KbbBookDetails(props: Readonly<Props>) {
                     </div>
                     <div className="mt-2 flex justify-between text-[11px] text-gray-400">
                       <span>
-                        {t("kbb.low", {
+                        {t("low", {
                           value: formatCurrency(
                             book.rawData.fairMarketRange.min,
                           ),
                         })}
                       </span>
                       <span>
-                        {t("kbb.high", {
+                        {t("high", {
                           value: formatCurrency(
                             book.rawData.fairMarketRange.max,
                           ),

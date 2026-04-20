@@ -47,9 +47,9 @@ function MmrBookDetails(props: Readonly<Props>) {
                 )}
                 <span>{formatCurrency(Math.abs(book.delta))}</span>
                 <span>
-                  {trendingUp
-                    ? t("common:resume.above")
-                    : t("common:resume.below")}
+                  {t(
+                    trendingUp ? "common:resume.above" : "common:resume.below",
+                  )}
                 </span>
               </div>
             </CardContent>
@@ -113,7 +113,9 @@ function MmrBookDetails(props: Readonly<Props>) {
               </div>
               <div className="flex items-center justify-between">
                 <div className="text-center">
-                  <div className="mb-0.5 text-xs text-gray-400">{t("low")}</div>
+                  <div className="mb-0.5 text-xs text-gray-400">
+                    {t("mmr.low")}
+                  </div>
                   <div className="text-sm font-bold text-gray-700 sm:text-base">
                     {formatCurrency(book.rawData.typicalRange.min)}
                   </div>
@@ -125,7 +127,7 @@ function MmrBookDetails(props: Readonly<Props>) {
                 </div>
                 <div className="text-center">
                   <div className="mb-0.5 text-xs text-gray-400">
-                    {t("high")}
+                    {t("mmr.high")}
                   </div>
                   <div className="text-sm font-bold text-gray-700 sm:text-base">
                     {formatCurrency(book.rawData.typicalRange.max)}
@@ -167,7 +169,7 @@ function MmrBookDetails(props: Readonly<Props>) {
                 </div>
               </div>
               <div className="text-muted-foreground mt-2 text-center text-[11px]">
-                {t("mmr.projected", {
+                {t("projected", {
                   value: formatCurrency(book.rawData.projectedAvg),
                 })}
               </div>

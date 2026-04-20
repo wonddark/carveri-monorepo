@@ -1,5 +1,7 @@
 {
   "mmr": {
+    "low": "Low",
+    "high": "High",
     "market_report": "Manheim Market Report",
     "base": "Base MMR",
     "wholesale": "Wholesale",
@@ -8,29 +10,43 @@
     "historical_avg": "Historical Average",
     "30D": "30 Days",
     "6M": "6 Months",
-    "1Y": "1 Year",
-    "projected": "Projected: {{ value }}"
+    "1Y": "1 Year"
   },
   "kbb": {
-    "swipe_for_more": "← Swipe to see more →",
     "vs_asking": "{{ sign }}{{ value }} vs asking",
     "book": "Kelley Blue Book",
     "fair_purchase": "Fair Purchase Price",
     "fair_market": "Fair Market Range",
-    "base": "Base",
     "pay": "Pay",
     "total": "Total",
     "lending": "Lending",
     "trade_book": "Trade Book",
     "privacy_party": "Private Party",
     "retail": "Retail",
-    "auction": "Auction",
-    "adjusted_value": "Adjusted Value",
-    "condition": "Condition",
-    "valuation_date": "Valuation Date",
-    "price_range": "Price Range",
-    "low": "Low: {{ value }}",
-    "high": "High: {{ value }}",
-    "projected": "Projected: {{ value }}"
-  }
+    "auction": "Auction"
+  },
+  "jdp": {
+    "base_pack": "Base / Package",
+    "mileage_adj": "Mileage Adj.",
+    "total": "Total",
+    "trade_clean": "Trade Clean",
+    "trade_avg": "Trade Avg",
+    "trade_rough": "Trade Rough",
+    "loan": "Loan",
+    "retail": "Retail",
+    "auction_values": "Auction Values",
+    "adj": "Adj."
+  },
+  "adjusted_value": "Adjusted Value",
+  "price_range": "Price Range",
+  "swipe_for_more": "← Swipe to see more →",
+  "condition": "Condition",
+  "projected": "Projected: {{ value }}",
+  "base": "Base",
+  "low": "Low: {{ value }}",
+  "high": "High: {{ value }}",
+  "valuation_date": "Valuation Date",
+  "average": "Average",
+  "total": "Total",
+  "methodology": "Methodology"
 }
