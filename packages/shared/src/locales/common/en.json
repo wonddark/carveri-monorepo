@@ -111,5 +111,6 @@
       "OVERPRICED": "Overpriced"
     }
   },
-  "close": "Close"
+  "close": "Close",
+  "asking_price": "Asking Price"
 }

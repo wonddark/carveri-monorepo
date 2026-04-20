@@ -9,6 +9,28 @@
     "30D": "30 Days",
     "6M": "6 Months",
     "1Y": "1 Year",
-    "projected": "Projected: {value}"
+    "projected": "Projected: {{ value }}"
+  },
+  "kbb": {
+    "swipe_for_more": "← Swipe to see more →",
+    "vs_asking": "{{ sign }}{{ value }} vs asking",
+    "book": "Kelley Blue Book",
+    "fair_purchase": "Fair Purchase Price",
+    "fair_market": "Fair Market Range",
+    "base": "Base",
+    "pay": "Pay",
+    "total": "Total",
+    "lending": "Lending",
+    "trade_book": "Trade Book",
+    "privacy_party": "Private Party",
+    "retail": "Retail",
+    "auction": "Auction",
+    "adjusted_value": "Adjusted Value",
+    "condition": "Condition",
+    "valuation_date": "Valuation Date",
+    "price_range": "Price Range",
+    "low": "Low: {{ value }}",
+    "high": "High: {{ value }}",
+    "projected": "Projected: {{ value }}"
   }
 }

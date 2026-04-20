@@ -111,5 +111,6 @@
       "OVERPRICED": "Caro"
     }
   },
-  "close": "Cerrar"
+  "close": "Cerrar",
+  "asking_price": "Precio de Venta"
 }

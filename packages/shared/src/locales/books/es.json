@@ -9,6 +9,28 @@
     "30D": "30 Días",
     "6M": "6 Meses",
     "1Y": "1 Año",
-    "projected": "Proyectado: {value}"
+    "projected": "Proyectado: {{ value }}"
+  },
+  "kbb": {
+    "swipe_for_more": "← Desliza para ver más →",
+    "vs_asking": "{{ sign }}{{ value }} vs. Precio",
+    "book": "Libro Kelley Blue",
+    "fair_purchase": "Precio de Compra Justo",
+    "fair_market": "Rango Justo de Mercado",
+    "base": "Base",
+    "pay": "Pago",
+    "total": "Total",
+    "lending": "Préstamo",
+    "trade_book": "Libro de operaciones",
+    "privacy_party": "Parte Privada",
+    "retail": "Minorista",
+    "auction": "Subasta",
+    "adjusted_value": "Valor Ajustado",
+    "condition": "Condición",
+    "valuation_date": "Fecha de Evaluación",
+    "price_range": "Rango de Precios",
+    "low": "Bajo: {{ value }}",
+    "high": "Alto: {{ value }}",
+    "projected": "Proyectado: {{ value }}"
   }
 }
