@@ -16,10 +16,10 @@ export default function BookValues({ bookValues }: Readonly<Props>) {
 
   return (
     <div className="mt-3 grid grid-cols-2 gap-3">
-      {mmr ? <MmrBookDetails book={mmr!} /> : null}
-      {kbb ? <KBBBookDetails book={kbb!} /> : null}
-      {jdp ? <JDPBookDetails book={jdp!} /> : null}
-      {bb ? <BBBookDetails book={bb!} /> : null}
+      {mmr ? <MmrBookDetails book={mmr} /> : null}
+      {kbb ? <KBBBookDetails book={kbb} /> : null}
+      {jdp ? <JDPBookDetails book={jdp} /> : null}
+      {bb ? <BBBookDetails book={bb} /> : null}
     </div>
   );
 }

@@ -1,0 +1,14 @@
+{
+  "mmr": {
+    "market_report": "Manheim Market Report",
+    "base": "Base MMR",
+    "wholesale": "Wholesale",
+    "retail": "Est. Retail",
+    "wholesale_range": "Wholesale Range",
+    "historical_avg": "Historical Average",
+    "30D": "30 Days",
+    "6M": "6 Months",
+    "1Y": "1 Year",
+    "projected": "Projected: {value}"
+  }
+}

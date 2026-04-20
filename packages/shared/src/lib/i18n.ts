@@ -3,8 +3,12 @@ import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 // Common namespace
-import enCommon from "@carveri/shared/locales/en.json";
-import esCommon from "@carveri/shared/locales/es.json";
+import enCommon from "@carveri/shared/locales/common/en.json";
+import esCommon from "@carveri/shared/locales/common/es.json";
+
+// Books namespace
+import enBooks from "@carveri/shared/locales/books/en.json";
+import esBooks from "@carveri/shared/locales/books/es.json";
 
 // Home namespace
 import enHome from "@carveri/shared/components/home/locales/en.json";
@@ -51,6 +55,7 @@ i18next
       "negotiate",
       "verdict",
       "homepage",
+      "books",
     ],
     resources: {
       en: {
@@ -62,6 +67,7 @@ i18next
         negotiate: enNegotiate,
         verdict: enVerdict,
         homepage: enHomePage,
+        books: enBooks,
       },
       es: {
         common: esCommon,
@@ -72,6 +78,7 @@ i18next
         negotiate: esNegotiate,
         verdict: esVerdict,
         homepage: esHomePage,
+        books: esBooks,
       },
     },
     detection: {

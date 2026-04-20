@@ -8,13 +8,13 @@ import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import { cn } from "@carveri/shared/lib/utils.ts";
 import { IconTrendingDown, IconTrendingUp } from "@tabler/icons-react";
-import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 import { useTranslation } from "react-i18next";
 import { SOURCE_COLORS } from "@carveri/shared/components/home/book-colors.ts";
 import { XIcon } from "lucide-react";
+import type { JDPDetails } from "@carveri/shared/types/vehicle-report.ts";
 
 type Props = {
-  book: TransformedReport["priceEval"]["bookValues"][0];
+  book: JDPDetails;
 };
 
 function JDPBookDetails(props: Readonly<Props>) {

@@ -57,135 +57,89 @@ export type DealEvaluation = {
   bookValues: BooksDetail[];
 };
 
-export type BooksDetail = {
-  source: string;
+export type MMRDetails = {
+  source: "MMR";
   value: number;
   delta: number;
+  rawData: {
+    baseMmr: number;
+    typicalRange: { min: number; max: number };
+    avgOdometer: number;
+    avgCondition: number;
+    adjustedMmr: number;
+    projectedAvg: number;
+    historicalAvg: {
+      past30Days: number;
+      sixMonths: number;
+      lastYear: number;
+    };
+    estimatedRetail: number;
+    estimatedRetailRange: { min: number; max: number };
+  };
+};
 
+export type KBBDetails = {
+  source: "KBB";
+  value: number;
+  delta: number;
   rawData: {
     fairPurchasePrice: number;
-    fairMarketRange: {
-      min: number;
-      max: number;
-    };
-    lending: {
-      base: number;
-      mileageAdj: number;
-      total: number;
-    };
-    tradeBook: {
-      base: number;
-      mileageAdj: number;
-      total: number;
-    };
+    fairMarketRange: { min: number; max: number };
+    lending: { base: number; mileageAdj: number; total: number };
+    tradeBook: { base: number; mileageAdj: number; total: number };
     privateParty: {
       base: number;
       mileageAdj: number;
       total: number;
     };
-    retail: {
-      base: number;
-      mileageAdj: number;
-      total: number;
-      xClean: {
-        base: number;
-        total: number;
-      };
-      clean: {
-        base: number;
-        total: number;
-      };
-      avg: {
-        base: number;
-        total: number;
-      };
-      rough: {
-        base: number;
-        total: number;
-      };
-    };
-    auction: {
-      base: number;
-      mileageAdj: number;
-      total: number;
-    };
-
-    tradeClean: {
-      base: number;
-      mileageAdj: number;
-      total: number;
-    };
-    tradeAvg: {
-      base: number;
-      mileageAdj: number;
-      total: number;
-    };
-    tradeRough: {
-      base: number;
-      mileageAdj: number;
-      total: number;
-    };
-    loan: {
-      base: number;
-      mileageAdj: number;
-      total: number;
-    };
-    auctionLow: {
-      base: number;
-      mileageAdj: number;
-      total: number;
-    };
-    auctionAvg: {
-      base: number;
-      mileageAdj: number;
-      total: number;
-    };
-    auctionHigh: {
-      base: number;
-      mileageAdj: number;
-      total: number;
-    };
-
-    wholesale: {
-      xClean: {
-        base: number;
-        total: number;
-      };
-      clean: {
-        base: number;
-        total: number;
-      };
-      avg: {
-        base: number;
-        total: number;
-      };
-      rough: {
-        base: number;
-        total: number;
-      };
-    };
-    trade: {
-      clean: {
-        base: number;
-        total: number;
-      };
-      avg: {
-        base: number;
-        total: number;
-      };
-      rough: {
-        base: number;
-        total: number;
-      };
-    };
-    finance: {
-      avg: {
-        base: number;
-        total: number;
-      };
-    };
+    retail: { base: number; mileageAdj: number; total: number };
+    auction: { base: number; mileageAdj: number; total: number };
   };
 };
+
+export type JDPDetails = {
+  source: "JDP";
+  value: number;
+  delta: number;
+  rawData: {
+    tradeClean: { base: number; mileageAdj: number; total: number };
+    tradeAvg: { base: number; mileageAdj: number; total: number };
+    tradeRough: { base: number; mileageAdj: number; total: number };
+    loan: { base: number; mileageAdj: number; total: number };
+    retail: { base: number; mileageAdj: number; total: number };
+    auctionLow: { base: number; mileageAdj: number; total: number };
+    auctionAvg: { base: number; mileageAdj: number; total: number };
+    auctionHigh: { base: number; mileageAdj: number; total: number };
+  };
+};
+
+export type BBDetails = {
+  source: "BB";
+  value: number;
+  delta: number;
+  rawData: {
+    wholesale: {
+      xClean: { base: number; total: number };
+      clean: { base: number; total: number };
+      avg: { base: number; total: number };
+      rough: { base: number; total: number };
+    };
+    retail: {
+      xClean: { base: number; total: number };
+      clean: { base: number; total: number };
+      avg: { base: number; total: number };
+      rough: { base: number; total: number };
+    };
+    trade: {
+      clean: { base: number; total: number };
+      avg: { base: number; total: number };
+      rough: { base: number; total: number };
+    };
+    finance: { avg: { base: number; total: number } };
+  };
+};
+
+export type BooksDetail = MMRDetails | KBBDetails | JDPDetails | BBDetails;
 
 export type MarketAnalysis = {
   comparables: any[];

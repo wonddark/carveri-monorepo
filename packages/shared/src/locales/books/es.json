@@ -1,0 +1,14 @@
+{
+  "mmr": {
+    "market_report": "Reporte de Mercado Manheim",
+    "base": "MMR Base",
+    "wholesale": "Mayorista",
+    "retail": "Minorista Est.",
+    "wholesale_range": "Rango Mayorista",
+    "historical_avg": "Promedio Histórico",
+    "30D": "30 Días",
+    "6M": "6 Meses",
+    "1Y": "1 Año",
+    "projected": "Proyectado: {value}"
+  }
+}
