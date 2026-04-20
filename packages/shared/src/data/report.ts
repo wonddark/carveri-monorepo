@@ -131,216 +131,80 @@ export const MOCK_REPORTS: Record<string, VehicleReport> = {
       bookValues: [
         {
           source: "MMR",
-          value: 2275,
-          delta: 2725,
+          value: 36200,
+          delta: 4101,
           rawData: {
-            wholesale: {
-              xClean: {
-                base: 30275,
-                total: 36775,
-              },
-              clean: {
-                base: 28300,
-                total: 35775,
-              },
-              avg: {
-                base: 25600,
-                total: 33725,
-              },
-              rough: {
-                base: 23025,
-                total: 31850,
-              },
+            baseMmr: 32000,
+            typicalRange: { min: 27700, max: 36400 },
+            avgOdometer: 58812,
+            avgCondition: 4.2,
+            adjustedMmr: 36200,
+            projectedAvg: 0,
+            historicalAvg: {
+              past30Days: 30700,
+              sixMonths: 32200,
+              lastYear: 38300,
             },
-            // @ts-expect-error No error
-            retail: {
-              xClean: {
-                base: 35800,
-                total: 41825,
-              },
-              clean: {
-                base: 33575,
-                total: 40300,
-              },
-              avg: {
-                base: 29150,
-                total: 37775,
-              },
-              rough: {
-                base: 26325,
-                total: 34800,
-              },
-            },
-            trade: {
-              clean: {
-                base: 28695,
-                total: 35920,
-              },
-              avg: {
-                base: 26140,
-                total: 34120,
-              },
-              rough: {
-                base: 21685,
-                total: 30610,
-              },
-            },
-            finance: {
-              avg: {
-                base: 29400,
-                total: 35775,
-              },
-            },
+            estimatedRetail: 36500,
+            estimatedRetailRange: { min: 27400, max: 37400 },
           },
         },
         {
           source: "KBB",
-          value: 4925,
-          delta: 75,
+          value: 37160,
+          delta: 3141,
           rawData: {
-            fairPurchasePrice: 38030,
-            fairMarketRange: {
-              min: 36830,
-              max: 39330,
-            },
-            lending: {
-              base: 30220,
-              mileageAdj: 7490,
-              total: 37710,
-            },
-            tradeBook: {
-              base: 27720,
-              mileageAdj: 7490,
-              total: 35210,
-            },
+            fairPurchasePrice: 37160,
+            fairMarketRange: { min: 35860, max: 38360 },
+            lending: { base: 29780, mileageAdj: 6670, total: 36450 },
+            tradeBook: { base: 27380, mileageAdj: 6670, total: 34050 },
             privateParty: {
-              base: 29160,
-              mileageAdj: 7490,
-              total: 36650,
+              base: 29100,
+              mileageAdj: 6670,
+              total: 35770,
             },
-            // @ts-expect-error No error
-            retail: {
-              base: 33510,
-              mileageAdj: 7490,
-              total: 41000,
-            },
-            auction: {
-              base: 28220,
-              mileageAdj: 7490,
-              total: 35710,
-            },
+            retail: { base: 32600, mileageAdj: 6670, total: 39270 },
+            auction: { base: 27880, mileageAdj: 6670, total: 34550 },
           },
         },
         {
           source: "JDP",
-          value: 3750,
-          delta: 1250,
+          value: 31475,
+          delta: 8826,
           rawData: {
-            tradeClean: {
-              base: 27500,
-              mileageAdj: 4775,
-              total: 32275,
-            },
-            tradeAvg: {
-              base: 26325,
-              mileageAdj: 4775,
-              total: 31100,
-            },
-            tradeRough: {
-              base: 24850,
-              mileageAdj: 4775,
-              total: 29625,
-            },
-            loan: {
-              base: 24925,
-              mileageAdj: 4775,
-              total: 29700,
-            },
-            // @ts-expect-error No error
-            retail: {
-              base: 30650,
-              mileageAdj: 4775,
-              total: 35425,
-            },
-            auctionLow: {
-              base: 24625,
-              mileageAdj: 4775,
-              total: 29400,
-            },
-            auctionAvg: {
-              base: 27575,
-              mileageAdj: 4775,
-              total: 32350,
-            },
-            auctionHigh: {
-              base: 30550,
-              mileageAdj: 4775,
-              total: 35325,
-            },
+            tradeClean: { base: 27500, mileageAdj: 3900, total: 31400 },
+            tradeAvg: { base: 26325, mileageAdj: 3900, total: 30225 },
+            tradeRough: { base: 24850, mileageAdj: 3900, total: 28750 },
+            loan: { base: 24925, mileageAdj: 3900, total: 28825 },
+            retail: { base: 30650, mileageAdj: 3900, total: 34550 },
+            auctionLow: { base: 24625, mileageAdj: 3900, total: 28525 },
+            auctionAvg: { base: 27575, mileageAdj: 3900, total: 31475 },
+            auctionHigh: { base: 30550, mileageAdj: 3900, total: 34450 },
           },
         },
         {
           source: "BB",
-          value: 1350,
-          delta: 3650,
+          value: 33800,
+          delta: 6501,
           rawData: {
             wholesale: {
-              xClean: {
-                base: 30275,
-                total: 36775,
-              },
-              clean: {
-                base: 28300,
-                total: 35775,
-              },
-              avg: {
-                base: 25600,
-                total: 33725,
-              },
-              rough: {
-                base: 23025,
-                total: 31850,
-              },
+              xClean: { base: 30475, total: 36450 },
+              clean: { base: 28500, total: 35400 },
+              avg: { base: 25800, total: 33800 },
+              rough: { base: 23225, total: 31850 },
             },
-            // @ts-expect-error No error
             retail: {
-              xClean: {
-                base: 35800,
-                total: 41825,
-              },
-              clean: {
-                base: 33575,
-                total: 40300,
-              },
-              avg: {
-                base: 29150,
-                total: 37775,
-              },
-              rough: {
-                base: 26325,
-                total: 34800,
-              },
+              xClean: { base: 36025, total: 41375 },
+              clean: { base: 33775, total: 39950 },
+              avg: { base: 29350, total: 37850 },
+              rough: { base: 26550, total: 34850 },
             },
             trade: {
-              clean: {
-                base: 28695,
-                total: 35920,
-              },
-              avg: {
-                base: 26140,
-                total: 34120,
-              },
-              rough: {
-                base: 21685,
-                total: 30610,
-              },
+              clean: { base: 28895, total: 35555 },
+              avg: { base: 26340, total: 34200 },
+              rough: { base: 21870, total: 30615 },
             },
-            finance: {
-              avg: {
-                base: 29400,
-                total: 35775,
-              },
-            },
+            finance: { avg: { base: 29600, total: 35300 } },
           },
         },
       ],
