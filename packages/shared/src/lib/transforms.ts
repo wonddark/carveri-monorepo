@@ -5,7 +5,6 @@ import type {
   PriceAdjustment,
   RawGauge,
   SaleCycle,
-  SaleCycleRecord,
   SourceContribution,
   VehicleHistory,
   VehicleReport,
@@ -26,29 +25,6 @@ export type PriceDynamics = {
   history: PriceHistoryPoint[];
   totalDrop: number;
   totalDropPct: number;
-};
-
-// ── Sales cycle (for "Ventas Anteriores" tab) ───────────────────────────
-
-export type SalesCycle = {
-  id: string;
-  type: string;
-  dealerName: string;
-  city: string;
-  state: string;
-  startDate: string;
-  endDate: string;
-  daysOnLot: number;
-  startPrice: number;
-  endPrice: number;
-  priceReductions: number;
-  priceDrop: number;
-  discountPct: number;
-  mileage: number | null;
-  vdpUrl: string;
-  isActive: boolean;
-  records: SaleCycleRecord[];
-  sold: boolean;
 };
 
 // ── Dealer sale cycle (for "Ventas Anteriores" tab) ───────────────────────────
