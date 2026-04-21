@@ -174,7 +174,6 @@ export default function PriceDynamicsSubtab({
                 />
                 <ChartTooltip
                   content={
-                    // @ts-ignore
                     <PriceTooltip initialPrice={history[0]?.price ?? 0} />
                   }
                 />
