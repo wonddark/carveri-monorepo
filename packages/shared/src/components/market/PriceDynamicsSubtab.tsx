@@ -32,7 +32,7 @@ function PriceTooltip({
   active,
   payload,
   initialPrice,
-}: Readonly<TooltipContentProps<number, string> & { initialPrice: number }>) {
+}: Readonly<Partial<TooltipContentProps<number, string>> & { initialPrice: number }>) {
   const { t } = useTranslation("market");
   if (!active || !payload?.length) return null;
   const { date, price } = payload[0].payload as { date: string; price: number };
