@@ -134,7 +134,7 @@ export default function PriceDynamicsSubtab({
           <div className="my-5 flex flex-col gap-3 lg:my-10">
             <ChartContainer
               config={chartConfig}
-              className="h-56 px-2 lg:h-80 lg:px-12"
+              className="h-56 px-2 lg:h-90 lg:px-12"
             >
               <AreaChart data={history}>
                 <defs>
@@ -179,7 +179,7 @@ export default function PriceDynamicsSubtab({
                   }
                 />
                 <Area
-                  type="basis"
+                  type="monotone"
                   dataKey="price"
                   stroke="var(--color-price)"
                   fill="url(#colorPrice)"

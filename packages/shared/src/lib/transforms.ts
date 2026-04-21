@@ -2,10 +2,12 @@ import type {
   ComparableItem,
   EvaluationGauge,
   EvaluationRaw,
+  OdometerHistory,
   PriceAdjustment,
   RawGauge,
   SaleCycle,
   SourceContribution,
+  Timeline,
   VehicleHistory,
   VehicleReport,
 } from "@carveri/shared/types/vehicle-report.ts";
@@ -185,12 +187,13 @@ export type TransformedReport = {
     };
   };
   historyTab: {
-    timeline: VehicleHistory["timeline"];
+    timeline: Timeline;
     auctionPhotos: string[];
     accidents: VehicleHistory["accidents"];
     owners: VehicleHistory["owners"];
     service: VehicleHistory["service"];
     title: VehicleHistory["title"];
+    odometerHistory: OdometerHistory;
   };
 };
 
@@ -452,6 +455,25 @@ function transformEvaluation(
     sourceContributions,
     adjustments: [],
   };
+}
+
+function transformTimelineToOdometerHistory(
+  timeline: Timeline,
+): OdometerHistory {
+  return timeline
+    .filter(
+      (item) =>
+        item.odometer !== null &&
+        !isNaN(Number(item.odometer)) &&
+        item.date !== null,
+    )
+    .map((item) => ({
+      date: item.date!,
+      mileage: item.odometer!,
+    }))
+    .sort((a, b) =>
+      new Date(a.date).valueOf() > new Date(b.date).valueOf() ? 1 : -1,
+    );
 }
 
 function getRiskLevel(isRebuilt: boolean, accidents: number) {
@@ -811,6 +833,9 @@ export function transformToSharedReport(raw: VehicleReport): TransformedReport {
       owners: raw.history?.owners ?? [],
       service: raw.history?.service ?? [],
       title: raw.history?.title ?? [],
+      odometerHistory: transformTimelineToOdometerHistory(
+        raw.history?.timeline ?? [],
+      ),
     },
   };
 }

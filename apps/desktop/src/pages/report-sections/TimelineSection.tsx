@@ -4,5 +4,10 @@ import TimelineSubtab from "@carveri/shared/components/history/TimelineSubtab";
 
 export default function TimelineSection() {
   const report = useRouteLoaderData("report") as TransformedReport;
-  return <TimelineSubtab timeline={report.historyTab.timeline} />;
+  return (
+    <TimelineSubtab
+      timeline={report.historyTab.timeline}
+      odometerHistory={report.historyTab.odometerHistory}
+    />
+  );
 }

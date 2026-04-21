@@ -165,6 +165,11 @@ export type Timeline = {
   redFlag: boolean;
 }[];
 
+export type OdometerHistory = {
+  date: string;
+  mileage: number;
+}[];
+
 export type AccidentsDetail = {
   count: number;
   description: string;

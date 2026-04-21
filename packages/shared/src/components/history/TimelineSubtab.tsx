@@ -13,6 +13,24 @@ import { cn } from "@carveri/shared/lib/utils.ts";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import type { TransformedReport } from "../../lib/transforms.ts";
 import { useEffect } from "react";
+import type {
+  OdometerHistory,
+  Timeline,
+} from "@carveri/shared/types/vehicle-report.ts";
+import {
+  CartesianGrid,
+  Line,
+  LineChart,
+  type TooltipContentProps,
+  XAxis,
+  YAxis,
+} from "recharts";
+import {
+  type ChartConfig,
+  ChartContainer,
+  ChartTooltip,
+} from "@carveri/shared/components/ui/chart.tsx";
+import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 
 type TimelineEvent = TransformedReport["historyTab"]["timeline"][number];
 type Severity = "critical" | "alert" | "info";
@@ -173,11 +191,29 @@ function PillChip({ text }: Readonly<{ text: string }>) {
   );
 }
 
-interface Props {
-  timeline: TransformedReport["historyTab"]["timeline"];
+function MileageTooltip(props: Readonly<TooltipContentProps<number, string>>) {
+  const { active, payload } = props;
+  if (!active || !payload?.length) return null;
+  const { date, mileage } = payload[0].payload as {
+    date: string;
+    mileage: number;
+  };
+
+  return (
+    <div className="border-border/50 bg-background grid min-w-36 gap-1 rounded-lg border px-2.5 py-1.5 text-xs shadow-xl">
+      <span className="font-mono font-medium tabular-nums">{mileage} mi</span>
+      <span className="text-muted-foreground font-medium">{date}</span>
+    </div>
+  );
 }
 
-export default function TimelineSubtab({ timeline }: Readonly<Props>) {
+interface Props {
+  timeline: Timeline;
+  odometerHistory: OdometerHistory;
+}
+
+export default function TimelineSubtab(props: Readonly<Props>) {
+  const { timeline, odometerHistory } = props;
   const { t } = useTranslation("history");
 
   // Count severities for summary bar
@@ -189,6 +225,12 @@ export default function TimelineSubtab({ timeline }: Readonly<Props>) {
     },
     {} as Record<Severity, number>,
   );
+
+  const chartConfig: ChartConfig = {
+    mileage: { label: t("timeline.currentMileage"), color: "#ef4444" },
+    gradientStart: { color: "#f6a0a0" },
+    gradientEnd: { color: "#f6bebe" },
+  };
 
   useEffect(() => {
     globalThis.window.scrollTo({ top: 0, behavior: "smooth" });
@@ -225,6 +267,59 @@ export default function TimelineSubtab({ timeline }: Readonly<Props>) {
           {t("timeline.summaryBar.total", { count: timeline.length })}
         </div>
       </div>
+
+      {/* Odometer history */}
+      <Card className="mb-3 lg:mb-6">
+        <CardContent>
+          <ChartContainer
+            config={chartConfig}
+            className="h-56 w-full px-2 lg:h-90 lg:px-12"
+          >
+            <LineChart data={odometerHistory}>
+              <CartesianGrid vertical={false} strokeDasharray="3 3" />
+              <XAxis
+                dataKey="date"
+                tickLine={false}
+                axisLine={false}
+                tick={{
+                  fontSize: "var(--text-base)",
+                  color: "var(--color-muted-foreground)",
+                }}
+              />
+              <YAxis
+                tickLine={false}
+                axisLine={false}
+                tick={{
+                  fontSize: "var(--text-base)",
+                  color: "var(--color-muted-foreground)",
+                }}
+                tickFormatter={(v: number) => `${v} mi`}
+                domain={["auto", "auto"]}
+                width={72}
+              />
+              <ChartTooltip content={<MileageTooltip />} />
+              <Line
+                dataKey="mileage"
+                type="monotone"
+                stroke="var(--color-mileage)"
+                strokeWidth={4}
+                dot={{
+                  r: 4,
+                  stroke: "var(--color-mileage)",
+                  fill: "var(--color-mileage)",
+                }}
+                activeDot={{
+                  r: 6,
+                  stroke: "var(--color-mileage)",
+                  strokeWidth: 3,
+                  fill: "var(--color-background)",
+                }}
+                isAnimationActive="auto"
+              />
+            </LineChart>
+          </ChartContainer>
+        </CardContent>
+      </Card>
 
       {/* Timeline list */}
       <div className="relative flex flex-col">

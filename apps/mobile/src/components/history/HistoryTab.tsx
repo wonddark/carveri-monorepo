@@ -44,6 +44,8 @@ export default function HistoryTab({ report }: Readonly<Props>) {
     globalThis.window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
+  console.log(report.historyTab.odometerHistory);
+
   return (
     <div className="relative">
       <AppHeader
@@ -67,7 +69,10 @@ export default function HistoryTab({ report }: Readonly<Props>) {
 
         {/* Active subtab */}
         <Activity mode={activeIdx === 0 ? "visible" : "hidden"}>
-          <TimelineSubtab timeline={report.historyTab.timeline} />
+          <TimelineSubtab
+            timeline={report.historyTab.timeline}
+            odometerHistory={report.historyTab.odometerHistory}
+          />
         </Activity>
 
         <Activity mode={activeIdx === 1 ? "visible" : "hidden"}>
