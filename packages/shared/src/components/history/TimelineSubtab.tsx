@@ -191,7 +191,7 @@ function PillChip({ text }: Readonly<{ text: string }>) {
   );
 }
 
-function MileageTooltip(props: Readonly<TooltipContentProps<number, string>>) {
+function MileageTooltip(props: Readonly<Partial<TooltipContentProps<number, string>>>) {
   const { active, payload } = props;
   if (!active || !payload?.length) return null;
   const { date, mileage } = payload[0].payload as {
