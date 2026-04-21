@@ -114,6 +114,7 @@ export const MOCK_REPORTS: Record<string, VehicleReport> = {
       ],
       previousOwners: 3,
     },
+    pastSalesDetails: [],
     summary: "",
     stats: {
       titleStatus: "Salvage",

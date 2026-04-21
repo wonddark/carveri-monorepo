@@ -3,6 +3,7 @@ import type {
   EvaluationGauge,
   EvaluationRaw,
   OdometerHistory,
+  PastSaleDetails,
   PriceAdjustment,
   RawGauge,
   SaleCycle,
@@ -170,7 +171,7 @@ export type TransformedReport = {
   comparables: TransformedComparable[];
   evaluation: TransformedEvaluation;
   diagnosis: DiagnosisData;
-  saleCycles: SaleCycle[];
+  saleCycles: PastSaleDetails;
   negotiate: {
     strategy: {
       firstOffer: number;
@@ -212,6 +213,14 @@ function formatDate(iso: string, short = false): string {
   } catch {
     return iso;
   }
+}
+
+function transformPastSaleDetails(details: PastSaleDetails): PastSaleDetails {
+  return details.map((item) => ({
+    ...item,
+    startDate: formatDate(item.startDate, true),
+    endDate: formatDate(item.endDate, true),
+  }));
 }
 
 function transformSaleCycles(cycles: SaleCycle[]): {
@@ -812,7 +821,7 @@ export function transformToSharedReport(raw: VehicleReport): TransformedReport {
     comparables,
     evaluation,
     diagnosis,
-    saleCycles: raw.marketCheckRaw?.VinHistory?.SaleCycles ?? [],
+    saleCycles: transformPastSaleDetails(raw.pastSalesDetails ?? []),
     negotiate: {
       strategy: { firstOffer: 0, midpoint: 0, maxRecommended: 0, tips: [] },
       arguments: [],

@@ -6,6 +6,22 @@ export type VehicleReportResponse = {
   statusCode: number;
 };
 
+export type PastSaleDetails = {
+  source: string;
+  sellerType: string;
+  sellerName: string;
+  dealerUrl: string;
+  location: string;
+  mileage: number;
+  startPrice: number;
+  endPrice: number;
+  startDate: string;
+  endDate: string;
+  daysOnMarket: number;
+  condition: null;
+  status: null;
+}[];
+
 export type VehicleReport = {
   vehicle: VehicleDetails;
   summary: string | null;
@@ -17,6 +33,7 @@ export type VehicleReport = {
   verdict: unknown;
   marketCheckRaw: MarketCheckRaw | null;
   evaluationRaw: EvaluationRaw | null;
+  pastSalesDetails: PastSaleDetails;
 };
 
 export type VehicleDetails = {

@@ -5,28 +5,28 @@ import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import { IconBuildingStore, IconGavel } from "@tabler/icons-react";
 import { useEffect } from "react";
-import type { SaleCycle } from "@carveri/shared/types/vehicle-report.ts";
+import type { PastSaleDetails } from "@carveri/shared/types/vehicle-report.ts";
 
 // ── Subcomponents ──────────────────────────────────────────────────────────────
 
-function SaleCard({ cycle }: Readonly<{ cycle: SaleCycle }>) {
+function SaleCard({ cycle }: Readonly<{ cycle: PastSaleDetails[0] }>) {
   const { t } = useTranslation("history");
   return (
     <>
       <div className="flex items-start justify-between gap-2">
         <div>
           <div className="flex flex-wrap items-center gap-2">
-            <p className="font-semibold">{cycle.DealerName}</p>
+            <p className="font-semibold">{cycle.sellerName}</p>
             <span className="text-muted-foreground bg-muted rounded-full px-2 py-0.5 text-[10px]">
               {t(
-                cycle.SellerType === "dealer"
+                cycle.sellerType === "dealer"
                   ? "pastSales.typeDealer"
                   : "pastSales.typeAuction",
               )}
             </span>
           </div>
           <p className="text-muted-foreground mt-0.5 text-xs">
-            {cycle.City}, {cycle.State} · {cycle.StartDate} – {cycle.EndDate}
+            {`${cycle.sellerType === "dealer" ? cycle.location + " · " : ""}${cycle.startDate} – ${cycle.endDate}`}
           </p>
         </div>
       </div>
@@ -39,36 +39,28 @@ function SaleCard({ cycle }: Readonly<{ cycle: SaleCycle }>) {
               {t("pastSales.price")}
             </span>
             <div className="text-foreground/80 flex items-center gap-1.5 text-sm font-bold">
-              <span
-                className="text-muted-foreground line-through"
-                title={t("pastSales.initialPrice")}
-              >
-                {formatCurrency(cycle.StartPrice ?? 0)}
-              </span>
-              <span>→</span>
+              {cycle.sellerType === "dealer" ? (
+                <>
+                  <span
+                    className="text-muted-foreground line-through"
+                    title={t("pastSales.initialPrice")}
+                  >
+                    {formatCurrency(cycle.startPrice ?? 0)}
+                  </span>
+                  <span>→</span>
+                </>
+              ) : null}
               <span title={t("pastSales.finalPrice")}>
-                {formatCurrency(cycle.EndPrice ?? 0)}
+                {formatCurrency(cycle.endPrice ?? 0)}
               </span>
             </div>
           </div>
         </div>
 
         <span className="text-muted-foreground shrink-0 text-xs">
-          {t("pastSales.daysOnSlot", { count: cycle.DaysOnLot })}
+          {t("pastSales.daysOnSlot", { count: cycle.daysOnMarket })}
         </span>
       </div>
-
-      {/* Price drops row */}
-      {cycle.PriceReductions > 0 && (
-        <div className="mt-2 flex justify-between text-xs">
-          <span className="text-muted-foreground">
-            {t("pastSales.priceDrops", { count: cycle.PriceReductions })}
-          </span>
-          <span className="font-semibold text-red-500">
-            -{formatCurrency(cycle.PriceDrop)}
-          </span>
-        </div>
-      )}
     </>
   );
 }
@@ -76,7 +68,7 @@ function SaleCard({ cycle }: Readonly<{ cycle: SaleCycle }>) {
 // ── Main component ─────────────────────────────────────────────────────────────
 
 interface Props {
-  salesCycles: SaleCycle[];
+  salesCycles: PastSaleDetails;
 }
 
 export default function PastSalesSubtab({ salesCycles }: Readonly<Props>) {
@@ -121,7 +113,7 @@ export default function PastSalesSubtab({ salesCycles }: Readonly<Props>) {
 
           return (
             <motion.div
-              key={`${cycle.DealerId}::${cycle.StartDate}`}
+              key={`${cycle.sellerType}::${cycle.sellerName}::${cycle.startDate}`}
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.06 }}
@@ -136,7 +128,7 @@ export default function PastSalesSubtab({ salesCycles }: Readonly<Props>) {
                   ring,
                 )}
               >
-                {cycle.SellerType === "dealer" ? (
+                {cycle.sellerType === "dealer" ? (
                   <IconBuildingStore size={18} className={iconColor} />
                 ) : (
                   <IconGavel size={18} className={iconColor} />
