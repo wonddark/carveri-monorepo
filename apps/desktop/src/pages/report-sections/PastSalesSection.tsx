@@ -4,5 +4,5 @@ import PastSalesSubtab from "@carveri/shared/components/history/PastSalesSubtab"
 
 export default function PastSalesSection() {
   const report = useRouteLoaderData("report") as TransformedReport;
-  return <PastSalesSubtab salesCycles={report.dealerSaleCycles} />;
+  return <PastSalesSubtab salesCycles={report.saleCycles} />;
 }

@@ -170,6 +170,7 @@ export type TransformedReport = {
   comparables: TransformedComparable[];
   evaluation: TransformedEvaluation;
   diagnosis: DiagnosisData;
+  saleCycles: SaleCycle[];
   negotiate: {
     strategy: {
       firstOffer: number;
@@ -464,7 +465,7 @@ function transformTimelineToOdometerHistory(
     .filter(
       (item) =>
         item.odometer !== null &&
-        !isNaN(Number(item.odometer)) &&
+        !Number.isNaN(Number(item.odometer)) &&
         item.date !== null,
     )
     .map((item) => ({
@@ -811,6 +812,7 @@ export function transformToSharedReport(raw: VehicleReport): TransformedReport {
     comparables,
     evaluation,
     diagnosis,
+    saleCycles: raw.marketCheckRaw?.VinHistory?.SaleCycles ?? [],
     negotiate: {
       strategy: { firstOffer: 0, midpoint: 0, maxRecommended: 0, tips: [] },
       arguments: [],

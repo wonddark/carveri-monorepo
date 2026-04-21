@@ -99,7 +99,7 @@ export default function HistoryTab({ report }: Readonly<Props>) {
         </Activity>
 
         <Activity mode={activeIdx === 6 ? "visible" : "hidden"}>
-          <PastSalesSubtab salesCycles={report.dealerSaleCycles} />
+          <PastSalesSubtab salesCycles={report.saleCycles} />
         </Activity>
       </div>
     </div>
