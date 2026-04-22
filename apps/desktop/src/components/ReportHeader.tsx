@@ -15,14 +15,14 @@ export default function ReportHeader() {
   return (
     <header className="border-border/60 bg-card/95 fixed inset-x-0 top-0 z-20 h-14 border-b backdrop-blur-sm">
       <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4 lg:px-5">
-        <div className="flex items-center gap-2.5">
-          <Link to="/">
+        <Link to="/">
+          <div className="flex items-center gap-2.5">
             <button className="hover:bg-muted/70 cursor-pointer rounded-full p-1.5 text-slate-600 transition-colors">
               <IconChevronLeft className="size-4" />
             </button>
-          </Link>
-          <LogoFullHorizontal className="h-7 w-auto" />
-        </div>
+            <LogoFullHorizontal className="h-7 w-auto" />
+          </div>
+        </Link>
 
         <span className="text-[13px] font-semibold tracking-tight text-slate-700">
           {generateReportTitle({
