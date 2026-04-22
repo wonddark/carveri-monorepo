@@ -211,8 +211,8 @@ function formatDate(iso: string, short = false): string {
 function transformPastSaleDetails(details: PastSaleDetails): PastSaleDetails {
   return details.map((item) => ({
     ...item,
-    startDate: formatDate(item.startDate, true),
-    endDate: formatDate(item.endDate, true),
+    startDate: formatDate(item.startDate),
+    endDate: formatDate(item.endDate),
   }));
 }
 
