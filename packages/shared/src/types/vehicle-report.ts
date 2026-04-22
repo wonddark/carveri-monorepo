@@ -20,6 +20,7 @@ export type PastSaleDetails = {
   daysOnMarket: number;
   condition: null;
   status: null;
+  photoLinks: string[];
 }[];
 
 export type VehicleReport = {
