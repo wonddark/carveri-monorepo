@@ -163,6 +163,14 @@ export type MarketAnalysis = {
   comparables: any[];
 };
 
+export type AuctionHistory = {
+  auction: string;
+  saleDate: string;
+  finalBid: number;
+  status: "Sold" | "Not sold";
+  seller: string;
+};
+
 export type VehicleHistory = {
   timeline: Timeline;
   auctionPhotos: VehicleImages;
@@ -170,6 +178,7 @@ export type VehicleHistory = {
   owners: OwnerDetails[];
   service: ServiceDetails[];
   title: TitleDetails[];
+  auctionHistory: AuctionHistory[];
 };
 
 export type Timeline = {

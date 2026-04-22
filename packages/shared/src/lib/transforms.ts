@@ -1,4 +1,5 @@
 import type {
+  AuctionHistory,
   ComparableItem,
   EvaluationGauge,
   EvaluationRaw,
@@ -52,16 +53,8 @@ export type DealerSaleCycle = {
 
 // ── Auction sale (for "Historial de Subastas" tab) ────────────────────────────
 
-export type AuctionSale = {
+export type AuctionSale = AuctionHistory & {
   id: string;
-  auctionName: string;
-  city: string;
-  state: string;
-  date: string;
-  price: number | null;
-  mileage: number | null;
-  sold: boolean;
-  vdpUrl: string;
 };
 
 // ── Comparable vehicle (transformed) ─────────────────────────────────────────
@@ -223,12 +216,8 @@ function transformPastSaleDetails(details: PastSaleDetails): PastSaleDetails {
   }));
 }
 
-function transformSaleCycles(cycles: SaleCycle[]): {
-  dealer: DealerSaleCycle[];
-  auction: AuctionSale[];
-} {
+function transformSaleCycles(cycles: SaleCycle[]): DealerSaleCycle[] {
   const dealer: DealerSaleCycle[] = [];
-  const auction: AuctionSale[] = [];
 
   cycles.forEach((cycle, idx) => {
     if (cycle.SellerType === "dealer") {
@@ -261,28 +250,19 @@ function transformSaleCycles(cycles: SaleCycle[]): {
         vdpUrl: lastRecord?.VdpUrl ?? "#",
         isActive,
       });
-    } else {
-      // auction
-      const record = cycle.Records[0];
-      const sold =
-        record?.Price != null ||
-        (cycle.StartPrice == null && cycle.EndPrice == null && idx > 2);
-
-      auction.push({
-        id: `auction-${idx}`,
-        auctionName: cycle.DealerName,
-        city: cycle.City,
-        state: cycle.State,
-        date: formatDate(cycle.StartDate),
-        price: record?.Price ?? cycle.StartPrice ?? null,
-        mileage: record?.Miles ?? null,
-        sold,
-        vdpUrl: record?.VdpUrl ?? "#",
-      });
     }
   });
 
-  return { dealer, auction };
+  return dealer;
+}
+
+function transformAuctionHistory(
+  history: VehicleHistory["auctionHistory"],
+): AuctionSale[] {
+  return history.map((item) => ({
+    id: `${item.auction}::${item.saleDate}`,
+    ...item,
+  }));
 }
 
 function getPriceTag(priceDiff: number, threshold: number) {
@@ -775,8 +755,10 @@ export function transformToSharedReport(raw: VehicleReport): TransformedReport {
 
   // Sale cycles split by type
   const allCycles = raw.marketCheckRaw?.VinHistory?.SaleCycles ?? [];
-  const { dealer: dealerSaleCycles, auction: auctionSales } =
-    transformSaleCycles(allCycles);
+  const dealerSaleCycles = transformSaleCycles(allCycles);
+  const auctionSales = transformAuctionHistory(
+    raw.history?.auctionHistory ?? [],
+  );
 
   // Comparables
   const comparableItems = raw.marketCheckRaw?.Comparables?.Items ?? [];

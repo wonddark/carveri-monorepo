@@ -1,4 +1,4 @@
-import { Activity, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Banknote, Gauge } from "lucide-react";
 import { motion } from "framer-motion";
@@ -8,11 +8,11 @@ import { cn } from "@carveri/shared/lib/utils.ts";
 import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
-import type { TransformedReport } from "../../lib/transforms.ts";
+import type { AuctionSale, TransformedReport } from "../../lib/transforms.ts";
 import { IconCircleCheck, IconCircleX } from "@tabler/icons-react";
 
 interface Props {
-  auctionSales: TransformedReport["auctionSales"];
+  auctionSales: AuctionSale[];
   auctionPhotos: TransformedReport["historyTab"]["auctionPhotos"];
 }
 
@@ -22,9 +22,7 @@ export default function AuctionHistorySubtab({
 }: Readonly<Props>) {
   const { t } = useTranslation("history");
 
-  const soldCount = auctionSales.filter((s) => s.sold).length;
-  const lastOdometer =
-    auctionSales.find((s) => s.mileage != null)?.mileage || null;
+  const soldCount = auctionSales.filter((s) => s.status === "Sold").length;
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const slides = auctionPhotos.map((src) => ({ src }));
@@ -66,9 +64,6 @@ export default function AuctionHistorySubtab({
                   <Gauge size={13} />
                   {t("auctionHistory.odometer")}
                 </div>
-                <span className="text-2xl font-bold">
-                  {lastOdometer ? `${lastOdometer.toLocaleString()} mi` : "—"}
-                </span>
               </CardContent>
             </Card>
           </div>
@@ -78,7 +73,8 @@ export default function AuctionHistorySubtab({
             <div className="absolute top-5 bottom-5 left-4 w-px bg-slate-200 dark:bg-slate-700" />
 
             {auctionSales.map((sale, i) => {
-              const price = sale.price || 0;
+              const price = sale.finalBid || 0;
+
               return (
                 <motion.div
                   key={sale.id}
@@ -92,18 +88,18 @@ export default function AuctionHistorySubtab({
                     className={cn(
                       "ring-background text-background ring-offset-background relative z-10 mt-1 flex size-8 shrink-0 items-center justify-center rounded-full text-xs font-bold shadow-sm ring-2 ring-offset-2",
                       {
-                        "bg-emerald-500 ring-emerald-300": sale.sold,
-                        "bg-gray-400 ring-gray-300 dark:bg-gray-700 dark:ring-gray-500":
-                          !sale.sold,
+                        "bg-emerald-500 ring-emerald-300":
+                          sale.status === "Sold",
+                        "bg-gray-400 ring-gray-300 dark:bg-gray-700 dark:ring-gray-600":
+                          sale.status === "Not sold",
                       },
                     )}
                   >
-                    <Activity mode={sale.sold ? "visible" : "hidden"}>
+                    {sale.status === "Sold" ? (
                       <IconCircleCheck className="size-4" />
-                    </Activity>
-                    <Activity mode={sale.sold ? "hidden" : "visible"}>
+                    ) : (
                       <IconCircleX className="size-4" />
-                    </Activity>
+                    )}
                   </div>
 
                   {/* Card */}
@@ -111,36 +107,32 @@ export default function AuctionHistorySubtab({
                     className={cn(
                       "border-border bg-card flex-1 rounded-xl border p-3 shadow-sm",
                       {
-                        "border-l-4 border-l-emerald-500": sale.sold,
+                        "border-l-4 border-l-emerald-500":
+                          sale.status === "Sold",
                       },
                     )}
                   >
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <p className="text-sm font-semibold">
-                          {sale.auctionName}
-                        </p>
-                        <p className="text-muted-foreground text-[11px]">
-                          {sale.city}, {sale.state} · {sale.date}
-                        </p>
+                        <p className="text-sm font-semibold">{sale.auction}</p>
                       </div>
                       <div className="flex flex-col items-end gap-1.5">
                         <span>{price ? formatCurrency(price) : "—"}</span>
                         <span
                           className={cn(
                             "inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold",
-                            sale.sold
+                            sale.status === "Sold"
                               ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
                               : "bg-muted text-muted-foreground",
                           )}
                         >
-                          <Activity mode={sale.sold ? "visible" : "hidden"}>
+                          {sale.status === "Sold" ? (
                             <IconCircleCheck className="size-3" />
-                          </Activity>
-                          <Activity mode={sale.sold ? "hidden" : "visible"}>
+                          ) : (
                             <IconCircleX className="size-3" />
-                          </Activity>
-                          {sale.sold
+                          )}
+
+                          {sale.status === "Sold"
                             ? t("auctionHistory.sold")
                             : t("auctionHistory.notSold")}
                         </span>
@@ -153,9 +145,6 @@ export default function AuctionHistorySubtab({
                           {formatCurrency(price)}
                         </span>
                       ) : null}
-                      {sale.mileage != null && (
-                        <span>{sale.mileage.toLocaleString()} mi</span>
-                      )}
                     </div>
                   </div>
                 </motion.div>
