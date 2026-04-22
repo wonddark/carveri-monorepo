@@ -82,20 +82,33 @@ function SaleCard({ cycle }: Readonly<{ cycle: PastSaleDetails[0] }>) {
                   {t("pastSales.price")}
                 </span>
                 <div className="text-foreground/80 flex items-center gap-1.5 text-sm font-bold">
-                  {cycle.sellerType === "dealer" ? (
+                  {cycle.sellerType === "dealer" &&
+                  cycle.startPrice !== cycle.endPrice ? (
                     <>
-                      <span
-                        className="text-muted-foreground line-through"
-                        title={t("pastSales.initialPrice")}
-                      >
-                        {formatCurrency(cycle.startPrice ?? 0)}
-                      </span>
+                      <div className="flex flex-col">
+                        <span className="text-muted-foreground text-xs">
+                          {t("pastSales.initialPrice")}
+                        </span>
+                        <span
+                          className="text-muted-foreground line-through"
+                          title={t("pastSales.initialPrice")}
+                        >
+                          {formatCurrency(cycle.startPrice ?? 0)}
+                        </span>
+                      </div>
                       <span>→</span>
                     </>
                   ) : null}
-                  <span title={t("pastSales.finalPrice")}>
-                    {formatCurrency(cycle.endPrice ?? 0)}
-                  </span>
+                  <div className="flex flex-col">
+                    {cycle.startPrice === cycle.endPrice ? null : (
+                      <span className="text-muted-foreground text-xs">
+                        {t("pastSales.finalPrice")}
+                      </span>
+                    )}
+                    <span title={t("pastSales.finalPrice")}>
+                      {formatCurrency(cycle.endPrice ?? 0)}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
