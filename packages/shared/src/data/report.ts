@@ -1573,6 +1573,37 @@ export const MOCK_REPORTS: Record<string, VehicleReport> = {
             "No open recalls reported to CARFAX. A current list of recalls is available at Ford Motor Company.",
         },
       ],
+
+      auctionHistory: [
+        {
+          auction: "IAAI",
+          saleDate: "15/Apr/2024",
+          finalBid: 12450,
+          status: "Not sold",
+          seller: "Mercury Insurance",
+        },
+        {
+          auction: "IAAI",
+          saleDate: "22/Apr/2024",
+          finalBid: 13325,
+          status: "Sold",
+          seller: "Mercury Insurance",
+        },
+        {
+          auction: "Copart",
+          saleDate: "25/Aug/2025",
+          finalBid: 3950,
+          status: "Not sold",
+          seller: "GEICO",
+        },
+        {
+          auction: "Copart",
+          saleDate: "08/Sep/2025",
+          finalBid: 9800,
+          status: "Sold",
+          seller: "GEICO",
+        },
+      ],
     },
     negotiate: null,
     verdict: null,
