@@ -2,13 +2,28 @@ import { createBrowserRouter, redirect } from "react-router";
 import RootLayout from "@/layout/root.tsx";
 import ReportError from "@/pages/ReportError.tsx";
 import ReportPage from "@/pages/ReportPage.tsx";
+import DashboardPage from "@/pages/DashboardPage.tsx";
+import CheckoutPage from "@/pages/CheckoutPage.tsx";
 import CarVeriLanding from "@/pages/home.tsx";
 import Login from "@/pages/login.tsx";
 import Register from "@/pages/register.tsx";
+import PlanSection from "@/pages/dashboard-sections/PlanSection.tsx";
+import ReportsSection from "@/pages/dashboard-sections/ReportsSection.tsx";
+import ProfileSection from "@/pages/dashboard-sections/ProfileSection.tsx";
+import SecuritySection from "@/pages/dashboard-sections/SecuritySection.tsx";
+import AccountSection from "@/pages/dashboard-sections/AccountSection.tsx";
 import {
+  checkoutLoader,
+  dashboardLoader,
   redirectIfAuthLoader,
   reportLoader,
 } from "@carveri/shared/data/loaders.ts";
+import {
+  changePasswordAction,
+  deleteAccountAction,
+  logoutAction,
+  updateProfileAction,
+} from "@carveri/shared/data/actions.ts";
 import ResumenSection from "@/pages/report-sections/ResumenSection.tsx";
 import TimelineSection from "@/pages/report-sections/TimelineSection.tsx";
 import AuctionHistorySection from "@/pages/report-sections/AuctionHistorySection.tsx";
@@ -45,6 +60,37 @@ const router = createBrowserRouter([
         loader: redirectIfAuthLoader,
         action: registerAction,
       },
+      {
+        id: "dashboard",
+        path: "dashboard",
+        element: <DashboardPage />,
+        loader: dashboardLoader,
+        children: [
+          {
+            index: true,
+            loader: () => redirect("/dashboard/plan"),
+          },
+          { path: "plan", element: <PlanSection /> },
+          { path: "reports", element: <ReportsSection /> },
+          {
+            path: "settings/profile",
+            element: <ProfileSection />,
+            action: updateProfileAction,
+          },
+          {
+            path: "settings/security",
+            element: <SecuritySection />,
+            action: changePasswordAction,
+          },
+          {
+            path: "settings/account",
+            element: <AccountSection />,
+          },
+        ],
+      },
+      { path: "logout", action: logoutAction },
+      { path: "delete-account", action: deleteAccountAction },
+      { path: "checkout", element: <CheckoutPage />, loader: checkoutLoader },
       {
         id: "report",
         path: "reports/:id",

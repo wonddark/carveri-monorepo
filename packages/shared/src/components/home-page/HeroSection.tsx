@@ -1,6 +1,9 @@
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router";
 import { FadeUp } from "@carveri/shared/components/animations.tsx";
 import { cn } from "@carveri/shared/lib/utils.ts";
+import { auth } from "@carveri/shared/lib/auth.ts";
+import LogoFullHorizontal from "@carveri/shared/components/logos/LogoFullHorizontal.tsx";
 
 interface Props {
   scrollToExamples: () => void;
@@ -30,9 +33,41 @@ export default function HeroSection({
   scrollToPricing,
 }: Readonly<Props>) {
   const { t } = useTranslation("homepage");
+  const { t: tc } = useTranslation("common");
+  const isAuthenticated = auth.isAuthenticated();
 
   return (
     <section className="relative overflow-hidden bg-[#0A1628]">
+      {/* Top navigation */}
+      <nav className="relative z-10 mx-auto flex max-w-300 items-center justify-between px-5 pt-5 pb-1">
+        <LogoFullHorizontal className="h-7 w-auto brightness-0 invert" />
+        <div className="flex items-center gap-2.5">
+          {isAuthenticated ? (
+            <Link
+              to="/dashboard"
+              className="rounded-xl bg-green-400 px-4 py-2 font-[Outfit] text-sm font-bold text-[#0a1628] transition-colors hover:bg-green-300"
+            >
+              {tc("nav.dashboard")}
+            </Link>
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="rounded-xl border border-slate-600 px-4 py-2 font-[Outfit] text-sm font-semibold text-slate-300 transition-colors hover:border-slate-500 hover:text-white"
+              >
+                {tc("nav.signIn")}
+              </Link>
+              <Link
+                to="/register"
+                className="rounded-xl bg-green-400 px-4 py-2 font-[Outfit] text-sm font-bold text-[#0a1628] transition-colors hover:bg-green-300"
+              >
+                {tc("nav.register")}
+              </Link>
+            </>
+          )}
+        </div>
+      </nav>
+
       {/* Ambient glows */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute top-20 left-10 h-72 w-72 rounded-full bg-green-600/10 blur-3xl" />

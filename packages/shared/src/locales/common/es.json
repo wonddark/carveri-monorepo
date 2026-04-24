@@ -2,7 +2,8 @@
   "nav": {
     "signIn": "Iniciar sesión",
     "register": "Registro",
-    "freeReport": "Reporte gratis"
+    "freeReport": "Reporte gratis",
+    "dashboard": "Dashboard"
   },
   "tabs": {
     "historial": "Historial",
@@ -112,5 +113,111 @@
     }
   },
   "close": "Cerrar",
-  "asking_price": "Precio de Venta"
+  "asking_price": "Precio de Venta",
+  "dashboard": {
+    "header": {
+      "title": "Dashboard",
+      "logout": "Cerrar sesión"
+    },
+    "nav": {
+      "plan": "Mi Plan",
+      "reports": "Reportes",
+      "settings": "Configuración",
+      "profile": "Perfil",
+      "security": "Seguridad",
+      "account": "Cuenta"
+    },
+    "plan": {
+      "title": "Resumen del Plan",
+      "subtitle": "Estado de tu suscripción actual",
+      "planName": "Plan",
+      "used": "Usados",
+      "remaining": "Restantes",
+      "total": "Total",
+      "buyMore": "Comprar más reportes"
+    },
+    "reports": {
+      "title": "Mis Reportes",
+      "subtitle": "Todos tus reportes de vehículos solicitados",
+      "empty": "Aún no tienes reportes. Adquiere un plan para comenzar.",
+      "vin": "VIN",
+      "requested": "Solicitado",
+      "delivered": "Entregado",
+      "viewReport": "Ver reporte",
+      "status": {
+        "PENDING": "Pendiente",
+        "PROCESSING": "Procesando",
+        "READY": "Listo",
+        "ARCHIVED": "Archivado"
+      },
+      "evaluation": {
+        "BUY": "Comprar",
+        "NEGOTIATE": "Negociar",
+        "AVOID": "Evitar"
+      }
+    },
+    "profile": {
+      "title": "Perfil",
+      "subtitle": "Tu información personal",
+      "name": "Nombre completo",
+      "email": "Correo electrónico",
+      "emailHint": "El correo electrónico no puede ser cambiado.",
+      "save": "Guardar cambios",
+      "saved": "Cambios guardados exitosamente.",
+      "errorNameRequired": "El nombre es requerido."
+    },
+    "security": {
+      "title": "Seguridad",
+      "subtitle": "Gestiona tu contraseña",
+      "currentPassword": "Contraseña actual",
+      "newPassword": "Nueva contraseña",
+      "confirmPassword": "Confirmar nueva contraseña",
+      "change": "Cambiar contraseña",
+      "changed": "Contraseña cambiada exitosamente.",
+      "errorFieldsRequired": "Todos los campos son requeridos.",
+      "errorPasswordsMismatch": "Las contraseñas no coinciden."
+    },
+    "account": {
+      "title": "Cuenta",
+      "subtitle": "Gestiona tu cuenta",
+      "deleteTitle": "Eliminar cuenta",
+      "deleteDescription": "Elimina permanentemente tu cuenta y todos los datos asociados. Esta acción no se puede deshacer.",
+      "deleteButton": "Eliminar mi cuenta",
+      "confirmTitle": "¿Eliminar tu cuenta?",
+      "confirmDescription": "Esto eliminará permanentemente tu cuenta y todos tus datos. No se puede deshacer.",
+      "confirmButton": "Sí, eliminar cuenta",
+      "cancel": "Cancelar"
+    }
+  },
+  "checkout": {
+    "header": { "title": "Checkout", "back": "Volver al dashboard" },
+    "plans": {
+      "title": "Selecciona un plan",
+      "subtitle": "Elige la cantidad de reportes que necesitas"
+    },
+    "billing": {
+      "title": "Información de facturación",
+      "subtitle": "Tus datos de facturación",
+      "name": "Nombre completo",
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "address": "Dirección",
+      "city": "Ciudad",
+      "state": "Estado",
+      "zip": "Código postal",
+      "country": "País"
+    },
+    "payment": {
+      "title": "Método de pago",
+      "subtitle": "Selecciona una tarjeta guardada",
+      "expires": "Vence"
+    },
+    "total": "Total del pedido",
+    "submit": "Completar compra",
+    "success": {
+      "title": "¡Compra completada!",
+      "description": "Tu plan ha sido activado. Ya puedes solicitar reportes.",
+      "cta": "Ir al dashboard"
+    }
+  }
 }

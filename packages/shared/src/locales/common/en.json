@@ -2,7 +2,8 @@
   "nav": {
     "signIn": "Sign In",
     "register": "Register",
-    "freeReport": "Free Report"
+    "freeReport": "Free Report",
+    "dashboard": "Dashboard"
   },
   "tabs": {
     "historial": "History",
@@ -112,5 +113,111 @@
     }
   },
   "close": "Close",
-  "asking_price": "Asking Price"
+  "asking_price": "Asking Price",
+  "dashboard": {
+    "header": {
+      "title": "Dashboard",
+      "logout": "Sign out"
+    },
+    "nav": {
+      "plan": "My Plan",
+      "reports": "Reports",
+      "settings": "Settings",
+      "profile": "Profile",
+      "security": "Security",
+      "account": "Account"
+    },
+    "plan": {
+      "title": "Plan Overview",
+      "subtitle": "Your current subscription status",
+      "planName": "Plan",
+      "used": "Used",
+      "remaining": "Remaining",
+      "total": "Total",
+      "buyMore": "Buy more reports"
+    },
+    "reports": {
+      "title": "My Reports",
+      "subtitle": "All your requested vehicle reports",
+      "empty": "No reports yet. Purchase a plan to get started.",
+      "vin": "VIN",
+      "requested": "Requested",
+      "delivered": "Delivered",
+      "viewReport": "View report",
+      "status": {
+        "PENDING": "Pending",
+        "PROCESSING": "Processing",
+        "READY": "Ready",
+        "ARCHIVED": "Archived"
+      },
+      "evaluation": {
+        "BUY": "Buy",
+        "NEGOTIATE": "Negotiate",
+        "AVOID": "Avoid"
+      }
+    },
+    "profile": {
+      "title": "Profile",
+      "subtitle": "Your personal information",
+      "name": "Full name",
+      "email": "Email",
+      "emailHint": "Email address cannot be changed.",
+      "save": "Save changes",
+      "saved": "Changes saved successfully.",
+      "errorNameRequired": "Name is required."
+    },
+    "security": {
+      "title": "Security",
+      "subtitle": "Manage your password",
+      "currentPassword": "Current password",
+      "newPassword": "New password",
+      "confirmPassword": "Confirm new password",
+      "change": "Change password",
+      "changed": "Password changed successfully.",
+      "errorFieldsRequired": "All fields are required.",
+      "errorPasswordsMismatch": "Passwords do not match."
+    },
+    "account": {
+      "title": "Account",
+      "subtitle": "Manage your account",
+      "deleteTitle": "Delete account",
+      "deleteDescription": "Permanently delete your account and all associated data. This action cannot be undone.",
+      "deleteButton": "Delete my account",
+      "confirmTitle": "Delete your account?",
+      "confirmDescription": "This will permanently delete your account and all your data. This cannot be undone.",
+      "confirmButton": "Yes, delete account",
+      "cancel": "Cancel"
+    }
+  },
+  "checkout": {
+    "header": { "title": "Checkout", "back": "Back to dashboard" },
+    "plans": {
+      "title": "Select a plan",
+      "subtitle": "Choose the number of reports you need"
+    },
+    "billing": {
+      "title": "Billing information",
+      "subtitle": "Your billing details",
+      "name": "Full name",
+      "email": "Email",
+      "phone": "Phone",
+      "address": "Street address",
+      "city": "City",
+      "state": "State",
+      "zip": "ZIP code",
+      "country": "Country"
+    },
+    "payment": {
+      "title": "Payment method",
+      "subtitle": "Select a saved card",
+      "expires": "Expires"
+    },
+    "total": "Order total",
+    "submit": "Complete purchase",
+    "success": {
+      "title": "Purchase completed!",
+      "description": "Your plan has been activated. You can now request reports.",
+      "cta": "Go to dashboard"
+    }
+  }
 }
