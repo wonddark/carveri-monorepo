@@ -3,6 +3,7 @@ import AvailableReports from "@carveri/shared/components/dashboard/AvailableRepo
 import DashboardStats from "@carveri/shared/components/dashboard/DashboardStats.tsx";
 import RecentReports from "@carveri/shared/components/dashboard/RecentReports.tsx";
 import RecentTransactions from "@carveri/shared/components/dashboard/RecentTransactions.tsx";
+import Promotion from "@carveri/shared/components/dashboard/Promotion.tsx";
 
 function Dashboard() {
   return (
@@ -16,6 +17,7 @@ function Dashboard() {
         <RecentReports />
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-6">
           <RecentTransactions />
+          <Promotion />
         </div>
       </div>
     </main>
