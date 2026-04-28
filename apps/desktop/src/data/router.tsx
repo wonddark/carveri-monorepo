@@ -2,27 +2,20 @@ import { createBrowserRouter, redirect } from "react-router";
 import RootLayout from "@/layout/root.tsx";
 import ReportError from "@/pages/ReportError.tsx";
 import ReportPage from "@/pages/ReportPage.tsx";
-import DashboardPage from "@/pages/DashboardPage.tsx";
 import CheckoutPage from "@/pages/CheckoutPage.tsx";
 import CarVeriLanding from "@/pages/home.tsx";
 import Login from "@/pages/login.tsx";
 import Register from "@/pages/register.tsx";
-import PlanSection from "@/pages/dashboard-sections/PlanSection.tsx";
-import ReportsSection from "@/pages/dashboard-sections/ReportsSection.tsx";
-import ProfileSection from "@/pages/dashboard-sections/ProfileSection.tsx";
-import SecuritySection from "@/pages/dashboard-sections/SecuritySection.tsx";
-import AccountSection from "@/pages/dashboard-sections/AccountSection.tsx";
 import {
   checkoutLoader,
-  dashboardLoader,
   redirectIfAuthLoader,
   reportLoader,
 } from "@carveri/shared/data/loaders.ts";
 import {
-  changePasswordAction,
   deleteAccountAction,
+  loginAction,
   logoutAction,
-  updateProfileAction,
+  registerAction,
 } from "@carveri/shared/data/actions.ts";
 import ResumenSection from "@/pages/report-sections/ResumenSection.tsx";
 import TimelineSection from "@/pages/report-sections/TimelineSection.tsx";
@@ -40,7 +33,8 @@ import ValuationSection from "@/pages/report-sections/ValuationSection.tsx";
 import StrategySection from "@/pages/report-sections/StrategySection.tsx";
 import ArgumentsSection from "@/pages/report-sections/ArgumentsSection.tsx";
 import CostsSection from "@/pages/report-sections/CostsSection.tsx";
-import { loginAction, registerAction } from "@carveri/shared/data/actions.ts";
+import UserArea from "@/pages/UserArea.tsx";
+import Dashboard from "@/pages/user-area-sections/Dashboard.tsx";
 
 const router = createBrowserRouter([
   {
@@ -63,28 +57,32 @@ const router = createBrowserRouter([
       {
         id: "dashboard",
         path: "dashboard",
-        element: <DashboardPage />,
-        loader: dashboardLoader,
+        element: <UserArea />,
         children: [
           {
+            id: "dashboard-index",
             index: true,
-            loader: () => redirect("/dashboard/plan"),
-          },
-          { path: "plan", element: <PlanSection /> },
-          { path: "reports", element: <ReportsSection /> },
-          {
-            path: "settings/profile",
-            element: <ProfileSection />,
-            action: updateProfileAction,
+            element: <Dashboard />,
           },
           {
-            path: "settings/security",
-            element: <SecuritySection />,
-            action: changePasswordAction,
+            id: "reports",
+            path: "reports",
+            element: <></>,
           },
           {
-            path: "settings/account",
-            element: <AccountSection />,
+            id: "buy-credits",
+            path: "buy-credits",
+            element: <></>,
+          },
+          {
+            id: "transactions",
+            path: "transactions",
+            element: <></>,
+          },
+          {
+            id: "settings",
+            path: "settings",
+            element: <></>,
           },
         ],
       },
