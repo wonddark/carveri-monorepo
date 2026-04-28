@@ -2,6 +2,7 @@ import VinForm from "@carveri/shared/components/dashboard/VINForm.tsx";
 import AvailableReports from "@carveri/shared/components/dashboard/AvailableReports.tsx";
 import DashboardStats from "@carveri/shared/components/dashboard/DashboardStats.tsx";
 import RecentReports from "@carveri/shared/components/dashboard/RecentReports.tsx";
+import RecentTransactions from "@carveri/shared/components/dashboard/RecentTransactions.tsx";
 
 function Dashboard() {
   return (
@@ -13,6 +14,9 @@ function Dashboard() {
         </div>
         <DashboardStats />
         <RecentReports />
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-6">
+          <RecentTransactions />
+        </div>
       </div>
     </main>
   );
