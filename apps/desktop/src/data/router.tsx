@@ -8,6 +8,7 @@ import Login from "@/pages/login.tsx";
 import Register from "@/pages/register.tsx";
 import {
   checkoutLoader,
+  dashboardLoader,
   redirectIfAuthLoader,
   reportLoader,
 } from "@carveri/shared/data/loaders.ts";
@@ -58,6 +59,7 @@ const router = createBrowserRouter([
         id: "dashboard",
         path: "dashboard",
         element: <UserArea />,
+        loader: dashboardLoader,
         children: [
           {
             id: "dashboard-index",

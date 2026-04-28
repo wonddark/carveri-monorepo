@@ -1,5 +1,25 @@
 import { ChevronRightIcon, DownloadIcon, EyeIcon } from "lucide-react";
-import { Link } from "react-router";
+import { Link, useRouteLoaderData } from "react-router";
+import type { DashboardData } from "@carveri/shared/types/dashboard.ts";
+
+function formatDate(iso: string, short = false): string {
+  if (!iso) return "--";
+  try {
+    const d = new Date(iso);
+    const options: Intl.DateTimeFormatOptions = {
+      month: "short",
+      day: "numeric",
+    };
+    if (!short) options.year = "numeric";
+    return d.toLocaleDateString("en-US", options);
+  } catch {
+    return iso;
+  }
+}
+
+function shortenReportId(id: string) {
+  return `${id.slice(0, 4)}...${id.slice(-4)}`;
+}
 
 type ReportRowProps = {
   imgSrc: string;
@@ -17,7 +37,7 @@ function ReportRowDesktop(props: Readonly<ReportRowProps>) {
     >
       <td
         data-slot="table-cell"
-        className="[&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px] p-2 pl-6 align-middle whitespace-nowrap"
+        className="[&&gt;[role=checkbox]]:translate-y-[2px] p-2 pl-6 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0"
       >
         <div className="flex items-center gap-3">
           <img
@@ -33,32 +53,34 @@ function ReportRowDesktop(props: Readonly<ReportRowProps>) {
       </td>
       <td
         data-slot="table-cell"
-        className="[&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px] p-2 align-middle whitespace-nowrap"
+        className="[&&gt;[role=checkbox]]:translate-y-[2px] p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0"
       >
-        <span className="font-mono text-xs text-gray-500">{id}</span>
+        <span className="font-mono text-xs text-gray-500">
+          {shortenReportId(id)}
+        </span>
       </td>
       <td
         data-slot="table-cell"
-        className="[&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px] p-2 align-middle whitespace-nowrap"
+        className="[&&gt;[role=checkbox]]:translate-y-[2px] p-2 align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0"
       >
-        <span className="text-xs text-gray-500">{date}</span>
+        <span className="text-xs text-gray-500">{formatDate(date)}</span>
       </td>
       <td
         data-slot="table-cell"
-        className="[&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px] p-2 pr-6 text-right align-middle whitespace-nowrap"
+        className="[&&gt;[role=checkbox]]:translate-y-[2px] p-2 pr-6 text-right align-middle whitespace-nowrap [&:has([role=checkbox])]:pr-0"
       >
         <div className="flex items-center justify-end gap-1">
           <Link to={`/reports/${id}`}>
             <button
               data-slot="button"
-              className="[&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:shrink-0 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:hover:bg-accent/50 has-[&gt;svg]:px-2.5 inline-flex h-7 shrink-0 items-center justify-center gap-1.5 rounded-md px-2 text-xs font-medium whitespace-nowrap text-blue-600 transition-all outline-none hover:bg-blue-50 hover:text-blue-700 focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50"
+              className="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:hover:bg-accent/50 has-[&gt;svg]:px-2.5 inline-flex h-7 shrink-0 items-center justify-center gap-1.5 rounded-md px-2 text-xs font-medium whitespace-nowrap text-blue-600 transition-all outline-none hover:bg-blue-50 hover:text-blue-700 focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
             >
               View
             </button>
           </Link>
           <button
             data-slot="button"
-            className="[&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:shrink-0 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent dark:hover:bg-accent/50 has-[&gt;svg]:px-2.5 inline-flex h-7 w-7 shrink-0 items-center justify-center gap-1.5 rounded-md p-0 text-sm font-medium whitespace-nowrap text-gray-400 transition-all outline-none hover:text-gray-600 focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50"
+            className="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent dark:hover:bg-accent/50 has-[&gt;svg]:px-2.5 inline-flex h-7 w-7 shrink-0 items-center justify-center gap-1.5 rounded-md p-0 text-sm font-medium whitespace-nowrap text-gray-400 transition-all outline-none hover:text-gray-600 focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
           >
             <DownloadIcon className="size-3.5" />
           </button>
@@ -68,7 +90,7 @@ function ReportRowDesktop(props: Readonly<ReportRowProps>) {
   );
 }
 function ReportRowMobile(props: Readonly<ReportRowProps>) {
-  const { imgSrc, title, vin, id, date } = props;
+  const { imgSrc, title, vin, date } = props;
   return (
     <div className="flex items-center gap-3 px-4 py-3">
       <img
@@ -79,18 +101,18 @@ function ReportRowMobile(props: Readonly<ReportRowProps>) {
       <div className="min-w-0 flex-1">
         <p className="truncate text-sm font-semibold text-gray-900">{title}</p>
         <p className="truncate font-mono text-[10px] text-gray-400">{vin}</p>
-        <p className="mt-0.5 text-[10px] text-gray-400">{date}</p>
+        <p className="mt-0.5 text-[10px] text-gray-400">{formatDate(date)}</p>
       </div>
       <div className="flex shrink-0 items-center gap-1">
         <button
           data-slot="button"
-          className="[&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:shrink-0 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:hover:bg-accent/50 has-[&gt;svg]:px-2.5 inline-flex h-8 w-8 shrink-0 items-center justify-center gap-1.5 rounded-md p-0 text-sm font-medium whitespace-nowrap text-blue-600 transition-all outline-none hover:bg-blue-50 focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50"
+          className="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:hover:bg-accent/50 has-[&gt;svg]:px-2.5 inline-flex h-8 w-8 shrink-0 items-center justify-center gap-1.5 rounded-md p-0 text-sm font-medium whitespace-nowrap text-blue-600 transition-all outline-none hover:bg-blue-50 focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
         >
           <EyeIcon className="size-4" />
         </button>
         <button
           data-slot="button"
-          className="[&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:shrink-0 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent dark:hover:bg-accent/50 has-[&gt;svg]:px-2.5 inline-flex h-8 w-8 shrink-0 items-center justify-center gap-1.5 rounded-md p-0 text-sm font-medium whitespace-nowrap text-gray-400 transition-all outline-none hover:text-gray-600 focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50"
+          className="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent dark:hover:bg-accent/50 has-[&gt;svg]:px-2.5 inline-flex h-8 w-8 shrink-0 items-center justify-center gap-1.5 rounded-md p-0 text-sm font-medium whitespace-nowrap text-gray-400 transition-all outline-none hover:text-gray-600 focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
         >
           <DownloadIcon className="size-4" />
         </button>
@@ -100,6 +122,8 @@ function ReportRowMobile(props: Readonly<ReportRowProps>) {
 }
 
 function RecentReports() {
+  const loadedData = useRouteLoaderData("dashboard") as DashboardData;
+  const reports = loadedData ? loadedData.reports.slice(0, 4) : [];
   return (
     <div style={{ opacity: 1, transform: "none" }}>
       <div
@@ -120,7 +144,7 @@ function RecentReports() {
             <Link href="/dashboard/reports">
               <button
                 data-slot="button"
-                className="[&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:shrink-0 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent dark:hover:bg-accent/50 has-[&gt;svg]:px-2.5 inline-flex h-8 shrink-0 items-center justify-center gap-1.5 rounded-md px-3 text-xs font-medium whitespace-nowrap text-gray-500 transition-all outline-none hover:text-gray-700 focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50"
+                className="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent dark:hover:bg-accent/50 has-[&gt;svg]:px-2.5 inline-flex h-8 shrink-0 items-center justify-center gap-1.5 rounded-md px-3 text-xs font-medium whitespace-nowrap text-gray-500 transition-all outline-none hover:text-gray-700 focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
               >
                 View All
                 <ChevronRightIcon className="ml-1 size-3" />
@@ -138,32 +162,32 @@ function RecentReports() {
                 data-slot="table"
                 className="w-full caption-bottom text-sm"
               >
-                <thead data-slot="table-header" className="[&amp;_tr]:border-b">
+                <thead data-slot="table-header" className="[&_tr]:border-b">
                   <tr
                     data-slot="table-row"
                     className="data-[state=selected]:bg-muted border-b border-gray-200 transition-colors hover:bg-transparent"
                   >
                     <th
                       data-slot="table-head"
-                      className="[&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px] h-10 px-2 pl-6 text-left align-middle text-[11px] font-semibold tracking-wider whitespace-nowrap text-gray-400 uppercase"
+                      className="[&&gt;[role=checkbox]]:translate-y-[2px] h-10 px-2 pl-6 text-left align-middle text-[11px] font-semibold tracking-wider whitespace-nowrap text-gray-400 uppercase [&:has([role=checkbox])]:pr-0"
                     >
                       Vehicle
                     </th>
                     <th
                       data-slot="table-head"
-                      className="[&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px] h-10 px-2 text-left align-middle text-[11px] font-semibold tracking-wider whitespace-nowrap text-gray-400 uppercase"
+                      className="[&&gt;[role=checkbox]]:translate-y-[2px] h-10 px-2 text-left align-middle text-[11px] font-semibold tracking-wider whitespace-nowrap text-gray-400 uppercase [&:has([role=checkbox])]:pr-0"
                     >
                       Report ID
                     </th>
                     <th
                       data-slot="table-head"
-                      className="[&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px] h-10 px-2 text-left align-middle text-[11px] font-semibold tracking-wider whitespace-nowrap text-gray-400 uppercase"
+                      className="[&&gt;[role=checkbox]]:translate-y-[2px] h-10 px-2 text-left align-middle text-[11px] font-semibold tracking-wider whitespace-nowrap text-gray-400 uppercase [&:has([role=checkbox])]:pr-0"
                     >
                       Date
                     </th>
                     <th
                       data-slot="table-head"
-                      className="[&amp;:has([role=checkbox])]:pr-0 [&amp;&gt;[role=checkbox]]:translate-y-[2px] h-10 px-2 pr-6 text-right align-middle text-[11px] font-semibold tracking-wider whitespace-nowrap text-gray-400 uppercase"
+                      className="[&&gt;[role=checkbox]]:translate-y-[2px] h-10 px-2 pr-6 text-right align-middle text-[11px] font-semibold tracking-wider whitespace-nowrap text-gray-400 uppercase [&:has([role=checkbox])]:pr-0"
                     >
                       Action
                     </th>
@@ -171,15 +195,16 @@ function RecentReports() {
                 </thead>
                 <tbody
                   data-slot="table-body"
-                  className="[&amp;_tr:last-child]:border-0"
+                  className="[&_tr:last-child]:border-0"
                 >
-                  {[].map((item) => (
+                  {reports.map((item) => (
                     <ReportRowDesktop
-                      imgSrc={""}
-                      title={""}
-                      vin={""}
-                      id={""}
-                      date={""}
+                      key={item.id}
+                      imgSrc={item.imageThumbnail}
+                      title={item.vehicleName}
+                      vin={item.vin}
+                      id={item.id}
+                      date={item.deliveredAt ?? ""}
                     />
                   ))}
                 </tbody>
@@ -187,13 +212,14 @@ function RecentReports() {
             </div>
           </div>
           <div className="space-y-0 divide-y divide-gray-100 md:hidden">
-            {[].map((item) => (
+            {reports.map((item) => (
               <ReportRowMobile
-                imgSrc={""}
-                title={""}
-                vin={""}
-                id={""}
-                date={""}
+                key={item.id}
+                imgSrc={item.imageThumbnail}
+                title={item.vehicleName}
+                vin={item.vin}
+                id={item.id}
+                date={item.deliveredAt ?? ""}
               />
             ))}
           </div>

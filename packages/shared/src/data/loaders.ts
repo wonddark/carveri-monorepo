@@ -1,7 +1,10 @@
 import type { LoaderFunctionArgs } from "react-router";
 import { redirect } from "react-router";
 import { auth } from "@carveri/shared/lib/auth.ts";
-import { fetchVehicleReport, getVehicleList } from "@carveri/shared/data/api.ts";
+import {
+  fetchVehicleReport,
+  getVehicleList,
+} from "@carveri/shared/data/api.ts";
 import { transformToSharedReport } from "../lib/transforms.ts";
 import { generateReportTitle } from "../lib/formatters.ts";
 import type { CheckoutLoaderData, DashboardData } from "../types/dashboard.ts";
@@ -34,7 +37,6 @@ export async function reportLoader({ params }: LoaderFunctionArgs) {
 }
 
 export async function dashboardLoader(): Promise<DashboardData> {
-  requireAuthLoader();
   const vehicleListResponse = await getVehicleList();
   const reports = vehicleListResponse.data.map((item, i) => ({
     id: item.id,
