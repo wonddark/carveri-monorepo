@@ -36,6 +36,7 @@ import ArgumentsSection from "@/pages/report-sections/ArgumentsSection.tsx";
 import CostsSection from "@/pages/report-sections/CostsSection.tsx";
 import UserArea from "@/pages/UserArea.tsx";
 import Dashboard from "@/pages/user-area-sections/Dashboard.tsx";
+import Reports from "@/pages/user-area-sections/Reports.tsx";
 
 const router = createBrowserRouter([
   {
@@ -69,7 +70,7 @@ const router = createBrowserRouter([
           {
             id: "reports",
             path: "reports",
-            element: <></>,
+            element: <Reports />,
           },
           {
             id: "buy-credits",
