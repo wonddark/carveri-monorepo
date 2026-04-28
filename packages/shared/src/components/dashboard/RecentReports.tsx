@@ -141,7 +141,7 @@ function RecentReports() {
             >
               Recent Reports
             </div>
-            <Link href="/dashboard/reports">
+            <Link to="/dashboard/reports">
               <button
                 data-slot="button"
                 className="focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive hover:bg-accent dark:hover:bg-accent/50 has-[&gt;svg]:px-2.5 inline-flex h-8 shrink-0 items-center justify-center gap-1.5 rounded-md px-3 text-xs font-medium whitespace-nowrap text-gray-500 transition-all outline-none hover:text-gray-700 focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
