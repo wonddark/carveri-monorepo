@@ -6,12 +6,17 @@ import {
   PanelLeftIcon,
 } from "lucide-react";
 import { Outlet } from "react-router";
+import type { CSSProperties } from "react";
 
 function UserArea() {
+  const customVars = {
+    "--sidebar-width": "16rem",
+    "--sidebar-width-icon": "3rem",
+  } as CSSProperties;
   return (
     <div
       data-slot="sidebar-wrapper"
-      style={{ "--sidebar-width": "16rem", "--sidebar-width-icon": "3rem" }}
+      style={{ ...customVars }}
       className="group/sidebar-wrapper has-data-[variant=inset]:bg-sidebar flex min-h-svh w-full"
     >
       <UserAreaSidebar />
