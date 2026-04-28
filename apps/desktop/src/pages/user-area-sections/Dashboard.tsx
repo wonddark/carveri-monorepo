@@ -1,6 +1,7 @@
 import VinForm from "@carveri/shared/components/dashboard/VINForm.tsx";
 import AvailableReports from "@carveri/shared/components/dashboard/AvailableReports.tsx";
 import DashboardStats from "@carveri/shared/components/dashboard/DashboardStats.tsx";
+import RecentReports from "@carveri/shared/components/dashboard/RecentReports.tsx";
 
 function Dashboard() {
   return (
@@ -11,6 +12,7 @@ function Dashboard() {
           <AvailableReports />
         </div>
         <DashboardStats />
+        <RecentReports />
       </div>
     </main>
   );
