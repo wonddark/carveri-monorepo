@@ -38,6 +38,8 @@ import UserArea from "@/pages/UserArea.tsx";
 import Dashboard from "@/pages/user-area-sections/Dashboard.tsx";
 import Reports from "@/pages/user-area-sections/Reports.tsx";
 import BuyReports from "@/pages/user-area-sections/BuyReports.tsx";
+import Transactions from "@/pages/user-area-sections/Transactions.tsx";
+import Settings from "@/pages/user-area-sections/Settings.tsx";
 
 const router = createBrowserRouter([
   {
@@ -81,12 +83,12 @@ const router = createBrowserRouter([
           {
             id: "transactions",
             path: "transactions",
-            element: <></>,
+            element: <Transactions />,
           },
           {
             id: "settings",
             path: "settings",
-            element: <></>,
+            element: <Settings />,
           },
         ],
       },

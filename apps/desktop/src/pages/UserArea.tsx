@@ -12,6 +12,7 @@ function UserArea() {
   const customVars = {
     "--sidebar-width": "16rem",
     "--sidebar-width-icon": "3rem",
+    "--background": "oklch(97% .002 250)",
   } as CSSProperties;
   return (
     <div
