@@ -1,9 +1,14 @@
+import { motion } from "framer-motion";
 import { DollarSignIcon, ReceiptIcon } from "lucide-react";
 
 function TransactionsOverview() {
   return (
     <div className="grid grid-cols-2 gap-3 lg:gap-4">
-      <div>
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.05 }}
+      >
         <div
           data-slot="card"
           className="bg-card text-card-foreground flex flex-col gap-6 rounded-xl border border-gray-200 py-6 shadow-sm"
@@ -25,8 +30,12 @@ function TransactionsOverview() {
             </div>
           </div>
         </div>
-      </div>
-      <div>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3, delay: 0.05 + 0.05 }}
+      >
         <div
           data-slot="card"
           className="bg-card text-card-foreground flex flex-col gap-6 rounded-xl border border-gray-200 py-6 shadow-sm"
@@ -48,7 +57,7 @@ function TransactionsOverview() {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
