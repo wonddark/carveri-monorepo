@@ -1,5 +1,5 @@
 import LogoFullHorizontal from "@carveri/shared/components/logos/LogoFullHorizontal.tsx";
-import { Link, useLocation } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import {
   Tooltip,
   TooltipContent,
@@ -14,9 +14,15 @@ import {
   ShoppingBagIcon,
   UserIcon,
 } from "lucide-react";
+import { auth } from "@carveri/shared/lib/auth.ts";
 
 function UserAreaSidebar() {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const onSignOut = () => {
+    auth.clearToken();
+    navigate("/");
+  };
   return (
     <div
       className="group peer text-sidebar-foreground hidden md:block"
@@ -251,7 +257,10 @@ function UserAreaSidebar() {
                   osniel@carveri.com
                 </p>
               </div>
-              <button className="text-gray-400 transition-colors group-data-[collapsible=icon]:hidden hover:text-gray-600">
+              <button
+                onClick={onSignOut}
+                className="text-gray-400 transition-colors group-data-[collapsible=icon]:hidden hover:text-gray-600"
+              >
                 <LogOutIcon className="size-4" />
               </button>
             </div>
