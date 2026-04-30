@@ -1,12 +1,12 @@
+import { motion } from "framer-motion";
+import { FilterIcon, SearchIcon } from "lucide-react";
 import {
-  Combobox,
-  ComboboxContent,
-  ComboboxInput,
-  ComboboxItem,
-  ComboboxList,
-} from "@carveri/shared/components/ui/combobox.tsx";
-import { InputGroupAddon } from "@carveri/shared/components/ui/input-group.tsx";
-import { FunnelIcon, SearchIcon } from "lucide-react";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@carveri/shared/components/ui/select.tsx";
 
 type Status = { value: string; label: string };
 const STATUSES: Status[] = [
@@ -19,7 +19,11 @@ const STATUSES: Status[] = [
 
 function TransactionsSearch() {
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, delay: 0.2 }}
+    >
       <div
         data-slot="card"
         className="bg-card text-card-foreground flex flex-col gap-6 rounded-xl border border-gray-200 py-6 shadow-sm"
@@ -36,30 +40,23 @@ function TransactionsSearch() {
               />
             </div>
 
-            <Combobox
-              items={STATUSES}
-              defaultValue={STATUSES[0]}
-              itemToStringValue={(status: Status) => status.value}
-            >
-              <ComboboxInput className="w-auto min-w-25 lg:w-40">
-                <InputGroupAddon align="inline-start">
-                  <FunnelIcon />
-                </InputGroupAddon>
-              </ComboboxInput>
-              <ComboboxContent>
-                <ComboboxList>
-                  {(status: Status) => (
-                    <ComboboxItem key={status.value} value={status.value}>
-                      {status.label}
-                    </ComboboxItem>
-                  )}
-                </ComboboxList>
-              </ComboboxContent>
-            </Combobox>
+            <Select defaultValue={STATUSES[0].value}>
+              <SelectTrigger className="h-10 w-auto min-w-25 border-gray-200 bg-gray-50 lg:w-40">
+                <FilterIcon className="mr-1.5 h-3.5 w-3.5 shrink-0 text-gray-400" />
+                <SelectValue placeholder="Status" />
+              </SelectTrigger>
+              <SelectContent>
+                {STATUSES.map((status) => (
+                  <SelectItem key={status.value} value={status.value}>
+                    {status.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
