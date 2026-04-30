@@ -36,7 +36,7 @@ export default function ReportHeader() {
         {/* Right: language + actions */}
         <div className="flex items-center gap-1.5">
           <LanguageToggle variant="default" />
-          <ThemeToggle />
+          {import.meta.env.MODE === "development" ? <ThemeToggle /> : null}
           <button
             type="button"
             aria-label={t("reportHeader.shareAriaLabel")}

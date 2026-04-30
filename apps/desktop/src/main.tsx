@@ -19,7 +19,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <ThemeProvider
       attribute="class"
-      defaultTheme="system"
+      defaultTheme={import.meta.env.MODE === "development" ? "system" : "light"}
       disableTransitionOnChange
     >
       <RouterProvider router={router} />
