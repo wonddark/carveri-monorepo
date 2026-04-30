@@ -37,6 +37,7 @@ export async function reportLoader({ params }: LoaderFunctionArgs) {
 }
 
 export async function dashboardLoader(): Promise<DashboardData> {
+  requireAuthLoader();
   const vehicleListResponse = await getVehicleList();
   const reports = vehicleListResponse.data.map((item, i) => ({
     id: item.id,

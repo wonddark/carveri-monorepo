@@ -4,18 +4,13 @@ import Home from "@/pages/home.tsx";
 import ReportError from "@/pages/report-error.tsx";
 import RootError from "@/pages/root-error.tsx";
 import Login from "@/pages/login.tsx";
-import Register from "@/pages/register.tsx";
 import ReportPage from "@/pages/ReportPage.tsx";
-import {
-  redirectIfAuthLoader,
-  reportLoader,
-} from "@carveri/shared/data/loaders.ts";
+import { redirectIfAuthLoader, reportLoader } from "@carveri/shared/data/loaders.ts";
 import HomeTabSection from "@/pages/report-tabs/HomeTabSection.tsx";
 import HistoryTabSection from "@/pages/report-tabs/HistoryTabSection.tsx";
 import MarketTabSection from "@/pages/report-tabs/MarketTabSection.tsx";
 import DiagnosisTabSection from "@/pages/report-tabs/DiagnosisTabSection.tsx";
 import NegotiateTabSection from "@/pages/report-tabs/NegotiateTabSection.tsx";
-import { loginAction, registerAction } from "@carveri/shared/data/actions.ts";
 
 const router = createBrowserRouter([
   {
@@ -28,13 +23,6 @@ const router = createBrowserRouter([
         path: "login",
         element: <Login />,
         loader: redirectIfAuthLoader,
-        action: loginAction,
-      },
-      {
-        path: "register",
-        element: <Register />,
-        loader: redirectIfAuthLoader,
-        action: registerAction,
       },
       {
         id: "report",

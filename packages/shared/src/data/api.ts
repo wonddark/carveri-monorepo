@@ -3,39 +3,6 @@ import type { VehicleReportResponse } from "@carveri/shared/types/vehicle-report
 import type { VehicleListResponse } from "@carveri/shared/types/vehicle-list.ts";
 
 // ---------------------------------------------------------------------------
-// Auth API
-// ---------------------------------------------------------------------------
-
-export async function login(
-  email: string,
-  password: string,
-): Promise<{ token: string }> {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ email, password }),
-  });
-  if (!response.ok) throw new Error("Invalid credentials");
-  return response.json() as Promise<{ token: string }>;
-}
-
-export async function register(
-  email: string,
-  password: string,
-): Promise<{ token: string }> {
-  const response = await fetch(
-    `${import.meta.env.VITE_API_URL}/auth/register`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    },
-  );
-  if (!response.ok) throw new Error("Registration failed");
-  return response.json() as Promise<{ token: string }>;
-}
-
-// ---------------------------------------------------------------------------
 // Authenticated fetch wrapper
 // ---------------------------------------------------------------------------
 
@@ -61,11 +28,12 @@ export async function fetchWithAuth(
   if (response.status !== 401) return response;
 
   // 401 — attempt token refresh
+  const refreshToken = auth.getRefreshToken() ?? token;
   const refreshResponse = await fetch(
     `${import.meta.env.VITE_API_URL}/auth/refresh`,
     {
       method: "POST",
-      headers: { Authorization: `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${refreshToken}` },
     },
   );
 
@@ -75,17 +43,19 @@ export async function fetchWithAuth(
     return new Response(null, { status: 401 });
   }
 
-  const { token: newToken } = (await refreshResponse.json()) as {
+  const refreshData = (await refreshResponse.json()) as {
     token: string;
+    refreshToken?: string;
   };
-  auth.setToken(newToken);
+  auth.setToken(refreshData.token);
+  if (refreshData.refreshToken) auth.setRefreshToken(refreshData.refreshToken);
 
   // Retry original request once with the new token
   const retryResponse = await fetch(url, {
     ...init,
     headers: {
       ...init.headers,
-      Authorization: `Bearer ${newToken}`,
+      Authorization: `Bearer ${refreshData.token}`,
     },
   });
 

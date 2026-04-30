@@ -14,8 +14,8 @@ const PLANS = [
 function PricingSection() {
   const { t } = useTranslation("homepage");
 
-  const handleBuy = (planId: number) => {
-    window.location.href = `/register?plan=${planId}`;
+  const handleBuy = (_planId: number) => {
+    window.location.href = "/login";
   };
 
   return (

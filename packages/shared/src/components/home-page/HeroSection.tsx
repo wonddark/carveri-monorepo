@@ -50,20 +50,12 @@ export default function HeroSection({
               {tc("nav.dashboard")}
             </Link>
           ) : (
-            <>
-              <Link
-                to="/login"
-                className="rounded-xl border border-slate-600 px-4 py-2 font-[Outfit] text-sm font-semibold text-slate-300 transition-colors hover:border-slate-500 hover:text-white"
-              >
-                {tc("nav.signIn")}
-              </Link>
-              <Link
-                to="/register"
-                className="rounded-xl bg-green-400 px-4 py-2 font-[Outfit] text-sm font-bold text-[#0a1628] transition-colors hover:bg-green-300"
-              >
-                {tc("nav.register")}
-              </Link>
-            </>
+            <Link
+              to="/login"
+              className="rounded-xl border border-slate-600 px-4 py-2 font-[Outfit] text-sm font-semibold text-slate-300 transition-colors hover:border-slate-500 hover:text-white"
+            >
+              {tc("nav.signIn")}
+            </Link>
           )}
         </div>
       </nav>

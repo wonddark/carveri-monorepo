@@ -5,7 +5,6 @@ import ReportPage from "@/pages/ReportPage.tsx";
 import CheckoutPage from "@/pages/CheckoutPage.tsx";
 import CarVeriLanding from "@/pages/home.tsx";
 import Login from "@/pages/login.tsx";
-import Register from "@/pages/register.tsx";
 import {
   checkoutLoader,
   dashboardLoader,
@@ -14,9 +13,7 @@ import {
 } from "@carveri/shared/data/loaders.ts";
 import {
   deleteAccountAction,
-  loginAction,
   logoutAction,
-  registerAction,
 } from "@carveri/shared/data/actions.ts";
 import ResumenSection from "@/pages/report-sections/ResumenSection.tsx";
 import TimelineSection from "@/pages/report-sections/TimelineSection.tsx";
@@ -51,13 +48,6 @@ const router = createBrowserRouter([
         path: "login",
         element: <Login />,
         loader: redirectIfAuthLoader,
-        action: loginAction,
-      },
-      {
-        path: "register",
-        element: <Register />,
-        loader: redirectIfAuthLoader,
-        action: registerAction,
       },
       {
         id: "dashboard",
