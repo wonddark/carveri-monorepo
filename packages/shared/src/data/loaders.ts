@@ -14,7 +14,6 @@ import {
   MOCK_BILLING_INFO,
   MOCK_CHECKOUT_PLANS,
   MOCK_PLAN,
-  MOCK_SAVED_CARDS,
 } from "./mockDashboard.ts";
 
 /** Throws redirect to /login if no token is stored. */
