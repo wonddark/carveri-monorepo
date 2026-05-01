@@ -212,11 +212,16 @@
     },
     "payment": {
       "title": "Payment method",
-      "subtitle": "Select a saved card",
-      "expires": "Expires"
+      "subtitle": "Enter your card details",
+      "cardNumber": "Card number",
+      "cardHolder": "Cardholder name",
+      "expiry": "Expiry date",
+      "cvv": "CVV"
     },
     "total": "Order total",
-    "submit": "Complete purchase",
+    "submit": "Confirm Order",
+    "cancel": "Cancel",
+    "processing": "Processing...",
     "success": {
       "title": "Purchase completed!",
       "description": "Your plan has been activated. You can now request reports.",

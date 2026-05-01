@@ -1,14 +1,12 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { FadeUp } from "@carveri/shared/components/animations.tsx";
 import { cn } from "@carveri/shared/lib/utils.ts";
 import { auth } from "@carveri/shared/lib/auth.ts";
 import LogoFullHorizontal from "@carveri/shared/components/logos/LogoFullHorizontal.tsx";
 
-interface Props {
-  scrollToExamples: () => void;
-  scrollToPricing: () => void;
-}
+type HeroSectionProps = { scrollToExamples: () => void };
 
 // Static report mockup — matches carCheckExamples[0] from data/static.tsx
 const REPORT_TAGS = [
@@ -28,13 +26,24 @@ const REPORT_BOOKS = [
 const REPORT_AI_SUMMARY =
   "Price is 2.8% below market fair value. Clean Carfax history. Recommend a mechanical inspection before closing.";
 
-export default function HeroSection({
-  scrollToExamples,
-  scrollToPricing,
-}: Readonly<Props>) {
+const VIN_REGEX = /^[A-Z0-9]{17}$/i;
+
+export default function HeroSection(props: Readonly<HeroSectionProps>) {
+  const { scrollToExamples } = props;
   const { t } = useTranslation("homepage");
   const { t: tc } = useTranslation("common");
   const isAuthenticated = auth.isAuthenticated();
+  const navigate = useNavigate();
+  const [vin, setVin] = useState("");
+  const [vinError, setVinError] = useState("");
+
+  function handleScan() {
+    if (!VIN_REGEX.test(vin)) {
+      setVinError(t("hero.vin_error"));
+      return;
+    }
+    navigate(`/preview?vin=${encodeURIComponent(vin)}`);
+  }
 
   return (
     <section className="relative overflow-hidden bg-[#0A1628]">
@@ -95,18 +104,37 @@ export default function HeroSection({
               </p>
 
               {/* CTAs */}
-              <div className="flex flex-col gap-3 sm:flex-row">
+              <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-2 sm:flex-row">
+                  <input
+                    type="text"
+                    value={vin}
+                    onChange={(e) => {
+                      setVin(e.target.value.toUpperCase());
+                      setVinError("");
+                    }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") handleScan();
+                    }}
+                    placeholder={t("hero.vin_placeholder")}
+                    maxLength={17}
+                    className="flex-1 rounded-xl border border-slate-700 bg-[#1e293b] px-4 py-3.5 font-[Outfit] text-sm text-white placeholder:text-slate-500 focus:border-green-500 focus:outline-none"
+                  />
+                  <button
+                    onClick={handleScan}
+                    className="flex items-center justify-center gap-2 rounded-xl bg-green-400 px-6 py-3.5 font-[Outfit] text-sm font-bold text-[#0a1628] transition-colors hover:bg-green-300 active:scale-95"
+                  >
+                    {t("hero.cta_scan")} →
+                  </button>
+                </div>
+                {vinError && (
+                  <p className="text-xs text-red-400">{vinError}</p>
+                )}
                 <button
                   onClick={scrollToExamples}
-                  className="flex items-center justify-center gap-2 rounded-xl bg-green-400 px-6 py-3.5 font-[Outfit] text-sm font-bold text-[#0a1628] transition-colors hover:bg-green-300 active:scale-95"
+                  className="self-start font-[Outfit] text-sm font-semibold text-slate-400 transition-colors hover:text-slate-300"
                 >
                   {t("hero.cta_primary")} →
-                </button>
-                <button
-                  onClick={scrollToPricing}
-                  className="flex items-center justify-center gap-2 rounded-xl border border-slate-700 px-6 py-3.5 font-[Outfit] text-sm font-semibold text-slate-400 transition-colors hover:border-slate-600 hover:text-slate-300"
-                >
-                  {t("hero.cta_secondary")}
                 </button>
               </div>
 

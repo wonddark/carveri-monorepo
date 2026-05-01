@@ -29,7 +29,6 @@ export default function CarVeriLanding() {
       {/* ═══ HERO ═══ */}
       <HeroSection
         scrollToExamples={scrollToExamples}
-        scrollToPricing={scrollToPricing}
       />
 
       {/* ═══ CARCHECK EXAMPLES SLIDER ═══ */}
@@ -64,7 +63,7 @@ export default function CarVeriLanding() {
       <Footer />
 
       {/* ═══ STICKY MOBILE BAR ═══ */}
-      <StickyMobileBar scrollToPricing={scrollToPricing} />
+      <StickyMobileBar />
 
       {/* ═══ WhatsApp FAB ═══ */}
       <WsFab />

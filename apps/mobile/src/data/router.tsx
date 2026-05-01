@@ -5,7 +5,8 @@ import ReportError from "@/pages/report-error.tsx";
 import RootError from "@/pages/root-error.tsx";
 import Login from "@/pages/login.tsx";
 import ReportPage from "@/pages/ReportPage.tsx";
-import { redirectIfAuthLoader, reportLoader } from "@carveri/shared/data/loaders.ts";
+import PreviewPage from "@/pages/PreviewPage.tsx";
+import { previewLoader, redirectIfAuthLoader, reportLoader } from "@carveri/shared/data/loaders.ts";
 import HomeTabSection from "@/pages/report-tabs/HomeTabSection.tsx";
 import HistoryTabSection from "@/pages/report-tabs/HistoryTabSection.tsx";
 import MarketTabSection from "@/pages/report-tabs/MarketTabSection.tsx";
@@ -23,6 +24,13 @@ const router = createBrowserRouter([
         path: "login",
         element: <Login />,
         loader: redirectIfAuthLoader,
+      },
+      {
+        id: "preview",
+        path: "preview",
+        element: <PreviewPage />,
+        loader: previewLoader,
+        errorElement: <ReportError />,
       },
       {
         id: "report",

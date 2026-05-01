@@ -64,9 +64,9 @@ const DELIVERED_DATES: (string | null)[] = [
 ];
 
 export const MOCK_CHECKOUT_PLANS: CheckoutPlan[] = [
-  { id: "plan-5", name: "5 Reports", price: "$75", reports: 5 },
-  { id: "plan-15", name: "15 Reports", price: "$125", reports: 15 },
-  { id: "plan-30", name: "30 Reports", price: "$375", reports: 30 },
+  { id: "plan-1", name: "1 Report", price: "$39", reports: 1 },
+  { id: "plan-5", name: "5 Reports", price: "$179", reports: 5 },
+  { id: "plan-10", name: "10 Reports", price: "$250", reports: 10 },
 ];
 
 export const MOCK_SAVED_CARDS: SavedCard[] = [

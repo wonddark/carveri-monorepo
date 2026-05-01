@@ -15,9 +15,11 @@ import MarketPriceHeader from "@carveri/shared/components/market/MarketPriceHead
 
 interface Props {
   report: TransformedReport;
+  hideQuickLinks?: boolean;
 }
 
-export default function ResumenView({ report }: Readonly<Props>) {
+export default function ResumenView(props: Readonly<Props>) {
+  const { report, hideQuickLinks = false } = props;
   const { id } = useParams();
   const { t } = useTranslation("common");
   const { priceEval, stats } = report;
@@ -132,34 +134,36 @@ export default function ResumenView({ report }: Readonly<Props>) {
       <AISummarySection aiSummary={report.aiSummary} />
 
       {/* Quick navigation */}
-      <div className="grid grid-cols-2 gap-3.5">
-        {QUICK_LINKS.map((item) => (
-          <Link
-            key={item.id}
-            to={item.id}
-            className="group border-border/70 bg-card rounded-2xl border p-4 text-left transition-all hover:border-blue-200 hover:shadow-[0_18px_40px_-30px_rgba(37,99,235,0.35)] dark:hover:border-blue-700"
-          >
-            <div
-              data-loc="client/src/pages/VDP.tsx:563"
-              className="text-muted-foreground mb-2.5 group-hover:text-blue-500 dark:group-hover:text-blue-400"
+      {!hideQuickLinks && (
+        <div className="grid grid-cols-2 gap-3.5">
+          {QUICK_LINKS.map((item) => (
+            <Link
+              key={item.id}
+              to={item.id}
+              className="group border-border/70 bg-card rounded-2xl border p-4 text-left transition-all hover:border-blue-200 hover:shadow-[0_18px_40px_-30px_rgba(37,99,235,0.35)] dark:hover:border-blue-700"
             >
-              {item.icon}
-            </div>
-            <div
-              data-loc="client/src/pages/VDP.tsx:564"
-              className="text-sm font-semibold tracking-tight text-slate-900"
-            >
-              {t(item.title)}
-            </div>
-            <div
-              data-loc="client/src/pages/VDP.tsx:565"
-              className="text-[12px] leading-5 text-slate-400"
-            >
-              {t(item.description)}
-            </div>
-          </Link>
-        ))}
-      </div>
+              <div
+                data-loc="client/src/pages/VDP.tsx:563"
+                className="text-muted-foreground mb-2.5 group-hover:text-blue-500 dark:group-hover:text-blue-400"
+              >
+                {item.icon}
+              </div>
+              <div
+                data-loc="client/src/pages/VDP.tsx:564"
+                className="text-sm font-semibold tracking-tight text-slate-900"
+              >
+                {t(item.title)}
+              </div>
+              <div
+                data-loc="client/src/pages/VDP.tsx:565"
+                className="text-[12px] leading-5 text-slate-400"
+              >
+                {t(item.description)}
+              </div>
+            </Link>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

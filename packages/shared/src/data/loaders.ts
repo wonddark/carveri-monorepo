@@ -36,6 +36,15 @@ export async function reportLoader({ params }: LoaderFunctionArgs) {
   return transformToSharedReport(raw.data);
 }
 
+export async function previewLoader({ request }: LoaderFunctionArgs) {
+  const vin = new URL(request.url).searchParams.get("vin");
+  if (!vin) throw new Response("VIN required", { status: 400 });
+  if (!import.meta.env.VITE_API_URL)
+    throw new Response("API not configured", { status: 503 });
+  const raw = await fetchVehicleReport(vin);
+  return transformToSharedReport(raw.data);
+}
+
 export async function dashboardLoader(): Promise<DashboardData> {
   requireAuthLoader();
   const vehicleListResponse = await getVehicleList();
@@ -58,7 +67,6 @@ export function checkoutLoader(): CheckoutLoaderData {
   requireAuthLoader();
   return {
     plans: MOCK_CHECKOUT_PLANS,
-    savedCards: MOCK_SAVED_CARDS,
     billing: MOCK_BILLING_INFO,
   };
 }

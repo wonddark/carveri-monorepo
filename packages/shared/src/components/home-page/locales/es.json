@@ -6,8 +6,10 @@
     "titleHighlight": "Sabe antes de pagar.",
     "description": "Reporte con IA: Carfax, 4 libros de valuación, historial de subasta y comparables de mercado — entregado en 24 horas.",
     "descriptionMobile": "Carfax · 4 libros · Historial de subasta · Veredicto con IA. En 24h.",
+    "cta_scan": "Escaneo Gratis",
     "cta_primary": "Ver reportes reales",
-    "cta_secondary": "Ver planes",
+    "vin_placeholder": "Ingresa el VIN del vehículo (ej. 1HGCM82633A004352)",
+    "vin_error": "Ingresa un VIN válido de 17 caracteres (solo letras y números)",
     "trust_delivery": "Entrega en 24h",
     "trust_carfax": "Carfax incluido",
     "trust_books": "4 libros de valuación",
@@ -169,6 +171,40 @@
     "subtitle": "Tu primer reporte es gratis. Descubre lo que el vendedor no te está diciendo.",
     "getReport": "Ver planes",
     "whatsapp": "Hablar por WhatsApp"
+  },
+  "preview": {
+    "backToHome": "← Volver al inicio",
+    "title": "Resultados del Escaneo VIN",
+    "subtitle": "Esto es lo que encontramos para",
+    "carInfoTitle": "Información del Vehículo",
+    "sectionsTitle": "Secciones del Reporte Disponibles",
+    "blurredTitle": "Vista Previa de tu Reporte Completo",
+    "blurredSubtitle": "Compra un reporte completo CarVeri para desbloquear todas las secciones",
+    "ctaLabel": "Desbloquea tu reporte completo por $39",
+    "fields": {
+      "vin": "VIN",
+      "make": "Marca",
+      "model": "Modelo",
+      "year": "Año",
+      "trim": "Versión",
+      "engine": "Motor",
+      "transmission": "Transmisión",
+      "drive": "Tracción",
+      "color": "Color",
+      "odometer": "Odómetro",
+      "title": "Título"
+    },
+    "sections": {
+      "timeline": "Línea de tiempo",
+      "accidents": "Accidentes",
+      "owners": "Historial de Dueños",
+      "service": "Historial de Servicio",
+      "titleHistory": "Historial de Título",
+      "auctionHistory": "Historial de Subastas",
+      "auctionPhotos": "Fotos de Subasta",
+      "comparables": "Comparables del Mercado",
+      "priceDynamics": "Dinámica de Precios"
+    }
   },
   "examples": {
     "eyebrow": "Reportes reales",

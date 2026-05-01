@@ -8,6 +8,7 @@ import Login from "@/pages/login.tsx";
 import {
   checkoutLoader,
   dashboardLoader,
+  previewLoader,
   redirectIfAuthLoader,
   reportLoader,
 } from "@carveri/shared/data/loaders.ts";
@@ -37,6 +38,7 @@ import Reports from "@/pages/user-area-sections/Reports.tsx";
 import BuyReports from "@/pages/user-area-sections/BuyReports.tsx";
 import Transactions from "@/pages/user-area-sections/Transactions.tsx";
 import Settings from "@/pages/user-area-sections/Settings.tsx";
+import PreviewPage from "@/pages/PreviewPage.tsx";
 
 const router = createBrowserRouter([
   {
@@ -85,6 +87,13 @@ const router = createBrowserRouter([
       { path: "logout", action: logoutAction },
       { path: "delete-account", action: deleteAccountAction },
       { path: "checkout", element: <CheckoutPage />, loader: checkoutLoader },
+      {
+        id: "preview",
+        path: "preview",
+        element: <PreviewPage />,
+        loader: previewLoader,
+        errorElement: <ReportError />,
+      },
       {
         id: "report",
         path: "reports/:id",

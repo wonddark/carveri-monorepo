@@ -61,6 +61,5 @@ export interface BillingInfo {
 
 export interface CheckoutLoaderData {
   plans: CheckoutPlan[];
-  savedCards: SavedCard[];
   billing: BillingInfo;
 }

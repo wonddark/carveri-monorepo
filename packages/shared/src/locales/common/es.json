@@ -212,11 +212,16 @@
     },
     "payment": {
       "title": "Método de pago",
-      "subtitle": "Selecciona una tarjeta guardada",
-      "expires": "Vence"
+      "subtitle": "Ingresa los datos de tu tarjeta",
+      "cardNumber": "Número de tarjeta",
+      "cardHolder": "Nombre en la tarjeta",
+      "expiry": "Fecha de vencimiento",
+      "cvv": "CVV"
     },
     "total": "Total del pedido",
-    "submit": "Completar compra",
+    "submit": "Confirmar Pedido",
+    "cancel": "Cancelar",
+    "processing": "Procesando...",
     "success": {
       "title": "¡Compra completada!",
       "description": "Tu plan ha sido activado. Ya puedes solicitar reportes.",
