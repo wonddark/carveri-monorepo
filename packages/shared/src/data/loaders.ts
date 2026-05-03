@@ -40,7 +40,10 @@ export async function previewLoader({ request }: LoaderFunctionArgs) {
   if (!vin) throw new Response("VIN required", { status: 400 });
   if (!import.meta.env.VITE_API_URL)
     throw new Response("API not configured", { status: 503 });
-  const raw = await fetchVehicleReport(vin);
+  const examples = await getVehicleList();
+  const report = examples.data.find((item) => item.vin === vin);
+  if (!report) throw new Response("Vehicle not found", { status: 404 });
+  const raw = await fetchVehicleReport(report.id);
   return transformToSharedReport(raw.data);
 }
 
