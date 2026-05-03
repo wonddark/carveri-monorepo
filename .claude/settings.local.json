@@ -85,7 +85,10 @@
       "Bash(curl -s \"https://carcheckcub-e8jeqgfr.manus.space/reports/JA4J4VA86RZ079851\")",
       "Bash(curl -s \"https://carcheckcub-e8jeqgfr.manus.space/assets/index-DJBKHSCC.css\")",
       "Bash(curl -s \"https://carcheckcub-e8jeqgfr.manus.space/assets/index-CIN4DdrI.js\")",
-      "WebSearch"
+      "WebSearch",
+      "mcp__plugin_playwright_playwright__browser_navigate",
+      "Bash(npx playwright *)",
+      "WebFetch(domain:ui.shadcn.com)"
     ]
   }
 }
