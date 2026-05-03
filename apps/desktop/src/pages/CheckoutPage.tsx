@@ -1,4 +1,5 @@
 import { Activity, useState } from "react";
+import type { Control } from "react-hook-form";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -11,7 +12,6 @@ import {
   IconLoader2,
   IconShoppingBag,
 } from "@tabler/icons-react";
-import type { Control } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import LogoFullHorizontal from "@carveri/shared/components/logos/LogoFullHorizontal.tsx";
 import LanguageToggle from "@carveri/shared/components/LanguageToggle";
@@ -54,7 +54,10 @@ type CheckoutFormValues = {
 
 const schema: yup.ObjectSchema<CheckoutFormValues> = yup.object({
   name: yup.string().required("Full name is required"),
-  email: yup.string().email("Enter a valid email").required("Email is required"),
+  email: yup
+    .string()
+    .email("Enter a valid email")
+    .required("Email is required"),
   phone: yup.string().required("Phone number is required"),
   address: yup.string().required("Street address is required"),
   city: yup.string().required("City is required"),
@@ -65,7 +68,7 @@ const schema: yup.ObjectSchema<CheckoutFormValues> = yup.object({
     .string()
     .required("Card number is required")
     .test("len", "Enter a valid 16-digit card number", (val) => {
-      return (val ?? "").replace(/\s/g, "").length === 16;
+      return (val ?? "").replaceAll(/\s/g, "").length === 16;
     }),
   cardHolder: yup.string().required("Cardholder name is required"),
   cardExpiry: yup
@@ -213,12 +216,16 @@ function BillingSection(props: Readonly<FormSectionProps>) {
       subtitle={t("checkout.billing.subtitle")}
     >
       <div className="grid grid-cols-2 gap-4">
-        {renderField(control, "name", t("checkout.billing.name"), { colSpan: true })}
+        {renderField(control, "name", t("checkout.billing.name"), {
+          colSpan: true,
+        })}
         {renderField(control, "email", t("checkout.billing.email"), {
           type: "email",
           readOnly: true,
         })}
-        {renderField(control, "phone", t("checkout.billing.phone"), { type: "tel" })}
+        {renderField(control, "phone", t("checkout.billing.phone"), {
+          type: "tel",
+        })}
         {renderField(control, "address", t("checkout.billing.address"), {
           colSpan: true,
         })}
@@ -263,11 +270,13 @@ function CardInputSection(props: Readonly<FormSectionProps>) {
                   ref={field.ref}
                   onBlur={field.onBlur}
                   onChange={(e) => {
-                    const digits = e.target.value.replace(/\D/g, "").slice(0, 16);
-                    field.onChange(digits.replace(/(.{4})/g, "$1 ").trim());
+                    const digits = e.target.value
+                      .replaceAll(/\D/g, "")
+                      .slice(0, 16);
+                    field.onChange(digits.replaceAll(/(.{4})/g, "$1 ").trim());
                   }}
                 />
-                <IconCreditCard className="text-muted-foreground pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2" />
+                <IconCreditCard className="text-muted-foreground pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2" />
               </div>
               <Activity mode={invalid ? "visible" : "hidden"}>
                 <FieldError errors={[error]} />
@@ -275,11 +284,6 @@ function CardInputSection(props: Readonly<FormSectionProps>) {
             </Field>
           )}
         />
-
-        {/* Cardholder name */}
-        {renderField(control, "cardHolder", t("checkout.payment.cardHolder"), {
-          colSpan: true,
-        })}
 
         {/* Expiry */}
         <Controller
@@ -301,7 +305,7 @@ function CardInputSection(props: Readonly<FormSectionProps>) {
                 onBlur={field.onBlur}
                 onChange={(e) => {
                   const raw = e.target.value;
-                  const digits = raw.replace(/\D/g, "").slice(0, 4);
+                  const digits = raw.replaceAll(/\D/g, "").slice(0, 4);
                   let formatted: string;
                   if (digits.length > 2) {
                     formatted = `${digits.slice(0, 2)}/${digits.slice(2)}`;
@@ -363,6 +367,7 @@ export default function CheckoutPage() {
       setSubmitting(false);
       setSubmitted(true);
     }, 1500);
+    console.log(_data);
   }
 
   if (submitted) return <SuccessScreen />;
@@ -377,7 +382,9 @@ export default function CheckoutPage() {
             className="text-muted-foreground hover:text-foreground flex items-center gap-1.5 text-[13px] transition-colors"
           >
             <IconChevronLeft className="size-4" />
-            <span className="hidden sm:inline">{t("checkout.header.back")}</span>
+            <span className="hidden sm:inline">
+              {t("checkout.header.back")}
+            </span>
           </Link>
 
           <LogoFullHorizontal className="h-7 w-auto" />
@@ -403,7 +410,7 @@ export default function CheckoutPage() {
           <CardInputSection control={control} />
 
           {/* Order summary + actions */}
-          <div className="flex items-center justify-between rounded-xl border bg-card px-5 py-4 ring-1 ring-foreground/10">
+          <div className="bg-card ring-foreground/10 flex items-center justify-between rounded-xl border px-5 py-4 ring-1">
             <div>
               <p className="text-muted-foreground text-xs">
                 {t("checkout.total")}
