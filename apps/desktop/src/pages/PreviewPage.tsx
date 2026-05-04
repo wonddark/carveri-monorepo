@@ -4,9 +4,9 @@ import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
 import VehicleInfoCard from "@carveri/shared/components/preview/VehicleInfoCard.tsx";
 import SectionsChecklist from "@carveri/shared/components/preview/SectionsChecklist.tsx";
-import PreviewCta from "@carveri/shared/components/preview/PreviewCta.tsx";
 import BlurredPreviewOverlay from "@carveri/shared/components/preview/BlurredPreviewOverlay.tsx";
 import ResumenView from "@/components/ResumenView.tsx";
+import PreviewCta from "@carveri/shared/components/preview/PreviewCta.tsx";
 
 export default function PreviewPage() {
   const report = useLoaderData() as TransformedReport;
@@ -55,6 +55,10 @@ export default function PreviewPage() {
         <div className="grid gap-8">
           {/* Left column: vehicle info + sections checklist + CTA */}
           <div className="grid gap-5 md:grid-cols-[1fr_40%]">
+            <img
+              src={report.images[0]}
+              className="col-start-1 -col-end-1 h-[240px] w-full rounded-lg object-cover"
+            />
             <div className="col-start-1 -col-end-1 flex justify-end">
               <PreviewCta />
             </div>
