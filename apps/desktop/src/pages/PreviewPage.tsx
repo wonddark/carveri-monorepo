@@ -57,7 +57,8 @@ export default function PreviewPage() {
           <div className="grid gap-5 md:grid-cols-[1fr_40%]">
             <img
               src={report.images[0]}
-              className="col-start-1 -col-end-1 h-[240px] w-full rounded-lg object-cover"
+              alt={report.vin}
+              className="col-start-1 -col-end-1 h-60 w-full rounded-lg object-cover"
             />
             <div className="col-start-1 -col-end-1 flex justify-end">
               <PreviewCta />
