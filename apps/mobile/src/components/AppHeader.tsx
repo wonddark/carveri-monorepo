@@ -5,14 +5,15 @@ import { useTranslation } from "react-i18next";
 import { cn } from "@carveri/shared/lib/utils.ts";
 import ThemeToggle from "@carveri/shared/components/ThemeToggle.tsx";
 
-interface AppHeaderProps {
+type AppHeaderProps = {
   isTransparent?: boolean;
   showAppName?: boolean;
   title?: string;
+  backTo?: string;
 }
 
 export default function AppHeader(props: Readonly<AppHeaderProps>) {
-  const { isTransparent = false, showAppName = true, title } = props;
+  const { isTransparent = false, showAppName = true, title, backTo = "/" } = props;
   const navigate = useNavigate();
   const { t } = useTranslation("common");
 
@@ -26,7 +27,7 @@ export default function AppHeader(props: Readonly<AppHeaderProps>) {
     >
       <div className="flex flex-auto items-center justify-between gap-2">
         <button
-          onClick={() => navigate("/")}
+          onClick={() => navigate(backTo)}
           className={`rounded-full border p-2 transition-colors duration-300 ${
             isTransparent
               ? "bg-background/20 text-foreground/80 border-transparent"

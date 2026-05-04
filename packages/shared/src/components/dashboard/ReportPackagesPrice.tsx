@@ -1,4 +1,5 @@
 import { ArrowRight, ArrowRightIcon, CheckIcon, StarIcon } from "lucide-react";
+import { Link } from "react-router";
 
 function ReportPackagesPrice() {
   return (
@@ -46,13 +47,13 @@ function ReportPackagesPrice() {
               <span>PDF Download</span>
             </li>
           </ul>
-          <button
-            data-slot="button"
-            className="[&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:shrink-0 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive has-[&gt;svg]:px-3 font-heading mt-5 inline-flex h-9 w-full shrink-0 items-center justify-center gap-2 rounded-md bg-gray-900 px-4 py-2 text-sm font-semibold whitespace-nowrap text-white transition-all outline-none hover:bg-gray-800 focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50"
+          <Link
+            to="/checkout"
+            className="font-heading mt-5 inline-flex h-9 w-full shrink-0 items-center justify-center gap-2 rounded-md bg-gray-900 px-4 py-2 text-sm font-semibold whitespace-nowrap text-white transition-all outline-none hover:bg-gray-800"
           >
             Buy Single Report
             <ArrowRight className="ml-1 h-4 w-4" />
-          </button>
+          </Link>
         </div>
       </div>
       <div
@@ -116,13 +117,13 @@ function ReportPackagesPrice() {
               <span>Priority Support</span>
             </li>
           </ul>
-          <button
-            data-slot="button"
-            className="[&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:shrink-0 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive has-[&gt;svg]:px-3 font-heading mt-5 inline-flex h-9 w-full shrink-0 items-center justify-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold whitespace-nowrap text-white shadow-sm transition-all outline-none hover:bg-blue-700 focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50"
+          <Link
+            to="/checkout"
+            className="font-heading mt-5 inline-flex h-9 w-full shrink-0 items-center justify-center gap-2 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold whitespace-nowrap text-white shadow-sm transition-all outline-none hover:bg-blue-700"
           >
             Buy Smart Buyer
             <ArrowRightIcon className="ml-1 h-4 w-4" />
-          </button>
+          </Link>
         </div>
       </div>
       <div
@@ -184,13 +185,13 @@ function ReportPackagesPrice() {
               <span>Save Reports for Later</span>
             </li>
           </ul>
-          <button
-            data-slot="button"
-            className="[&amp;_svg]:pointer-events-none [&amp;_svg:not([class*='size-'])]:size-4 [&amp;_svg]:shrink-0 focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive has-[&gt;svg]:px-3 font-heading mt-5 inline-flex h-9 w-full shrink-0 items-center justify-center gap-2 rounded-md bg-gray-900 px-4 py-2 text-sm font-semibold whitespace-nowrap text-white transition-all outline-none hover:bg-gray-800 focus-visible:ring-[3px] disabled:pointer-events-none disabled:opacity-50"
+          <Link
+            to="/checkout"
+            className="font-heading mt-5 inline-flex h-9 w-full shrink-0 items-center justify-center gap-2 rounded-md bg-gray-900 px-4 py-2 text-sm font-semibold whitespace-nowrap text-white transition-all outline-none hover:bg-gray-800"
           >
             Buy Best Value
             <ArrowRightIcon className="ml-1 h-4 w-4" />
-          </button>
+          </Link>
         </div>
       </div>
     </div>

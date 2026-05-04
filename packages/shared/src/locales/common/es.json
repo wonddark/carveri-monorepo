@@ -18,6 +18,13 @@
     "diagnosis": "Diagnóstico",
     "negotiate": "Negociar"
   },
+  "dashboardNav": {
+    "home": "Inicio",
+    "reports": "Reportes",
+    "buy": "Comprar",
+    "transactions": "Transacciones",
+    "settings": "Ajustes"
+  },
   "actions": {
     "goBack": "Volver",
     "share": "Compartir",

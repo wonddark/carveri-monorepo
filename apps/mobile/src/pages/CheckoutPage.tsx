@@ -3,13 +3,9 @@ import type { Control } from "react-hook-form";
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link, useLoaderData } from "react-router";
+import { useLoaderData } from "react-router";
 import { useTranslation } from "react-i18next";
-import { IconChevronLeft, IconCreditCard } from "@tabler/icons-react";
-import { cn } from "@/lib/utils";
-import LogoFullHorizontal from "@carveri/shared/components/logos/LogoFullHorizontal.tsx";
-import LanguageToggle from "@carveri/shared/components/LanguageToggle";
-import ThemeToggle from "@carveri/shared/components/ThemeToggle";
+import { IconCreditCard } from "@tabler/icons-react";
 import { Input } from "@carveri/shared/components/ui/input.tsx";
 import {
   Field,
@@ -26,6 +22,7 @@ import type {
   CheckoutLoaderData,
   CheckoutPlan,
 } from "@carveri/shared/types/dashboard.ts";
+import AppHeader from "@/components/AppHeader";
 
 // ─── Form schema ──────────────────────────────────────────────────────────────
 
@@ -288,33 +285,14 @@ export default function CheckoutPage() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      {/* Header */}
-      <header className="border-border/60 bg-card/95 fixed inset-x-0 top-0 z-20 h-14 border-b backdrop-blur-sm">
-        <div className="mx-auto flex h-full max-w-3xl items-center justify-between px-4 lg:px-5">
-          <Link
-            to="/dashboard"
-            className={cn(
-              "text-muted-foreground hover:text-foreground flex items-center gap-1.5 text-[13px] transition-colors",
-            )}
-          >
-            <IconChevronLeft className="size-4" />
-            <span className="hidden sm:inline">
-              {t("checkout.header.back")}
-            </span>
-          </Link>
+      <AppHeader
+        title={t("checkout.header.title")}
+        backTo="/dashboard"
+        showAppName={false}
+      />
 
-          <LogoFullHorizontal className="h-7 w-auto" />
-
-          <div className="flex items-center gap-1.5">
-            <LanguageToggle variant="default" />
-            <ThemeToggle />
-          </div>
-        </div>
-      </header>
-
-      {/* Content */}
       <div className="dark:bg-background min-h-screen bg-slate-50/70 pt-14">
-        <div className="mx-auto max-w-3xl space-y-5 px-5 py-8">
+        <div className="mx-auto max-w-2xl space-y-5 px-4 py-6">
           <PlanPicker
             plans={plans}
             selected={selectedPlan}

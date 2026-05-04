@@ -6,7 +6,20 @@ import RootError from "@/pages/root-error.tsx";
 import Login from "@/pages/login.tsx";
 import ReportPage from "@/pages/ReportPage.tsx";
 import PreviewPage from "@/pages/PreviewPage.tsx";
-import { previewLoader, redirectIfAuthLoader, reportLoader } from "@carveri/shared/data/loaders.ts";
+import DashboardPage from "@/pages/DashboardPage.tsx";
+import DashboardHome from "@/pages/dashboard-tabs/DashboardHome.tsx";
+import DashboardReports from "@/pages/dashboard-tabs/DashboardReports.tsx";
+import DashboardBuyReports from "@/pages/dashboard-tabs/DashboardBuyReports.tsx";
+import DashboardTransactions from "@/pages/dashboard-tabs/DashboardTransactions.tsx";
+import DashboardSettings from "@/pages/dashboard-tabs/DashboardSettings.tsx";
+import {
+  checkoutLoader,
+  dashboardLoader,
+  previewLoader,
+  redirectIfAuthLoader,
+  reportLoader,
+} from "@carveri/shared/data/loaders.ts";
+import CheckoutPage from "@/pages/CheckoutPage.tsx";
 import HomeTabSection from "@/pages/report-tabs/HomeTabSection.tsx";
 import HistoryTabSection from "@/pages/report-tabs/HistoryTabSection.tsx";
 import MarketTabSection from "@/pages/report-tabs/MarketTabSection.tsx";
@@ -25,6 +38,20 @@ const router = createBrowserRouter([
         element: <Login />,
         loader: redirectIfAuthLoader,
       },
+      {
+        id: "dashboard",
+        path: "dashboard",
+        element: <DashboardPage />,
+        loader: dashboardLoader,
+        children: [
+          { index: true, element: <DashboardHome /> },
+          { path: "reports", element: <DashboardReports /> },
+          { path: "buy-credits", element: <DashboardBuyReports /> },
+          { path: "transactions", element: <DashboardTransactions /> },
+          { path: "settings", element: <DashboardSettings /> },
+        ],
+      },
+      { path: "checkout", element: <CheckoutPage />, loader: checkoutLoader },
       {
         id: "preview",
         path: "preview",
