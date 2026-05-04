@@ -6,7 +6,9 @@ import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 
 type SectionsChecklistProps = { report: TransformedReport };
 
-export default function SectionsChecklist(props: Readonly<SectionsChecklistProps>) {
+export default function SectionsChecklist(
+  props: Readonly<SectionsChecklistProps>,
+) {
   const { report } = props;
   const { t } = useTranslation("homepage");
 
@@ -17,15 +19,21 @@ export default function SectionsChecklist(props: Readonly<SectionsChecklistProps
     { key: "service", available: report.historyTab.service.length > 0 },
     { key: "titleHistory", available: report.historyTab.title.length > 0 },
     { key: "auctionHistory", available: report.auctionSales.length > 0 },
-    { key: "auctionPhotos", available: report.historyTab.auctionPhotos.length > 0 },
+    {
+      key: "auctionPhotos",
+      available: report.historyTab.auctionPhotos.length > 0,
+    },
     { key: "comparables", available: report.comparables.length > 0 },
-    { key: "priceDynamics", available: report.priceDynamics.history.length > 1 },
+    {
+      key: "priceDynamics",
+      available: report.priceDynamics.history.length > 1,
+    },
   ];
 
   return (
-    <Card className="dark:bg-card dark:border-border rounded-[1.5rem] border border-slate-200/80">
+    <Card className="dark:bg-card dark:border-border rounded-3xl border border-slate-200/80">
       <CardContent className="p-5">
-        <h3 className="mb-4 text-sm font-semibold tracking-tight text-slate-900 dark:text-foreground">
+        <h3 className="dark:text-foreground mb-4 text-sm font-semibold tracking-tight text-slate-900">
           {t("preview.sectionsTitle")}
         </h3>
         <ul className="flex flex-col gap-2.5">
@@ -40,7 +48,7 @@ export default function SectionsChecklist(props: Readonly<SectionsChecklistProps
                 className={cn(
                   "text-sm",
                   available
-                    ? "font-medium text-slate-900 dark:text-foreground"
+                    ? "dark:text-foreground font-medium text-slate-900"
                     : "text-slate-400 dark:text-slate-500",
                 )}
               >
