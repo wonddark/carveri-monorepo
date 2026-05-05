@@ -5,6 +5,7 @@ import { Zoom } from "yet-another-react-lightbox/plugins";
 import { cn } from "@/lib/utils";
 import VerdictBadge from "@carveri/shared/components/VerdictBadge";
 import { Card } from "@carveri/shared/components/ui/card";
+import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 
 interface Props {
   images: string[];
@@ -169,7 +170,7 @@ export default function VehicleHeroCard({
           {/* Right: price + mileage/location + verdict badge */}
           <div className="shrink-0 space-y-3 self-stretch lg:w-65">
             <div className="text-right text-[1.55rem] font-semibold tracking-tight text-slate-900">
-              ${price.toLocaleString()}
+              {formatCurrency(price)}
             </div>
             <div className="text-muted-foreground text-right text-[12px]">
               {mileage.toLocaleString()} mi
