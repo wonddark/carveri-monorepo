@@ -53,3 +53,33 @@ export type SendOTPResponse = {
   };
   statusCode: number;
 };
+
+export type VerifyOTPPayload = {
+  phoneNumber: string;
+  email: string;
+  code: string;
+  fingerprintHash: string;
+  deviceInfo: string;
+  ipAddress: string;
+  userAgent: string;
+};
+
+export type VerifyOTPResponse = {
+  succeeded: boolean;
+  data: {
+    isSuccess: boolean;
+    message: string;
+    clientId: string;
+    isVerified: boolean;
+    token: string;
+    tokenExpiresAt: string;
+    rawRefreshToken: string;
+    refreshTokenExpiresAt: string;
+  };
+  message: string;
+  error: {
+    code: string;
+    messages: string[];
+  };
+  statusCode: number;
+};
