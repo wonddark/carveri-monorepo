@@ -1,6 +1,5 @@
 import { DollarSign } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import BookValues from "./BookValues";
 import ReportGauge from "@carveri/shared/components/ReportGauge.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import type { TransformedReport } from "../../lib/transforms.ts";
@@ -24,7 +23,10 @@ export default function PriceEvalSection(props: Readonly<Props>) {
     OVERPRICED: t("priceEval.overpriced"),
   };
 
-  const { label, marketAvgDeltaPct, bookValues } = priceEval;
+  const { label, marketAvgDeltaPct } = priceEval || {
+    label: "AVOID",
+    marketAvgDeltaPct: 250,
+  };
   const isAbove = marketAvgDeltaPct > 0;
 
   return (
@@ -46,7 +48,6 @@ export default function PriceEvalSection(props: Readonly<Props>) {
         </div>
 
         <ReportGauge price={price} gauge={gauge} />
-        <BookValues bookValues={bookValues} />
       </CardContent>
     </Card>
   );
