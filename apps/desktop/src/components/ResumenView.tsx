@@ -1,7 +1,6 @@
 import { ChartColumnIcon, HandshakeIcon, SparklesIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import StatsGrid from "@carveri/shared/components/home/StatsGrid";
-import BookValues from "@carveri/shared/components/home/BookValues";
 import VehicleDataSection from "@carveri/shared/components/home/VehicleDataSection";
 import AISummarySection from "@carveri/shared/components/home/AISummarySection";
 import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
@@ -22,7 +21,7 @@ export default function ResumenView(props: Readonly<Props>) {
   const { report, hideQuickLinks = false } = props;
   const { id } = useParams();
   const { t } = useTranslation("common");
-  const { priceEval, stats } = report;
+  const { stats } = report;
 
   const QUICK_LINKS = [
     {
@@ -110,8 +109,6 @@ export default function ResumenView(props: Readonly<Props>) {
                 price={report.price}
                 gauge={report.evaluation.gauge}
               />
-
-              <BookValues bookValues={priceEval.bookValues} />
             </div>
           </CardContent>
         </Card>
