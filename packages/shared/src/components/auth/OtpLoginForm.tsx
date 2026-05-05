@@ -13,10 +13,7 @@ import { Input } from "@carveri/shared/components/ui/input";
 import { Label } from "@carveri/shared/components/ui/label";
 import { Spinner } from "@carveri/shared/components/ui/spinner";
 import { auth } from "@carveri/shared/lib/auth.ts";
-import {
-  mockRequestOtp,
-  mockVerifyOtp,
-} from "@carveri/shared/data/mockAuth.ts";
+import { mockRequestOtp } from "@carveri/shared/data/mockAuth.ts";
 import { cn } from "@carveri/shared/lib/utils.ts";
 import {
   Field,
@@ -24,7 +21,7 @@ import {
   FieldLabel,
   FieldSet,
 } from "@carveri/shared/components/ui/field.tsx";
-import { register, sendOTP } from "@carveri/shared/data/api.ts";
+import { register, sendOTP, verifyOTP } from "@carveri/shared/data/api.ts";
 
 const RESEND_COOLDOWN_SECONDS = 180;
 const MAX_RESEND_ATTEMPTS = 5;
@@ -86,19 +83,18 @@ export function OtpLoginForm() {
     setError(null);
     setIsLoading(true);
     try {
-      const result = await mockVerifyOtp(method, contact, code);
-      if (!result.ok) {
-        const msg =
-          result.code === "EXPIRED"
-            ? t("auth.otpErrorExpired")
-            : t("auth.otpErrorInvalidCode");
+      const result = await verifyOTP({
+        code,
+        ...(method === "email" ? { email: contact } : { phoneNumber: contact }),
+      });
+      if (!result.succeeded || !result.data.isSuccess) {
+        const msg = t("auth.otpErrorInvalidCode");
         setError(msg);
         setDigits([...EMPTY_DIGITS]);
         digitRefs.current[0]?.focus();
         return;
       }
-      auth.setToken(result.token);
-      auth.setRefreshToken(result.refreshToken);
+      auth.setToken(result.data.token);
       navigate("/dashboard");
     } catch {
       setError(t("auth.otpErrorConnection"));
@@ -276,7 +272,7 @@ export function OtpLoginForm() {
             language: lang,
             ...(isEmail ? { email: contact } : { phoneNumber: contact }),
           });
-          if (otpSent.data.isSuccess) {
+          if (!otpSent.data.isSuccess) {
             setStage("code");
           }
         }
