@@ -7,7 +7,6 @@ import type {
   PastSaleDetails,
   PriceAdjustment,
   RawGauge,
-  SaleCycle,
   SourceContribution,
   Timeline,
   VehicleHistory,
@@ -36,8 +35,6 @@ export type PriceDynamics = {
 export type DealerSaleCycle = {
   id: string;
   dealerName: string;
-  city: string;
-  state: string;
   startDate: string;
   endDate: string;
   daysOnLot: number;
@@ -124,7 +121,7 @@ export type DiagnosisData = {
   score: number;
   recommendation: "COMPRAR" | "NEGOCIAR" | "NO COMPRAR";
   riskLevel: "Bajo" | "Medio" | "Alto" | "Crítico";
-  summary: string;
+  summary: VehicleReport["summary"];
   fairPrice: number;
   priceDiff: number;
   findings: DiagnosisFinding[];
@@ -216,38 +213,35 @@ function transformPastSaleDetails(details: PastSaleDetails): PastSaleDetails {
   }));
 }
 
-function transformSaleCycles(cycles: SaleCycle[]): DealerSaleCycle[] {
+function transformSaleCycles(cycles: PastSaleDetails): DealerSaleCycle[] {
   const dealer: DealerSaleCycle[] = [];
 
   cycles.forEach((cycle, idx) => {
-    if (cycle.SellerType === "dealer") {
-      const startPrice = cycle.StartPrice ?? 0;
-      const endPrice = cycle.EndPrice ?? startPrice;
+    if (cycle.sellerType === "dealer") {
+      const startPrice = cycle.startPrice ?? 0;
+      const endPrice = cycle.endPrice ?? startPrice;
       const discountPct =
         startPrice > 0
           ? Math.round(((startPrice - endPrice) / startPrice) * 100)
           : 0;
-      const lastRecord = cycle.Records.at(-1);
-      const mileage = lastRecord?.Miles ?? null;
+      const mileage = cycle.mileage ?? 0;
 
       // The current active cycle is the first dealer cycle (index 0, most recent)
       const isActive = idx === 0;
 
       dealer.push({
         id: `dealer-${idx}`,
-        dealerName: cycle.DealerName,
-        city: cycle.City,
-        state: cycle.State,
-        startDate: formatDate(cycle.StartDate),
-        endDate: formatDate(cycle.EndDate),
-        daysOnLot: cycle.DaysOnLot,
+        dealerName: cycle.sellerName,
+        startDate: formatDate(cycle.startDate),
+        endDate: formatDate(cycle.endDate),
+        daysOnLot: cycle.daysOnMarket,
         startPrice,
         endPrice,
-        priceReductions: cycle.PriceReductions,
-        priceDrop: Math.abs(cycle.PriceDrop),
+        priceReductions: 1,
+        priceDrop: startPrice - endPrice,
         discountPct,
         mileage,
-        vdpUrl: lastRecord?.VdpUrl ?? "#",
+        vdpUrl: cycle.dealerUrl ?? "#",
         isActive,
       });
     }
@@ -700,9 +694,7 @@ function buildMockDiagnosis(
     score: getScores(isRebuilt, accidents),
     recommendation,
     riskLevel,
-    summary:
-      raw.summary ??
-      "Este vehículo presenta un historial complejo con múltiples propietarios y registros de accidentes. Se recomienda una inspección mecánica independiente antes de la compra para evaluar el estado estructural y mecánico del vehículo dado su historial de título reconstruido.",
+    summary: raw.summary,
     fairPrice,
     priceDiff: askingPrice - fairPrice,
     findings,
@@ -716,7 +708,8 @@ function buildMockDiagnosis(
 
 export function transformToSharedReport(raw: VehicleReport): TransformedReport {
   const v = raw.vehicle;
-  const askingPrice = v.price;
+  const summary = raw.summary;
+  const askingPrice = summary?.price ?? 0;
 
   // Price dynamics from current cycle
   const currentCycleHistory =
@@ -754,7 +747,7 @@ export function transformToSharedReport(raw: VehicleReport): TransformedReport {
   };
 
   // Sale cycles split by type
-  const allCycles = raw.marketCheckRaw?.VinHistory?.SaleCycles ?? [];
+  const allCycles = raw.pastSalesDetails ?? [];
   const dealerSaleCycles = transformSaleCycles(allCycles);
   const auctionSales = transformAuctionHistory(
     raw.history?.auctionHistory ?? [],
@@ -781,20 +774,20 @@ export function transformToSharedReport(raw: VehicleReport): TransformedReport {
     model: v.model,
     trim: v.trim,
     price: askingPrice,
-    mileage: v.mileage,
-    location: v.location,
-    color: v.color,
+    mileage: Number(v?.odometro ?? 0),
+    location: "",
+    color: v.color ?? "",
     engine: v.engine,
     transmission: v.transmission,
     drivetrain: v.drivetrain,
-    daysOnLot: v.daysOnLot,
-    previousOwners: raw.history?.owners?.length ?? v.previousOwners ?? 0,
+    daysOnLot: 0,
+    previousOwners: summary?.previousOwners ?? 0,
     auction: {
       name: raw.priceEval?.auction?.name ?? "",
       price: raw.priceEval?.auction?.price ?? 0,
     },
-    images: v.images,
-    aiSummary: diagnosis.summary,
+    images: summary?.images ?? [],
+    aiSummary: "",
     stats: raw.stats,
     priceEval: raw.priceEval,
     priceDynamics,
