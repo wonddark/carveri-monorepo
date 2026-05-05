@@ -56,10 +56,22 @@ const RISK_LEVEL_STYLE: Record<
   DiagnosisData["riskLevel"],
   { bg: string; text: string }
 > = {
-  Bajo: { bg: "bg-green-100 dark:bg-green-900/30", text: "text-green-700 dark:text-green-400" },
-  Medio: { bg: "bg-amber-100 dark:bg-amber-900/30", text: "text-amber-700 dark:text-amber-400" },
-  Alto: { bg: "bg-red-100 dark:bg-red-900/30", text: "text-red-700 dark:text-red-400" },
-  Crítico: { bg: "bg-red-200 dark:bg-red-900/50", text: "text-red-800 dark:text-red-300" },
+  Bajo: {
+    bg: "bg-green-100 dark:bg-green-900/30",
+    text: "text-green-700 dark:text-green-400",
+  },
+  Medio: {
+    bg: "bg-amber-100 dark:bg-amber-900/30",
+    text: "text-amber-700 dark:text-amber-400",
+  },
+  Alto: {
+    bg: "bg-red-100 dark:bg-red-900/30",
+    text: "text-red-700 dark:text-red-400",
+  },
+  Crítico: {
+    bg: "bg-red-200 dark:bg-red-900/50",
+    text: "text-red-800 dark:text-red-300",
+  },
 };
 
 interface Props {
@@ -72,10 +84,9 @@ export default function DiagnosisSubtab({ diagnosis }: Readonly<Props>) {
 
   const recStyle = RECOMMENDATION_STYLE[diagnosis.recommendation];
   const riskStyle = RISK_LEVEL_STYLE[diagnosis.riskLevel];
-  const translatedRec =
-    t(`recommendation.${diagnosis.recommendation}`, {
-      defaultValue: diagnosis.recommendation,
-    }) as string;
+  const translatedRec = t(`recommendation.${diagnosis.recommendation}`, {
+    defaultValue: diagnosis.recommendation,
+  }) as string;
 
   return (
     <div className="flex flex-col gap-4">
@@ -115,13 +126,10 @@ export default function DiagnosisSubtab({ diagnosis }: Readonly<Props>) {
               </div>
 
               {/* AI summary truncated */}
-              <p className="line-clamp-4 text-sm text-muted-foreground">
-                {diagnosis.summary}
-              </p>
               <button
                 type="button"
                 onClick={() => setModalOpen(true)}
-                className="w-fit text-xs font-semibold text-primary underline-offset-2 hover:underline"
+                className="text-primary w-fit text-xs font-semibold underline-offset-2 hover:underline"
               >
                 {t("diagnosis.seeFullAnalysis")}
               </button>
@@ -129,19 +137,20 @@ export default function DiagnosisSubtab({ diagnosis }: Readonly<Props>) {
           </div>
 
           {/* Price row */}
-          <div className="mt-4 grid grid-cols-3 divide-x divide-border rounded-lg border border-border">
+          <div className="divide-border border-border mt-4 grid grid-cols-3 divide-x rounded-lg border">
             <div className="flex flex-col items-center gap-0.5 px-3 py-2">
-              <span className="text-[10px] font-medium text-muted-foreground">
+              <span className="text-muted-foreground text-[10px] font-medium">
                 {t("diagnosis.prices.dealer")}
               </span>
               <span className="text-sm font-bold">
-                ${diagnosis.fairPrice > 0
+                $
+                {diagnosis.fairPrice > 0
                   ? (diagnosis.fairPrice + diagnosis.priceDiff).toLocaleString()
                   : "—"}
               </span>
             </div>
             <div className="flex flex-col items-center gap-0.5 px-3 py-2">
-              <span className="text-[10px] font-medium text-muted-foreground">
+              <span className="text-muted-foreground text-[10px] font-medium">
                 {t("diagnosis.prices.fairPrice")}
               </span>
               <span className="text-sm font-bold">
@@ -151,7 +160,7 @@ export default function DiagnosisSubtab({ diagnosis }: Readonly<Props>) {
               </span>
             </div>
             <div className="flex flex-col items-center gap-0.5 px-3 py-2">
-              <span className="text-[10px] font-medium text-muted-foreground">
+              <span className="text-muted-foreground text-[10px] font-medium">
                 {t("diagnosis.prices.difference")}
               </span>
               <span
@@ -249,7 +258,7 @@ export default function DiagnosisSubtab({ diagnosis }: Readonly<Props>) {
           onClick={() => setModalOpen(false)}
         >
           <div
-            className="w-full max-w-lg rounded-t-2xl bg-background p-6 shadow-xl sm:rounded-2xl"
+            className="bg-background w-full max-w-lg rounded-t-2xl p-6 shadow-xl sm:rounded-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="mb-4 flex items-center justify-between">
@@ -276,7 +285,7 @@ export default function DiagnosisSubtab({ diagnosis }: Readonly<Props>) {
                 >
                   {translatedRec}
                 </span>
-                <span className="text-xs text-muted-foreground">
+                <span className="text-muted-foreground text-xs">
                   {t(`diagnosis.riskLevels.${diagnosis.riskLevel}`, {
                     defaultValue: diagnosis.riskLevel,
                   })}
@@ -284,13 +293,11 @@ export default function DiagnosisSubtab({ diagnosis }: Readonly<Props>) {
               </div>
             </div>
 
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              {diagnosis.summary}
-            </p>
-
-            <div className="mt-4 grid grid-cols-3 divide-x divide-border rounded-lg border border-border text-center">
+            <div className="divide-border border-border mt-4 grid grid-cols-3 divide-x rounded-lg border text-center">
               <div className="px-3 py-2">
-                <p className="text-[10px] text-muted-foreground">{t("diagnosis.prices.dealer")}</p>
+                <p className="text-muted-foreground text-[10px]">
+                  {t("diagnosis.prices.dealer")}
+                </p>
                 <p className="font-bold">
                   {diagnosis.fairPrice > 0
                     ? formatCurrency(diagnosis.fairPrice + diagnosis.priceDiff)
@@ -298,13 +305,19 @@ export default function DiagnosisSubtab({ diagnosis }: Readonly<Props>) {
                 </p>
               </div>
               <div className="px-3 py-2">
-                <p className="text-[10px] text-muted-foreground">{t("diagnosis.prices.fairPrice")}</p>
+                <p className="text-muted-foreground text-[10px]">
+                  {t("diagnosis.prices.fairPrice")}
+                </p>
                 <p className="font-bold">
-                  {diagnosis.fairPrice > 0 ? formatCurrency(diagnosis.fairPrice) : "—"}
+                  {diagnosis.fairPrice > 0
+                    ? formatCurrency(diagnosis.fairPrice)
+                    : "—"}
                 </p>
               </div>
               <div className="px-3 py-2">
-                <p className="text-[10px] text-muted-foreground">{t("diagnosis.prices.difference")}</p>
+                <p className="text-muted-foreground text-[10px]">
+                  {t("diagnosis.prices.difference")}
+                </p>
                 <p
                   className={cn("font-bold", {
                     "text-green-600": diagnosis.priceDiff < 0,
