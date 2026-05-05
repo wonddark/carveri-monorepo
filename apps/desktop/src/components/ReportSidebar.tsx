@@ -35,7 +35,7 @@ type NavEntry =
 const NAV: NavEntry[] = [
   {
     type: "item",
-    id: "overview",
+    id: "",
     label: "pages.resume",
     icon: <IconHome className="w-4" />,
   },
