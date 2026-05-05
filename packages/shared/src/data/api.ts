@@ -1,6 +1,12 @@
 import { auth } from "@carveri/shared/lib/auth.ts";
 import type { VehicleReportResponse } from "@carveri/shared/types/vehicle-report";
 import type { VehicleListResponse } from "@carveri/shared/types/vehicle-list.ts";
+import type {
+  RegisterPayload,
+  RegisterResponse,
+  SendOTPPayload,
+  SendOTPResponse,
+} from "@carveri/shared/types/auth.ts";
 
 // ---------------------------------------------------------------------------
 // Authenticated fetch wrapper
@@ -79,7 +85,8 @@ export async function getVehicleList(): Promise<VehicleListResponse> {
   );
 
   if (!response.ok) {
-    if (response.status === 404) throw new Response("Not Found", { status: 404 });
+    if (response.status === 404)
+      throw new Response("Not Found", { status: 404 });
     throw new Response("Server Error", { status: 500 });
   }
 
@@ -94,9 +101,63 @@ export async function fetchVehicleReport(
   );
 
   if (!response.ok) {
-    if (response.status === 404) throw new Response("Not Found", { status: 404 });
+    if (response.status === 404)
+      throw new Response("Not Found", { status: 404 });
     throw new Response("Server Error", { status: 500 });
   }
 
   return response.json() as Promise<VehicleReportResponse>;
+}
+
+export async function register(
+  payload: RegisterPayload,
+): Promise<RegisterResponse> {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/Client/register`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+
+  if (!response.ok) {
+    if (response.status === 400)
+      throw new Response("Bad Request", {
+        status: 400,
+        statusText: await response.json(),
+      });
+    throw new Response("Server Error", { status: 500 });
+  }
+
+  return response.json();
+}
+
+export async function sendOTP(
+  payload: SendOTPPayload,
+): Promise<SendOTPResponse> {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/Client/send-otp`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    },
+  );
+
+  if (!response.ok) {
+    if (response.status === 404)
+      throw new Response("Not Found", {
+        status: 400,
+        statusText: await response.json(),
+      });
+    if (response.status === 400)
+      throw new Response("Bad Request", {
+        status: 400,
+        statusText: await response.json(),
+      });
+    throw new Response("Server Error", { status: 500 });
+  }
+
+  return response.json();
 }
