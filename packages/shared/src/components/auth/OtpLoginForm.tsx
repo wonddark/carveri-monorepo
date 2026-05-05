@@ -1,4 +1,11 @@
-import { Activity, useEffect, useRef, useState } from "react";
+import {
+  Activity,
+  type ChangeEventHandler,
+  type SubmitEventHandler,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import { Button } from "@carveri/shared/components/ui/button";
@@ -11,16 +18,23 @@ import {
   mockVerifyOtp,
 } from "@carveri/shared/data/mockAuth.ts";
 import { cn } from "@carveri/shared/lib/utils.ts";
+import {
+  Field,
+  FieldGroup,
+  FieldLabel,
+  FieldSet,
+} from "@carveri/shared/components/ui/field.tsx";
+import { register, sendOTP } from "@carveri/shared/data/api.ts";
 
 const RESEND_COOLDOWN_SECONDS = 180;
 const MAX_RESEND_ATTEMPTS = 5;
-const EMPTY_DIGITS = Array(8).fill("") as string[];
+const EMPTY_DIGITS = new Array(8).fill("") as string[];
 
 type OtpMethod = "email" | "phone";
 type Stage = "method" | "contact" | "code";
 
 function formatUsPhone(raw: string): string {
-  const digits = raw.replace(/(\+1)/, "").replace(/\D/g, "").slice(0, 10);
+  const digits = raw.replace(/(\+1)/, "").replaceAll(/\D/g, "").slice(0, 10);
   if (digits.length === 0) return "";
   if (digits.length <= 3) return `+1 (${digits}`;
   if (digits.length <= 6)
@@ -28,15 +42,16 @@ function formatUsPhone(raw: string): string {
   return `+1 (${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
-type OtpLoginFormProps = Record<string, never>;
-
-export function OtpLoginForm(props: Readonly<OtpLoginFormProps>) {
-  const {} = props;
-  const { t } = useTranslation("common");
+export function OtpLoginForm() {
+  const { t, i18n } = useTranslation("common");
+  const lang = i18n.resolvedLanguage ?? "en";
   const navigate = useNavigate();
 
   const [stage, setStage] = useState<Stage>("method");
   const [method, setMethod] = useState<OtpMethod>("email");
+  const [firstName, setFirstName] = useState("");
+  const [middleName, setMiddleName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [contact, setContact] = useState("");
   const [digits, setDigits] = useState<string[]>([...EMPTY_DIGITS]);
   const [isLoading, setIsLoading] = useState(false);
@@ -44,7 +59,9 @@ export function OtpLoginForm(props: Readonly<OtpLoginFormProps>) {
   const [resendSecondsLeft, setResendSecondsLeft] = useState(0);
   const [resendAttemptsUsed, setResendAttemptsUsed] = useState(0);
 
-  const digitRefs = useRef<(HTMLInputElement | null)[]>(Array(8).fill(null));
+  const digitRefs = useRef<(HTMLInputElement | null)[]>(
+    new Array(8).fill(null),
+  );
 
   // Countdown timer — setState inside setInterval callback, not synchronously
   useEffect(() => {
@@ -62,21 +79,6 @@ export function OtpLoginForm(props: Readonly<OtpLoginFormProps>) {
     setError(null);
     setResendSecondsLeft(0);
     setResendAttemptsUsed(0);
-  }
-
-  async function handleRequestOtp() {
-    setError(null);
-    setIsLoading(true);
-    try {
-      await mockRequestOtp(method, contact);
-      setStage("code");
-      setDigits([...EMPTY_DIGITS]);
-      setResendSecondsLeft(RESEND_COOLDOWN_SECONDS);
-    } catch {
-      setError(t("auth.otpErrorConnection"));
-    } finally {
-      setIsLoading(false);
-    }
   }
 
   async function handleVerify(code: string) {
@@ -129,7 +131,7 @@ export function OtpLoginForm(props: Readonly<OtpLoginFormProps>) {
   }
 
   function handleDigitInput(index: number, value: string) {
-    const digit = value.replace(/\D/g, "").slice(-1);
+    const digit = value.replaceAll(/\D/g, "").slice(-1);
     const next = [...digits];
     next[index] = digit;
     setDigits(next);
@@ -151,7 +153,7 @@ export function OtpLoginForm(props: Readonly<OtpLoginFormProps>) {
     e.preventDefault();
     const pasted = e.clipboardData
       .getData("text")
-      .replace(/\D/g, "")
+      .replaceAll(/\D/g, "")
       .slice(0, 8);
     if (!pasted) return;
     const next = [...EMPTY_DIGITS];
@@ -231,6 +233,24 @@ export function OtpLoginForm(props: Readonly<OtpLoginFormProps>) {
       ? t("auth.otpContactPlaceholderEmail")
       : t("auth.otpContactPlaceholderPhone");
 
+    const handleFirstNameChange: ChangeEventHandler<HTMLInputElement> = ({
+      currentTarget: { value },
+    }) => {
+      setFirstName(value);
+    };
+
+    const handleMiddleNameChange: ChangeEventHandler<HTMLInputElement> = ({
+      currentTarget: { value },
+    }) => {
+      setMiddleName(value);
+    };
+
+    const handleLastNameChange: ChangeEventHandler<HTMLInputElement> = ({
+      currentTarget: { value },
+    }) => {
+      setLastName(value);
+    };
+
     function handleContactChange(e: React.ChangeEvent<HTMLInputElement>) {
       if (isEmail) {
         setContact(e.target.value);
@@ -239,11 +259,30 @@ export function OtpLoginForm(props: Readonly<OtpLoginFormProps>) {
       }
     }
 
-    function handleContactSubmit(e: React.FormEvent) {
+    const handleContactSubmit: SubmitEventHandler<HTMLFormElement> = (e) => {
       e.preventDefault();
       if (!contact.trim()) return;
-      void handleRequestOtp();
-    }
+
+      setIsLoading(true);
+      (async () => {
+        const resp = await register({
+          name: firstName,
+          lastName,
+          middleName,
+          ...(isEmail ? { email: contact } : { phoneNumber: contact }),
+        });
+        if (resp.succeeded) {
+          const otpSent = await sendOTP({
+            language: lang,
+            ...(isEmail ? { email: contact } : { phoneNumber: contact }),
+          });
+          if (otpSent.data.isSuccess) {
+            setStage("code");
+          }
+        }
+        setIsLoading(false);
+      })();
+    };
 
     return (
       <div className="flex flex-col gap-6">
@@ -262,6 +301,56 @@ export function OtpLoginForm(props: Readonly<OtpLoginFormProps>) {
             </p>
           )}
 
+          <FieldSet>
+            <FieldGroup>
+              <Field>
+                <FieldLabel htmlFor="auth.first_name">
+                  {t("auth.first_name")}
+                </FieldLabel>
+                <Input
+                  id="auth.first_name"
+                  name="name"
+                  placeholder="John"
+                  type="text"
+                  autoFocus
+                  autoComplete="given-name name"
+                  value={firstName}
+                  onChange={handleFirstNameChange}
+                />
+              </Field>
+              <Field>
+                <FieldLabel htmlFor="auth.middle_name">
+                  {t("auth.middle_name")}
+                </FieldLabel>
+                <Input
+                  id="auth.middle_name"
+                  name="middleName"
+                  placeholder="John"
+                  type="text"
+                  autoFocus
+                  autoComplete="additional-name name"
+                  value={middleName}
+                  onChange={handleMiddleNameChange}
+                />
+              </Field>
+              <Field>
+                <FieldLabel htmlFor="auth.last_name">
+                  {t("auth.last_name")}
+                </FieldLabel>
+                <Input
+                  id="auth.last_name"
+                  name="lastName"
+                  placeholder="Doe"
+                  type="text"
+                  autoFocus
+                  autoComplete="family-name"
+                  value={lastName}
+                  onChange={handleLastNameChange}
+                />
+              </Field>
+            </FieldGroup>
+          </FieldSet>
+
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="contact">
               {isEmail ? t("auth.otpMethodEmail") : t("auth.otpMethodPhone")}
@@ -274,7 +363,6 @@ export function OtpLoginForm(props: Readonly<OtpLoginFormProps>) {
               value={contact}
               onChange={handleContactChange}
               autoComplete={isEmail ? "email" : "tel"}
-              autoFocus
               required
             />
           </div>
@@ -323,7 +411,7 @@ export function OtpLoginForm(props: Readonly<OtpLoginFormProps>) {
       <div className="flex gap-2">
         {digits.map((digit, i) => (
           <input
-            key={i}
+            key={`${digit}::${i}`}
             ref={(el) => {
               digitRefs.current[i] = el;
             }}
