@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import MarketPriceHeader from "./MarketPriceHeader";
 import ComparablesList from "./ComparablesList";
 import PriceDynamicsSubtab from "./PriceDynamicsSubtab";
-import BookValues from "@carveri/shared/components/home/BookValues";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import ReportGauge from "@carveri/shared/components/ReportGauge.tsx";
 import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
@@ -86,7 +85,6 @@ export default function MarketTab({ report }: Readonly<Props>) {
                   <h3 className="mb-3 text-sm font-bold text-slate-900">
                     {t("tabs.bookValuations")}
                   </h3>
-                  <BookValues bookValues={report.priceEval.bookValues} />
                 </div>
               </CardContent>
             </Card>
