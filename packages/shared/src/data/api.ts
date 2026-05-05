@@ -6,6 +6,8 @@ import type {
   RegisterResponse,
   SendOTPPayload,
   SendOTPResponse,
+  VerifyOTPPayload,
+  VerifyOTPResponse,
 } from "@carveri/shared/types/auth.ts";
 
 // ---------------------------------------------------------------------------
@@ -19,7 +21,7 @@ export async function fetchWithAuth(
   const token = auth.getToken();
 
   if (!token) {
-    window.location.assign("/login");
+    globalThis.window.location.assign("/login");
     return new Response(null, { status: 401 });
   }
 
@@ -45,7 +47,7 @@ export async function fetchWithAuth(
 
   if (!refreshResponse.ok) {
     auth.clearToken();
-    window.location.assign("/login");
+    globalThis.window.location.assign("/login");
     return new Response(null, { status: 401 });
   }
 
@@ -67,7 +69,7 @@ export async function fetchWithAuth(
 
   if (retryResponse.status === 401) {
     auth.clearToken();
-    window.location.assign("/login");
+    globalThis.window.location.assign("/login");
     return new Response(null, { status: 401 });
   }
 
@@ -149,6 +151,44 @@ export async function sendOTP(
     if (response.status === 404)
       throw new Response("Not Found", {
         status: 400,
+        statusText: await response.json(),
+      });
+    if (response.status === 400)
+      throw new Response("Bad Request", {
+        status: 400,
+        statusText: await response.json(),
+      });
+    throw new Response("Server Error", { status: 500 });
+  }
+
+  return response.json();
+}
+
+export async function verifyOTP(
+  payload: Pick<VerifyOTPPayload, "phoneNumber" | "email" | "code">,
+): Promise<VerifyOTPResponse> {
+  const ipRes = await fetch("https://api.ipify.org?format=json");
+  const ip = (await ipRes.json()).ip as string;
+  const fullPayload: VerifyOTPPayload = {
+    ...payload,
+    fingerprintHash: localStorage.getItem("fingerprintHash") || "",
+    ipAddress: ip,
+    deviceInfo: `${navigator.platform} / ${navigator.language} / ${screen.width}x${screen.height}`,
+    userAgent: navigator.userAgent,
+  };
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/Client/verify-otp`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(fullPayload),
+    },
+  );
+
+  if (!response.ok) {
+    if (response.status === 422)
+      throw new Response("Invalid Input", {
+        status: 422,
         statusText: await response.json(),
       });
     if (response.status === 400)
