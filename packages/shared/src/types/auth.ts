@@ -55,8 +55,8 @@ export type SendOTPResponse = {
 };
 
 export type VerifyOTPPayload = {
-  phoneNumber: string;
-  email: string;
+  phoneNumber?: string;
+  email?: string;
   code: string;
   fingerprintHash: string;
   deviceInfo: string;
