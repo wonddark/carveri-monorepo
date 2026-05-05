@@ -44,8 +44,6 @@ export default function HistoryTab({ report }: Readonly<Props>) {
     globalThis.window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  console.log(report.historyTab.odometerHistory);
-
   return (
     <div className="relative">
       <AppHeader
