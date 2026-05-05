@@ -1,4 +1,4 @@
-import { createBrowserRouter, redirect } from "react-router";
+import { createBrowserRouter, Outlet } from "react-router";
 import RootLayout from "@/layout/root.tsx";
 import Home from "@/pages/home.tsx";
 import ReportError from "@/pages/report-error.tsx";
@@ -60,22 +60,28 @@ const router = createBrowserRouter([
         errorElement: <ReportError />,
       },
       {
-        id: "report",
-        path: "reports/:id",
-        element: <ReportPage />,
-        loader: reportLoader,
-        shouldRevalidate: () => false,
-        errorElement: <ReportError />,
+        id: "report-wrapper",
+        path: "reports",
+        element: <Outlet />,
         children: [
           {
-            index: true,
-            loader: ({ params }) => redirect(`/reports/${params.id}/home`),
+            id: "report-details",
+            path: ":id",
+            element: <ReportPage />,
+            loader: reportLoader,
+            shouldRevalidate: () => false,
+            errorElement: <ReportError />,
+            children: [
+              {
+                index: true,
+                element: <HomeTabSection />,
+              },
+              { path: "history", element: <HistoryTabSection /> },
+              { path: "market", element: <MarketTabSection /> },
+              { path: "diagnosis", element: <DiagnosisTabSection /> },
+              { path: "negotiate", element: <NegotiateTabSection /> },
+            ],
           },
-          { path: "home", element: <HomeTabSection /> },
-          { path: "history", element: <HistoryTabSection /> },
-          { path: "market", element: <MarketTabSection /> },
-          { path: "diagnosis", element: <DiagnosisTabSection /> },
-          { path: "negotiate", element: <NegotiateTabSection /> },
         ],
       },
     ],
