@@ -3,6 +3,6 @@ import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 import RisksSubtab from "@carveri/shared/components/verdict/RisksSubtab";
 
 export default function RisksSection() {
-  const report = useRouteLoaderData("report") as TransformedReport;
+  const report = useRouteLoaderData("report-details") as TransformedReport;
   return <RisksSubtab risks={report.diagnosis.risks} />;
 }

@@ -4,7 +4,7 @@ import NegotiateTab from "@/components/negotiate/NegotiateTab";
 import { useEffect } from "react";
 
 export default function NegotiateTabSection() {
-  const report = useRouteLoaderData("report") as TransformedReport;
+  const report = useRouteLoaderData("report-details") as TransformedReport;
   useEffect(() => {
     globalThis.window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);

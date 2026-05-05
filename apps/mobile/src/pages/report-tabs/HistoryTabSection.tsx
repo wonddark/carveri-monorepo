@@ -3,6 +3,6 @@ import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 import HistoryTab from "@/components/history/HistoryTab";
 
 export default function HistoryTabSection() {
-  const report = useRouteLoaderData("report") as TransformedReport;
+  const report = useRouteLoaderData("report-details") as TransformedReport;
   return <HistoryTab report={report} />;
 }

@@ -3,6 +3,6 @@ import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 import MarketTab from "@carveri/shared/components/market/MarketTab";
 
 export default function MarketSection() {
-  const report = useRouteLoaderData("report") as TransformedReport;
+  const report = useRouteLoaderData("report-details") as TransformedReport;
   return <MarketTab report={report} />;
 }

@@ -3,6 +3,6 @@ import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 import OwnersSubtab from "@carveri/shared/components/history/OwnersSubtab";
 
 export default function OwnersSection() {
-  const report = useRouteLoaderData("report") as TransformedReport;
+  const report = useRouteLoaderData("report-details") as TransformedReport;
   return <OwnersSubtab owners={report.historyTab.owners} />;
 }

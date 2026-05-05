@@ -4,7 +4,7 @@ import DiagnosisSubtab from "@carveri/shared/components/verdict/DiagnosisSubtab"
 import RisksSubtab from "@carveri/shared/components/verdict/RisksSubtab";
 
 export default function VerdictAiSection() {
-  const report = useRouteLoaderData("report") as TransformedReport;
+  const report = useRouteLoaderData("report-details") as TransformedReport;
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
       <div>

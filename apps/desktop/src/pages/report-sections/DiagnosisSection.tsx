@@ -3,6 +3,6 @@ import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 import DiagnosisSubtab from "@carveri/shared/components/verdict/DiagnosisSubtab";
 
 export default function DiagnosisSection() {
-  const report = useRouteLoaderData("report") as TransformedReport;
+  const report = useRouteLoaderData("report-details") as TransformedReport;
   return <DiagnosisSubtab diagnosis={report.diagnosis} />;
 }

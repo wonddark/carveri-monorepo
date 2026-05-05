@@ -97,7 +97,9 @@ const NAV: NavEntry[] = [
 export default function ReportSidebar() {
   const { t } = useTranslation("common");
   const { id } = useParams<{ id: string }>();
-  const report = useRouteLoaderData("report") as TransformedReport | undefined;
+  const report = useRouteLoaderData("report-details") as
+    | TransformedReport
+    | undefined;
   const location = useLocation();
   const currentSection =
     location.pathname.replace(/\/$/, "").split("/").pop() ?? "";
