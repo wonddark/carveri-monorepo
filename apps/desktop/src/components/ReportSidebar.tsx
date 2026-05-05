@@ -137,10 +137,11 @@ export default function ReportSidebar() {
         <nav className="space-y-1.5">
           {NAV.map((entry) => {
             if (entry.type === "item") {
+              const sectionRoute = entry.id === "" ? "" : `/${entry.id}`;
               return (
                 <NavLink
                   key={entry.id}
-                  to={`/reports/${id}/${entry.id}`}
+                  to={`/reports/${id}${sectionRoute}`}
                   className={({ isActive }: { isActive: boolean }) =>
                     cn(
                       "flex w-full items-center gap-2.5 rounded-xl px-2.5 py-2 text-[13px] font-medium",
