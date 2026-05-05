@@ -1,13 +1,11 @@
 import { useEffect } from "react";
-import { Outlet, useRouteLoaderData } from "react-router";
+import { Outlet, useLoaderData } from "react-router";
 import BottomNavBar from "@/components/BottomNavBar";
 import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
 import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 
 export default function ReportPage() {
-  const { year, make, model, trim } = useRouteLoaderData(
-    "report",
-  ) as TransformedReport;
+  const { year, make, model, trim } = useLoaderData() as TransformedReport;
 
   useEffect(() => {
     globalThis.document.title = generateReportTitle({
