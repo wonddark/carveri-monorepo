@@ -25,7 +25,25 @@ export type PastSaleDetails = {
 
 export type VehicleReport = {
   vehicle: VehicleDetails;
-  summary: string | null;
+  summary: {
+    price: number | null;
+    msrp: null;
+    accidentsReported: number | null;
+    odometerVerified: boolean | null;
+    previousOwners: number | null;
+    score: {
+      source: string;
+      parsedValue: number;
+    } | null;
+    verdict: string | null;
+    aiSummary: string;
+    auctionRecords: number | null;
+    saleHistoryRecords: number | null;
+    junkSalvageRecords: number | null;
+    lienImpoundsRecords: number | null;
+    titleHistoryRecords: number | null;
+    images: string[];
+  } | null;
   stats: VehicleStats;
   priceEval: DealEvaluation;
   market: MarketAnalysis;
@@ -43,17 +61,24 @@ export type VehicleDetails = {
   make: string;
   model: string;
   trim: string;
-  color: string;
+  odometro: string;
+  lastTitleReported: string | null;
   engine: string;
-  transmission: string;
+  fuel: string;
   drivetrain: string;
-  price: number;
-  mileage: number;
-  daysOnLot: number | null;
-  location: string | null;
-  dealer: string | null;
-  images: VehicleImages;
-  previousOwners: number;
+  transmission: string;
+  color: string | null;
+  bodyType: string;
+  doors: number;
+  cylinders: number;
+  stdSeating: string;
+  vehicleType: string;
+  highwayMpg: number;
+  cityMpg: number;
+  overallHeight: string;
+  overallLength: string;
+  overallWidth: string;
+  powertrainType: string;
 };
 
 export type VehicleImages = string[];
