@@ -1,12 +1,17 @@
 import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import {
-  AlertTriangle,
-  Building2,
-  Car,
+  CarFront,
+  CircleX,
+  Eye,
   FileText,
-  Gauge,
-  User,
+  FileWarning,
+  Flame,
+  ScrollText,
+  Shield,
+  Tag,
+  TriangleAlert,
+  UserCheck,
   Wrench,
 } from "lucide-react";
 import { cn } from "@carveri/shared/lib/utils.ts";
@@ -35,7 +40,6 @@ import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 type TimelineEvent = TransformedReport["historyTab"]["timeline"][number];
 type Severity = "critical" | "alert" | "info";
 
-// Infer event category from title keywords (API has type: null)
 function inferEventType(
   title: string,
   _redFlag: boolean,
@@ -43,32 +47,30 @@ function inferEventType(
   icon: React.ComponentType<{ size?: number; className?: string }>;
   color: string;
   bg: string;
+  titleColor: string;
 } {
   const t = title.toLowerCase();
   if (
     t.includes("accident") ||
     t.includes("total loss") ||
     t.includes("collision") ||
-    t.includes("damage")
+    t.includes("damage") ||
+    t.includes("pérdida total") ||
+    t.includes("accidente")
   ) {
     return {
-      icon: AlertTriangle,
-      color: "text-red-500",
+      icon: Flame,
+      color: "text-red-600 dark:text-red-400",
       bg: "bg-red-100 dark:bg-red-900/30",
+      titleColor: "text-red-700 dark:text-red-400",
     };
   }
-  if (
-    t.includes("salvage") ||
-    t.includes("rebuilt") ||
-    t.includes("lemon") ||
-    t.includes("title") ||
-    t.includes("registration") ||
-    t.includes("insurance")
-  ) {
+  if (t.includes("salvage") || t.includes("rebuilt") || t.includes("lemon")) {
     return {
-      icon: FileText,
-      color: "text-amber-500",
-      bg: "bg-amber-100 dark:bg-amber-900/30",
+      icon: FileWarning,
+      color: "text-orange-600 dark:text-orange-400",
+      bg: "bg-orange-100 dark:bg-orange-900/30",
+      titleColor: "text-orange-700 dark:text-orange-400",
     };
   }
   if (
@@ -78,48 +80,80 @@ function inferEventType(
   ) {
     return {
       icon: Wrench,
-      color: "text-green-600",
-      bg: "bg-green-100 dark:bg-green-900/30",
+      color: "text-emerald-600 dark:text-emerald-400",
+      bg: "bg-emerald-100 dark:bg-emerald-900/30",
+      titleColor: "text-emerald-700 dark:text-emerald-400",
+    };
+  }
+  if (t.includes("dealer") || t.includes("inventario")) {
+    return {
+      icon: Shield,
+      color: "text-amber-600 dark:text-amber-400",
+      bg: "bg-amber-100 dark:bg-amber-900/30",
+      titleColor: "text-amber-700 dark:text-amber-400",
     };
   }
   if (
     t.includes("sale") ||
     t.includes("sold") ||
-    t.includes("owner") ||
     t.includes("purchase") ||
-    t.includes("dealer")
+    t.includes("venta")
   ) {
     return {
-      icon: Building2,
-      color: "text-blue-500",
+      icon: Tag,
+      color: "text-blue-600 dark:text-blue-400",
       bg: "bg-blue-100 dark:bg-blue-900/30",
+      titleColor: "text-blue-700 dark:text-blue-400",
     };
   }
-  if (t.includes("odometer") || t.includes("mileage")) {
+  if (
+    t.includes("owner") ||
+    t.includes("propietario") ||
+    t.includes("title issued") ||
+    t.includes("título emitido")
+  ) {
     return {
-      icon: Gauge,
-      color: "text-slate-400",
+      icon: UserCheck,
+      color: "text-violet-600 dark:text-violet-400",
+      bg: "bg-violet-100 dark:bg-violet-900/30",
+      titleColor: "text-violet-700 dark:text-violet-400",
+    };
+  }
+  if (t.includes("odometer") || t.includes("mileage") || t.includes("odómetro")) {
+    return {
+      icon: CarFront,
+      color: "text-cyan-600 dark:text-cyan-400",
+      bg: "bg-cyan-100 dark:bg-cyan-900/30",
+      titleColor: "text-gray-800 dark:text-slate-200",
+    };
+  }
+  if (t.includes("correction") || t.includes("corrección")) {
+    return {
+      icon: ScrollText,
+      color: "text-gray-500 dark:text-slate-400",
+      bg: "bg-gray-100 dark:bg-slate-800/40",
+      titleColor: "text-gray-700 dark:text-slate-300",
+    };
+  }
+  if (
+    t.includes("insurance") ||
+    t.includes("title") ||
+    t.includes("registration") ||
+    t.includes("window sticker") ||
+    t.includes("original")
+  ) {
+    return {
+      icon: FileText,
+      color: "text-slate-500 dark:text-slate-400",
       bg: "bg-slate-100 dark:bg-slate-800/40",
-    };
-  }
-  if (t.includes("window sticker") || t.includes("original")) {
-    return {
-      icon: Car,
-      color: "text-slate-400",
-      bg: "bg-slate-100 dark:bg-slate-800/40",
-    };
-  }
-  if (t.includes("new owner") || t.includes("previous owner")) {
-    return {
-      icon: User,
-      color: "text-blue-500",
-      bg: "bg-blue-100 dark:bg-blue-900/30",
+      titleColor: "text-gray-800 dark:text-slate-200",
     };
   }
   return {
     icon: FileText,
-    color: "text-slate-400",
+    color: "text-slate-500 dark:text-slate-400",
     bg: "bg-slate-100 dark:bg-slate-800/40",
+    titleColor: "text-gray-800 dark:text-slate-200",
   };
 }
 
@@ -142,28 +176,6 @@ function inferSeverity(event: TimelineEvent): Severity {
   return "info";
 }
 
-const SEVERITY_BADGE: Record<
-  Severity,
-  { label: string; classes: string; dotColor: string }
-> = {
-  critical: {
-    label: "critical",
-    classes: "bg-slate-100 dark:bg-slate-800 text-red-500",
-    dotColor: "bg-red-500",
-  },
-  alert: {
-    label: "alert",
-    classes: "bg-slate-100 dark:bg-slate-800 text-amber-500",
-    dotColor: "bg-amber-500",
-  },
-  info: {
-    label: "info",
-    classes: "bg-slate-100 dark:bg-slate-800 text-slate-400",
-    dotColor: "bg-slate-400",
-  },
-};
-
-// Split description into individual pills
 function parsePills(description: string): string[] {
   if (!description) return [];
   return description
@@ -174,24 +186,30 @@ function parsePills(description: string): string[] {
 
 const HIGHLIGHT_KEYWORDS = ["salvage", "rebuilt", "total loss", "fraud"];
 
-function PillChip({ text }: Readonly<{ text: string }>) {
+type PillChipProps = { text: string };
+
+function PillChip(props: Readonly<PillChipProps>) {
+  const { text } = props;
   const lower = text.toLowerCase();
   const isHighlighted = HIGHLIGHT_KEYWORDS.some((kw) => lower.includes(kw));
+  if (isHighlighted) {
+    return (
+      <span className="inline-flex items-center text-[11px] px-2 py-0.5 rounded-md bg-gray-100 dark:bg-slate-800 text-red-600 dark:text-red-400 font-medium">
+        <TriangleAlert className="w-2.5 h-2.5 mr-1 shrink-0" />
+        {text}
+      </span>
+    );
+  }
   return (
-    <span
-      className={cn(
-        "inline-block rounded-full px-2 py-0.5 text-[10px] leading-tight font-medium",
-        isHighlighted
-          ? "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300"
-          : "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
-      )}
-    >
+    <span className="inline-flex items-center text-[11px] px-2 py-0.5 rounded-md bg-gray-100 dark:bg-slate-800 text-gray-600 dark:text-slate-300">
       {text}
     </span>
   );
 }
 
-function MileageTooltip(props: Readonly<Partial<TooltipContentProps<number, string>>>) {
+type MileageTooltipProps = Partial<TooltipContentProps<number, string>>;
+
+function MileageTooltip(props: Readonly<MileageTooltipProps>) {
   const { active, payload } = props;
   if (!active || !payload?.length) return null;
   const { date, mileage } = payload[0].payload as {
@@ -216,7 +234,6 @@ export default function TimelineSubtab(props: Readonly<Props>) {
   const { timeline, odometerHistory } = props;
   const { t } = useTranslation("history");
 
-  // Count severities for summary bar
   const counts = timeline.reduce(
     (acc, event) => {
       const sev = inferSeverity(event);
@@ -324,16 +341,16 @@ export default function TimelineSubtab(props: Readonly<Props>) {
       {/* Timeline list */}
       <div className="relative flex flex-col">
         {/* Vertical connector line */}
-        <div className="absolute top-5 bottom-5 left-5 w-px bg-slate-200 dark:bg-slate-700" />
+        <div className="absolute left-[19px] top-4 bottom-4 w-[2px] bg-gradient-to-b from-gray-200 via-gray-300 to-gray-200 dark:from-slate-700 dark:via-slate-600 dark:to-slate-700" />
 
         {timeline.map((event, i) => {
           const {
             icon: Icon,
             color,
             bg,
+            titleColor,
           } = inferEventType(event.title, event.redFlag);
           const severity = inferSeverity(event);
-          const badge = SEVERITY_BADGE[severity];
           const pills = parsePills(event.description ?? "");
 
           return (
@@ -342,51 +359,59 @@ export default function TimelineSubtab(props: Readonly<Props>) {
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 0.04 }}
-              className="relative flex gap-4 pb-4"
+              className="relative flex gap-4 group"
             >
-              {/* Circle icon */}
-              <div
-                className={cn(
-                  "ring-background relative z-10 flex size-10 shrink-0 items-center justify-center rounded-full ring-2",
-                  bg,
-                )}
-              >
-                <Icon size={16} className={color} />
+              {/* Icon column */}
+              <div className="flex flex-col items-center z-10">
+                <div
+                  className={cn(
+                    "w-10 h-10 rounded-full flex items-center justify-center shrink-0",
+                    "ring-2 ring-gray-200 dark:ring-slate-700 ring-offset-2 ring-offset-white dark:ring-offset-slate-900",
+                    "shadow-sm transition-transform group-hover:scale-110",
+                    bg,
+                  )}
+                >
+                  <Icon size={16} className={color} />
+                </div>
               </div>
 
               {/* Event card */}
-              <div className="border-border bg-card flex-1 rounded-xl border p-3 shadow-sm">
-                <div className="mb-1 flex flex-wrap items-start justify-between gap-2">
-                  <div>
-                    <p className="text-muted-foreground text-[11px] font-medium">
-                      {event.date ?? "—"}
-                      {event.odometer != null && (
-                        <span className="ml-2">
-                          · {event.odometer.toLocaleString()} mi
-                        </span>
-                      )}
-                    </p>
-                    <p className="mt-0.5 text-sm leading-snug font-semibold">
-                      {event.title}
-                    </p>
-                  </div>
-                  {severity !== "info" && (
-                    <span
-                      className={cn(
-                        "flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-semibold",
-                        badge.classes,
-                      )}
-                    >
-                      <span
-                        className={cn("size-1.5 rounded-full", badge.dotColor)}
-                      />
-                      {t(`timeline.severity.${severity}`)}
+              <div className="flex-1 mb-4 rounded-xl border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-3 shadow-sm transition-shadow group-hover:shadow-md">
+                <div className="flex items-center gap-2 flex-wrap mb-1">
+                  <span className="text-xs font-medium text-gray-400 dark:text-slate-500">
+                    {event.date ?? "—"}
+                    {event.odometer != null && (
+                      <span className="ml-2">
+                        · {event.odometer.toLocaleString()} mi
+                      </span>
+                    )}
+                  </span>
+                  {severity === "critical" && (
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-gray-600 dark:text-slate-300 bg-gray-100 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 px-2 py-0.5 rounded-full">
+                      <CircleX className="w-3 h-3 text-red-500" />
+                      {t("timeline.severity.critical")}
+                    </span>
+                  )}
+                  {severity === "alert" && (
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-gray-600 dark:text-slate-300 bg-gray-100 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 px-2 py-0.5 rounded-full">
+                      <TriangleAlert className="w-3 h-3 text-amber-500" />
+                      {t("timeline.severity.alert")}
+                    </span>
+                  )}
+                  {severity === "info" && event.redFlag && (
+                    <span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-gray-600 dark:text-slate-300 bg-gray-100 dark:bg-slate-700 border border-gray-200 dark:border-slate-600 px-2 py-0.5 rounded-full">
+                      <Eye className="w-3 h-3 text-blue-500" />
+                      {t("timeline.severity.info")}
                     </span>
                   )}
                 </div>
 
+                <p className={cn("text-sm font-bold leading-snug", titleColor)}>
+                  {event.title}
+                </p>
+
                 {pills.length > 0 && (
-                  <div className="mt-2 flex flex-wrap gap-1">
+                  <div className="mt-2 flex flex-wrap gap-1.5">
                     {pills.map((pill) => (
                       <PillChip
                         key={pill.toLowerCase().replaceAll(" ", "")}
