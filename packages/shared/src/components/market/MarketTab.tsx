@@ -1,11 +1,9 @@
 import { BarChart2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import MarketPriceHeader from "./MarketPriceHeader";
 import ComparablesList from "./ComparablesList";
 import PriceDynamicsSubtab from "./PriceDynamicsSubtab";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import ReportGauge from "@carveri/shared/components/ReportGauge.tsx";
-import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 import {
   Tabs,
@@ -16,6 +14,8 @@ import {
 import { useLocation } from "react-router";
 import { useEffect, useState } from "react";
 import { marketSubtabs } from "@carveri/shared/data/subtabs.tsx";
+import CarveriEvaluation from "@carveri/shared/components/CarveriEvaluation.tsx";
+import { Card, CardContent } from "@carveri/shared/components/ui/card.tsx";
 
 interface Props {
   report: TransformedReport;
@@ -68,27 +68,15 @@ export default function MarketTab({ report }: Readonly<Props>) {
 
         {/* Analysis */}
         <TabsContent value="analysis">
-          <div className="flex flex-col gap-5">
-            {/* Price + gauge + book values */}
-            <MarketPriceHeader
-              price={report.price}
-              carveriPrice={report.evaluation.fairPrice}
-            />
-
-            <Card>
-              <CardContent className="grid grid-cols-2 items-center gap-5">
-                <ReportGauge
-                  price={report.price}
-                  gauge={report.evaluation.gauge}
-                />
-                <div>
-                  <h3 className="mb-3 text-sm font-bold text-slate-900">
-                    {t("tabs.bookValuations")}
-                  </h3>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+          <Card>
+            <CardContent className="flex flex-col items-center gap-4 lg:flex-row">
+              <CarveriEvaluation report={report} />
+              <ReportGauge
+                price={report.price}
+                gauge={report.evaluation.gauge}
+              />
+            </CardContent>
+          </Card>
         </TabsContent>
 
         {/* Price dynamics */}
