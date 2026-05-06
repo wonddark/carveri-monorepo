@@ -55,7 +55,7 @@ function ReportGauge(props: Readonly<Props>) {
   return (
     <div
       ref={containerRef}
-      className={`bg-card mb-4 rounded-xl p-4 ${isVisible ? "" : "gauge-paused"}`}
+      className={`bg-card mb-4 w-full rounded-xl p-4 ${isVisible ? "" : "gauge-paused"}`}
     >
       {parse(
         buildGaugeSvg(
