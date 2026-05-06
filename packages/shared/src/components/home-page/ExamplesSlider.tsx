@@ -7,6 +7,7 @@ import { cn } from "@carveri/shared/lib/utils.ts";
 import { getVehicleList } from "@carveri/shared/data/api.ts";
 import type { VehicleListItem } from "@carveri/shared/types/vehicle-list.ts";
 import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
+import { Skeleton } from "@carveri/shared/components/ui/skeleton.tsx";
 
 function getTitleBadge(
   titleDetails: string | null,
@@ -90,9 +91,34 @@ function ExampleCard({ car, tViewReport, tDataHint }: Readonly<CardProps>) {
   );
 }
 
+function ExampleCardSkeleton() {
+  return (
+    <div className="w-72 shrink-0 snap-start">
+      <div className="h-full overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+        <Skeleton className="h-44 w-full rounded-none" />
+        <div className="p-4">
+          <Skeleton className="h-4 w-3/4" />
+          <div className="mt-1.5 flex items-baseline gap-2.5">
+            <Skeleton className="h-6 w-24" />
+            <Skeleton className="h-3 w-16" />
+          </div>
+          <Skeleton className="mt-1 h-3 w-40" />
+          <div className="mt-3 flex items-center justify-between border-t border-border pt-3">
+            <Skeleton className="h-3 w-20" />
+            <Skeleton className="h-3 w-3" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const SKELETON_COUNT = 5;
+
 function ExamplesSlider() {
   const { t } = useTranslation("homepage");
   const [examples, setExamples] = useState<VehicleListItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const sliderRef = useRef<HTMLDivElement>(null);
 
   const scrollSlider = (direction: "left" | "right") => {
@@ -107,6 +133,7 @@ function ExamplesSlider() {
     (async () => {
       const vList = await getVehicleList();
       setExamples(vList.data);
+      setLoading(false);
     })();
   }, []);
 
@@ -152,14 +179,18 @@ function ExamplesSlider() {
             ref={sliderRef}
             className="scrollbar-hide flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4"
           >
-            {examples.map((car) => (
-              <ExampleCard
-                key={car.id}
-                car={car}
-                tViewReport={t("examples.viewReport")}
-                tDataHint={t("examples.dataHint")}
-              />
-            ))}
+            {loading
+              ? Array.from({ length: SKELETON_COUNT }, (_, i) => (
+                  <ExampleCardSkeleton key={i} />
+                ))
+              : examples.map((car) => (
+                  <ExampleCard
+                    key={car.id}
+                    car={car}
+                    tViewReport={t("examples.viewReport")}
+                    tDataHint={t("examples.dataHint")}
+                  />
+                ))}
           </div>
         </FadeIn>
       </div>
