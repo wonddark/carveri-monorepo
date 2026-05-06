@@ -195,7 +195,7 @@ export default function ReportSidebar() {
                         className={({ isActive }: { isActive: boolean }) =>
                           cn(
                             "gap-2 rounded-lg px-2",
-                            "text-muted-foreground flex w-full cursor-pointer items-center py-1.5 pr-3 text-[11px] transition-colors duration-200 ease-in-out",
+                            "text-muted-foreground flex w-full cursor-pointer items-center py-1.5 pr-3 text-[13px] transition-colors duration-200 ease-in-out",
                             isActive
                               ? "text-primary font-semibold"
                               : "hover:text-foreground/80 font-medium",
