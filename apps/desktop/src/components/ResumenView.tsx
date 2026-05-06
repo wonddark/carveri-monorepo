@@ -11,6 +11,7 @@ import VehicleHeroCard from "@/components/VehicleHeroCard";
 import { Link, useParams } from "react-router";
 import { IconClock } from "@tabler/icons-react";
 import MarketPriceHeader from "@carveri/shared/components/market/MarketPriceHeader.tsx";
+import VehicleSummary from "@carveri/shared/components/VehicleSummary.tsx";
 
 interface Props {
   report: TransformedReport;
@@ -83,6 +84,8 @@ export default function ResumenView(props: Readonly<Props>) {
           </span>
         </p>
       </div>
+
+      <VehicleSummary report={report} />
 
       {/* Quick stats 2×2 */}
       {stats && <StatsGrid stats={stats} />}
