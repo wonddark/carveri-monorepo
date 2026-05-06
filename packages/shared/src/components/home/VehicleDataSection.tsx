@@ -45,25 +45,28 @@ export default function VehicleDataSection(props: Readonly<Props>) {
       label: t("vehicleDetails.daysOnLot"),
       value: daysOnLot ? `${daysOnLot} ${t("vehicleDetails.days")}` : "-",
     },
-    { label: t("vehicleDetails.prevOwners"), value: `${previousOwners}` },
+    {
+      label: t("vehicleDetails.prevOwners"),
+      value: `${previousOwners} previous`,
+    },
   ];
 
   return (
-    <Card className="rounded-[1.5rem] border border-slate-200/80 bg-gradient-to-br from-white to-slate-50/80 shadow-[0_18px_40px_-30px_rgba(15,23,42,0.22)]">
+    <Card className="dark:border-border dark:from-card dark:to-card/80 rounded-3xl border border-slate-200/80 bg-linear-to-br from-white to-slate-50/80 shadow-[0_18px_40px_-30px_rgba(15,23,42,0.22)]">
       <CardContent className="px-5 py-5 lg:px-6">
         <div className="mb-4 flex items-center gap-2.5">
           <Car size={15} className="text-primary" />
-          <h3 className="text-[13px] font-semibold tracking-tight text-slate-800">
+          <h3 className="text-[13px] font-semibold tracking-tight text-slate-800 dark:text-slate-100">
             {t("vehicleDetails.title")}
           </h3>
         </div>
         <div className="grid grid-cols-2 gap-x-5 gap-y-3 lg:grid-cols-4">
           {rows.map((row) => (
             <div key={row.label} className="py-2">
-              <div className="text-muted-foreground text-[11px] font-medium tracking-wide">
+              <div className="dark:text-muted-foreground text-xs font-medium tracking-wide text-gray-400">
                 {row.label}
               </div>
-              <div className="mt-1 text-[13px] leading-5 font-medium break-words text-slate-700">
+              <div className="dark:text-foreground mt-1 text-[13px] leading-5 font-medium break-words text-gray-900">
                 {row.value || "-"}
               </div>
             </div>
