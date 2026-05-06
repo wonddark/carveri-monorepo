@@ -133,6 +133,7 @@ export type DiagnosisData = {
 // ── Full transformed report ───────────────────────────────────────────────────
 
 export type TransformedReport = {
+  summary: VehicleReport["summary"];
   vin: string;
   year: number;
   make: string;
@@ -155,6 +156,7 @@ export type TransformedReport = {
   aiSummary: string;
   stats: VehicleReport["stats"] | null;
   priceEval: VehicleReport["priceEval"];
+  title: string;
   priceDynamics: PriceDynamics;
   dealerSaleCycles: DealerSaleCycle[];
   auctionSales: AuctionSale[];
@@ -768,6 +770,7 @@ export function transformToSharedReport(raw: VehicleReport): TransformedReport {
   const diagnosis = buildMockDiagnosis(raw, askingPrice, evaluation.fairPrice);
 
   return {
+    summary,
     vin: v.vin,
     year: v.year,
     make: v.make,
@@ -780,7 +783,7 @@ export function transformToSharedReport(raw: VehicleReport): TransformedReport {
     engine: v.engine,
     transmission: v.transmission,
     drivetrain: v.drivetrain,
-    daysOnLot: 0,
+    daysOnLot: summary?.dayOnLot || 0,
     previousOwners: summary?.previousOwners ?? 0,
     auction: {
       name: raw.priceEval?.auction?.name ?? "",
@@ -790,6 +793,7 @@ export function transformToSharedReport(raw: VehicleReport): TransformedReport {
     aiSummary: "",
     stats: raw.stats,
     priceEval: raw.priceEval,
+    title: v.lastTitleReported || "-",
     priceDynamics,
     dealerSaleCycles,
     auctionSales,
