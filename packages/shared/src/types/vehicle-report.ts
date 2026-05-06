@@ -31,6 +31,7 @@ export type VehicleReport = {
     accidentsReported: number | null;
     odometerVerified: boolean | null;
     previousOwners: number | null;
+    dayOnLot: number | null;
     score: {
       source: string;
       parsedValue: number;
