@@ -1,6 +1,5 @@
 import { ChartColumnIcon, HandshakeIcon, SparklesIcon } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import StatsGrid from "@carveri/shared/components/home/StatsGrid";
 import VehicleDataSection from "@carveri/shared/components/home/VehicleDataSection";
 import AISummarySection from "@carveri/shared/components/home/AISummarySection";
 import { generateReportTitle } from "@carveri/shared/lib/formatters.ts";
@@ -10,8 +9,8 @@ import type { TransformedReport } from "@carveri/shared/lib/transforms.ts";
 import VehicleHeroCard from "@/components/VehicleHeroCard";
 import { Link, useParams } from "react-router";
 import { IconClock } from "@tabler/icons-react";
-import MarketPriceHeader from "@carveri/shared/components/market/MarketPriceHeader.tsx";
 import VehicleSummary from "@carveri/shared/components/VehicleSummary.tsx";
+import CarveriEvaluation from "@carveri/shared/components/CarveriEvaluation.tsx";
 
 interface Props {
   report: TransformedReport;
@@ -22,7 +21,6 @@ export default function ResumenView(props: Readonly<Props>) {
   const { report, hideQuickLinks = false } = props;
   const { id } = useParams();
   const { t } = useTranslation("common");
-  const { stats } = report;
 
   const QUICK_LINKS = [
     {
@@ -85,10 +83,8 @@ export default function ResumenView(props: Readonly<Props>) {
         </p>
       </div>
 
+      {/* Quick stats 2×3 */}
       <VehicleSummary report={report} />
-
-      {/* Quick stats 2×2 */}
-      {stats && <StatsGrid stats={stats} />}
 
       <div className="flex flex-col gap-4 lg:gap-5">
         {/* Price Evaluation */}
@@ -100,14 +96,8 @@ export default function ResumenView(props: Readonly<Props>) {
               </span>
             </div>
 
-            <div className="grid grid-cols-1 items-center gap-5 lg:grid-cols-[1fr_40%]">
-              <div className="col-start-1 -col-end-1">
-                <MarketPriceHeader
-                  price={report.price}
-                  carveriPrice={report.evaluation.fairPrice}
-                />
-              </div>
-
+            <div className="flex flex-col items-center gap-4 lg:flex-row">
+              <CarveriEvaluation report={report} />
               <ReportGauge
                 price={report.price}
                 gauge={report.evaluation.gauge}
