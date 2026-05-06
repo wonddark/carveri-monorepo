@@ -5,6 +5,7 @@ import { formatCurrency } from "@carveri/shared/lib/formatters.ts";
 import SubTabHeader from "@carveri/shared/components/SubTabHeader.tsx";
 import {
   IconBuildingStore,
+  IconCar,
   IconChevronLeft,
   IconChevronRight,
   IconGavel,
@@ -16,14 +17,30 @@ import { Zoom } from "yet-another-react-lightbox/plugins";
 
 // ── Subcomponents ──────────────────────────────────────────────────────────────
 
+function ImagePlaceholder() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center bg-slate-100 dark:bg-slate-800">
+      <IconCar className="size-12 text-slate-300 dark:text-slate-600" />
+    </div>
+  );
+}
+
 function SaleCard({ cycle }: Readonly<{ cycle: PastSaleDetails[0] }>) {
   const { t } = useTranslation("history");
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [current, setCurrent] = useState(0);
 
+  const [erroredIndices, setErroredIndices] = useState<Set<number>>(new Set());
+
   const slides = cycle.photoLinks.map((src) => ({ src }));
   const total = slides.length;
+  const hasPhotos = total > 0;
+  const showPlaceholder = !hasPhotos || erroredIndices.has(current);
+
+  function handleImageError(index: number) {
+    setErroredIndices((prev) => new Set([...prev, index]));
+  }
   const openLightbox = () => {
     setLightboxIndex(current);
     setLightboxOpen(true);
@@ -131,11 +148,13 @@ function SaleCard({ cycle }: Readonly<{ cycle: PastSaleDetails[0] }>) {
                 alt={`${cycle.sellerName} — ${i + 1}`}
                 className={cn(
                   "absolute inset-0 size-full object-cover transition-opacity duration-300",
-                  i === current ? "opacity-100" : "opacity-0",
+                  i === current && !erroredIndices.has(i) ? "opacity-100" : "opacity-0",
                 )}
                 loading={i === 0 ? "eager" : "lazy"}
+                onError={() => handleImageError(i)}
               />
             ))}
+            {showPlaceholder && <ImagePlaceholder />}
           </div>
 
           {/* Counter badge */}
