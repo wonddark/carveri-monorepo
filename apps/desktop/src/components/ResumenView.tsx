@@ -11,6 +11,7 @@ import { Link, useParams } from "react-router";
 import { IconClock } from "@tabler/icons-react";
 import VehicleSummary from "@carveri/shared/components/VehicleSummary.tsx";
 import CarveriEvaluation from "@carveri/shared/components/CarveriEvaluation.tsx";
+import AppliedAdjustments from "@carveri/shared/components/AppliedAdjustments.tsx";
 
 interface Props {
   report: TransformedReport;
@@ -86,39 +87,37 @@ export default function ResumenView(props: Readonly<Props>) {
       {/* Quick stats 2×3 */}
       <VehicleSummary report={report} />
 
-      <div className="flex flex-col gap-4 lg:gap-5">
-        {/* Price Evaluation */}
-        <Card className="dark:bg-card dark:border-border rounded-[1.5rem] border border-slate-200/80 bg-linear-to-br from-white to-slate-50/80 shadow-[0_18px_40px_-30px_rgba(15,23,42,0.22)] dark:bg-none">
-          <CardContent className="px-5 py-5 lg:px-6">
-            <div className="mb-4 flex items-center gap-2">
-              <span className="dark:text-foreground text-[13px] font-semibold tracking-tight text-slate-700">
-                {t("resume.priceEvaluation")}
-              </span>
-            </div>
+      {/* Price Evaluation */}
+      <Card className="dark:bg-card dark:border-border rounded-[1.5rem] border border-slate-200/80 bg-linear-to-br from-white to-slate-50/80 shadow-[0_18px_40px_-30px_rgba(15,23,42,0.22)] dark:bg-none">
+        <CardContent className="px-5 py-5 lg:px-6">
+          <div className="mb-4 flex items-center gap-2">
+            <span className="dark:text-foreground text-[13px] font-semibold tracking-tight text-slate-700">
+              {t("resume.priceEvaluation")}
+            </span>
+          </div>
 
-            <div className="flex flex-col items-center gap-4 lg:flex-row">
-              <CarveriEvaluation report={report} />
-              <ReportGauge
-                price={report.price}
-                gauge={report.evaluation.gauge}
-              />
-            </div>
-          </CardContent>
-        </Card>
+          <div className="flex flex-col items-center gap-4 lg:flex-row">
+            <CarveriEvaluation report={report} />
+            <ReportGauge price={report.price} gauge={report.evaluation.gauge} />
+          </div>
+        </CardContent>
+      </Card>
 
-        {/* Vehicle data */}
-        <VehicleDataSection
-          vin={report.vin}
-          engine={report.engine}
-          transmission={report.transmission}
-          drivetrain={report.drivetrain}
-          color={report.color}
-          auction={report.auction}
-          location={report.location}
-          daysOnLot={report.daysOnLot}
-          previousOwners={report.previousOwners}
-        />
-      </div>
+      {/* Applied adjustments */}
+      <AppliedAdjustments report={report} />
+
+      {/* Vehicle data */}
+      <VehicleDataSection
+        vin={report.vin}
+        engine={report.engine}
+        transmission={report.transmission}
+        drivetrain={report.drivetrain}
+        color={report.color}
+        auction={report.auction}
+        location={report.location}
+        daysOnLot={report.daysOnLot}
+        previousOwners={report.previousOwners}
+      />
 
       {/* AI summary */}
       <AISummarySection aiSummary={report.aiSummary} />
