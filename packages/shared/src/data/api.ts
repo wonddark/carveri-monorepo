@@ -1,5 +1,8 @@
 import { auth } from "@carveri/shared/lib/auth.ts";
-import type { VehicleReportResponse } from "@carveri/shared/types/vehicle-report";
+import type {
+  VehicleReportPreviewResponse,
+  VehicleReportResponse,
+} from "@carveri/shared/types/vehicle-report";
 import type { VehicleListResponse } from "@carveri/shared/types/vehicle-list.ts";
 import type {
   RegisterPayload,
@@ -109,6 +112,24 @@ export async function fetchVehicleReport(
   }
 
   return response.json() as Promise<VehicleReportResponse>;
+}
+
+export async function fetchReportPreview(
+  vin: string,
+): Promise<VehicleReportPreviewResponse> {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_URL}/Vehicle/check/available/${vin}`,
+  );
+
+  if (!response.ok) {
+    if (response.status === 404)
+      throw new Response("Not Found", { status: 404 });
+    if (response.status === 422)
+      throw new Response("Wrong VIN", { status: 422 });
+    throw new Response("Server Error", { status: 500 });
+  }
+
+  return response.json() as Promise<VehicleReportPreviewResponse>;
 }
 
 export async function register(
