@@ -499,3 +499,62 @@ export type PriceAdjustment = {
   appliedAmount: number;
   source: string;
 };
+
+export type VehicleReportPreviewResponse = {
+  succeeded: boolean;
+  data: {
+    previewMode: boolean;
+    vehicle: {
+      vin: string;
+      year: 0;
+      make: string;
+      model: string;
+      trim: string;
+      odometro: string;
+      lastTitleReported: string;
+      engine: string;
+      fuel: string;
+      drivetrain: string;
+      transmission: string;
+      color: string;
+      bodyType: string;
+      doors: 0;
+      cylinders: 0;
+      stdSeating: string;
+      vehicleType: string;
+      highwayMpg: 0;
+      cityMpg: 0;
+      overallHeight: string;
+      overallLength: string;
+      overallWidth: string;
+      powertrainType: string;
+    };
+    auction: {
+      hasAuctions: boolean;
+      resumen: string;
+      resumenEs: string;
+      photos: string[];
+    };
+    market: {
+      comparableCount: 0;
+      resumen: string;
+      resumenEs: string;
+      marketMinPrice: 0;
+      marketMaxPrice: 0;
+      priceMedian: 0;
+    };
+    listings: {
+      hasActiveListing: boolean;
+      listingPrice: 0;
+      daysOnSite: 0;
+      priceReductions: 0;
+      photos: string[];
+    };
+  };
+  message: string;
+  error: {
+    code: string;
+    messages: string[];
+  };
+  statusCode: 0;
+};
