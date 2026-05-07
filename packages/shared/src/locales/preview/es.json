@@ -1,0 +1,33 @@
+{
+  "pc": {
+    "vehicleFound": "VEHÍCULO ENCONTRADO",
+    "scannedDatabases": "10+ bases de datos escaneadas",
+    "statOwners": "Dueño(s) Registrado(s)",
+    "statRecords": "Registros de Historial",
+    "statComps": "Similares en Venta",
+    "historyTitle": "Historial del Vehículo",
+    "unlockDetails": "Ver detalles en reporte completo",
+    "seeFullHistory": "Ver historial completo",
+    "marketTitle": "Análisis de Mercado",
+    "unlockPrices": "Ver precios en reporte completo",
+    "seeFullMarket": "Ver análisis de mercado",
+    "auctionTitle": "Historial de Subasta",
+    "unlockAuction": "Ver precio original de compra",
+    "seeAuctionDetails": "Ver detalles de subasta",
+    "valuationTitle": "Valuación CarVeri",
+    "valuationDesc": "Nuestra IA ya calculó el precio justo para este VIN exacto.",
+    "unlockValuation": "Desbloquear precio justo",
+    "seeValuation": "Ver valuación completa",
+    "ctaBadge": "REPORTE COMPLETO",
+    "ctaTitle": "Desbloquea el Reporte Completo",
+    "ctaSubtitle": "Todo lo que necesitas para decidir con confianza",
+    "ctaBenefit1": "Veredicto IA: Comprar / Evitar / Negociar",
+    "ctaBenefit2": "Historial completo sin censura",
+    "ctaBenefit3": "Precio justo exacto y rango de mercado",
+    "ctaBenefit4": "Estrategia de negociación personalizada",
+    "ctaButton": "Obtener Reporte — $29",
+    "ctaSecure": "Pago seguro con Stripe. Reporte listo en minutos.",
+    "needHelp": "¿Tienes preguntas?",
+    "chatWhatsApp": "Escríbenos por WhatsApp"
+  }
+}

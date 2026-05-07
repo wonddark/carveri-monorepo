@@ -1,0 +1,33 @@
+{
+  "pc": {
+    "vehicleFound": "VEHICLE FOUND",
+    "scannedDatabases": "10+ databases scanned",
+    "statOwners": "Registered Owner(s)",
+    "statRecords": "History Records",
+    "statComps": "Similar for Sale",
+    "historyTitle": "Vehicle History",
+    "unlockDetails": "See details in full report",
+    "seeFullHistory": "See full history",
+    "marketTitle": "Market Analysis",
+    "unlockPrices": "See prices in full report",
+    "seeFullMarket": "See market analysis",
+    "auctionTitle": "Auction History",
+    "unlockAuction": "See original purchase price",
+    "seeAuctionDetails": "See auction details",
+    "valuationTitle": "CarVeri Valuation",
+    "valuationDesc": "Our AI has already calculated the fair price for this exact VIN.",
+    "unlockValuation": "Unlock fair price",
+    "seeValuation": "See full valuation",
+    "ctaBadge": "FULL REPORT",
+    "ctaTitle": "Unlock the Full Report",
+    "ctaSubtitle": "Everything you need to make a confident decision",
+    "ctaBenefit1": "AI Verdict: Buy / Avoid / Negotiate",
+    "ctaBenefit2": "Complete uncensored history",
+    "ctaBenefit3": "Exact fair price and market range",
+    "ctaBenefit4": "Personalized negotiation strategy",
+    "ctaButton": "Get Report — $29",
+    "ctaSecure": "Secure payment with Stripe. Report ready in minutes.",
+    "needHelp": "Have questions?",
+    "chatWhatsApp": "Chat with us on WhatsApp"
+  }
+}
