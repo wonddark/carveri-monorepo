@@ -2,6 +2,7 @@ import type { LoaderFunctionArgs } from "react-router";
 import { redirect } from "react-router";
 import { auth } from "@carveri/shared/lib/auth.ts";
 import {
+  fetchReportPreview,
   fetchVehicleReport,
   getVehicleList,
 } from "@carveri/shared/data/api.ts";
@@ -40,11 +41,7 @@ export async function previewLoader({ request }: LoaderFunctionArgs) {
   if (!vin) throw new Response("VIN required", { status: 400 });
   if (!import.meta.env.VITE_API_URL)
     throw new Response("API not configured", { status: 503 });
-  const examples = await getVehicleList();
-  const report = examples.data.find((item) => item.vin === vin);
-  if (!report) throw new Response("Vehicle not found", { status: 404 });
-  const raw = await fetchVehicleReport(report.id);
-  return transformToSharedReport(raw.data);
+  return fetchReportPreview(vin);
 }
 
 export async function dashboardLoader(): Promise<DashboardData> {
