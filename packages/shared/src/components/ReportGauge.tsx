@@ -1,12 +1,8 @@
-import {
-  buildGaugeSvg,
-  type SectionLabels,
-} from "@carveri/shared/lib/gauge.ts";
-import parse from "html-react-parser";
+import { type SectionLabels } from "@carveri/shared/lib/gauge.ts";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { getPercentile } from "@carveri/shared/lib/utils.ts";
 import type { EvaluationGauge } from "@carveri/shared/types/vehicle-report.ts";
+import CarVeriGauge from "@carveri/shared/components/CarVeriGauge.tsx";
 
 type Props = {
   price: number;
@@ -19,15 +15,6 @@ function ReportGauge(props: Readonly<Props>) {
   const lang = (i18n.resolvedLanguage || "en") as "es" | "en";
   const [isVisible, setIsVisible] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-
-  const minimum = gauge.minimum;
-  const maximum = gauge.maximum;
-
-  const percentile = getPercentile({
-    min: minimum,
-    max: maximum,
-    value: price,
-  });
 
   const labels: SectionLabels = gauge.labels.map((label) => ({
     ...label,
@@ -57,16 +44,13 @@ function ReportGauge(props: Readonly<Props>) {
       ref={containerRef}
       className={`bg-card mb-4 w-full rounded-xl p-4 ${isVisible ? "" : "gauge-paused"}`}
     >
-      {parse(
-        buildGaugeSvg(
-          percentile,
-          price,
-          gauge.currentZone[lang],
-          labels,
-          gauge.minimum,
-          gauge.maximum,
-        ),
-      )}
+      <CarVeriGauge
+        price={price}
+        score={8.2}
+        rangeLow={gauge.minimum}
+        rangeHigh={gauge.maximum}
+        labels={labels}
+      />
     </div>
   );
 }
